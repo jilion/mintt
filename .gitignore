@@ -1,0 +1,35 @@
+## MAC OS
+.DS_Store
+.Trashes
+.com.apple.timemachine.supported
+.fseventsd
+Desktop DB
+Desktop DF
+
+## TEXTMATE
+*.tmproj
+tmtags
+
+## EMACS
+*~
+\#*
+.\#*
+
+## VIM
+*.swp
+
+## Bundler
+bin/
+vendor/bundler_gems/*
+!vendor/bundler_gems/cache/*
+
+## PROJECT::GENERAL
+coverage
+rdoc
+pkg
+log/*
+tmp/**/*
+db/*.sqlite3
+public/javascripts/all.js
+public/stylesheets/all.css
+rerun.txt
