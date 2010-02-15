@@ -1,0 +1,24 @@
+!!! XML
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %meta{'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
+    %title= h(yield(:title) || "Devise")
+  %body
+    #container
+      #header
+        %h1= link_to 'Devise', root_path
+      - flash.each do |key, value|
+        %div{:id => "flash_#{key}"}= h value
+      #content
+        = yield
+      #sidebar
+        %ul{:id => 'site-actions'}
+          - if user_signed_in?
+            %li= current_user.email
+            %li= link_to 'My info', edit_user_path
+            %li= link_to 'Sign out', destroy_user_session_path
+          - else
+            %li= link_to 'Sign in', new_user_session_path
+            %li= link_to 'Sign up', new_user_path
+      #footer
