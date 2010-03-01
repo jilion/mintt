@@ -254,8 +254,12 @@ a#registration_button span {display:none;}
   line-height:24px;
 }
 
-#content form {
-  
+form.main ol {
+  list-style-type:none;
+}
+
+form.main fieldset {
+  border:none;
 }
 
 #footer {
