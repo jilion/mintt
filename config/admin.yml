@@ -1,0 +1,9 @@
+development:
+  user: admin
+  pass: admin
+test:
+  user: fake
+  pass: fake
+production:
+  user: admin
+  pass: "639iYi^NM8ok((Kv%JCr"

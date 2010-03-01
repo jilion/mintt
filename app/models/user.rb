@@ -5,7 +5,9 @@ class User
   key :first_name, String, :required => true
   key :last_name, String, :required => true
   key :faculty, String, :required => true
+  key :email, String
   key :phone, String, :required => true
+  key :url, String
   key :linkedin_url, String
   key :thesis_supervisor, String, :required => true
   key :thesis_subject, String, :required => true
@@ -17,7 +19,7 @@ class User
   
   timestamps!
   
-  devise :registerable, :authenticatable, :activatable, :confirmable, :recoverable, :rememberable, :trackable, :timeoutable, :lockable
+  devise :registerable, :confirmable #, :authenticatable, :activatable, :recoverable, :rememberable, :trackable, :timeoutable, :lockable
   
   # Email regex used to validate email formats. Retrieved from authlogic.
   EMAIL_REGEX = /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2,4}|museum|travel)\z/i
