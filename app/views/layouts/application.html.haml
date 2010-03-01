@@ -1,24 +1,60 @@
-!!! XML
-!!!
+!!! Strict
 %html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
   %head
     %meta{'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
-    %title= h(yield(:title) || "Devise")
+    
+    %title= h(yield(:title) || "mintt")
+    
+    %link{ :href => "/stylesheets/style.css", :type => "text/css", :media => "screen", :rel => "stylesheet" }
+
+    %script{ :type => "text/javascript", :src => "http://use.typekit.com/qwi4bur.js" }
+    %script{ :type => "text/javascript" }= "try{Typekit.load();}catch(e){};"
+
   %body
-    #container
+    -#- flash.each do |key, value|
+    -#  %div{:id => "flash_#{key}"}= h value
+    #global
       #header
-        %h1= link_to 'Devise', root_path
-      - flash.each do |key, value|
-        %div{:id => "flash_#{key}"}= h value
+        #halo
+        %h1
+          - link_to root_path do
+            %span= "mintt"
+        %h2= "Management of Innovation and Technology Transfer"
+        %ul#menu
+          %li.home
+            - link_to root_url do
+              %span= "Home"
+          %li{ :class => ('active' if params[:id] == 'modules') }= link_to "Modules", "/modules"
+          %li= link_to "Registration", new_user_registration_path
+          %li= link_to "Contact", "/contact"
       #content
         = yield
       #sidebar
-        %ul{:id => 'site-actions'}
-          - if user_signed_in?
-            %li= current_user.email
-            %li= link_to 'My info', edit_user_path
-            %li= link_to 'Sign out', destroy_user_session_path
-          - else
-            %li= link_to 'Sign in', new_user_session_path
-            %li= link_to 'Sign up', new_user_path
+        %h3= "Registration 2010"
+        %p= "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore consequat."
+        .box
+          - link_to new_user_registration_path, :id => "registration_button" do
+            %span= "Register for the 2010 course"
+        %h4= "Information"
+        %ul
+          %li= "Language: English"
+          %li= "When : June 8 & 9 and October 6, 2010"
+          %li= "Number of credits: 3"
+          %li= "Number of students: 18 max. Decided upon a selection balancing several factors including multi-disciplinarity"
+          %li= "Form of Exam: Oral presentation and project report"
+          %li= "Delay to submit candidacy: March TBD through online registration (link)"
+          %li= "Location: At EPFL Science Park, PSE-C building"
+        %h4= "More info"
+        %p= "If you have any question, Please contact us through the following #{link_to 'contact form', '/contact'}."
+        %p= image_tag "/images/epfl_logo.png", :alt => "EPFL Logo"
+        -#%ul{:id => 'site-actions'}
+        -#  - if user_signed_in?
+        -#    %li= current_user.email
+        -#    %li= link_to 'My info', edit_user_path
+        -#    %li= link_to 'Sign out', destroy_user_session_path
+        -#  - else
+        -#    %li= link_to 'Sign in', new_user_session_path
+        -#    %li= link_to 'Sign up', new_user_path
+      .spacer
       #footer
+        %p= "#{ link_to 'Contact', '/contact' } |  © 2010 EPFL , SRI, CM 2-Station 10, CH-1015 Lausanne, tel. +41 (0)21 693 70 23"

@@ -1,6 +1,20 @@
 class User
   include MongoMapper::Document
   
+  key :gender, Boolean, :required => true
+  key :first_name, String, :required => true
+  key :last_name, String, :required => true
+  key :faculty, String, :required => true
+  key :phone, String, :required => true
+  key :linkedin_url, String
+  key :thesis_supervisor, String, :required => true
+  key :thesis_subject, String, :required => true
+  key :supervisor_authorization, Boolean, :require => true
+  key :doctoral_school_rules, Boolean, :require => true
+  key :thesis_invention, String
+  key :motivation, String
+  key :agreement, Boolean, :require => true
+  
   timestamps!
   
   devise :registerable, :authenticatable, :activatable, :confirmable, :recoverable, :rememberable, :trackable, :timeoutable, :lockable
