@@ -1,20 +1,20 @@
 .text
   %h3= "Register"
 
--#- form_for resource_name, resource, :url => registration_path(resource_name) do |f|
-- semantic_form_for resource_name, resource do |f|
+- semantic_form_for resource_name, resource, :url => registration_path(resource_name) do |f|
   - f.inputs do
-    = f.input :gender, :as => :radio, :collection => [["Madame", false], ["Monsieur", true]]
+    = f.input :gender, :as => :radio, :collection => [["Madame", false], ["Monsieur", true]], :selected => nil, :required => true
     = f.input :first_name
     = f.input :last_name
     = f.input :faculty
     = f.input :email
     = f.input :phone
-    = f.input :linkedin_url, :label => "LinkedIn / Url"
+    = f.input :url, :label => "Url"
+    = f.input :linkedin_url, :label => "LinkedIn url"
     = f.input :thesis_supervisor
     = f.input :thesis_subject, :as => :text
-    = f.input :supervisor_authorization, :as => :radio, :label => "Est-ce que vous avez l'accord de votre directeur de thèse pour participer à ce cours ?"
-    = f.input :doctoral_school_rules, :as => :radio, :label => "Etes-vous soumis aux règles de l'Ecole Doctorale et avez-vous besoin de crédits ?"
+    = f.input :supervisor_authorization, :as => :radio, :label => "Est-ce que vous avez l'accord de votre directeur de thèse pour participer à ce cours ?", :selected => nil
+    = f.input :doctoral_school_rules, :as => :radio, :label => "Etes-vous soumis aux règles de l'Ecole Doctorale et avez-vous besoin de crédits ?", :selected => nil
     = f.input :thesis_invention, :as => :text, :label => "Est-ce que vous avez fait une invention dans le cadre de votre thèse ? Si oui pourriez-vous la décrire en 3 lignes:"
     = f.input :motivation, :as => :text, :label => "Pourriez-vous nous décrire en 10 lignes qu'est-ce qui vous motive à participer à ce cours ?"
     = f.input :agreement, :as => :check_boxes, :label => "Je suis disponible"
