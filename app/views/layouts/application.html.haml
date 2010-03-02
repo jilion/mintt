@@ -25,7 +25,7 @@
             - link_to root_url do
               %span= "Home"
           %li{ :class => ('active' if params[:id] == 'modules') }= link_to "Modules", "/modules"
-          %li= link_to "Registration", new_user_registration_path
+          %li{ :class => ('active' if controller_name == 'registrations') }= link_to "Registration", new_user_registration_path
           %li= link_to "Contact", "/contact"
       #content
         = yield
@@ -38,7 +38,7 @@
         %h4= "Information"
         %ul
           %li= "Language: English"
-          %li= "When : June 8 & 9 and October 6, 2010"
+          %li= "When : June 8 &amp; 9 and October 6, 2010"
           %li= "Number of credits: 3"
           %li= "Number of students: 18 max. Decided upon a selection balancing several factors including multi-disciplinarity"
           %li= "Form of Exam: Oral presentation and project report"
