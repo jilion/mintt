@@ -6,9 +6,7 @@ class RegistrationsController < ApplicationController
     build_resource
 
     if resource.save
-      # flash[:"#{resource_name}_signed_up"] = true
-      puts t('devise.confirmations.send_instructions')
-      flash[:success] = @user.respond_to?(:confirm!) ? t("devise.confirmations.send_instructions") : t("devise.registrations.signed_up")
+      flash[:success] = t("devise.confirmations.send_instructions")
       redirect_to root_url
     else
       render_with_scope :new
