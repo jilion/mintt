@@ -17,7 +17,7 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 
-config.action_mailer.default_url_options = { :host => 'mint.local' }
-
+config.action_mailer.default_url_options = { :host => 'mintt.local' }
 
 config.gem "rails-footnotes"
+config.gem "capistrano", :version => ">= 2.5.17"
