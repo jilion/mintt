@@ -9,8 +9,8 @@ describe "Registrations" do
     # save_and_open_page
     
     choose "user_gender_male"
-    fill_in "user_first_name", :with => "John"
-    fill_in "user_last_name",  :with => "Doe"
+    fill_in "user_first_name", :with => "Joe"
+    fill_in "user_last_name",  :with => "Blow"
     fill_in "user_faculty",    :with => "Computer Science"
     fill_in "user_email",      :with => "remy@jilion.com"
     fill_in "user_phone",      :with => "+41 21 0000000"

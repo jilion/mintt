@@ -9,7 +9,7 @@ describe User do
   describe "default" do
     subject { Factory(:user) }
 
-    its(:gender) { should be_true }
+    its(:gender) { should == "male" }
     its(:first_name) { should == "Joe" }
     its(:last_name) { should == "Blow" }
     its(:faculty) { should == "Computer Science" }
@@ -19,8 +19,8 @@ describe User do
     its(:linkedin_url) { should == "http://fr.linkedin.com/in/remycoutable" }
     its(:thesis_supervisor) { should == "Remy Coutable" }
     its(:thesis_subject) { should == "Advanced Compilation for Mac" }
-    its(:supervisor_authorization) { should be_true }
-    its(:doctoral_school_rules) { should be_true }
+    its(:supervisor_authorization) { should == "yes" }
+    its(:doctoral_school_rules) { should == "yes" }
     its(:thesis_invention) { should == "The iPad" }
     its(:motivation) { should == "Huge!" }
     its(:agreement) { should be_true }
@@ -29,11 +29,9 @@ describe User do
   end
 
   describe "should be invalid" do
-    # it "without gender" do
-    #   user = Factory(:user, :gender => nil)
-    #   p user.errors
-    #   user.should_not be_valid
-    # end
+    it "without gender" do
+      Factory(:user, :gender => nil).should_not be_valid
+    end
 
     it "without first_name" do
       user = Factory(:user, :first_name => nil).should_not be_valid
@@ -52,11 +50,12 @@ describe User do
     end
 
     it "without last_name" do
-      user = Factory(:user, :email => nil).should_not be_valid
+      user = Factory(:user, :email => nil)
+      user.should_not be_valid
     end
 
     it "without a unique email" do
-      valid_user = Factory.create(:user, :email => "remy@jilion.com")
+      valid_user = Factory.build(:user, :email => "remy@jilion.com")
       valid_user.should be_valid
 
       Factory(:user, :email => "remy@jilion.com").should_not be_valid
@@ -70,17 +69,17 @@ describe User do
       user = Factory(:user, :thesis_subject => nil).should_not be_valid
     end
 
-    # it "without supervisor_authorization" do
-    #   user = Factory(:user, :supervisor_authorization => nil).should_not be_valid
-    # end
+    it "without supervisor_authorization" do
+      user = Factory(:user, :supervisor_authorization => nil).should_not be_valid
+    end
 
-    # it "without doctoral_school_rules" do
-    #   user = Factory(:user, :doctoral_school_rules => nil).should_not be_valid
-    # end
+    it "without doctoral_school_rules" do
+      user = Factory(:user, :doctoral_school_rules => nil).should_not be_valid
+    end
 
-    # it "without agreement" do
-    #   user = Factory(:user, :agreement => nil).should_not be_valid
-    # end
+    it "without agreement" do
+      user = Factory(:user, :agreement => nil).should_not be_valid
+    end
   end
 
 end
