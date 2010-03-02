@@ -11,8 +11,8 @@
     %script{ :type => "text/javascript" }= "try{Typekit.load();}catch(e){};"
 
   %body
-    -#- flash.each do |key, value|
-    -#  %div{:id => "flash_#{key}"}= h value
+    - flash.each do |key, value|
+      %div{:id => "flash_#{key}"}= h value
     #global
       #header
         #halo

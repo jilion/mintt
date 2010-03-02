@@ -33,14 +33,16 @@ private
   end
   
   def admin_login_from_http
-    authenticate_or_request_with_http_basic do |user, pass|
-      if user == admin_credential[:user] && pass == admin_credential[:pass]
-        set_admin_cookie_and_session
-        true
+    # if Rails.env.production? || params[:admin_http]
+      authenticate_or_request_with_http_basic do |user, pass|
+        if user == admin_credential[:user] && pass == admin_credential[:pass]
+          set_admin_cookie_and_session
+          true
+        end
       end
-    end # if Rails.env.production? || params[:admin_http]
-    # Can be removed with Rails 3: http://wiki.github.com/plataformatec/devise/devise-and-http-authentication
-    warden.custom_failure! if performed?
+      # Can be removed with Rails 3: http://wiki.github.com/plataformatec/devise/devise-and-http-authentication
+      warden.custom_failure! if performed?
+    # end
   end
   
   def admin_logout

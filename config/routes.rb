@@ -5,6 +5,6 @@ ActionController::Routing::Routes.draw do |map|
    
   map.devise_for :users, :path_names => { :sign_up => 'register' }
   
-  map.resource :users, :only => [:create, :edit, :update]
+  map.resource :users, :only => [:edit, :update]
   
 end
