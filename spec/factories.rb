@@ -13,7 +13,7 @@ Factory.define :user, :default_strategy => :build do |u|
   u.doctoral_school_rules "yes"
   u.thesis_invention "The iPad"
   u.motivation "Huge!"
-  u.agreement true
+  u.agreement "1"
 end
 
 Factory.define :message, :default_strategy => :build do |u|
