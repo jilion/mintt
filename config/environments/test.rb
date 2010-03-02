@@ -30,7 +30,8 @@ config.action_mailer.default_url_options = { :host => 'mintt.local' }
 
 config.gem 'rspec', :lib => false
 config.gem 'rspec-rails', :lib => false
-# config.gem 'remarkable_rails', :lib => false
+# config.gem "remarkable_rails", :lib => "remarkable_rails"
+# config.gem "remarkable_mongo", :lib => "remarkable/mongo_mapper"
 config.gem 'factory_girl', :lib => false
 
 config.gem 'webrat', :lib => false

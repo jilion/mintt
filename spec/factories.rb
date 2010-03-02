@@ -1,4 +1,4 @@
-Factory.define :user do |u|
+Factory.define :user, :default_strategy => :build do |u|
   u.gender true # male
   u.first_name 'Joe'
   u.last_name  'Blow'
