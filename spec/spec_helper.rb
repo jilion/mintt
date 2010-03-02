@@ -8,7 +8,7 @@ Spork.prefork do
   
   # require 'spec'
   require 'spec/rails'
-  require 'remarkable_rails'
+  # require 'remarkable_rails'
   # require 'remarkable/mongo_mapper'
   require "email_spec"
   
