@@ -173,6 +173,7 @@ a#registration_button span {display:none;}
 #sidebar ul.entities {
   margin:5px 0 0;
   background:#111;
+  border: 1px solid #000;
   -webkit-border-radius:8px;
   -moz-border-radius:8px;
 }
