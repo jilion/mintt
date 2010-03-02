@@ -254,12 +254,76 @@ a#registration_button span {display:none;}
   line-height:24px;
 }
 
+form.main {
+  position:relative;
+}
+
 form.main ol {
   list-style-type:none;
 }
 
 form.main fieldset {
   border:none;
+}
+
+form.main abbr {
+  color:#c3ff00;
+  border:none;
+  font-size:18px;
+  font-weight:bold;
+}
+
+form.main .string label, form.main .text label {
+  display:block;
+  padding:12px 0 2px;
+  line-height:18px;
+}
+
+form.main .string input, form.main textarea {
+  background:#fff;
+  border:none;
+  width:590px;
+  font-size:15px;
+  padding:3px;
+  border:2px solid #666;
+}
+
+form.main textarea {
+  margin-bottom:-9px;
+}
+
+form.main .string input:focus, form.main textarea:focus {
+  background:#fff;
+  outline-color:#c3ff00;
+}
+
+form.main li.radio li label {
+  float:left;
+  padding:10px 20px 10px 0;
+}
+
+form.main li.boolean input {
+  margin:0 10px 0 0;
+}
+
+form.main li.commit {
+  padding:30px 0;
+}
+
+form.main p.inline-errors {
+  background:#c50039;
+  line-height:18px;
+  padding:3px 6px;
+  color:#fff;
+  font-weight:500;
+  text-shadow:none;
+  border: 2px solid #97002b;
+}
+
+form.main .required_mention {
+  position:absolute;
+  bottom:25px;
+  right:0;
 }
 
 #footer {
@@ -281,3 +345,17 @@ a:hover {
   text-shadow:#a6ce39 0 0 5px;
   color:#fff;
 }
+
+#footnotes_debug {
+  background:#000 !important;
+  margin:0 !important;
+  padding:20px 0;
+  width:100%;
+  font-weight:bold;
+  color:#999 !important;
+  text-shadow:none !important;
+}
+
+#footnotes_debug span {background:#444 !important;}
+
+#footnotes_debug a {color:#ccc !important;}
