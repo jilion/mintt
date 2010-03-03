@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
     @message = Message.new(params[:message])
     
     if @message.save
-      flash[:success] = 'Your message has been successfully sended.'
+      flash[:success] = 'Your message has been successfully sent.'
       redirect_to root_url
     else
       render :new

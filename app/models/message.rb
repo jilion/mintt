@@ -16,8 +16,15 @@ class Message
 
   validates_format_of :sender_email, :with => EMAIL_REGEX
 
-  def before_create
+  before_create :initialize_read_and_replied
+  after_create :notify_of_new_message
+
+  def initialize_read_and_replied
     self.read, self.replied = false, false
+  end
+  
+  def notify_of_new_message
+    Notifier.deliver_new_message(self)
   end
 
 end

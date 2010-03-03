@@ -10,7 +10,7 @@ describe "Pages" do
   it "should be possible to go home" do
     click_link "<span>Home</span>"
 
-    response.should contain('mintt is a course part of the EPFL Doctoral School under the College of Management of Technology program.')
+    response.should contain('mintt is a course for EPFL PhD students organized by EPFL Technology Transfer Office.')
   end
 
   it "should be possible view modules" do

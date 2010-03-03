@@ -70,6 +70,14 @@ describe User do
       Factory(:user, :thesis_subject => nil).should_not be_valid
     end
 
+    it "without thesis_registration_date > thesis_admission_date" do
+      Factory(:user, :thesis_registration_date => 1.day.from_now, :thesis_admission_date => Time.now).should_not be_valid
+    end
+
+    it "without thesis_admission_date < thesis_registration_date" do
+      Factory(:user, :thesis_admission_date => Time.now, :thesis_registration_date => 1.day.from_now).should_not be_valid
+    end
+
     it "without supervisor_authorization" do
       Factory(:user, :supervisor_authorization => nil).should_not be_valid
     end
