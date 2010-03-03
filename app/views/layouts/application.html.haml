@@ -30,23 +30,27 @@
       #content
         = yield
       #sidebar
-        %h3= "Registration 2010"
-        %p= "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore consequat."
+        %h3= "2010 Registration"
+        %p= "The registration are now open till April 16, 2010. Use the button below to apply."
         .box
           - link_to new_user_registration_path, :id => "registration_button" do
             %span= "Register for the 2010 course"
-        %h4= "Information"
+        %h4= "Organizing Entities"
+        %ul.entities
+          %li.first= link_to image_tag("/images/epfl_logo.png", :alt => "EPFL Logo"), "http://www.epfl.ch", :onclick => 'window.open(this); return false'
+          %li= link_to "SRI <em>(Tech transfer Office)</em>", "http://sri.epfl.ch", :onclick => 'window.open(this); return false'
+          %li.last= link_to "CDM", "http://cdm.epfl.ch", :onclick => 'window.open(this); return false'
+        %h4= "Course Information"
         %ul
           %li= "Language: English"
-          %li= "When : June 8 &amp; 9 and October 6, 2010"
+          %li= "When: June 8 & 9 and October 6, 2010"
           %li= "Number of credits: 3"
           %li= "Number of students: 18 max. Decided upon a selection balancing several factors including multi-disciplinarity"
           %li= "Form of Exam: Oral presentation and project report"
-          %li= "Delay to submit candidacy: March TBD through online registration (link)"
-          %li= "Location: At EPFL Science Park, PSE-C building"
+          %li= "Delay to submit registration: April 16, 2010 through #{ link_to 'online registration', new_user_registration_path }"
+          %li= "Location: #{ link_to 'EPFL Science Park, PSE-C building', 'http://bit.ly/aWDL19', :onclick => 'window.open(this); return false' }"
         %h4= "More info"
-        %p= "If you have any question, Please contact us through the following #{link_to 'contact form', '/contact'}."
-        %p= image_tag "/images/epfl_logo.png", :alt => "EPFL Logo"
+        %p= "If you have any question, Please contact us through the following #{link_to 'form', '/contact'}."
         -#%ul{:id => 'site-actions'}
         -#  - if user_signed_in?
         -#    %li= current_user.email

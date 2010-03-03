@@ -1,23 +1,29 @@
 .text
-  %h3= "Register form for mintt course 2010"
+  %h3= "Application form for mintt 2010"
+  %p= "June 8 and 9, October 6, 2010"
+  %p= "Thank you to fill out the following form precisely and clearly."
 #register
   - semantic_form_for resource_name, resource, :url => registration_path(resource_name),  :html => { :class => "main" } do |f|
     - f.inputs do
-      = f.input :gender, :as => :radio, :collection => [["Madame", "female"], ["Monsieur", "male"]], :required => true
+      = f.input :gender, :as => :radio, :collection => [["Mrs.", "female"], ["Mr.", "male"]], :required => true
       = f.input :first_name, :required => true
       = f.input :last_name, :required => true
       = f.input :faculty, :required => true
       = f.input :email, :required => true
       = f.input :phone, :required => true
-      = f.input :url, :label => "Url"
+      = f.input :url, :label => "EPFL url or personal page"
       = f.input :linkedin_url, :label => "LinkedIn url"
       = f.input :thesis_supervisor, :required => true
       = f.input :thesis_subject, :as => :text, :required => true
-      = f.input :supervisor_authorization, :as => :radio, :collection => [["Yes", "yes"], ["No", "no"]], :label => "Est-ce que vous avez l'accord de votre directeur de thèse pour participer à ce cours?", :required => true
-      = f.input :doctoral_school_rules, :as => :radio, :collection => [["Yes", "yes"], ["No", "no"]], :label => "Etes-vous soumis aux règles de l'Ecole Doctorale et avez-vous besoin de crédits?", :required => true
-      = f.input :thesis_invention, :as => :text, :label => "Est-ce que vous avez fait une invention dans le cadre de votre thèse? Si oui pourriez-vous la décrire en 3 lignes:"
-      = f.input :motivation, :as => :text, :label => "Pourriez-vous nous décrire en 10 lignes qu'est-ce qui vous motive à participer à ce cours?"
-      = f.input :agreement, :as => :boolean, :label => "Je suis disponible", :required => true
+      = f.input :thesis_registration_date, :as => :date
+      = f.input :thesis_admission_date, :as => :date
+      = f.input :supervisor_authorization, :as => :radio, :collection => [["Yes", "yes"], ["No", "no"]], :label => "Do you have the agreement of your thesis supervisor to participate to mintt?", :required => true
+      = f.input :doctoral_school_rules, :as => :radio, :collection => [["Yes", "yes"], ["No", "no"]], :label => "Are you subject to EPFL doctoral school regulations and do you need credits?", :required => true
+      = f.input :thesis_invention, :as => :text, :label => "Have you made an invention in the course of your thesis? If yes, could you briefly describe it?:"
+      = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?"
+      %li
+        %p= "I hereby confirm that I will be available for mintt on June 8 and 9 and October 6, 2010, the whole day. I also confirm I have well taken note I will dedicate at least 30 hours during summer 2010 to work on an EPFL invention case study."
+      = f.input :agreement, :as => :boolean, :label => "I agree", :required => true
 
       -# %p= f.input :password, :as => :password
       -# 
