@@ -1,4 +1,4 @@
-class Notifier < ActionMailer::Base
+class MessageMailer < ActionMailer::Base
 
   def new_message(message)
     recipients NEW_MESSAGE_RECIPIENT

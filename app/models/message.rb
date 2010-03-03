@@ -24,7 +24,7 @@ class Message
   end
   
   def notify_of_new_message
-    Notifier.deliver_new_message(self)
+    MessageMailer.deliver_new_message(self)
   end
 
 end

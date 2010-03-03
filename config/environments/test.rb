@@ -36,7 +36,7 @@ config.gem 'factory_girl', :lib => false
 
 config.gem 'webrat', :lib => false
 # config.gem 'cucumber', :lib => false
-# config.gem 'email_spec', :lib => false
+config.gem 'email_spec', :lib => false
 
 config.gem 'spork'
 config.gem 'rspactor'

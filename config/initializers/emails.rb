@@ -5,4 +5,4 @@ when "production"
   ['remy@jilion.com']
 end
 
-MINTT_SENDER = 'mintt@epfl.ch'
+MINTT_SENDER = ['mintt@epfl.ch']
