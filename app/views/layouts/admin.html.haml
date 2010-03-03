@@ -26,6 +26,7 @@
               %span= "Home"
           %li{ :class => ('active' if controller_name == 'admin/users') }= link_to "Users", admin_users_path
           %li{ :class => ('active' if controller_name == 'admin/messages') }= link_to "Messages", admin_messages_path
+          %li{ :class => ('active' if controller_name == 'admin/mail_templates') }= link_to "Mail templates", admin_mail_templates_path
       #content
         = yield
       .spacer

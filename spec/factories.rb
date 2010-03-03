@@ -18,8 +18,13 @@ Factory.define :user, :default_strategy => :build do |u|
   u.agreement "1"
 end
 
-Factory.define :message, :default_strategy => :build do |u|
-  u.sender_name 'Joe Blow'
-  u.sequence(:sender_email)  { |n| "email#{n}@epfl.com" }
-  u.content "Advanced Compilation for Mac"
+Factory.define :message, :default_strategy => :build do |m|
+  m.sender_name 'Joe Blow'
+  m.sequence(:sender_email)  { |n| "email#{n}@epfl.com" }
+  m.content "Advanced Compilation for Mac"
+end
+
+Factory.define :mail_template, :default_strategy => :build do |m|
+  m.title 'new_message'
+  m.content "{{user.first_name}} {{user.last_name}}<{{user.email}}>\n\nThat\'s a demo template!\n\n{{confirmation_link}}"
 end

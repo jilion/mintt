@@ -1,0 +1,6 @@
+- title "mintt: admin | Mail templates > #{mail_template_title(@mail_template)}"
+
+.text
+  %h3= "Mail template"
+  
+  = text_area_tag('content', Liquid::Template.parse(@mail_template.content).render('user' => User.first), :rows => 10, :cols => 25)

@@ -4,6 +4,7 @@ describe "Registrations" do
 
   before(:each) do
     ActionMailer::Base.deliveries.clear
+    Factory.create(:mail_template)
   end
 
   it "should be possible to register" do

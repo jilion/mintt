@@ -25,6 +25,8 @@ class User
 
   devise :registerable, :confirmable #, :authenticatable, :activatable, :recoverable, :rememberable, :trackable, :timeoutable, :lockable
 
+  liquid_methods :first_name, :last_name, :email, :confirmation_token
+
   validate :validate_registration_before_admission_date, :validate_admission_after_registration_date
 
   # Email regex used to validate email formats. Retrieved from authlogic.

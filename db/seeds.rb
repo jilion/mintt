@@ -5,3 +5,8 @@
 #   
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
+
+case Rails.env
+when 'development'
+  MailTemplate.create(:title => 'new_message', :content => '{{user.first_name}} {{user.last_name}}')
+end

@@ -5,7 +5,11 @@ describe User do
   # it { should have_keys(:gender, :supervisor_authorization, :doctoral_school_rules, :agreement, Boolean) }
   # it { should have_keys(:first_name, :last_name, :faculty, :phone, :email, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :motivation, String) }
   # it { should validate_presence_of(:first_name) }
-
+  
+  before(:each) do
+    Factory.create(:mail_template)
+  end
+  
   describe "default" do
     subject { Factory(:user) }
 

@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :users
     admin.resources :messages
+    admin.resources :mail_templates
   end
 
   map.page ':id', :controller => 'pages', :action => 'show', :requirements => { :id => /home|modules/ }
