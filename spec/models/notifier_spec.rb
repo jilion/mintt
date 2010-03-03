@@ -12,7 +12,7 @@ describe Message do
       mail.subject.should eql("[Mintt] New contact message")
 
       mail.from.should == [MINTT_SENDER]
-      mail.to.should == [NEW_MESSAGE_RECIPIENT]
+      mail.to.should == NEW_MESSAGE_RECIPIENT
       mail.body.should match(/<p>#{@mess.sender_name}<#{@mess.sender_email}>.+<\/p>\n<p><a href="http:\/\/[a-z\.]+\/admin\/messages\/#{@mess.id}">Click here to view it<\/a><\/p>\n<p>#{@mess.content}<\/p>/)
     end
   end
