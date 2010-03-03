@@ -1,0 +1,12 @@
+- title "mintt: admin | Messages > From #{message_sender_name(@message)} received #{time_ago_in_words(@message.created_at)}"
+
+.text
+  %h3= "Message"
+  
+  #from= "From: #{message_sender_name_with_email(@message)}"
+  
+  #received= "Date: #{time_ago_in_words(@message.created_at)}"
+  
+  %hr
+  
+  #content= @message.content

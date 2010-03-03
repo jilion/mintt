@@ -8,7 +8,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :users, :only => [:edit, :update]
   map.devise_for :users, :path_names => { :sign_up => 'register' }
 
+  map.admin '/admin', :controller => 'admin/users'
   map.namespace :admin do |admin|
+    admin.resources :users
     admin.resources :messages
   end
 

@@ -1,0 +1,46 @@
+- title 'mintt: admin | Users'
+.text
+  %h3= "Users"
+  
+  %table
+    %tr
+      %th{:colspan => 6} General informations
+      %th{:colspan => 6} Thesis
+      %th{:colspan => 2} Misc
+      %th{:colspan => 2} Actions
+    %tr
+      %th Gender
+      %th Name (email)
+      %th Faculty
+      %th Phone
+      %th Url
+      %th LinkedIn url
+      %th Supervisor
+      %th Subject
+      %th Reg. date
+      %th Adm. date
+      %th Invention
+      %th Auth?
+      %th Credits?
+      %th Motivation
+      %th Edit
+      %th Delete
+      
+    - @users.each do |user|
+      %tr[user]
+        %td= user_gender(user)
+        %td= user_full_name_with_email(user)
+        %td= user.faculty
+        %td= user.phone
+        %td= user_url(user)
+        %td= user_linkedin_url(user)
+        %td= user.thesis_supervisor
+        %td= link_to(words_count(user.thesis_subject), admin_user_path(user))
+        %td= user.thesis_registration_date
+        %td= user.thesis_admission_date
+        %td= link_to(words_count(user.thesis_invention), admin_user_path(user))
+        %td= user.supervisor_authorization
+        %td= user.doctoral_school_rules
+        %td= link_to(words_count(user.motivation), admin_user_path(user))
+        %td= link_to("edit", edit_admin_user_path(user))
+        %td= button_to("delete", admin_user_path(user), :confirm => "Are you sure?", :method => :delete)

@@ -33,7 +33,7 @@ private
   end
   
   def admin_login_from_http
-    # if Rails.env.production? || params[:admin_http]
+    if Rails.env.production? || params[:admin_http]
       authenticate_or_request_with_http_basic do |user, pass|
         if user == admin_credential[:user] && pass == admin_credential[:pass]
           set_admin_cookie_and_session
@@ -42,7 +42,9 @@ private
       end
       # Can be removed with Rails 3: http://wiki.github.com/plataformatec/devise/devise-and-http-authentication
       warden.custom_failure! if performed?
-    # end
+    else
+      true
+    end
   end
   
   def admin_logout
@@ -65,7 +67,7 @@ private
       @default_storage ||= YAML::load_file(config_path)[Rails.env]
       @default_storage.to_options
     rescue
-      raise StandardError, "Admin credential file '#{config_path}' doesn't exist or have right information about Rails '#{Rails.env}' environement."
+      raise StandardError, "Admin credential file '#{config_path}' doesn't exist or have right information about Rails '#{Rails.env}' environment."
     end
   end
   

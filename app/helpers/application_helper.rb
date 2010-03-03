@@ -6,4 +6,9 @@ module ApplicationHelper
     @show_title = show_title
   end
 
+  def words_count(text)
+    count = text.split(' ').size
+    "#{count} word#{"s" if count > 1}"
+  end
+  
 end

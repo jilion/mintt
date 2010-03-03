@@ -3,7 +3,6 @@ require 'spec_helper'
 describe "Pages" do
 
   before :all do
-    basic_auth('fake', 'fake')
     visit root_path
   end
 

@@ -4,7 +4,6 @@ describe "Messages" do
 
   before :all do
     ActionMailer::Base.deliveries.clear
-    basic_auth('fake', 'fake')
     visit root_path
   end
 

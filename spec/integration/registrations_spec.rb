@@ -5,7 +5,7 @@ describe "Registrations" do
   before(:each) do
     ActionMailer::Base.deliveries.clear
   end
-  
+
   it "should be possible to register" do
     register
     response.should contain('You will receive an email with instructions about how to confirm your registration in a few minutes.')
@@ -19,10 +19,8 @@ describe "Registrations" do
 end
 
 def register
-  basic_auth('fake', 'fake')
   visit root_path
   click_link "registration_button"
-  # save_and_open_page
 
   choose "user_gender_male"
   fill_in "user_first_name", :with => "Joe"

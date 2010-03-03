@@ -1,0 +1,33 @@
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %meta{'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
+    
+    %title= h(yield(:title) || "mintt: admin")
+    
+    %link{ :href => "/stylesheets/style.css", :type => "text/css", :media => "screen", :rel => "stylesheet" }
+
+    %script{ :type => "text/javascript", :src => "http://use.typekit.com/qwi4bur.js" }
+    %script{ :type => "text/javascript" }= "try{Typekit.load();}catch(e){};"
+
+  %body
+    - flash.each do |key, value|
+      %div{:id => "flash_#{key}"}= h value
+    #global
+      #header
+        #halo
+        %h1
+          - link_to root_path do
+            %span= "mintt"
+        %h2= "Management of Innovation and Technology Transfer"
+        %ul#menu
+          %li.home
+            - link_to admin_url do
+              %span= "Home"
+          %li{ :class => ('active' if controller_name == 'admin/users') }= link_to "Users", admin_users_path
+          %li{ :class => ('active' if controller_name == 'admin/messages') }= link_to "Messages", admin_messages_path
+      #content
+        = yield
+      .spacer
+      #footer
+        %p= "#{ link_to 'Contact', '/contact' } |  © 2010 EPFL , SRI, CM 2-Station 10, CH-1015 Lausanne, tel. +41 (0)21 693 70 23"

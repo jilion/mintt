@@ -1,0 +1,23 @@
+- title 'mintt: admin | Messages'
+.text
+  %h3= "Messages"
+  
+  %table
+    %tr
+      %th At
+      %th Read?
+      %th Replied?
+      %th From (email)
+      %th Content
+      %th Edit
+      %th Delete
+      
+    - @messages.each do |message|
+      %tr[message]
+        %td= time_ago_in_words(message.created_at)
+        %td= message.read
+        %td= message.replied
+        %td= message_sender_name_with_email(message)
+        %td= link_to(words_count(message.content), admin_message_path(message))
+        %td= link_to("edit", edit_admin_message_path(message))
+        %td= button_to("delete", admin_message_path(message), :confirm => "Are you sure?", :method => :delete, :id => "delete_message_#{message.id}")
