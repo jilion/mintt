@@ -28,11 +28,7 @@ class Admin::UsersController < ApplicationController
     if params[:id]
       @user = User.find(params[:id])
     else
-      @users = if params[:order_by]
-        User.order_by(params[:order_by], params[:sort_way], { :page => params[:page] })
-      else
-        User.all
-      end
+      @users = User.order_by(params)
     end
   end
   

@@ -1,4 +1,4 @@
-class Message
+class Message < Model
   include MongoMapper::Document
 
   key :sender_name, String
@@ -21,7 +21,7 @@ class Message
   def initialize_read_and_replied
     self.read, self.replied = false, false
   end
-  
+
   def notify_of_new_message
     MessageMailer.deliver_new_message(self)
   end

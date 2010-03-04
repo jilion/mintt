@@ -28,7 +28,7 @@ class Admin::MessagesController < ApplicationController
     if params[:id]
       @message = Message.find(params[:id])
     else
-      @messages = Message.all
+      @messages = Message.order_by(params)
     end
   end
   

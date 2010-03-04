@@ -4,10 +4,10 @@
   
   %table
     %tr
-      %th At
-      %th Read?
-      %th Replied?
-      %th From (email)
+      %th= link_to "At", admin_messages_path(sort_parameters('created_at'))
+      %th= link_to "Read?", admin_messages_path(sort_parameters('read'))
+      %th= link_to "Replied?", admin_messages_path(sort_parameters('replied'))
+      %th= link_to "From (email)", admin_messages_path(sort_parameters('sender_name'))
       %th Content
       %th Edit
       %th Delete

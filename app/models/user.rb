@@ -1,4 +1,4 @@
-class User
+class User < Model
   include MongoMapper::Document
   include MultiParameterAttributes
 
@@ -25,7 +25,7 @@ class User
 
   devise :registerable, :confirmable #, :authenticatable, :activatable, :recoverable, :rememberable, :trackable, :timeoutable, :lockable
 
-  liquid_methods :first_name, :last_name, :email, :confirmation_token
+  liquid_methods *User.keys.keys.map(&:to_sym)
 
   validate :validate_registration_before_admission_date, :validate_admission_after_registration_date
 
@@ -50,14 +50,6 @@ class User
   validates_inclusion_of  :doctoral_school_rules, :within => %w(yes no), :message => "Choose an answer"
 
   validates_acceptance_of :agreement
-
-  cattr_reader :users_in_table
-  @@users_in_table      = 10
-
-  def self.order_by(key='id', sort_way='ASC', options={})
-    Rails.logger.info "sorting by #{key} #{sort_way}"
-    paginate(:order => "#{key} #{sort_way}", :per_page => @@users_in_table, :page => (options[:page] || 1))
-  end
 
   protected
   def password_required?

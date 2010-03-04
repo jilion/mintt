@@ -17,7 +17,7 @@ class Admin::MailTemplatesController < ApplicationController
 
   def update
     if @mail_template.update_attributes(params[:mail_template])
-      flash[:success] = 'Template successfully updated'
+      flash[:success] = 'Mail template successfully updated'
       redirect_to admin_mail_template_path(@mail_template)
     else
       render :edit

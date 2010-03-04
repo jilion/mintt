@@ -1,7 +1,0 @@
-= Liquid::Template.parse(MailTemplate.find_by_title('new_message').content).render('user' => @resource)
-
-/ == Welcome #{@resource.email}!
-/ 
-/ You can confirm your account through the link below:
-/ 
-/ = link_to 'Confirm my account', user_confirmation_url(:confirmation_token => @resource.confirmation_token)

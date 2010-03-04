@@ -3,4 +3,8 @@
 .text
   %h3= "Mail template"
   
-  = text_area_tag('content', Liquid::Template.parse(@mail_template.content).render('user' => User.first), :rows => 10, :cols => 25)
+  %hr
+  = Liquid::Template.parse(@mail_template.content).render('user' => User.first).gsub!(/\n/, '<br />')
+  %hr
+  
+  = link_to("edit", edit_admin_mail_template_path(@mail_template))

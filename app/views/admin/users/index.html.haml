@@ -10,18 +10,18 @@
       %th{:colspan => 2} Actions
     %tr
       %th Gender
-      %th= link_to "Name (email)", admin_users_path(:order_by => 'name')
-      %th Faculty
-      %th Phone
+      %th= link_to "Name (email)", admin_users_path(sort_parameters('first_name'))
+      %th= link_to "Faculty", admin_users_path(sort_parameters('faculty'))
+      %th= link_to "Phone", admin_users_path(sort_parameters('phone'))
       %th Url
       %th LinkedIn url
-      %th Supervisor
+      %th= link_to "Supervisor", admin_users_path(sort_parameters('thesis_supervisor'))
       %th Subject
-      %th Reg. date
-      %th Adm. date
+      %th= link_to "Reg. date", admin_users_path(sort_parameters('thesis_registration_date'))
+      %th= link_to "Adm. date", admin_users_path(sort_parameters('thesis_admission_date'))
       %th Invention
-      %th Auth?
-      %th Credits?
+      %th= link_to "Auth?", admin_users_path(sort_parameters('supervisor_authorization'))
+      %th= link_to "Credits?", admin_users_path(sort_parameters('doctoral_school_rules'))
       %th Motivation
       %th Edit
       %th Delete
@@ -44,3 +44,6 @@
         %td= link_to(words_count(user.motivation), admin_user_path(user))
         %td= link_to("edit", edit_admin_user_path(user))
         %td= button_to("delete", admin_user_path(user), :confirm => "Are you sure?", :method => :delete)
+        
+  #pagination
+    = will_paginate @users
