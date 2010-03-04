@@ -6,6 +6,7 @@
     %title= h(yield(:title) || "mintt: admin")
     
     %link{ :href => "/stylesheets/style.css", :type => "text/css", :media => "screen", :rel => "stylesheet" }
+    %link{ :href => "/stylesheets/admin.css", :type => "text/css", :media => "screen", :rel => "stylesheet" }
 
     %script{ :type => "text/javascript", :src => "http://use.typekit.com/qwi4bur.js" }
     %script{ :type => "text/javascript" }= "try{Typekit.load();}catch(e){};"
@@ -20,6 +21,8 @@
           - link_to root_path do
             %span= "mintt"
         %h2= "Management of Innovation and Technology Transfer"
+        - link_to admin_url, :id => "admin_label" do
+          %span= "Admin"
         %ul#menu
           %li.home
             - link_to admin_users_path do
@@ -27,7 +30,7 @@
           %li{ :class => ('active' if controller_name == 'users') }= link_to "Users", admin_users_path
           %li{ :class => ('active' if controller_name == 'messages') }= link_to "Messages", admin_messages_path
           %li{ :class => ('active' if controller_name == 'mail_templates') }= link_to "Mail templates", admin_mail_templates_path
-      #content
+      #content.admin
         = yield
       #sidebar
         = yield :sidebar
