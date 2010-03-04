@@ -21,3 +21,5 @@
         %td= link_to(words_count(message.content), admin_message_path(message))
         %td= link_to("edit", edit_admin_message_path(message))
         %td= button_to("delete", admin_message_path(message), :confirm => "Are you sure?", :method => :delete, :id => "delete_message_#{message.id}")
+  #pagination
+    = will_paginate @messages
