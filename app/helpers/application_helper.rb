@@ -7,6 +7,7 @@ module ApplicationHelper
   end
 
   def words_count(text)
+    return 0 if text.nil?
     count = text.split(' ').size
     "#{count} word#{"s" if count > 1}"
   end

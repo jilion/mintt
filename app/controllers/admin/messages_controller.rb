@@ -2,6 +2,7 @@ class Admin::MessagesController < ApplicationController
   
   before_filter :admin_required
   before_filter :find_messages
+  before_filter :ensure_keys_exists
   
   layout 'admin'
   
@@ -12,11 +13,9 @@ class Admin::MessagesController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
-
   end
 
   def destroy
@@ -31,6 +30,10 @@ class Admin::MessagesController < ApplicationController
     else
       @messages = Message.all
     end
+  end
+  
+  def ensure_keys_exists
+    params[:message].slice(*Message.keys.keys) if params[:message]
   end
 
 end

@@ -45,14 +45,21 @@ class User
   validates_format_of :url, :with => URL_REGEX, :allow_blank => true
   validates_format_of :linkedin_url, :with => LINKEDIN_URL_REGEX, :allow_blank => true
 
-  validates_inclusion_of  :gender, :within => %w( male female ), :message => "Choose a gender"
-  validates_inclusion_of  :supervisor_authorization, :within => %w( yes no ), :message => "Choose an answer"
-  validates_inclusion_of  :doctoral_school_rules, :within => %w( yes no ), :message => "Choose an answer"
+  validates_inclusion_of  :gender, :within => %w(male female), :message => "Choose a gender"
+  validates_inclusion_of  :supervisor_authorization, :within => %w(yes no), :message => "Choose an answer"
+  validates_inclusion_of  :doctoral_school_rules, :within => %w(yes no), :message => "Choose an answer"
 
   validates_acceptance_of :agreement
 
-  protected
+  cattr_reader :users_in_table
+  @@users_in_table      = 10
 
+  def self.order_by(key='id', sort_way='ASC', options={})
+    Rails.logger.info "sorting by #{key} #{sort_way}"
+    paginate(:order => "#{key} #{sort_way}", :per_page => @@users_in_table, :page => (options[:page] || 1))
+  end
+
+  protected
   def password_required?
     new_record? || !password.nil? || !password_confirmation.nil?
   end

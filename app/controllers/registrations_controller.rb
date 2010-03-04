@@ -1,6 +1,8 @@
 class RegistrationsController < ApplicationController
   include Devise::Controllers::InternalHelpers
-
+  
+  before_filter :ensure_keys_exists
+  
   # POST /resource/register
   def create
     build_resource
@@ -11,5 +13,10 @@ class RegistrationsController < ApplicationController
     else
       render_with_scope :new
     end
+  end
+  
+  private
+  def ensure_keys_exists
+    params[:user].slice(*User.keys.keys) if params[:user]
   end
 end

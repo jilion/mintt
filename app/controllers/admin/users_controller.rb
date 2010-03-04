@@ -2,6 +2,7 @@ class Admin::UsersController < ApplicationController
 
   before_filter :admin_required
   before_filter :find_users
+  before_filter :ensure_keys_exists
 
   layout 'admin'
 
@@ -12,11 +13,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
-
   end
 
   def destroy
@@ -29,8 +28,16 @@ class Admin::UsersController < ApplicationController
     if params[:id]
       @user = User.find(params[:id])
     else
-      @users = User.all
+      @users = if params[:order_by]
+        User.order_by(params[:order_by], params[:sort_way], { :page => params[:page] })
+      else
+        User.all
+      end
     end
+  end
+  
+  def ensure_keys_exists
+    params[:user].slice(*User.keys.keys) if params[:user]
   end
 
 end

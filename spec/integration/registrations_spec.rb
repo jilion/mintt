@@ -33,6 +33,8 @@ def register
   fill_in "user_linkedin_url", :with => "http://fr.linkedin.com/in/remycoutable"
   fill_in "user_thesis_supervisor", :with => "Remy Coutable"
   fill_in "user_thesis_subject", :with => "Advanced Compilation for Mac"
+  select_date "April 2, 2010", :from => "Thesis registration date", :id_prefix => 'user_thesis_registration_date'
+  select_date "April 26, 2010", :from => "Thesis admission date", :id_prefix => 'user_thesis_admission_date'
   choose "user_supervisor_authorization_yes"
   choose "user_doctoral_school_rules_yes"
   fill_in "user_thesis_invention", :with => "The iPad"

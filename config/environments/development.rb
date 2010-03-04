@@ -20,3 +20,4 @@ config.action_mailer.default_url_options = { :host => 'mintt.local' }
 
 config.gem "rails-footnotes"
 config.gem "capistrano", :version => ">= 2.5.17"
+config.gem "faker"

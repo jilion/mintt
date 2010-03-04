@@ -10,7 +10,7 @@
       %th{:colspan => 2} Actions
     %tr
       %th Gender
-      %th Name (email)
+      %th= link_to "Name (email)", admin_users_path(:order_by => 'name')
       %th Faculty
       %th Phone
       %th Url

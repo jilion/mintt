@@ -6,10 +6,6 @@ describe MailTemplate do
   # it { should have_keys(:read, :replied, Boolean) }
   # it { should validate_presence_of(:sender_name, :sender_email, :content) }
 
-  before(:all) do
-    @t = Factory.create(:mail_template)
-  end
-  
   describe "default" do
     subject { Factory(:mail_template) }
 
@@ -18,9 +14,10 @@ describe MailTemplate do
 
     it { should be_valid }
   end
-  
+
   it "should retrieve existing template" do
-    MailTemplate.find_by_title('new_message').should eql(@t)
+    t = Factory.create(:mail_template)
+    MailTemplate.find_by_title('new_message').should eql(t)
   end
 
   describe "should be invalid" do

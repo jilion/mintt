@@ -40,3 +40,4 @@ config.gem 'email_spec', :lib => false
 
 config.gem 'spork'
 config.gem 'rspactor'
+config.gem "faker"

@@ -6,7 +6,6 @@ class Message
   key :content, String
   key :read, Boolean
   key :replied, Boolean
-
   timestamps!
 
   # Email regex used to validate email formats. Retrieved from authlogic.

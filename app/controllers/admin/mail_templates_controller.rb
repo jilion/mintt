@@ -2,6 +2,7 @@ class Admin::MailTemplatesController < ApplicationController
 
   before_filter :admin_required
   before_filter :find_templates
+  before_filter :ensure_keys_exists
 
   layout 'admin'
 
@@ -23,11 +24,6 @@ class Admin::MailTemplatesController < ApplicationController
     end
   end
 
-  # def destroy
-  #   flash[:success] = 'MailTemplate destroyed successfully' if @mail_template.destroy
-  #   redirect_to admin_mail_templates_path
-  # end
-
   private
   def find_templates
     if params[:id]
@@ -35,6 +31,10 @@ class Admin::MailTemplatesController < ApplicationController
     else
       @mail_templates = MailTemplate.all
     end
+  end
+  
+  def ensure_keys_exists
+    params[:mail_template].slice(*MailTemplate.keys.keys)  if params[:mail_template]
   end
 
 end
