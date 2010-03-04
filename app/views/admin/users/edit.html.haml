@@ -20,7 +20,8 @@
     = f.input :doctoral_school_rules, :as => :radio, :collection => [["Yes", "yes"], ["No", "no"]], :label => "Are you subject to EPFL doctoral school regulations and do you need credits?", :required => true
     = f.input :thesis_invention, :as => :text, :label => "Have you made an invention in the course of your thesis? If yes, could you briefly describe it?:"
     = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?"
-
+    = f.input :agreement, :value => '1', :as => :hidden
+    
   - f.buttons do
     = f.commit_button "Update"
   .required_mention= "<abbr title='required'>*</abbr> required"
