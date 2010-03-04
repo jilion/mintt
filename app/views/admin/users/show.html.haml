@@ -2,5 +2,17 @@
 
 .text
   %h3= "User"
-  
-  = user_full_name(@user)
+  %p= "Gender : #{user_gender(@user)}"
+  %p= "Name (email) : #{user_full_name_with_email(@user)}"
+  %p= "Faculty : #{@user.faculty}"
+  %p= "Phone : #{@user.phone}"
+  %p= "Url : #{user_url(@user)}"
+  %p= "LinkedIn url : #{user_linkedin_url(@user)}"
+  %p= "Thesis supervisor : #{@user.thesis_supervisor}"
+  %p= "Thesis subject : #{@user.thesis_subject}"
+  %p= "Thesis registration date : #{@user.thesis_registration_date}"
+  %p= "Thesis admission date : #{@user.thesis_admission_date}"
+  %p= "Thesis invention : #{@user.thesis_invention}"
+  %p= "Supervisor authorization : #{@user.supervisor_authorization}"
+  %p= "Subject to EPFL doctoral school regulations and does he/she needs credits? : #{@user.doctoral_school_rules}"
+  %p= "Motivation : #{@user.motivation}"
