@@ -8,3 +8,24 @@
     - f.buttons do
       = f.commit_button "Update template"
     .required_mention= "<abbr title='required'>*</abbr> required"
+    
+- content_for :sidebar do
+  %h3 User scoped tags
+  
+  %p Insert a tag with {{the_tag_here}}
+  
+  %ul
+    %li First name : <span>user.first_name</span>
+    %li Last name : <span>user.last_name</span>
+    %li Full name : <span>user.full_name</span>
+    %li Email : <span>user.email</span>
+    %li Phone : <span>user.phone</span>
+    %li Faculty : <span>user.faculty</span>
+    %li Url : <span>user.url</span>
+    %li Linkedin_url : <span>user.linkedin_url</span>
+    %li Thesis supervisor : <span>user.thesis_supervisor</span>
+    %li Thesis subject : <span>user.thesis_subject</span>
+    %li Thesis registration date : <span>user.thesis_registration_date</span>
+    %li Admission date : <span>user.thesis_admission_date</span>
+    %li Thesis invention : <span>user.thesis_invention</span>
+    %li Motivation text : <span>user.motivation</span>

@@ -22,13 +22,15 @@
         %h2= "Management of Innovation and Technology Transfer"
         %ul#menu
           %li.home
-            - link_to admin_url do
+            - link_to admin_users_path do
               %span= "Home"
-          %li{ :class => ('active' if controller_name == 'admin/users') }= link_to "Users", admin_users_path
-          %li{ :class => ('active' if controller_name == 'admin/messages') }= link_to "Messages", admin_messages_path
-          %li{ :class => ('active' if controller_name == 'admin/mail_templates') }= link_to "Mail templates", admin_mail_templates_path
+          %li{ :class => ('active' if controller_name == 'users') }= link_to "Users", admin_users_path
+          %li{ :class => ('active' if controller_name == 'messages') }= link_to "Messages", admin_messages_path
+          %li{ :class => ('active' if controller_name == 'mail_templates') }= link_to "Mail templates", admin_mail_templates_path
       #content
         = yield
+      #sidebar
+        = yield :sidebar
       .spacer
       #footer
         %p= "#{ link_to 'Contact', '/contact' } |  © 2010 EPFL , SRI, CM 2-Station 10, CH-1015 Lausanne, tel. +41 (0)21 693 70 23"

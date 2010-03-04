@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+
+  def default_url_options(options={})
+    { :host => Rails.env.production? ? "mintt.epfl.ch" : "mintt.local" }
+  end
 end

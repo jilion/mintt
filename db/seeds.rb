@@ -3,6 +3,7 @@ require 'faker'
 class Seeds
 
   TRUE_FALSE = %w(1 0)
+  MALE_FEMALE = %w(male female)
   YES_NO = %w(yes no)
 
   class << self
@@ -34,7 +35,7 @@ class Seeds
       print "Creating users => "
       count.times do |i|
         u = User.new
-        u.gender = 'male'
+        u.gender = MALE_FEMALE.rand
         u.first_name = Faker::Name.first_name
         u.last_name = Faker::Name.last_name
         u.faculty = Faker::Lorem.words
