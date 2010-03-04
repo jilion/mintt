@@ -25,7 +25,7 @@ class User < Model
 
   devise :registerable, :confirmable #, :authenticatable, :activatable, :recoverable, :rememberable, :trackable, :timeoutable, :lockable
 
-  liquid_methods *User.keys.keys.map(&:to_sym)
+  liquid_methods *User.keys.keys
 
   validate :validate_registration_before_admission_date, :validate_admission_after_registration_date
 
