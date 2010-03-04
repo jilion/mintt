@@ -1,0 +1,47 @@
+a#admin_label {
+  width:92px;
+  height:32px;
+  background:url(/images/admin/admin_label.png) no-repeat;
+  display:block;
+  text-indent:-9999px;
+  position:absolute;
+  top:11px;
+  left:190px;
+  z-index:2;
+}
+
+a#admin_label span {display:none;}
+
+#content.admin {
+  width:960px;
+}
+
+#content.admin table {
+  width:100%;
+  border-collapse:collapse;
+}
+
+#content.admin table col.odd {
+  background:#1c1c1c;
+}
+
+#content.admin table col.even {
+  background:#222;
+}
+
+#content.admin table tr.alt {
+  background:#171717;
+}
+
+#content.admin table th {
+  padding:4px 8px;
+  text-align:left;
+  background:#000;
+  border-bottom: 1px solid #444;
+}
+
+#content.admin table td {
+  padding:4px 8px;
+  border-top:1px solid #333;
+}
+
