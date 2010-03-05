@@ -3,12 +3,14 @@
   %h3= "Mail templates"
   
   %table
+    - 2.times do
+      %col{ :class => "even" }
     %tr
       %th Title
-      %th Edit
+      %th Actions
       
     - @mail_templates.each do |mail_template|
       %tr[mail_template]
         %td= link_to(mail_template_title(mail_template), admin_mail_template_path(mail_template))
         %td= link_to("edit", edit_admin_mail_template_path(mail_template))
-        / %td= button_to("delete", admin_mail_template_path(mail_template), :confirm => "Are you sure?", :method => :delete)
+        -# %td= button_to("delete", admin_mail_template_path(mail_template), :confirm => "Are you sure?", :method => :delete)

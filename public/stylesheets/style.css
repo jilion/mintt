@@ -121,6 +121,10 @@ h2.headline {
   padding:4px 0;
 }
 
+#content .text strong {
+  font-weight:bold;
+}
+
 #sidebar {
   width:230px;
   padding:0 0 0 50px;
@@ -357,13 +361,13 @@ form.main li.commit {
 }
 
 form.main p.inline-errors {
-  background:#c50039;
+  background:#e77700;
   line-height:18px;
   padding:3px 6px;
   color:#fff;
   font-weight:500;
   text-shadow:none;
-  border: 2px solid #97002b;
+  border: 2px solid #a45500;
 }
 
 form.main .required_mention {
@@ -376,6 +380,17 @@ form.main .required_mention {
   padding:30px 0;
   text-align:center;
   font-size:12px;
+}
+
+#flash {
+  padding:4px 0;
+  text-align:center;
+  background:#a5ce37;
+  color:#304703;
+  text-shadow:none;
+  font-weight:bold;
+  font-size:14px;
+  border-bottom: 1px solid #000;
 }
 
 .spacer {clear:both;}

@@ -12,8 +12,8 @@ a#admin_label {
 
 a#admin_label span {display:none;}
 
-#content.admin.index {
-  width:960px;
+#content.admin.index, #content.admin.users {
+  width:880px;
 }
 
 #content.admin table {
@@ -29,8 +29,17 @@ a#admin_label span {display:none;}
   background:#222;
 }
 
+#content.admin table tr {
+  -webkit-transition:background 0.2s;
+}
+
 #content.admin table tr.alt {
   background:#171717;
+}
+
+#content.admin table tr.message:hover {
+  background:#333;
+  cursor:pointer;
 }
 
 #content.admin table th {
@@ -56,7 +65,7 @@ a#admin_label span {display:none;}
 }
 
 #content.admin table td.from {
-  width:580px;
+  width:520px;
 }
 
 #content.admin table td.from h4 {
@@ -71,6 +80,7 @@ a#admin_label span {display:none;}
 
 #content.admin table td.datetime {
   font-size:14px;
+  padding:4px 12px;
 }
 
 #content.admin table td.datetime span.date {
@@ -81,20 +91,39 @@ a#admin_label span {display:none;}
   float:right;
 }
 
+#content.admin table td input.delete {
+  width:18px;
+  height:19px;
+  background:url(/images/admin/trash.png) no-repeat;
+  border:none;
+  text-indent:-9999px;
+}
+
 #content .pagination {
   padding:20px 0 0;
 }
 
-#content .left_box {
-  width:110px;
+#content .sheet .left_box {
+  width:100px;
   float:left;
 }
 
-#content .right_box {
+#content .sheet .right_box {
   float:left;
-  width:490px;
+  width:460px;
 }
 
-#content .text strong {
-  font-weight:bold;
+#content .text.sheet {
+  padding:20px;
+  background:#111;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
 }
+
+#content .text.sheet .text_box p {
+  border-top:1px solid #333;
+  padding:15px 0 0;
+  margin-top:15px;
+}
+
+#content .text.sheet .text_box.last {border-bottom:none;}

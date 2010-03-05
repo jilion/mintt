@@ -13,7 +13,7 @@
 
   %body
     - flash.each do |key, value|
-      %div{:id => "flash_#{key}"}= h value
+      #flash{ :class => "flash_#{key}"}= h value
     #global
       #header
         #halo
@@ -27,7 +27,7 @@
           %li.home
             - link_to admin_users_path do
               %span= "Home"
-          %li{ :class => ('active' if controller_name == 'users') }= link_to "Users", admin_users_path
+          %li{ :class => ('active' if controller_name == 'users') }= link_to "Candidates", admin_users_path
           %li{ :class => ('active' if controller_name == 'messages') }= link_to "Messages", admin_messages_path
           %li{ :class => ('active' if controller_name == 'mail_templates') }= link_to "Mail templates", admin_mail_templates_path
       #content.admin{ :class => "#{controller_name} #{action_name}" }
