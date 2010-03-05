@@ -12,7 +12,7 @@ a#admin_label {
 
 a#admin_label span {display:none;}
 
-#content.admin.index, #content.admin.users {
+#content.admin.index, #content.admin.users, #content.admin.trash {
   width:880px;
 }
 
@@ -113,11 +113,31 @@ a#admin_label span {display:none;}
   width:460px;
 }
 
+#content .sheet p.email img {
+  float:left;
+  margin:4px 6px 0 0;
+}
+
 #content .text.sheet {
   padding:20px;
   background:#111;
   -webkit-border-radius:10px;
   -moz-border-radius:10px;
+}
+
+#content .sheet .card {
+  padding:10px 0;
+}
+
+#content .sheet .card p {
+  position:relative;
+  padding-left:40px;
+}
+
+#content .sheet .card img {
+  position:absolute;
+  top:6px;
+  left:0;
 }
 
 #content .text.sheet .text_box p {
