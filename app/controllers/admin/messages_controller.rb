@@ -2,6 +2,8 @@ class Admin::MessagesController < Admin::AdminController
   before_filter :ensure_keys_exists
   
   def index
+    params[:order_by] ||= 'created_at'
+    params[:sort_way] ||= 'desc'
     @messages = Message.order_by(params)
   end
   

@@ -55,7 +55,7 @@ private
     print "Creating messages => "
     count.times do |i|
       m = Message.new
-      m.created_at = rand(10000).hours.from_now
+      m.created_at = rand(25).days.ago
       m.sender_name = Faker::Name.first_name
       m.sender_email = Faker::Internet.email
       m.content = Faker::Lorem.paragraphs
