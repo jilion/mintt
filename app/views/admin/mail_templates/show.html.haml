@@ -3,8 +3,7 @@
 .text.mail
   %h3= "Mail template"
   
-  %hr
-  = Liquid::Template.parse(@mail_template.content).render('user' => User.first).gsub!(/\n/, '<br />')
-  %hr
+  .actions_right= link_to("edit", edit_admin_mail_template_path(@mail_template))
   
-  = link_to("edit", edit_admin_mail_template_path(@mail_template))
+  .content
+    = Liquid::Template.parse(@mail_template.content).render('user' => User.first).gsub!(/\n/, '<br />')

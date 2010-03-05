@@ -3,6 +3,8 @@
   padding:0;
 }
 
+body.win {font-family:Arial, sans-serif !important;}
+
 body {
   background:url(/images/background.gif);
   color:#d3d3d3;
