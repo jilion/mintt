@@ -9,7 +9,7 @@ module Admin::UsersHelper
   end
   
   def user_full_name_with_email(user)
-    "#{user_full_name(user)} (#{mail_to(user.email, user.email, :encode => "hex", :subject => 'Mintt program: ')})"
+    "#{user_full_name(user)} #{mail_to(user.email, user.email, :encode => "hex", :subject => 'Mintt program: ')}"
   end
   
   def user_url(user)

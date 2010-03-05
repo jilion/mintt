@@ -3,23 +3,30 @@
   %h3= "Messages"
   
   %table
+    - 5.times do
+      %col{ :class => cycle("even", "odd") }
     %tr
-      %th= link_to "At", admin_messages_path(sort_parameters('created_at'))
-      %th= link_to "Read?", admin_messages_path(sort_parameters('read'))
-      %th= link_to "Replied?", admin_messages_path(sort_parameters('replied'))
-      %th= link_to "From (email)", admin_messages_path(sort_parameters('sender_name'))
-      %th Content
-      %th Edit
-      %th Delete
+      %th.icon_centered= link_to image_tag("/images/admin/unread_label_icon.png", :alt => "Unread?"), admin_messages_path(sort_parameters('read'))
+      %th.icon_centered= link_to image_tag("/images/admin/replied_label_icon.png", :alt => "Replied?"), admin_messages_path(sort_parameters('replied'))
+      %th= link_to "From", admin_messages_path(sort_parameters('sender_name'))
+      %th= link_to "Date Received", admin_messages_path(sort_parameters('created_at'))
+      %th
       
     - @messages.each do |message|
-      %tr[message]
-        %td= time_ago_in_words(message.created_at)
-        %td.icon_centered= message.read
-        %td.icon_centered= message.replied
-        %td= message_sender_name_with_email(message)
-        %td= link_to(words_count(message.content), admin_message_path(message))
-        %td= link_to("edit", edit_admin_message_path(message))
+      %tr[message]{ :class => cycle("", "alt") }
+        %td.icon_centered
+          -if !message.read?
+            = image_tag("/images/admin/unread_icon.png", :alt => "Unread")
+        %td.icon_centered
+          - if !message.replied?
+            = image_tag("/images/admin/replied_icon.png", :alt => "Replied")
+        %td.from
+          %h4= message_sender_name_with_email(message)
+          %p.excerpt= truncate message.content, :length => 160
+        -#%td= link_to(words_count(message.content), admin_message_path(message))
+        %td.datetime
+          %span.date= message.created_at.strftime("%B %d, %Y")
+          %span.time= message.created_at.strftime("%I:%m %p")
         %td= button_to("delete", admin_message_path(message), :confirm => "Are you sure?", :method => :delete, :id => "delete_message_#{message.id}")
   #pagination
     = will_paginate @messages

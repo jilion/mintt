@@ -50,6 +50,37 @@ a#admin_label span {display:none;}
   text-align:center;
 }
 
+#content.admin table .icon_centered {
+  text-align:center;
+  line-height:14px;
+}
+
+#content.admin table td.from {
+  width:550px;
+}
+
+#content.admin table td.from h4 {
+  font-size:16px;
+  line-height:18px;
+}
+
+#content.admin table td.from p.excerpt {
+  font-size:14px;
+  line-height:18px;
+}
+
+#content.admin table td.datetime {
+  font-size:14px;
+}
+
+#content.admin table td.datetime span.date {
+  float:left;
+}
+
+#content.admin table td.datetime span.time {
+  float:right;
+}
+
 #content .pagination {
   padding:20px 0 0;
 }
