@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe DeviseMailer do
   
+  include ActionView::Helpers::UrlHelper
   include ActionController::UrlWriter
   
   describe "creating a user" do
@@ -15,12 +16,8 @@ describe DeviseMailer do
       @email.should deliver_to(@user.email)
     end
     
-    it "should contain the user's email in the mail body" do
-      @email.should have_text(/<#{@user.email}>/)
-    end
-    
     it "should render the liquid template with interpolation" do
-      @email.should have_text(/#{@user.first_name} #{@user.last_name}<#{@user.email}>\n\nThat's a demo template!/)
+      @email.should have_text("#{@user.first_name} #{@user.last_name} #{link_to('Confirm my account', { :host => Rails.env.production? ? MINTT_EPFL : MINTT_LOCAL, :controller => 'confirmations', :action => 'show', :confirmation_token => @user.confirmation_token })}\n")
     end
     
     it "should have the correct subject" do

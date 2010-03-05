@@ -20,3 +20,11 @@
     %p= "<strong>Supervisor authorization</strong>: #{@user.supervisor_authorization}"
     %p= "<strong>Subject to EPFL doctoral school regulations and does he/she needs credits?</strong>: #{@user.doctoral_school_rules}"
     %p= "<strong>Motivation</strong>: #{@user.motivation}"
+  
+  %p= "<strong>Comment</strong>:"
+  - semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
+    - f.inputs do
+      = f.input :comment, :as => :text
+      
+    - f.buttons do
+      = f.commit_button "Save comment"

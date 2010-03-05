@@ -1,13 +1,13 @@
-TRUE_FALSE = %w(1 0)
-MALE_FEMALE = %w(male female)
-YES_NO = [true, false]
+MALE_FEMALE = %w[male female]
+YES_NO = %w[yes no]
+TRUE_FALSE = [true, false]
 
 namespace :db do
   
+  desc "Load all development fixtures."
+  task :populate => ['populate:empty_all_tables', 'populate:mail_templates', 'populate:messages', 'populate:users']
+  
   namespace :populate do
-    
-    desc "Load all development fixtures."
-    task :populate => [:empty_all_tables, :mail_templates, :messages, :users]
     
     desc "Empty all the tables"
     task :empty_all_tables => :environment do
@@ -27,7 +27,7 @@ namespace :db do
     end
     
     desc "Load User development fixtures."
-    task :populate => :environment do
+    task :users => :environment do
       empty_tables(User)
       create_users(87)
     end
@@ -37,9 +37,9 @@ namespace :db do
 end
 
 private
-  def empty_tables(tables)
+  def empty_tables(*tables)
     print "Deleting the content of #{tables}.. => "
-    [tables].each { |model| model.delete_all }
+    tables.each { |model| model.delete_all }
     print "#{tables} empty!\n\n"
   end
 
