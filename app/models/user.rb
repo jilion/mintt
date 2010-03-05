@@ -20,6 +20,7 @@ class User < Model
   key :doctoral_school_rules, String
   key :thesis_invention, String
   key :motivation, String
+  key :comment, String
   timestamps!
   
   devise :registerable, :confirmable #, :authenticatable, :activatable, :recoverable, :rememberable, :trackable, :timeoutable, :lockable
@@ -46,9 +47,15 @@ class User < Model
   validates_inclusion_of  :supervisor_authorization,  :within => %w(yes no), :message => "Choose an answer"
   validates_inclusion_of  :doctoral_school_rules,     :within => %w(yes no), :message => "Choose an answer"
   
-  validates_acceptance_of :agreement
+  validate :validates_acceptance_of_agreement
   
 protected
+  
+  def validates_acceptance_of_agreement
+    if self.agreement != "1" && self.new_record?
+      errors.add(:agreement, "must be accepted")
+    end
+  end
   
   def validate_registration_before_admission_date
     if self.thesis_registration_date > self.thesis_admission_date
@@ -60,6 +67,22 @@ protected
     if self.thesis_admission_date < self.thesis_registration_date
       errors.add(:thesis_admission_date, "must be after the registration date")
     end
+  end
+  
+end
+
+class User::LiquidDropClass
+  
+  include ActionView::Helpers::UrlHelper
+  include ActionController::UrlWriter
+  include Admin::UsersHelper
+  
+  def full_name
+    user_full_name(self)
+  end
+  
+  def confirmation_link
+    link_to('Confirm my account', { :host => Rails.env.production? ? MINTT_EPFL : MINTT_LOCAL, :controller => 'confirmations', :action => 'show', :confirmation_token => self.confirmation_token })
   end
   
 end

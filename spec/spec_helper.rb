@@ -33,7 +33,7 @@ Spork.each_run do
     
     config.after(:each) do
       MongoMapper.database.collections.each { |c| c.remove }
-      MailTemplate.create(:title => 'user_registration_confirmation', :content => "{{user.first_name}} {{user.last_name}}<{{user.email}}>\n\nThat\'s a demo template!\n\n{{confirmation_link}}")
+      MailTemplate.create(:title => 'user_application_confirmation', :content => "{{user.first_name}} {{user.last_name}} {{user.confirmation_link}}")
     end
   end
   

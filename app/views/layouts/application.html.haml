@@ -22,19 +22,19 @@
         %h2= "Management of Innovation and Technology Transfer"
         %ul#menu
           %li.home
-            - link_to root_url do
+            - link_to root_path do
               %span= "Home"
           %li{ :class => ('active' if params[:id] == 'modules') }= link_to "Modules", "/modules"
-          %li{ :class => ('active' if controller_name == 'registrations') }= link_to "Registration", new_user_registration_path
+          %li{ :class => ('active' if controller_name == 'applications') }= link_to "Application", new_user_registration_path
           %li= link_to "Contact", "/contact"
       #content
         = yield
       #sidebar
-        %h3= "2010 Registration"
-        %p= "The registration are now open till April 16, 2010. Use the button below to apply."
+        %h3= "2010 Application"
+        %p= "The applications are now open till April 16, 2010. Use the button below to apply."
         .box
           - link_to new_user_registration_path, :id => "registration_button" do
-            %span= "Register for the 2010 course"
+            %span= "Apply for the 2010 course"
         %h4= "Organizing Entities"
         %ul.entities
           %li.first= link_to image_tag("/images/epfl_logo.png", :alt => "EPFL Logo"), "http://www.epfl.ch", :onclick => 'window.open(this); return false'
@@ -47,7 +47,7 @@
           %li= "Number of credits: 3"
           %li= "Number of students: 18 max. Decided upon a selection balancing several factors including multi-disciplinarity"
           %li= "Form of Exam: Oral presentation and project report"
-          %li= "Delay to submit registration: April 16, 2010 through #{ link_to 'online registration', new_user_registration_path }"
+          %li= "Delay to submit application: April 16, 2010 through #{ link_to 'online application', new_user_registration_path }"
           %li= "Location: #{ link_to 'EPFL Science Park, PSE-C building', 'http://bit.ly/aWDL19', :onclick => 'window.open(this); return false' }"
         %h4= "More info"
         %p= "If you have any question, Please contact us through the following #{link_to 'form', '/contact'}."

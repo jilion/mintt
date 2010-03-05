@@ -27,11 +27,11 @@ describe "Registrations" do
     fill_in "user_thesis_invention", :with => "The iPad"
     fill_in "user_motivation", :with => "Huge!"
     check "user_agreement"
-    click_button "Register"
+    click_button "Apply"
     
     response.should redirect_to root_url
     
-    flash[:success].should contain('You will receive an email with instructions about how to confirm your registration in a few minutes.')
+    flash[:success].should contain('You will receive an email with instructions about how to confirm your application in a few minutes.')
     ActionMailer::Base.deliveries.size.should == 1
   end
 

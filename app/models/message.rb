@@ -6,6 +6,7 @@ class Message < Model
   key :content, String
   key :read, Boolean, :default => false
   key :replied, Boolean, :default => false
+  key :trashed, Boolean, :default => false
   timestamps!
   
   # Email regex used to validate email formats. Retrieved from authlogic.
