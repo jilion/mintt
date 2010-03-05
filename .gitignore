@@ -28,9 +28,9 @@ coverage
 rdoc
 pkg
 log/*
+tmp/*
 tmp/**/*
 db/*.sqlite3
 public/javascripts/all.js
 public/stylesheets/all.css
 rerun.txt
-tmp/restart.txt

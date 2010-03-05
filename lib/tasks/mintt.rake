@@ -1,24 +1,46 @@
 TRUE_FALSE = %w(1 0)
 MALE_FEMALE = %w(male female)
-YES_NO = %w(yes no)
+YES_NO = [true, false]
 
 namespace :db do
   
-  desc "Load development fixtures."
-  task :populate => :environment do
-    empty_tables
-    `rake db:seed RAILS_ENV=development`
-    create_users(87)
-    create_messages(46)
+  namespace :populate do
+    
+    desc "Load all development fixtures."
+    task :populate => [:empty_all_tables, :mail_templates, :messages, :users]
+    
+    desc "Empty all the tables"
+    task :empty_all_tables => :environment do
+      empty_tables(MailTemplate, Message, User)
+    end
+    
+    desc "Load MailTemplate development fixtures."
+    task :mail_templates => :environment do
+      empty_tables(MailTemplate)
+      `rake db:seed RAILS_ENV=development`
+    end
+    
+    desc "Load Message development fixtures."
+    task :messages => :environment do
+      empty_tables(Message)
+      create_messages(46)
+    end
+    
+    desc "Load User development fixtures."
+    task :populate => :environment do
+      empty_tables(User)
+      create_users(87)
+    end
+    
   end
   
 end
 
 private
-  def empty_tables
-    print "Deleting the content of MailTemplate, Message, User tables.. => "
-    [MailTemplate, Message, User].each { |model| model.delete_all }
-    print "empty!\n\n"
+  def empty_tables(tables)
+    print "Deleting the content of #{tables}.. => "
+    [tables].each { |model| model.delete_all }
+    print "#{tables} empty!\n\n"
   end
 
   def create_users(count)
@@ -57,7 +79,7 @@ private
       m.content = Faker::Lorem.paragraphs
       m.save!
       m.read = TRUE_FALSE.rand
-      m.replied = m.read? ? TRUE_FALSE.rand : '0'
+      m.replied = m.read? ? TRUE_FALSE.rand : false
       m.save!
     end
     print "#{count} messages created.\n\n"

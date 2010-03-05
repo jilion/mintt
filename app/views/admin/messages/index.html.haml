@@ -16,10 +16,10 @@
       %tr[message]{ :class => cycle("", "alt") }
         %td.icon_centered
           %input{ :type => "hidden", :value => admin_message_path(message) }
-          -if !message.read?
+          - if message.unread?
             = image_tag("/images/admin/unread_icon.png", :alt => "Unread")
         %td.icon_centered
-          - if !message.replied?
+          - if message.replied?
             = image_tag("/images/admin/replied_icon.png", :alt => "Replied")
         %td.from
           %h4= message_sender_name_with_email(message)
