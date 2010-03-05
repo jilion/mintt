@@ -400,6 +400,7 @@ form.main .required_mention {
 a {
   text-decoration:none;
   color:#a6ce39;
+  outline:0;
   -webkit-transition:0.3s text-shadow;
   -webkit-transition:0.3s color;
 }
@@ -407,6 +408,10 @@ a {
 a:hover {
   text-shadow:#a6ce39 0 0 5px;
   color:#fff;
+}
+
+img {
+  border:none;
 }
 
 #footnotes_debug {
