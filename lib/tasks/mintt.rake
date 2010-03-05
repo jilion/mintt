@@ -1,16 +1,15 @@
+TRUE_FALSE = %w(1 0)
+MALE_FEMALE = %w(male female)
+YES_NO = %w(yes no)
+
 namespace :db do
   
   namespace :populate do
     
-    desc "Load test fixtures."
-    task :test => :environment do
-      empty_tables
-    end
-    
     desc "Load development fixtures."
     task :development => :environment do
       empty_tables
-      create_new_message_mail_template
+      `rake db:seed RAILS_ENV=development`
       create_users(87)
       create_messages(46)
     end
@@ -67,10 +66,4 @@ private
       m.save!
     end
     print "#{count} messages created.\n\n"
-  end
-
-  def create_new_message_mail_template
-    print "Creating the 'New message' mail template => "
-    MailTemplate.create(:title => 'user_registration_confirmation', :content => "Dear {{user.first_name}} {{user.last_name}},\nwe've received your request for participating in the Mintt program.\n\nTo confirm you demand, please click on the link below :\n{{user.confirmation_link}}\n\n\nThanks for your interest in the Mintt program,\n\nthe whole Mintt team.")
-    print "created.\n\n"
   end
