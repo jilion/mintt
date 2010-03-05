@@ -1,17 +1,20 @@
 - title "mintt: admin | Messages > From #{message_sender_name(@message)} received #{time_ago_in_words(@message.created_at)}"
 
-.text
+.text.mail
   %h3= "Message"
   
-  = back_to_inbox_or_trash(@message)
-  |
-  = button_to("reply", admin_message_path(@message), :method => :put, :id => "reply_message_#{@message.id}", :class => "button reply")
-  |
-  = button_to("delete", admin_message_path(@message), :confirm => "Are you sure?", :method => :delete, :id => "delete_message_#{@message.id}", :class => "button delete")
+  .actions_left
+    - if @message.unreplied?
+      = button_to("Mark as replied", admin_message_path(@message), :method => :put, :id => "reply_message_#{@message.id}", :class => "button mark_as_replied")
+    - if !@message.trashed?
+      = button_to("Move to trash", admin_message_path(@message), :confirm => "Are you sure?", :method => :delete, :id => "delete_message_#{@message.id}", :class => "button move_to_trash")
+    .spacer
+  .actions_right
+    = back_to_inbox_or_trash(@message)
   
   #from= "From: #{message_sender_name_with_email(@message)}"
   
-  #received= "Date: #{time_ago_in_words(@message.created_at)}"
+  #received= "Date: #{sexy_date(@message.created_at)}"
   
   %hr
   
