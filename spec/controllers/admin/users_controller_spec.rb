@@ -7,7 +7,7 @@ describe Admin::UsersController do
     expects :find, :on => User, :with => "1", :returns => mock_user
     expects :update_attributes, :on => mock_user, :returns => true
     
-    should_redirect_to { admin_users_path }
+    it { should redirect_to admin_users_path }
     it { params.include?(:not_registered_key).should_not be_true }
   end
   
