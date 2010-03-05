@@ -25,7 +25,7 @@
           %p.excerpt= truncate message.content, :length => 160
         -#%td= link_to(words_count(message.content), admin_message_path(message))
         %td.datetime
-          %span.date= message.created_at.strftime("%B %d, %Y")
+          %span.date= sexy_date(message.created_at)
           %span.time= message.created_at.strftime("%I:%m %p")
         %td= button_to("delete", admin_message_path(message), :confirm => "Are you sure?", :method => :delete, :id => "delete_message_#{message.id}")
   #pagination
