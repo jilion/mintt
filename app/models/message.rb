@@ -17,6 +17,14 @@ class Message < Model
   
   after_create :notify_of_new_message
   
+  def unread?
+    !read?
+  end
+  
+  def unreplied?
+    !replied?
+  end
+  
 protected
   
   # after_create
