@@ -15,8 +15,8 @@
     - @messages.each do |message|
       %tr[message]
         %td= time_ago_in_words(message.created_at)
-        %td= message.read
-        %td= message.replied
+        %td.icon_centered= message.read
+        %td.icon_centered= message.replied
         %td= message_sender_name_with_email(message)
         %td= link_to(words_count(message.content), admin_message_path(message))
         %td= link_to("edit", edit_admin_message_path(message))

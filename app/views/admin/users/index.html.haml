@@ -17,7 +17,7 @@
       
     - @users.each do |user|
       %tr[user]{ :class => cycle("", "alt") }
-        %td= user_gender(user)
+        %td.gender= link_to image_tag("/images/admin/#{user.gender}.png", :alt => user.gender), admin_user_path(user)
         %td= link_to user_full_name(user), admin_user_path(user)
         %td= user.faculty
         %td= user.phone
@@ -25,5 +25,4 @@
         %td= link_to("edit", edit_admin_user_path(user))
         %td= button_to("delete", admin_user_path(user), :confirm => "Are you sure?", :method => :delete)
         
-  #pagination
-    = will_paginate @users
+  = will_paginate @users

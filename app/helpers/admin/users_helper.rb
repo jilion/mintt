@@ -13,11 +13,11 @@ module Admin::UsersHelper
   end
   
   def user_url(user)
-    user.url? ? link_to('link', user.url) : 'none'
+    user.url? ? link_to(user.url, user.url, :onclick => "window.open(this); return false") : 'none'
   end
   
   def user_linkedin_url(user)
-    user.linkedin_url? ? link_to('link', user.linkedin_url) : 'none'
+    user.linkedin_url? ? link_to(user.linkedin_url, user.linkedin_url, :onclick => "window.open(this); return false") : 'none'
   end
   
   def user_thesis_subject(user)

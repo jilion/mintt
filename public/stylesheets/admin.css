@@ -12,7 +12,7 @@ a#admin_label {
 
 a#admin_label span {display:none;}
 
-#content.admin {
+#content.admin.index {
   width:960px;
 }
 
@@ -45,3 +45,25 @@ a#admin_label span {display:none;}
   border-top:1px solid #333;
 }
 
+#content.admin table td.gender {
+  line-height:14px;
+  text-align:center;
+}
+
+#content .pagination {
+  padding:20px 0 0;
+}
+
+#content .left_box {
+  width:110px;
+  float:left;
+}
+
+#content .right_box {
+  float:left;
+  width:490px;
+}
+
+#content .text strong {
+  font-weight:bold;
+}

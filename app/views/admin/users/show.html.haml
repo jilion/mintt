@@ -1,18 +1,21 @@
 - title "mintt: admin | Users > #{user_full_name(@user)}"
 
 .text
-  %h3= "User"
-  %p= "Gender : #{user_gender(@user)}"
-  %p= "Name (email) : #{user_full_name_with_email(@user)}"
-  %p= "Faculty : #{@user.faculty}"
-  %p= "Phone : #{@user.phone}"
-  %p= "Url : #{user_url(@user)}"
-  %p= "LinkedIn url : #{user_linkedin_url(@user)}"
-  %p= "Thesis supervisor : #{@user.thesis_supervisor}"
-  %p= "Thesis subject : #{@user.thesis_subject}"
-  %p= "Thesis registration date : #{@user.thesis_registration_date}"
-  %p= "Thesis admission date : #{@user.thesis_admission_date}"
-  %p= "Thesis invention : #{@user.thesis_invention}"
-  %p= "Supervisor authorization : #{@user.supervisor_authorization}"
-  %p= "Subject to EPFL doctoral school regulations and does he/she needs credits? : #{@user.doctoral_school_rules}"
-  %p= "Motivation : #{@user.motivation}"
+  .left_box
+    = image_tag "/images/admin/#{@user.gender}_big.png", :alt => @user.gender
+  .right_box
+    %h3= user_full_name(@user)
+    %p= mail_to @user.email
+  .spacer
+  %p= "<strong>Faculty</strong>: #{@user.faculty}"
+  %p= "<strong>Phone</strong>: #{@user.phone}"
+  %p= "<strong>Url</strong>: #{user_url(@user)}"
+  %p= "<strong>LinkedIn url</strong>: #{user_linkedin_url(@user)}"
+  %p= "<strong>Thesis supervisor</strong>: #{@user.thesis_supervisor}"
+  %p= "<strong>Thesis subject</strong>: #{@user.thesis_subject}"
+  %p= "<strong>Thesis registration date</strong>: #{@user.thesis_registration_date}"
+  %p= "<strong>Thesis admission date</strong>: #{@user.thesis_admission_date}"
+  %p= "<strong>Thesis invention</strong>: #{@user.thesis_invention}"
+  %p= "<strong>Supervisor authorization</strong>: #{@user.supervisor_authorization}"
+  %p= "<strong>Subject to EPFL doctoral school regulations and does he/she needs credits?</strong>: #{@user.doctoral_school_rules}"
+  %p= "<strong>Motivation</strong>: #{@user.motivation}"
