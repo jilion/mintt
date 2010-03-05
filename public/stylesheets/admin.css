@@ -29,8 +29,17 @@ a#admin_label span {display:none;}
   background:#222;
 }
 
+#content.admin table tr {
+  -webkit-transition:background 0.2s;
+}
+
 #content.admin table tr.alt {
   background:#171717;
+}
+
+#content.admin table tr.message:hover {
+  background:#333;
+  cursor:pointer;
 }
 
 #content.admin table th {
@@ -71,6 +80,7 @@ a#admin_label span {display:none;}
 
 #content.admin table td.datetime {
   font-size:14px;
+  padding:4px 12px;
 }
 
 #content.admin table td.datetime span.date {
@@ -79,6 +89,14 @@ a#admin_label span {display:none;}
 
 #content.admin table td.datetime span.time {
   float:right;
+}
+
+#content.admin table td input.delete {
+  width:18px;
+  height:19px;
+  background:url(/images/admin/trash.png) no-repeat;
+  border:none;
+  text-indent:-9999px;
 }
 
 #content .pagination {
@@ -93,8 +111,4 @@ a#admin_label span {display:none;}
 #content .right_box {
   float:left;
   width:490px;
-}
-
-#content .text strong {
-  font-weight:bold;
 }

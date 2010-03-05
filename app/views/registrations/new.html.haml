@@ -1,6 +1,7 @@
 .text
   %h3= "Application form for mintt 2010"
-  %p= "June 8 and 9, October 6, 2010"
+  %p
+    %strong= "June 8 and 9, October 6, 2010"
   %p= "Thank you to fill out the following form precisely and clearly."
 #register
   - semantic_form_for resource_name, resource, :url => registration_path(resource_name),  :html => { :class => "main" } do |f|

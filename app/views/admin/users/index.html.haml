@@ -1,6 +1,6 @@
-- title 'mintt: admin | Users'
+- title 'mintt: admin | Candidates'
 .text
-  %h3= "Users"
+  %h3= "Candidates"
   
   %table
     %colgroup
@@ -23,6 +23,6 @@
         %td= user.phone
         %td= user.thesis_supervisor
         %td= link_to("edit", edit_admin_user_path(user))
-        %td= button_to("delete", admin_user_path(user), :confirm => "Are you sure?", :method => :delete)
+        %td= button_to("delete", admin_user_path(user), :confirm => "Are you sure?", :method => :delete, :class => "button delete")
         
   = will_paginate @users
