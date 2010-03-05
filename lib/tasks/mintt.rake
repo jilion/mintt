@@ -4,16 +4,12 @@ YES_NO = %w(yes no)
 
 namespace :db do
   
-  namespace :populate do
-    
-    desc "Load development fixtures."
-    task :development => :environment do
-      empty_tables
-      `rake db:seed RAILS_ENV=development`
-      create_users(87)
-      create_messages(46)
-    end
-    
+  desc "Load development fixtures."
+  task :populate => :environment do
+    empty_tables
+    `rake db:seed RAILS_ENV=development`
+    create_users(87)
+    create_messages(46)
   end
   
 end
@@ -59,7 +55,6 @@ private
       m.sender_name = Faker::Name.first_name
       m.sender_email = Faker::Internet.email
       m.content = Faker::Lorem.paragraphs
-      m.replied
       m.save!
       m.read = TRUE_FALSE.rand
       m.replied = m.read? ? TRUE_FALSE.rand : '0'

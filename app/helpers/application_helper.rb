@@ -6,8 +6,10 @@ module ApplicationHelper
   end
   
   def sexy_date(date)
-    if date.today? || date.to_time > 2.days.until(Time.now)
-      "#{time_ago_in_words(date)} ago"
+    if date.today?
+      "Today"
+    elsif date.to_time > 2.days.until(Time.now)
+      "Yesterday"
     else
       date.strftime("%B %d, %Y")
     end

@@ -2,13 +2,26 @@ require 'spec_helper'
 
 describe Admin::MailTemplatesController do
 
-  # %w(update).each do |action|
-  #   it "should not save non-registered attributes on #{action} action" do
-  #     id = "4b8e9831d9e93410a7000001"
-  #     MailTemplate.should_receive(:find).with(id).and_return(Factory.create(:mail_template))
-  #     post action, :mail_template => Factory.attributes_for(:mail_template).merge({:not_registered_key => 'foo'}), :id => id
-  #     params.include?(:not_registered_key).should_not be_true
-  #   end
-  # end
+  %w(update).each do |action|
+    it "should not save non-registered attributes on #{action} action" do
+      id = "4b8e9831d9e93410a7000001"
+      MailTemplate.should_receive(:find).with(id).and_return(Factory.create(:mail_template))
+      post action, :mail_template => Factory.attributes_for(:mail_template).merge({:not_registered_key => 'foo'}), :id => id
+      params.include?(:not_registered_key).should_not be_true
+    end
+  end
+  
+end
+
+describe Admin::MailTemplatesController do
+  mock_model :mail_template
+  
+  describe :put => :update, :user => Factory.attributes_for(:mail_template).merge({:not_registered_key => 'foo'}), :id => "1" do
+    expects :find, :on => User, :with => "1", :returns => mock_user
+    expects :update_attributes, :on => mock_user, :returns => true
+    
+    should_redirect_to { admin_users_path }
+    it { params.include?(:not_registered_key).should_not be_true }
+  end
   
 end
