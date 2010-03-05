@@ -5,7 +5,7 @@ module Admin::MessagesHelper
   end
   
   def message_sender_name_with_email(message)
-    "#{message_sender_name(message)} (#{mail_to(message.sender_email, message.sender_email, :encode => "hex", :subject => 'Mintt program: ')})"
+    "#{message_sender_name(message)} (#{mail_to(message.sender_email, message.sender_email, :encode => "hex")})"
   end
   
 end

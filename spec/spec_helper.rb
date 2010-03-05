@@ -8,7 +8,7 @@ Spork.prefork do
   
   # require 'spec'
   require 'spec/rails'
-  # require 'remarkable_rails'
+  require 'remarkable_rails'
   # require 'remarkable/mongo_mapper'
   require "email_spec"
   
@@ -33,6 +33,7 @@ Spork.each_run do
     
     config.after(:each) do
       MongoMapper.database.collections.each { |c| c.remove }
+      MailTemplate.create(:title => 'new_message', :content => "{{user.first_name}} {{user.last_name}}<{{user.email}}>\n\nThat\'s a demo template!\n\n{{confirmation_link}}")
     end
   end
   

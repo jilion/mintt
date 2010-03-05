@@ -9,11 +9,11 @@ describe Message do
   describe "default" do
     subject { Factory(:message) }
 
-    its(:sender_name) { should == "Joe Blow" }
-    its(:sender_email) { should match /email[0-9]+@epfl.com/ }
-    its(:content) { should == "Advanced Compilation for Mac" }
-    its(:read) { should be_false }
-    its(:replied) { should be_false }
+    its(:sender_name)   { should == "Joe Blow" }
+    its(:sender_email)  { should match /email[0-9]+@epfl.com/ }
+    its(:content)       { should == "Advanced Compilation for Mac" }
+    its(:read)          { should be_false }
+    its(:replied)       { should be_false }
 
     it { should be_valid }
   end

@@ -6,7 +6,7 @@ class RegistrationsController < ApplicationController
   # POST /resource/register
   def create
     build_resource
-
+    
     if resource.save
       flash[:success] = t("devise.confirmations.send_instructions")
       redirect_to root_url
@@ -15,8 +15,10 @@ class RegistrationsController < ApplicationController
     end
   end
   
-  private
+private
+  
   def ensure_keys_exists
     params[:user].slice(*User.keys.keys) if params[:user]
   end
+  
 end
