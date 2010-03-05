@@ -1,5 +1,5 @@
 module PagesHelper
-
+  
   def module_box(&block)
     haml_tag :li do
       haml_tag :div, {:class => 'top'}

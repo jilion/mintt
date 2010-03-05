@@ -5,29 +5,29 @@ describe MailTemplate do
   # it { should have_keys(:sender_name, :sender_email, :content, String) }
   # it { should have_keys(:read, :replied, Boolean) }
   # it { should validate_presence_of(:sender_name, :sender_email, :content) }
-
+  
   describe "default" do
     subject { Factory(:mail_template) }
-
-    its(:title) { should == "new_message" }
-    its(:content) { should == "{{user.first_name}} {{user.last_name}}<{{user.email}}>\n\nThat's a demo template!\n\n{{confirmation_link}}" }
-
+    
+    its(:title) { should == "test_template" }
+    its(:content) { should == "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
+    
     it { should be_valid }
   end
-
+  
   it "should retrieve existing template" do
     t = Factory.create(:mail_template)
-    MailTemplate.find_by_title('new_message').should eql(t)
+    MailTemplate.find_by_title('test_template').should eql(t)
   end
-
+  
   describe "should be invalid" do
     it "without title" do
       Factory(:mail_template, :title => nil).should_not be_valid
     end
-
+    
     it "without content" do
       Factory(:mail_template, :content => nil).should_not be_valid
     end
   end
-
+  
 end

@@ -4,7 +4,7 @@
   - semantic_form_for [:admin, @mail_template],  :html => { :class => "main" } do |f|
     - f.inputs do
       = f.input :content, :as => :text, :required => true
-
+      
     - f.buttons do
       = f.commit_button "Update template"
     .required_mention= "<abbr title='required'>*</abbr> required"

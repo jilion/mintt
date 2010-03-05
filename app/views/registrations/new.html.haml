@@ -24,12 +24,7 @@
       %li
         %p= "I hereby confirm that I will be available for mintt on June 8 and 9 and October 6, 2010, the whole day. I also confirm I have well taken note I will dedicate at least 30 hours during summer 2010 to work on an EPFL invention case study."
       = f.input :agreement, :as => :boolean, :label => "I agree", :required => true
-
-      -# %p= f.input :password, :as => :password
-      -# 
-      -# %p= f.input :password_confirmation, :as => :password
-
+      
     - f.buttons do
       = f.commit_button "Register"
     .required_mention= "<abbr title='required'>*</abbr> required"
-  -#= render :partial => "shared/devise_links"

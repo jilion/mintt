@@ -1,40 +1,25 @@
-class Admin::MessagesController < ApplicationController
-  
-  before_filter :admin_required
-  before_filter :find_messages
+class Admin::MessagesController < Admin::AdminController
   before_filter :ensure_keys_exists
   
-  layout 'admin'
-  
   def index
+    @messages = Message.order_by(params)
   end
   
   def show
+    @message = Message.find(params[:id])
+    # @message.update_attribute(:read, true)
   end
-
-  def edit
-  end
-
-  def update
-  end
-
+  
   def destroy
+    @message = Message.find(params[:id])
     flash[:success] = 'Message destroyed successfully' if @message.destroy
     redirect_to admin_messages_path
   end
-
-  private
-  def find_messages
-    if params[:id]
-      @message = Message.find(params[:id])
-    else
-      @messages = Message.order_by(params)
-    end
-  end
+  
+private
   
   def ensure_keys_exists
     params[:message].slice(*Message.keys.keys) if params[:message]
   end
-
-end
   
+end

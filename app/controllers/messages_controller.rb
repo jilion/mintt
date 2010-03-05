@@ -1,5 +1,4 @@
 class MessagesController < ApplicationController
-  
   before_filter :ensure_keys_exists
   
   # GET /contact
@@ -19,7 +18,8 @@ class MessagesController < ApplicationController
     end
   end
   
-  private
+private
+  
   def ensure_keys_exists
     params[:message].slice(*Message.keys.keys)  if params[:message]
   end

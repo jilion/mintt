@@ -25,6 +25,6 @@ Factory.define :message, :default_strategy => :build do |m|
 end
 
 Factory.define :mail_template, :default_strategy => :build do |m|
-  m.title 'new_message'
-  m.content "{{user.first_name}} {{user.last_name}}<{{user.email}}>\n\nThat\'s a demo template!\n\n{{confirmation_link}}"
+  m.title 'test_template'
+  m.content "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 end
