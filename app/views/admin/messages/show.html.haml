@@ -12,10 +12,11 @@
   .actions_right
     = back_to_inbox_or_trash(@message)
   
-  #from= "From: #{message_sender_name_with_email(@message)}"
+  #from= "From: #{message_sender_name_with_email_and_mailto(@message)}"
   
   #received= "Date: #{sexy_date(@message.created_at)}"
   
+  = mail_to(@message.sender_email, 'reply', :encode => "hex", :body => "#{message_sender_name_with_email(@message)} wrote on #{@message.created_at}:\n\n#{@message.content}", :class => "link")
   %hr
   
   #content= @message.content
