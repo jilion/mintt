@@ -50,7 +50,7 @@ private
       u.gender = MALE_FEMALE.rand
       u.first_name = Faker::Name.first_name
       u.last_name = Faker::Name.last_name
-      u.faculty = Faker::Lorem.words
+      u.faculty = Faker::Lorem.words(2)
       u.email = Faker::Internet.email
       u.phone = Faker::PhoneNumber.phone_number
       u.url = "http://#{Faker::Internet.domain_name}"
