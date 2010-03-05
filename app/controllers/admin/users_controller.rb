@@ -1,19 +1,23 @@
 class Admin::UsersController < Admin::AdminController
   before_filter :ensure_keys_exists
   
+  # GET /admin/users
   def index
     params[:all_order_by] ||= 'created_at'
     @users = User.all_order_by(params)
   end
   
+  # GET /admin/users/:id
   def show
     @user = User.find(params[:id])
   end
   
+  # GET /admin/users/:id/edit
   def edit
     @user = User.find(params[:id])
   end
   
+  # PUT /admin/users/:id
   def update
     @user = User.find(params[:id])
     
@@ -25,6 +29,7 @@ class Admin::UsersController < Admin::AdminController
     end
   end
   
+  # DELETE /admin/users/:id
   def destroy
     @user = User.find(params[:id])
     flash[:success] = 'User successfully destroyed' if @user.destroy

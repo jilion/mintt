@@ -16,13 +16,13 @@ class Admin::MessagesController < Admin::AdminController
     render :index
   end
   
-  # GET /admin/message/:id
+  # GET /admin/messages/:id
   def show
     @message = Message.find(params[:id])
     @message.update_attributes!(:read => true)
   end
   
-  # PUT /admin/message/:id
+  # PUT /admin/messages/:id
   def update
     @message = Message.find(params[:id])
     
@@ -34,7 +34,7 @@ class Admin::MessagesController < Admin::AdminController
     end
   end
   
-  # DELETE /admin/message/:id
+  # DELETE /admin/messages/:id
   def destroy
     @message = Message.find(params[:id])
     

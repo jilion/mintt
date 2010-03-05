@@ -9,14 +9,14 @@ describe "Pages" do
   it "should be possible to go home" do
     click_link "<span>Home</span>"
     
-    response.should contain('mintt is a course for EPFL PhD students organized by EPFL Technology Transfer Office.')
+    response.should render_template 'pages/home'
   end
   
   it "should be possible view modules" do
     visit root_path
     click_link "Modules"
     
-    response.should contain('Program Overview')
+    response.should render_template 'pages/modules'
   end
   
 end
