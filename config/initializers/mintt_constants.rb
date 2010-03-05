@@ -9,7 +9,7 @@ NEW_APPLICATION_CC = case Rails.env
 when "development", "test"
   ['remy@jilion.com']
 when "production"
-  ['mehdi.aminian@epfl.ch'] # add rosina
+  ['mehdi.aminian@epfl.ch', 'rosina.amendola@epfl.ch'] # add rosina
 end
 
 MINTT_SENDER = ['mintt@epfl.ch']
