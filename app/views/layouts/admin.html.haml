@@ -7,10 +7,10 @@
     
     %link{ :href => "/stylesheets/style.css", :type => "text/css", :media => "screen", :rel => "stylesheet" }
     %link{ :href => "/stylesheets/admin.css", :type => "text/css", :media => "screen", :rel => "stylesheet" }
-
+    
     %script{ :type => "text/javascript", :src => "http://use.typekit.com/qwi4bur.js" }
     %script{ :type => "text/javascript" }= "try{Typekit.load();}catch(e){};"
-
+    
   %body
     - flash.each do |key, value|
       #flash{ :class => "flash_#{key}"}= h value
@@ -21,11 +21,11 @@
           - link_to root_path do
             %span= "mintt"
         %h2= "Management of Innovation and Technology Transfer"
-        - link_to admin_users_path, :id => "admin_label" do
+        - link_to admin_path, :id => "admin_label" do
           %span= "Admin"
         %ul#menu
           %li.home
-            - link_to admin_users_path do
+            - link_to admin_path do
               %span= "Home"
           %li{ :class => ('active' if controller_name == 'users') }= link_to "Candidates", admin_users_path
           %li{ :class => ('active' if controller_name == 'messages') }= link_to "Messages", admin_messages_path

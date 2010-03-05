@@ -1,18 +1,22 @@
 class Admin::MailTemplatesController < Admin::AdminController
   before_filter :ensure_keys_exists
   
+  # GET /admin/mail_templates
   def index
     @mail_templates = MailTemplate.all
   end
   
+  # GET /admin/mail_template/:id
   def show
     @mail_template = MailTemplate.find(params[:id])
   end
   
+  # GET /admin/mail_template/:id/edit
   def edit
     @mail_template = MailTemplate.find(params[:id])
   end
   
+  # PUT /admin/mail_template/:id
   def update
     @mail_template = MailTemplate.find(params[:id])
     
