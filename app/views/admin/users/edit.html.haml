@@ -15,13 +15,13 @@
     = f.input :linkedin_url, :label => "LinkedIn url"
     = f.input :thesis_supervisor, :required => true
     = f.input :thesis_subject, :as => :text, :required => true
-    = f.input :thesis_registration_date, :as => :date
-    = f.input :thesis_admission_date, :as => :date
+    = f.input :thesis_registration_date, :as => :date, :prompt => true, :selected => @user.nil? || @user.thesis_registration_date.nil?? 0 : @user.thesis_registration_date
+    = f.input :thesis_admission_date, :as => :date, :prompt => true, :selected => @user.nil? || @user.thesis_admission_date.nil? ? 0 : @user.thesis_admission_date
     = f.input :supervisor_authorization, :as => :radio, :collection => [["Yes", "yes"], ["No", "no"]], :label => "Do you have the agreement of your thesis supervisor to participate to mintt?", :required => true
     = f.input :doctoral_school_rules, :as => :radio, :collection => [["Yes", "yes"], ["No", "no"]], :label => "Are you subject to EPFL doctoral school regulations and do you need credits?", :required => true
     = f.input :thesis_invention, :as => :text, :label => "Have you made an invention in the course of your thesis? If yes, could you briefly describe it?:"
     = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?"
     
   - f.buttons do
-    = f.commit_button "Update"
+    = f.commit_button "Update", :confirm => "Are you sure to update #{user_full_name(@user)} informations ?"
   .required_mention= "<abbr title='required'>*</abbr> required"

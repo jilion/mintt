@@ -59,12 +59,14 @@ protected
   end
   
   def validate_registration_before_admission_date
+    return if self.thesis_registration_date.blank? || self.thesis_admission_date.blank?
     if self.thesis_registration_date > self.thesis_admission_date
       errors.add(:thesis_registration_date, "must be before the admission date")
     end
   end
   
   def validate_admission_after_registration_date
+    return if self.thesis_registration_date.blank? || self.thesis_admission_date.blank?
     if self.thesis_admission_date < self.thesis_registration_date
       errors.add(:thesis_admission_date, "must be after the registration date")
     end

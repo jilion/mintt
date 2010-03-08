@@ -33,6 +33,22 @@ describe User do
     it { should be_valid }
   end
   
+  describe "should be valid" do
+    
+    it "with a nil thesis_registration_date" do
+      u = Factory(:user, :thesis_registration_date => "")
+      u.should be_valid
+      u.thesis_registration_date.should be_nil
+    end
+    
+    it "with a nil thesis_admission_date" do
+      u = Factory(:user, :thesis_admission_date => "")
+      u.should be_valid
+      u.thesis_admission_date.should be_nil
+    end
+    
+  end
+  
   describe "should be invalid" do
     
     it "without gender" do

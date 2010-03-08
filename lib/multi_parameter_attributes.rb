@@ -29,9 +29,11 @@ module MultiParameterAttributes
     callstack.each do |name, values_with_empty_parameters|
       # in order to allow a date to be set without a year, we must keep the empty values.
       # Otherwise, we wouldn't be able to distinguish it from a date with an empty day.
-      values = values_with_empty_parameters.reject(&:nil?)
- 
-      if values.any?
+      values = values_with_empty_parameters.reject(&:nil?).reject(&:blank?)
+  # Rails.logger.info values.inspect
+  # Rails.logger.info values_with_empty_parameters.inspect
+  Rails.logger.info values.size == values_with_empty_parameters.size
+      if values.any? && values.size == values_with_empty_parameters.size
         key = self.class.keys[name]
         raise ArgumentError, "Unknown key #{name}" if key.nil?
         klass = key.type
@@ -40,7 +42,7 @@ module MultiParameterAttributes
           Time.zone.local(*values)
         elsif Date == klass
           begin
-            values = values_with_empty_parameters.collect do |v| v.blank? ? 1 : v end
+            values = values_with_empty_parameters.collect { |v| v.blank? ? 1 : v }
             Date.new(*values)
           rescue ArgumentError => ex # if Date.new raises an exception on an invalid date
             Time.zone.local(*values).to_date # we instantiate Time object and convert it back to a date thus using Time's logic in handling invalid dates
@@ -69,7 +71,7 @@ module MultiParameterAttributes
       attributes[attribute_name] << [ find_parameter_position(multiparameter_name), value ]
     end
   
-    attributes.each { |name, values| attributes[name] = values.sort_by{ |v| v.first }.collect { |v| v.last } }
+    attributes.each { |name, values| attributes[name] = values.sort_by { |v| v.first }.collect { |v| v.last } }
   end
   
   def find_parameter_position(multiparameter_name)
