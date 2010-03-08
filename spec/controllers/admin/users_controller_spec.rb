@@ -4,7 +4,7 @@ describe Admin::UsersController do
   mock_model :user
   
   describe :get => :index, :user => Factory.attributes_for(:user) do
-    expects :all_order_by, :on => User, :returns => mock_users
+    expects :order_by, :on => User, :returns => mock_users
     
     it { should render_template 'admin/users/index' }
   end

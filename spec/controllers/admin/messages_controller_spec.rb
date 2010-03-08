@@ -4,7 +4,7 @@ describe Admin::MessagesController do
   mock_model :message
   
   describe :get => :index, :message => Factory.attributes_for(:message) do
-    expects :all_order_by, :on => Message, :returns => mock_messages
+    expects :order_by, :on => Message, :returns => mock_messages
     
     it { should render_template 'admin/messages/index' }
   end

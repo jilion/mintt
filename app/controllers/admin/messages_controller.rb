@@ -3,14 +3,14 @@ class Admin::MessagesController < Admin::AdminController
   
   # GET /admin/messages
   def index
-    params[:all_order_by] ||= 'created_at'
+    params[:order_by] ||= 'created_at'
     params[:sort_way] ||= 'desc'
     @messages = Message.all_order_by(params, :trashed => false)
   end
   
   # GET /admin/messages
   def trash
-    params[:all_order_by] ||= 'created_at'
+    params[:order_by] ||= 'created_at'
     params[:sort_way] ||= 'desc'
     @messages = Message.all_order_by(params, :trashed => true)
     render :index
