@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::AdminController
   
   # GET /admin/users
   def index
-    params[:all_order_by] ||= 'created_at'
+    params[:order_by] ||= 'created_at'
     @users = User.all_order_by(params)
   end
   

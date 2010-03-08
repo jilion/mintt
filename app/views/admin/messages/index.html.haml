@@ -2,7 +2,7 @@
 .text
   %h3= "Messages"
   
-  = action_name == 'index' ? link_to('Trash', trash_admin_messages_path) : link_to('Inbox', admin_messages_path)
+  .actions_right= action_name == 'index' ? link_to('Go to Trash', trash_admin_messages_path) : link_to('Go to Inbox', admin_messages_path)
   
   %table
     - 5.times do
