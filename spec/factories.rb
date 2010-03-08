@@ -2,7 +2,8 @@ Factory.define :user, :default_strategy => :build do |u|
   u.gender "male"
   u.first_name 'Joe'
   u.last_name  'Blow'
-  u.faculty "Computer Science"
+  u.school "Computer Science"
+  u.lab "Apple Lab"
   u.sequence(:email)  { |n| "email#{n}@epfl.com" }
   u.phone "+41 21 0000000"
   u.url "http://jilion.com"

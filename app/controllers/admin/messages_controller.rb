@@ -5,7 +5,7 @@ class Admin::MessagesController < Admin::AdminController
   def index
     params[:order_by] ||= 'created_at'
     params[:sort_way] ||= 'desc'
-    @messages = Message.all_order_by(params, :trashed => false)
+    @messages = Message.all_order_by(params.slice(:order_by, :sort_way), { :trashed => false, :page => params[:page] })
   end
   
   # GET /admin/messages

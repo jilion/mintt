@@ -11,17 +11,23 @@
   .spacer
   .card
     %p
-      = image_tag "/images/admin/faculty.png", :alt => "Faculty"
-      = @user.faculty.capitalize
+      = image_tag "/images/admin/school.png", :alt => "School"
+      = "#{@user.school.capitalize} (lab: #{@user.lab.capitalize})"
+    
     %p
       = image_tag "/images/admin/phone.png", :alt => "Phone"
       = @user.phone
-    %p
-      = image_tag "/images/admin/web.png", :alt => "Url"
-      = user_url(@user)
-    %p
-      = image_tag "/images/admin/linkedin.png", :alt => "LinkedIn"
-      = user_linkedin_url(@user)
+    
+    - unless @user.url.blank?
+      %p
+        = image_tag "/images/admin/web.png", :alt => "Url"
+        = user_url(@user)
+    
+    - unless @user.linkedin_url.blank?
+      %p
+        = image_tag "/images/admin/linkedin.png", :alt => "LinkedIn"
+        = user_linkedin_url(@user)
+  
   .text_box
     %p= "<strong>Thesis supervisor</strong>: #{@user.thesis_supervisor}"
     %p= "<strong>Thesis subject</strong>: #{@user.thesis_subject}"
@@ -35,7 +41,7 @@
     %p
     - semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
       - f.inputs do
-        = f.input :comment, :as => :text
+        = f.input :comment, :as => :text, :label => "SRI Comment"
       
       - f.buttons do
         = f.commit_button "Save comment"

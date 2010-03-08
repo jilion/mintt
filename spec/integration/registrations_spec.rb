@@ -13,7 +13,8 @@ describe "Registrations" do
     choose "user_gender_male"
     fill_in "user_first_name", :with => "Joe"
     fill_in "user_last_name",  :with => "Blow"
-    fill_in "user_faculty",    :with => "Computer Science"
+    fill_in "user_school",    :with => "Computer Science"
+    fill_in "user_lab",    :with => "Apple Lab"
     fill_in "user_email",      :with => "remy@jilion.com"
     fill_in "user_phone",      :with => "0 21 000 00 00"
     fill_in "user_url",        :with => "http://jilion.com"
@@ -31,7 +32,7 @@ describe "Registrations" do
     
     response.should redirect_to root_url
     
-    flash[:success].should contain('You will receive an email with instructions about how to confirm your application in a few minutes.')
+    flash[:success].should contain('Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes.')
     ActionMailer::Base.deliveries.size.should == 1
   end
 
