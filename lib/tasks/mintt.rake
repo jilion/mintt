@@ -50,7 +50,8 @@ private
       u.gender = MALE_FEMALE.rand
       u.first_name = Faker::Name.first_name
       u.last_name = Faker::Name.last_name
-      u.faculty = Faker::Lorem.sentence(1)
+      u.school = Faker::Lorem.sentence(1)
+      u.lab = Faker::Lorem.sentence(1)
       u.email = Faker::Internet.email
       u.phone = Faker::PhoneNumber.phone_number
       u.url = "http://#{Faker::Internet.domain_name}"
@@ -65,6 +66,9 @@ private
       u.motivation = Faker::Lorem.paragraphs
       u.agreement = '1'
       u.save!
+      u.confirmed_at = rand > 0.5 ? Date.new : nil
+      u.save!
+      puts u.confirmed_at
     end
     print "#{count} users created.\n\n"
   end

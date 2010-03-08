@@ -4,8 +4,8 @@ module Admin::UsersHelper
     user.gender == 'male' ? 'M' : 'F'
   end
   
-  def user_full_name(user)
-    "#{user.first_name} #{user.last_name}".titleize
+  def user_full_name(user, reverse = false)
+    reverse ? "#{user.last_name} #{user.first_name}" : "#{user.first_name} #{user.last_name}".titleize
   end
   
   def user_full_name_with_email(user)

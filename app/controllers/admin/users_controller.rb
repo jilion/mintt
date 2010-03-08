@@ -4,7 +4,7 @@ class Admin::UsersController < Admin::AdminController
   # GET /admin/users
   def index
     params[:order_by] ||= 'created_at'
-    @users = User.all_order_by(params)
+    @users = User.all_order_by(params.slice(:order_by, :sort_way), { :confirmed_at.ne => nil , :page => params[:page] })
   end
   
   # GET /admin/users/:id
@@ -21,7 +21,7 @@ class Admin::UsersController < Admin::AdminController
   def update
     @user = User.find(params[:id])
     
-    if @user.update_attributes!(params[:user])
+    if @user.update_attributes(params[:user])
       flash[:success] = 'User successfully updated'
       redirect_to admin_user_path(@user)
     else

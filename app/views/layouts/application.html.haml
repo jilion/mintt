@@ -31,7 +31,7 @@
         = yield
       #sidebar
         %h3= "2010 Application"
-        %p= "The applications are now open till April 16, 2010. Use the button below to apply."
+        %p= "The applications are now open till the end of April 2010. Use the button below to apply."
         .box
           - link_to new_user_registration_path, :id => "registration_button" do
             %span= "Apply for the 2010 course"
@@ -46,19 +46,12 @@
           %li= "When: June 8 & 9 and October 6, 2010"
           %li= "Number of credits: 3"
           %li= "Number of students: 18 max. Decided upon a selection balancing several factors including multi-disciplinarity"
+          %li= "Composed of #{ link_to '8 modules', page_path('modules') }"
           %li= "Form of Exam: Oral presentation and project report"
-          %li= "Delay to submit application: April 16, 2010 through #{ link_to 'online application', new_user_registration_path }"
+          %li= "Delay to submit application: End of April 2010 through #{ link_to 'online application', new_user_registration_path }"
           %li= "Location: #{ link_to 'EPFL Science Park, PSE-C building', 'http://bit.ly/aWDL19', :onclick => 'window.open(this); return false' }"
         %h4= "More info"
         %p= "If you have any question, Please contact us through the following #{link_to 'form', '/contact'}."
-        -#%ul{:id => 'site-actions'}
-        -#  - if user_signed_in?
-        -#    %li= current_user.email
-        -#    %li= link_to 'My info', edit_user_path
-        -#    %li= link_to 'Sign out', destroy_user_session_path
-        -#  - else
-        -#    %li= link_to 'Sign in', new_user_session_path
-        -#    %li= link_to 'Sign up', new_user_path
       .spacer
       #footer
         %p= "#{ link_to 'Contact', '/contact' } |  © 2010 EPFL , SRI, CM 2-Station 10, CH-1015 Lausanne, tel. +41 (0)21 693 70 23"

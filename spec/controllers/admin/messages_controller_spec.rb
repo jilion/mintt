@@ -4,14 +4,25 @@ describe Admin::MessagesController do
   mock_model :message
   
   describe :get => :index, :message => Factory.attributes_for(:message) do
-    expects :order_by, :on => Message, :returns => mock_messages
+    expects :all_order_by, :on => Message, :returns => mock_messages
+    
+    # it { params.include?(:order_by).should be_true }
+    # it { params.include?(:sort_way).should be_true }
     
     it { should render_template 'admin/messages/index' }
   end
   
   describe :get => :show, :message => Factory.attributes_for(:message), :id => "1" do
     expects :find, :on => Message, :with => "1", :returns => mock_message
+    expects :unread?, :on => mock_message, :returns => true
     expects :update_attributes!, :on => mock_message, :with => { :read => true }, :returns => true
+    
+    it { should render_template 'admin/messages/show' }
+  end
+  
+  describe :get => :show, :message => Factory.attributes_for(:message).merge({ :read => true }), :id => "1" do
+    expects :find, :on => Message, :with => "1", :returns => mock_message
+    expects :unread?, :on => mock_message, :returns => false
     
     it { should render_template 'admin/messages/show' }
   end

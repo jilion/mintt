@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
   # Waiting for remarkable_mongo to work...
   # it { should have_keys(:gender, :supervisor_authorization, :doctoral_school_rules, :agreement, Boolean) }
-  # it { should have_keys(:first_name, :last_name, :faculty, :phone, :email, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :motivation, String) }
+  # it { should have_keys(:first_name, :last_name, :school, :phone, :email, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :motivation, String) }
   # it { should validate_presence_of(:first_name) }
   
   before(:each) do
@@ -16,7 +16,8 @@ describe User do
     its(:gender) { should == "male" }
     its(:first_name) { should == "Joe" }
     its(:last_name) { should == "Blow" }
-    its(:faculty) { should == "Computer Science" }
+    its(:school) { should == "Computer Science" }
+    its(:lab) { should == "Apple Lab" }
     its(:phone) { should == "+41 21 0000000" }
     its(:email) { should match /email[0-9]+@epfl.com/ }
     its(:url) { should == "http://jilion.com" }
@@ -46,8 +47,12 @@ describe User do
       Factory(:user, :last_name => nil).should_not be_valid
     end
     
-    it "without faculty" do
-      Factory(:user, :faculty => nil).should_not be_valid
+    it "without school" do
+      Factory(:user, :school => nil).should_not be_valid
+    end
+    
+    it "without lab" do
+      Factory(:user, :lab => nil).should_not be_valid
     end
     
     it "without last_name" do

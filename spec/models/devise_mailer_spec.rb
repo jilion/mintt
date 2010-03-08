@@ -17,7 +17,7 @@ describe DeviseMailer do
     end
     
     it "should render the liquid template with interpolation" do
-      @email.should have_text("#{@user.first_name} #{@user.last_name} #{link_to('Confirm my account', { :host => Rails.env.production? ? MINTT_EPFL : MINTT_LOCAL, :controller => 'confirmations', :action => 'show', :confirmation_token => @user.confirmation_token })}\n")
+      @email.should have_text("#{@user.first_name} #{@user.last_name} #{link_to('Confirm my application', { :host => Rails.env.production? ? MINTT_EPFL : MINTT_LOCAL, :controller => 'confirmations', :action => 'show', :confirmation_token => @user.confirmation_token })}\n")
     end
     
     it "should have the correct subject" do

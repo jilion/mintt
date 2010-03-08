@@ -7,7 +7,8 @@ class User < Model
   key :gender, String
   key :first_name, String
   key :last_name, String
-  key :faculty, String
+  key :school, String
+  key :lab, String
   key :email, String
   key :phone, String
   key :url, String
@@ -34,7 +35,7 @@ class User < Model
   URL_REGEX = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/i
   LINKEDIN_URL_REGEX = /\A(http|https):\/\/([a-z]+)\.linkedin\.com\/in\/([a-z0-9]+)\z/i
   
-  validates_presence_of :email, :first_name, :last_name, :faculty, :phone, :thesis_supervisor, :thesis_subject, 
+  validates_presence_of :email, :first_name, :last_name, :school, :lab, :phone, :thesis_supervisor, :thesis_subject, 
                         :message => "This field can't be empty"
   
   validates_uniqueness_of :email
@@ -82,7 +83,7 @@ class User::LiquidDropClass
   end
   
   def confirmation_link
-    link_to('Confirm my account', { :host => Rails.env.production? ? MINTT_EPFL : MINTT_LOCAL, :controller => 'confirmations', :action => 'show', :confirmation_token => self.confirmation_token })
+    link_to('Confirm my application', { :host => Rails.env.production? ? MINTT_EPFL : MINTT_LOCAL, :controller => 'confirmations', :action => 'show', :confirmation_token => self.confirmation_token })
   end
   
 end

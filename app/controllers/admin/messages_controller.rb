@@ -5,7 +5,7 @@ class Admin::MessagesController < Admin::AdminController
   def index
     params[:order_by] ||= 'created_at'
     params[:sort_way] ||= 'desc'
-    @messages = Message.all_order_by(params, :trashed => false)
+    @messages = Message.all_order_by(params.slice(:order_by, :sort_way), { :trashed => false, :page => params[:page] })
   end
   
   # GET /admin/messages
@@ -19,7 +19,7 @@ class Admin::MessagesController < Admin::AdminController
   # GET /admin/messages/:id
   def show
     @message = Message.find(params[:id])
-    @message.update_attributes!(:read => true)
+    @message.update_attributes!(:read => true) if @message.unread?
   end
   
   # PUT /admin/messages/:id

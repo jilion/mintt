@@ -13,6 +13,6 @@
     = back_to_inbox_or_trash(@message)
     
   .content
-    .from= "<strong>From</strong>: #{message_sender_name_with_email_and_mailto(@message)}"  
-    .date= "<strong>Date Received</strong>: #{sexy_date(@message.created_at)}"
+    .from= "<strong>From</strong>: #{message_sender_name_with_email_and_mailto(@message, 'hex', "#{message_sender_name_with_email(@message)} wrote on #{@message.created_at}:\n\n#{@message.content}")}"
+    .date= "<strong>Date Received</strong>: #{sexy_date(@message.created_at)}, #{@message.created_at.strftime("%I:%m %p")}"
     .body= @message.content
