@@ -11,7 +11,15 @@ describe Admin::MessagesController do
   
   describe :get => :show, :message => Factory.attributes_for(:message), :id => "1" do
     expects :find, :on => Message, :with => "1", :returns => mock_message
+    expects :unread?, :on => mock_message, :returns => true
     expects :update_attributes!, :on => mock_message, :with => { :read => true }, :returns => true
+    
+    it { should render_template 'admin/messages/show' }
+  end
+  
+  describe :get => :show, :message => Factory.attributes_for(:message).merge({ :read => true }), :id => "1" do
+    expects :find, :on => Message, :with => "1", :returns => mock_message
+    expects :unread?, :on => mock_message, :returns => false
     
     it { should render_template 'admin/messages/show' }
   end

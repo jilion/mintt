@@ -40,7 +40,7 @@ module MultiParameterAttributes
           Time.zone.local(*values)
         elsif Date == klass
           begin
-            values = values_with_empty_parameters.collect do |v| v.nil? ? 1 : v end
+            values = values_with_empty_parameters.collect do |v| v.blank? ? 1 : v end
             Date.new(*values)
           rescue ArgumentError => ex # if Date.new raises an exception on an invalid date
             Time.zone.local(*values).to_date # we instantiate Time object and convert it back to a date thus using Time's logic in handling invalid dates

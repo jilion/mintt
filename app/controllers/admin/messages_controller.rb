@@ -19,7 +19,7 @@ class Admin::MessagesController < Admin::AdminController
   # GET /admin/messages/:id
   def show
     @message = Message.find(params[:id])
-    @message.update_attributes!(:read => true)
+    @message.update_attributes!(:read => true) if @message.unread?
   end
   
   # PUT /admin/messages/:id
