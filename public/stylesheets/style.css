@@ -205,7 +205,7 @@ a#registration_button span {display:none;}
 #sidebar ul.entities li a {
   display:block;
   padding:10px 0 8px;
-  color:#fff;
+/*  color:#fff;*/
   font-weight:500;
 }
 
@@ -336,6 +336,7 @@ form.main .string input, form.main textarea {
 
 form.main textarea {
   margin-bottom:-9px;
+  height:200px;
   resize:vertical;
 }
 
@@ -369,7 +370,7 @@ form.main p.inline-errors {
   color:#fff;
   font-weight:500;
   text-shadow:none;
-  border: 2px solid #a45500;
+  border:2px solid #a45500;
 }
 
 form.main .required_mention {
@@ -385,13 +386,13 @@ form.main .required_mention {
 }
 
 #flash {
-  padding:4px 0;
+  padding:40px 0;
   text-align:center;
   background:#a5ce37;
   color:#304703;
   text-shadow:none;
   font-weight:bold;
-  font-size:14px;
+  font-size:30px;
   border-bottom: 1px solid #000;
 }
 
