@@ -15,6 +15,10 @@ module ApplicationHelper
     end
   end
   
+  def sexy_time(date)
+    date.strftime("%I:%M %p")
+  end
+  
   def words_count(text)
     return 0 if text.nil?
     count = text.split(' ').size

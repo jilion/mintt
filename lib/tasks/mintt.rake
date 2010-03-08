@@ -68,7 +68,6 @@ private
       u.save!
       u.confirmed_at = rand > 0.5 ? Date.new : nil
       u.save!
-      puts u.confirmed_at
     end
     print "#{count} users created.\n\n"
   end

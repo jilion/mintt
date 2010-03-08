@@ -3,7 +3,6 @@ class Admin::UsersController < Admin::AdminController
   
   # GET /admin/users
   def index
-    params[:order_by] ||= 'created_at'
     @users = User.all_order_by(params.slice(:order_by, :sort_way), { :confirmed_at.ne => nil , :page => params[:page] })
   end
   
