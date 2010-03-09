@@ -5,11 +5,7 @@ class Admin::UsersController < Admin::AdminController
   def index
     respond_to do |wants|
       wants.html do
-        @users = if params.key? :all
-          User.all_order_by(params.slice(:order_by, :sort_way))
-        else
-          User.paginate_order_by(params.slice(:order_by, :sort_way), { :page => params[:page] })
-        end
+        @users = User.index_order_by(params)
         render :index
       end
       wants.csv { render :csv => User.all(:confirmed_at.ne => nil, :trashed_at => nil) }

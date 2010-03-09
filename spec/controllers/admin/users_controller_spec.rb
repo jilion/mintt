@@ -7,19 +7,19 @@ describe Admin::UsersController do
   # = index =
   # =========
   describe :get => :index, :page => 2 do
-    expects :paginate_order_by, :on => User, :with => [{}, { :page => "2" }], :returns => mock_users
+    expects :index_order_by, :on => User, :with => { "action" => "index", "controller" => "admin/users", "page" => "2" }, :returns => mock_users
     
     it { should render_template 'admin/users/index.html.haml' }
   end
   
   describe :get => :index, :all => true do
-    expects :all_order_by, :on => User, :returns => mock_users
+    expects :index_order_by, :on => User, :with => { "all" => true, "action" => "index", "controller" => "admin/users" }, :returns => mock_users
     
     it { should render_template 'admin/users/index.html.haml' }
   end
   
   describe :get => :index, :page => 2, :format => 'csv' do
-    expects :all, :on => User, :returns => mock_users
+    expects :all, :on => User, :with => { "action" => "index", "controller" => "admin/users", "format" => "csv" }, :returns => mock_users
   end
   
   # ========

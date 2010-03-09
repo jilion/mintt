@@ -1,6 +1,8 @@
-class User < Model
+class User
   include MongoMapper::Document
   include MultiParameterAttributes
+  
+  @@per_page = 10
   
   attr_accessor :agreement
   
@@ -98,13 +100,23 @@ protected
 
 public
   
-  def self.all_order_by(sort_options = {}, options = {})
-     super(sort_options, options.reverse_merge(:confirmed_at.ne => nil))
-   end
-   
-   def self.paginate_order_by(sort_options = {}, options = {})
-     super(sort_options, options.reverse_merge(:confirmed_at.ne => nil, :per_page => @@per_page))
-   end
+  def self.index_order_by(params = {})
+    should_paginate = !params.key?(:all)
+    options = order_hash(params).merge(:trashed_at => nil)
+    options.merge!({ :page => params[:page], :per_page => @@per_page }) if should_paginate(params)
+    send((should_paginate(params) ? "paginate" : "all"), options)
+  end
+  
+private
+  def self.order_hash(options = {})
+    { :order => "#{options[:order_by] || 'created_at'} #{options[:sort_way] || 'desc'}" }
+  end
+  
+  def self.should_paginate(params = {})
+    !params.key?(:all)
+  end
+
+public
   
   def trashed?
     !trashed_at.nil?

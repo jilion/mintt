@@ -7,13 +7,13 @@ describe Admin::MessagesController do
   # = index =
   # =========
   describe :get => :index, :page => 2 do
-    expects :paginate_order_by, :on => Message, :with => [{}, { :page => "2" }], :returns => mock_messages
+    expects :index_order_by, :on => Message, :with => { "action" => "index", "controller" => "admin/messages", "page" => "2" }, :returns => mock_messages
     
     it { should render_template 'admin/messages/index.html.haml' }
   end
   
   describe :get => :index, :all => true do
-    expects :all_order_by, :on => Message, :returns => mock_messages
+    expects :index_order_by, :on => Message, :with => { "all" => true, "action" => "index", "controller" => "admin/messages" }, :returns => mock_messages
     
     it { should render_template 'admin/messages/index.html.haml' }
   end
@@ -22,13 +22,13 @@ describe Admin::MessagesController do
   # = trashs =
   # ==========
   describe :get => :trashs, :page => 2 do
-    expects :paginate_trashed_order_by, :on => Message, :with => [{}, { :page => "2" }], :returns => mock_messages
+    expects :trash_order_by, :on => Message, :with => { "action" => "trashs", "controller" => "admin/messages", "page" => "2" }, :returns => mock_messages
     
     it { should render_template 'admin/messages/trashs.html.haml' }
   end
   
   describe :get => :trashs, :all => true do
-    expects :all_trashed_order_by, :on => Message, :with => [{}], :returns => mock_messages
+    expects :trash_order_by, :on => Message, :with => { "all" => true, "action" => "trashs", "controller" => "admin/messages" }, :returns => mock_messages
     
     it { should render_template 'admin/messages/trashs.html.haml' }
   end

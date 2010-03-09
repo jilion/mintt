@@ -1,5 +1,7 @@
-class Message < Model
+class Message
   include MongoMapper::Document
+  
+  @@per_page = 10
   
   key :sender_name, String
   key :sender_email, String
@@ -26,22 +28,49 @@ protected
   end
   
 public
-  def self.all_order_by(sort_options = {}, options = {})
-    super(sort_options, options.reverse_merge(:trashed_at => nil))
+  def self.index_order_by(params = {})
+    options = order_hash(params).merge(:trashed_at => nil)
+    options.merge!({ :page => params[:page], :per_page => @@per_page }) if should_paginate(params)
+    send((should_paginate(params) ? "paginate" : "all"), options)
   end
   
-  def self.paginate_order_by(sort_options = {}, options = {})
-    super(sort_options, options.reverse_merge(:trashed_at => nil, :per_page => @@per_page))
+  def self.trash_order_by(params = {})
+    options = order_hash(params).merge(:trashed_at.ne => nil)
+    options.merge!({ :page => params[:page], :per_page => @@per_page }) if should_paginate(params)
+    send((should_paginate(params) ? "paginate" : "all"), options)
   end
   
-  def self.all_trashed_order_by(sort_options = {}, options = {})
-    Model.all_order_by(sort_options, options.reverse_merge(:trashed_at.ne => nil))
+private
+  def self.order_hash(options = {})
+    { :order => "#{options[:order_by] || 'created_at'} #{options[:sort_way] || 'desc'}" }
   end
   
-  def self.paginate_trashed_order_by(sort_options = {}, options = {})
-    Model.paginate_order_by(sort_options, options.reverse_merge(:trashed_at.ne => nil, :per_page => @@per_page))
+  def self.should_paginate(params = {})
+    !params.key?(:all)
   end
   
+  # def self.all_order_by(sort_options = {}, options = {})
+  #   super(sort_options, options.reverse_merge(:trashed_at => nil))
+  # end
+  # 
+  # def self.paginate_order_by(sort_options = {}, options = {})
+  #   super(sort_options, options.reverse_merge(:trashed_at => nil, :per_page => @@per_page))
+  # end
+  # 
+  # def self.paginate_order_by(sort_options = {}, options = {})
+  #   order = { :order => "#{sort_options[:order_by] || 'created_at'} #{sort_options[:sort_way] || 'desc'}" }
+  #   paginate(options.merge(order))
+  # end
+  # 
+  # def self.all_trashed_order_by(sort_options = {}, options = {})
+  #   all_order_by(sort_options, options.reverse_merge(:trashed_at.ne => nil))
+  # end
+  # 
+  # def self.paginate_trashed_order_by(sort_options = {}, options = {})
+  #   paginate_order_by(sort_options, options.reverse_merge(:trashed_at.ne => nil, :per_page => @@per_page))
+  # end
+
+public
   def unread?
     read_at.nil?
   end

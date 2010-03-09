@@ -3,21 +3,13 @@ class Admin::MessagesController < Admin::AdminController
   
   # GET /admin/messages
   def index
-    @messages = if params.key? :all
-      Message.all_order_by(params.slice(:order_by, :sort_way))
-    else
-      Message.paginate_order_by(params.slice(:order_by, :sort_way), { :page => params[:page] })
-    end
+    @messages = Message.index_order_by(params)
     render :index
   end
   
   # GET /admin/messages/trashs
   def trashs
-    @messages = if params.key? :all
-      Message.all_trashed_order_by(params.slice(:order_by, :sort_way))
-    else
-      Message.paginate_trashed_order_by(params.slice(:order_by, :sort_way), { :page => params[:page] })
-    end
+    @messages = Message.trash_order_by(params)
   end
   
   # GET /admin/messages/:id
