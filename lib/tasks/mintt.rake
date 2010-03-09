@@ -38,9 +38,9 @@ end
 
 private
   def empty_tables(*tables)
-    print "Deleting the content of #{tables}.. => "
+    print "Deleting the content of #{tables.join(', ')}.. => "
     tables.each { |model| model.delete_all }
-    print "#{tables} empty!\n\n"
+    print "#{tables.join(', ')} empty!\n\n"
   end
 
   def create_users(count)
