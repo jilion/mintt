@@ -3,10 +3,16 @@ class Admin::UsersController < Admin::AdminController
   
   # GET /admin/users
   def index
-    @users = if params.key? :all
-      User.all_order_by(params.slice(:order_by, :sort_way), { :confirmed_at.ne => nil })
-    else
-      User.paginate_all_order_by(params.slice(:order_by, :sort_way), { :confirmed_at.ne => nil, :page => params[:page] })
+    respond_to do |wants|
+      wants.html do
+        @users = if params.key? :all
+          User.all_order_by(params.slice(:order_by, :sort_way))
+        else
+          User.paginate_order_by(params.slice(:order_by, :sort_way), { :page => params[:page] })
+        end
+        render :index
+      end
+      wants.csv { render :csv => User.all(:confirmed_at.ne => nil, :trashed_at => nil) }
     end
   end
   
@@ -45,12 +51,6 @@ class Admin::UsersController < Admin::AdminController
     @user = User.find(params[:id])
     flash[:success] = 'User successfully destroyed' if @user.destroy
     redirect_to admin_users_path
-  end
-  
-private
-  
-  def ensure_keys_exists
-    params[:user].slice(*User.keys.keys) if params[:user]
   end
   
 end

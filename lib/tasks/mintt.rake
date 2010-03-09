@@ -66,7 +66,7 @@ private
       u.motivation = Faker::Lorem.paragraphs
       u.agreement = '1'
       u.save!
-      u.confirmed_at = rand > 0.5 ? Date.new : nil
+      u.confirmed_at = rand > 0.5 ? Time.now.to_date : nil
       u.save!
     end
     print "#{count} users created.\n\n"

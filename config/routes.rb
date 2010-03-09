@@ -17,4 +17,5 @@ ActionController::Routing::Routes.draw do |map|
   
   map.page ':id', :controller => 'pages', :action => 'show', :requirements => { :id => /home|modules/ }
   
+  map.connect "*path", :controller => 'pages', :action => 'show', :id => 'home'
 end

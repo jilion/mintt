@@ -16,9 +16,9 @@ class RegistrationsController < ApplicationController
   end
   
 private
-  
   def ensure_keys_exists
-    params[:user].slice(*User.keys.keys) if params[:user]
+    object_name = controller_name.singularize
+    params[resource_name].slice(*User.keys.keys) if params[resource_name]
   end
   
 end

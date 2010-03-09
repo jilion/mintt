@@ -18,6 +18,8 @@ describe Message do
     it { should be_unread }
     it { should be_unreplied }
     it { should_not be_trashed }
+    it { should_not be_read }
+    it { should_not be_replied }
     
     it { should be_valid }
   end

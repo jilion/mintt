@@ -3,25 +3,30 @@ require 'spec_helper'
 describe MessagesController do
   mock_model :message
   
-  describe :get => :new, :message => Factory.attributes_for(:message) do
+  # =======
+  # = get =
+  # =======
+  describe :get => :new do
     expects :new, :on => Message, :returns => mock_message
     
-    it { should render_template 'messages/new' }
+    it { should render_template 'messages/new.html.haml' }
   end
   
-  describe :post => :create, :message => Factory.attributes_for(:message).merge({ :not_registered_key => 'foo' }) do
+  # ========
+  # = post =
+  # ========
+  describe :post => :create do # successful
     expects :new, :on => Message, :returns => mock_message
     expects :save, :on => mock_message, :returns => true
     
-    it { params.include?(:not_registered_key).should_not be_true }
     it { should redirect_to root_url }
   end
   
-  describe :post => :create, :message => {} do
+  describe :post => :create do # fail
     expects :new, :on => Message, :returns => mock_message
     expects :save, :on => mock_message, :returns => false
     
-    it { should render_template 'messages/new' }
+    it { should render_template 'messages/new.html.haml' }
   end
   
 end

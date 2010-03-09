@@ -8,4 +8,22 @@ module Admin::AdminHelper
     (params[:sort_way]||'').downcase == 'asc' && params[:order_by] == field ? 'desc' : 'asc'
   end
   
+  def smart_objects_objects_displayed_range(collections)
+    begin
+      from = collections.per_page*(collections.current_page-1)+1
+      to = [collections.total_entries, collections.per_page*collections.current_page].min
+      "#{from}-#{to}"
+    rescue
+      collections.size
+    end
+  end
+  
+  def smart_objects_count(collections)
+    begin
+      collections.total_entries
+    rescue
+      collections.size
+    end
+  end
+  
 end

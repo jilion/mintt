@@ -1,9 +1,4 @@
-User registration => User application : OK!
-User application mail => Copie Rosina et Mehdi : OK pour Mehdi
-Archivage des messages : OK
-
 Google analytics
-
 
 
 Bug/Typo/Style Fix: Général:
@@ -39,8 +34,7 @@ New features:
 OK • [Design] Changer l’affichage des flash, mettre un bandeau plus visible
 OK • [Design] Liens SRI et CDM en vert
 • [Design] Contour des boutons du menu en vert ?
-• Trash des users (deleted_at)
-• Trash box: cacher la poubelle pour le moment
+OK • Trash des users (trashed_at)
 • HTTPS pour login ?
-• Export CSV de la listes des candidates
-• All dans la liste des candidates
+OK • Export CSV de la listes des candidates
+OK • All dans la liste des candidates

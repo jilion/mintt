@@ -21,18 +21,12 @@ class Admin::MailTemplatesController < Admin::AdminController
   def update
     @mail_template = MailTemplate.find(params[:id])
     
-    if @mail_template.update_attributes!(params[:mail_template])
+    if @mail_template.update_attributes(params[:mail_template])
       flash[:success] = 'Mail template successfully updated'
       redirect_to admin_mail_template_path(@mail_template)
     else
       render :edit
     end
-  end
-  
-private
-  
-  def ensure_keys_exists
-    params[:mail_template].slice(*MailTemplate.keys.keys) if params[:mail_template]
   end
   
 end

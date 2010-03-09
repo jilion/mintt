@@ -1,6 +1,6 @@
 - title 'mintt: admin | Messages'
 .text
-  %h3= "Messages"
+  %h3= "Messages : #{smart_objects_objects_displayed_range(@messages)} of #{smart_objects_count(@messages)}"
   
   .actions_right= link_to('Go to Trash', trashs_admin_messages_path)
   
@@ -34,7 +34,7 @@
           = button_to("trash", trash_admin_message_path(message), :method => :put, :id => "trash_message_#{message.id}", :class => "button delete")
   
   - unless params.key? :all
-    = will_paginate(@messages)
+    = will_paginate @messages
     = link_to "View all", admin_messages_path(:all => true)
   - else
     = link_to "View with paginate", admin_messages_path

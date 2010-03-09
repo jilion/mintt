@@ -4,18 +4,19 @@ class Admin::MessagesController < Admin::AdminController
   # GET /admin/messages
   def index
     @messages = if params.key? :all
-      Message.all_order_by(params.slice(:order_by, :sort_way), { :trashed_at => nil })
+      Message.all_order_by(params.slice(:order_by, :sort_way))
     else
-      Message.paginate_all_order_by(params.slice(:order_by, :sort_way), { :trashed_at => nil, :page => params[:page] })
+      Message.paginate_order_by(params.slice(:order_by, :sort_way), { :page => params[:page] })
     end
+    render :index
   end
   
   # GET /admin/messages/trashs
   def trashs
     @messages = if params.key? :all
-      Message.all_order_by(params.slice(:order_by, :sort_way), { :trashed_at.ne => nil })
+      Message.all_trashed_order_by(params.slice(:order_by, :sort_way))
     else
-      Message.paginate_all_order_by(params.slice(:order_by, :sort_way), { :trashed_at.ne => nil, :page => params[:page] })
+      Message.paginate_trashed_order_by(params.slice(:order_by, :sort_way), { :page => params[:page] })
     end
   end
   
@@ -55,12 +56,6 @@ class Admin::MessagesController < Admin::AdminController
     
     flash[:success] = 'Message successfully destroyed' if @message.destroy
     redirect_to trashs_admin_messages_path
-  end
-  
-private
-  
-  def ensure_keys_exists
-    params[:message].slice(*Message.keys.keys) if params[:message]
   end
   
 end

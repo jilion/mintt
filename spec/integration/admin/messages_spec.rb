@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Admin messages" do
   
-  before :all do
+  before(:all) do
     ActionMailer::Base.deliveries.clear
     @messages = 3.times.inject([]) { |memo, i| memo << Factory.create(:message) }
     visit admin_messages_path

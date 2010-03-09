@@ -18,10 +18,4 @@ class MessagesController < ApplicationController
     end
   end
   
-private
-  
-  def ensure_keys_exists
-    params[:message].slice(*Message.keys.keys)  if params[:message]
-  end
-  
 end

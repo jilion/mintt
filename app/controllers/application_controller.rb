@@ -14,4 +14,11 @@ class ApplicationController < ActionController::Base
     { :host => Rails.env.production? ? MINTT_EPFL : MINTT_LOCAL }
   end
   
+protected
+
+  def ensure_keys_exists
+    object_name = controller_name.singularize.to_sym
+    params[object_name].slice(*controller_name.classify.constantize.keys.keys) if params[object_name]
+  end
+  
 end
