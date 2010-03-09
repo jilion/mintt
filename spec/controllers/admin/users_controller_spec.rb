@@ -36,9 +36,9 @@ describe Admin::UsersController do
     it { should render_template 'admin/users/edit' }
   end
   
-  describe :delete => :destroy, :user => Factory.attributes_for(:user), :id => "1" do
+  describe :put => :trash, :id => "1" do
     expects :find, :on => User, :with => "1", :returns => mock_user
-    expects :destroy, :on => mock_user, :returns => true
+    expects :update_attributes!, :on => mock_user, :returns => true
     
     it { should redirect_to admin_users_path }
   end

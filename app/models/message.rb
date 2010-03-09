@@ -4,10 +4,12 @@ class Message < Model
   key :sender_name, String
   key :sender_email, String
   key :content, String
-  key :read, Boolean, :default => false
-  key :replied, Boolean, :default => false
-  key :trashed, Boolean, :default => false
+  key :read_at, DateTime, :default => nil
+  key :replied_at, DateTime, :default => nil
+  key :trashed_at, DateTime, :default => nil
   timestamps!
+  
+  @@per_page = 10
   
   # Email regex used to validate email formats. Retrieved from authlogic.
   EMAIL_REGEX = /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2,4}|museum|travel)\z/i
@@ -19,11 +21,23 @@ class Message < Model
   after_create :notify_of_new_message
   
   def unread?
-    !read?
+    read_at.nil?
+  end
+  
+  def read?
+    !unread?
   end
   
   def unreplied?
-    !replied?
+    replied_at.nil?
+  end
+  
+  def replied?
+    !unreplied?
+  end
+  
+  def trashed?
+    !trashed_at.nil?
   end
   
 protected

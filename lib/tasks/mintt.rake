@@ -81,8 +81,8 @@ private
       m.sender_email = Faker::Internet.email
       m.content = Faker::Lorem.paragraphs
       m.save!
-      m.read = TRUE_FALSE.rand
-      m.replied = m.read? ? TRUE_FALSE.rand : false
+      m.read_at = rand > 0.5 ? Date.new : nil
+      m.replied_at = m.read? ? (rand > 0.5 ? Date.new : nil) : false
       m.save!
     end
     print "#{count} messages created.\n\n"

@@ -3,39 +3,58 @@ class Admin::MessagesController < Admin::AdminController
   
   # GET /admin/messages
   def index
-    @messages = Message.all_order_by(params.slice(:order_by, :sort_way), { :trashed => false, :page => params[:page] })
+    @messages = if params.key? :all
+      Message.all_order_by(params.slice(:order_by, :sort_way), { :trashed_at => nil })
+    else
+      Message.paginate_all_order_by(params.slice(:order_by, :sort_way), { :trashed_at => nil, :page => params[:page] })
+    end
   end
   
-  # GET /admin/messages/trash
-  def trash
-    @messages = Message.all_order_by(params.slice(:order_by, :sort_way), { :trashed => true, :page => params[:page] })
-    render :index
+  # GET /admin/messages/trashs
+  def trashs
+    @messages = if params.key? :all
+      Message.all_order_by(params.slice(:order_by, :sort_way), { :trashed_at.ne => nil })
+    else
+      Message.paginate_all_order_by(params.slice(:order_by, :sort_way), { :trashed_at.ne => nil, :page => params[:page] })
+    end
   end
   
   # GET /admin/messages/:id
   def show
     @message = Message.find(params[:id])
-    @message.update_attributes!(:read => true) if @message.unread?
+    @message.update_attributes!(:read_at => Time.now) if @message.unread?
   end
   
-  # PUT /admin/messages/:id
-  def update
+  # PUT /admin/messages/:id/reply
+  def reply
     @message = Message.find(params[:id])
     
-    if @message.update_attributes!(:replied => true)
-      flash[:success] = 'Message successfully updated'
-      redirect_to admin_message_path(@message)
-    else
-      render :edit
-    end
+    flash[:success] = 'Message successfully mark as replied' if @message.update_attributes!(:replied_at => Time.now)
+    redirect_to admin_message_path(@message)
+  end
+  
+  # PUT /admin/messages/:id/trash
+  def trash
+    @message = Message.find(params[:id])
+    
+    flash[:success] = 'Message successfully trashed' if @message.update_attributes!(:trashed_at => Time.now)
+    redirect_to admin_messages_path
+  end
+  
+  # PUT /admin/messages/:id/untrash
+  def untrash
+    @message = Message.find(params[:id])
+    
+    flash[:success] = 'Message successfully untrashed' if @message.update_attributes!(:trashed_at => nil)
+    redirect_to trashs_admin_messages_path
   end
   
   # DELETE /admin/messages/:id
   def destroy
     @message = Message.find(params[:id])
     
-    flash[:success] = 'Message successfully trashed' if @message.update_attributes!(:trashed => true)
-    redirect_to admin_messages_path
+    flash[:success] = 'Message successfully destroyed' if @message.destroy
+    redirect_to trashs_admin_messages_path
   end
   
 private

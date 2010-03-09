@@ -22,13 +22,12 @@ class User < Model
   key :thesis_invention, String
   key :motivation, String
   key :comment, String
+  key :trashed_at, DateTime, :default => nil
   timestamps!
   
   devise :registerable, :confirmable #, :authenticatable, :activatable, :recoverable, :rememberable, :trackable, :timeoutable, :lockable
   
   liquid_methods *User.keys.keys
-  
-  validate :validate_registration_before_admission_date, :validate_admission_after_registration_date
   
   # Email regex used to validate email formats. Retrieved from authlogic.
   EMAIL_REGEX = /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2,4}|museum|travel)\z/i
@@ -48,13 +47,28 @@ class User < Model
   validates_inclusion_of  :supervisor_authorization,  :within => %w(yes no), :message => "Choose an answer"
   validates_inclusion_of  :doctoral_school_rules,     :within => %w(yes no), :message => "Choose an answer"
   
+  validate :validate_registration_and_admission_date
+  validate :validate_registration_before_admission_date#, :validate_admission_after_registration_date
   validate :validates_acceptance_of_agreement
+  
+  def trashed?
+    !trashed_at.nil?
+  end
   
 protected
   
   def validates_acceptance_of_agreement
     if self.agreement != "1" && self.new_record?
       errors.add(:agreement, "must be accepted")
+    end
+  end
+  
+  def validate_registration_and_admission_date
+    [:thesis_registration_date, :thesis_admission_date].each do |date|
+      if send(date) == Date.new
+        self.send("#{date}=", nil)
+        errors.add(date, "please enter a valid date")
+      end
     end
   end
   
@@ -65,12 +79,12 @@ protected
     end
   end
   
-  def validate_admission_after_registration_date
-    return if self.thesis_registration_date.blank? || self.thesis_admission_date.blank?
-    if self.thesis_admission_date < self.thesis_registration_date
-      errors.add(:thesis_admission_date, "must be after the registration date")
-    end
-  end
+  # def validate_admission_after_registration_date
+  #   return if self.thesis_registration_date.blank? || self.thesis_admission_date.blank?
+  #   if self.thesis_admission_date < self.thesis_registration_date
+  #     errors.add(:thesis_admission_date, "must be after the registration date")
+  #   end
+  # end
   
 end
 

@@ -1,21 +1,23 @@
 # http://gist.github.com/245094 (http://groups.google.com/group/mongomapper/browse_frm/thread/cd6e9d27d576aac4/3bdbe54462403765?lnk=gst&q=date#3bdbe54462403765)
 module MultiParameterAttributes
-  def attributes=(attrs)
+  
+  def attributes=(attributes)
+    return if attributes.blank?
+    
     multi_parameter_attributes = []
-    attrs.each do |name, value|
-      return if attrs.blank?
-      if name.to_s.include?("(")
-        multi_parameter_attributes << [ name, value ]
+    attributes.each do |k, v|
+      if k.to_s.include?("(")
+        multi_parameter_attributes << [ k, v ]
       else
-        writer_method = "#{name}="
+        writer_method = "#{k}="
         if respond_to?(writer_method)
-          self.send(writer_method, value)
+          self.send(writer_method, v)
         else
-          self[name.to_s] = value
+          self[k.to_s] = v
         end
       end
     end
-  
+    
     assign_multiparameter_attributes(multi_parameter_attributes)
   end
   
@@ -27,22 +29,19 @@ module MultiParameterAttributes
   
   def execute_callstack_for_multiparameter_attributes(callstack)
     callstack.each do |name, values_with_empty_parameters|
-      # in order to allow a date to be set without a year, we must keep the empty values.
-      # Otherwise, we wouldn't be able to distinguish it from a date with an empty day.
-      values = values_with_empty_parameters.reject(&:nil?).reject(&:blank?)
-  # Rails.logger.info values.inspect
-  # Rails.logger.info values_with_empty_parameters.inspect
-  Rails.logger.info values.size == values_with_empty_parameters.size
-      if values.any? && values.size == values_with_empty_parameters.size
-        key = self.class.keys[name]
-        raise ArgumentError, "Unknown key #{name}" if key.nil?
-        klass = key.type
-        
+      values = values_with_empty_parameters.reject(&:blank?)
+      
+      key = self.class.keys[name]
+      raise ArgumentError, "Unknown key #{name}" if key.nil?
+      klass = key.type
+      
+      # if the user has selected a complete attribute
+      if values.size == values_with_empty_parameters.size
         value = if Time == klass
           Time.zone.local(*values)
         elsif Date == klass
           begin
-            values = values_with_empty_parameters.collect { |v| v.blank? ? 1 : v }
+            # values = values_with_empty_parameters.collect { |v| v.blank? ? 0 : v }
             Date.new(*values)
           rescue ArgumentError => ex # if Date.new raises an exception on an invalid date
             Time.zone.local(*values).to_date # we instantiate Time object and convert it back to a date thus using Time's logic in handling invalid dates
@@ -50,27 +49,32 @@ module MultiParameterAttributes
         else
           klass.new(*values)
         end
+        
         writer_method = "#{name}="
         if respond_to?(writer_method)
           self.send(writer_method, value)
         else
           self[name.to_s] = value
         end
+        
+      # the user entered a bad formatted attribute (empty or incomplete)
+      else
+        send(name + "=", values.empty? ? nil : klass.new)
       end
     end
   end
   
   def extract_callstack_for_multiparameter_attributes(pairs)
     attributes = { }
-  
+    
     for pair in pairs
       multiparameter_name, value = pair
       attribute_name = multiparameter_name.split("(").first
       attributes[attribute_name] = [] unless attributes.include?(attribute_name)
-  
+      
       attributes[attribute_name] << [ find_parameter_position(multiparameter_name), value ]
     end
-  
+    
     attributes.each { |name, values| attributes[name] = values.sort_by { |v| v.first }.collect { |v| v.last } }
   end
   

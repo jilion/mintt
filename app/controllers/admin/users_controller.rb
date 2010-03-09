@@ -3,7 +3,11 @@ class Admin::UsersController < Admin::AdminController
   
   # GET /admin/users
   def index
-    @users = User.all_order_by(params.slice(:order_by, :sort_way), { :confirmed_at.ne => nil , :page => params[:page] })
+    @users = if params.key? :all
+      User.all_order_by(params.slice(:order_by, :sort_way), { :confirmed_at.ne => nil })
+    else
+      User.paginate_all_order_by(params.slice(:order_by, :sort_way), { :confirmed_at.ne => nil, :page => params[:page] })
+    end
   end
   
   # GET /admin/users/:id
@@ -26,6 +30,14 @@ class Admin::UsersController < Admin::AdminController
     else
       render :edit
     end
+  end
+  
+  # PUT /admin/users/:id/trash
+  def trash
+    @user = User.find(params[:id])
+    
+    flash[:success] = 'User successfully trashed' if @user.update_attributes!(:trashed_at => Time.now)
+    redirect_to admin_users_path
   end
   
   # DELETE /admin/users/:id

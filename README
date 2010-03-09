@@ -6,7 +6,6 @@ Google analytics
 
 
 
-
 Bug/Typo/Style Fix: Général:
 OK • Dans Course information, ajouter Number of modules (avec lien vers les modules)
 OK • Localiser la date
@@ -22,8 +21,8 @@ OK • Les liens vers les biographies doivent pointer sur les biographie en angl
 Application:
 OK • Faculty -> School (“Faculté”)
 OK • Ajouter Lab (required)
-• Mettre les dates vides par défaut
-• [Design] Textarea 2 fois moins haut
+OK • Mettre les dates vides par défaut
+OK • [Design] Textarea 2 fois moins haut
 OK • Changer le texte du flash après application par “Thanks for your submission. For security purpose ...”
 OK • User.confirmation_link : “confirm my account” -> “confirm my application”
 
@@ -37,8 +36,8 @@ OK • Nom Prénom plutôt que Prénom Nom
 • Demander confirmation lors de l’update d’un user (avec nom/prénom dans le pop-up)
 
 New features:
-• [Design] Changer l’affichage des flash, mettre un bandeau plus visible
-• [Design] Liens SRI et CDM en vert
+OK • [Design] Changer l’affichage des flash, mettre un bandeau plus visible
+OK • [Design] Liens SRI et CDM en vert
 • [Design] Contour des boutons du menu en vert ?
 • Trash des users (deleted_at)
 • Trash box: cacher la poubelle pour le moment

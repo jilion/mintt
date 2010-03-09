@@ -29,6 +29,8 @@ describe User do
     its(:thesis_invention) { should == "The iPad" }
     its(:motivation) { should == "Huge!" }
     its(:agreement) { should == "1" }
+    its(:trashed_at) { should be_nil }
+    it { should_not be_trashed }
     
     it { should be_valid }
   end

@@ -12,9 +12,13 @@ describe Message do
     its(:sender_name)   { should == "Joe Blow" }
     its(:sender_email)  { should match /email[0-9]+@epfl.com/ }
     its(:content)       { should == "Advanced Compilation for Mac" }
-    its(:read)          { should be_false }
-    its(:replied)       { should be_false }
-
+    its(:read_at)       { should be_nil }
+    its(:replied_at)    { should be_nil }
+    its(:trashed_at)    { should be_nil }
+    it { should be_unread }
+    it { should be_unreplied }
+    it { should_not be_trashed }
+    
     it { should be_valid }
   end
 
