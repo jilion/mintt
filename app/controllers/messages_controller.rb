@@ -1,6 +1,8 @@
 class MessagesController < ApplicationController
   before_filter :ensure_keys_exists
   
+  ssl_required :new, :create
+  
   # GET /contact
   def new
     @message = Message.new

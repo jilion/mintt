@@ -2,6 +2,7 @@ class RegistrationsController < ApplicationController
   include Devise::Controllers::InternalHelpers
   
   before_filter :ensure_keys_exists
+  ssl_required :new, :create
   
   # POST /resource/register
   def create

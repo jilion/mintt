@@ -1,11 +1,13 @@
 class ApplicationController < ActionController::Base
-  helper :all # include all helpers, all the time
-  
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  
+  include SslRequirement
   include AdminAuthenticatedSystem
   
+  helper :all # include all helpers, all the time  
+  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  
   before_filter :admin_required # remove for production
+  
+  skip_before_filter :ensure_proper_protocol # unless Rails.env.production?
   
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
