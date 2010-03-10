@@ -44,6 +44,9 @@ private
   end
 
   def create_users(count)
+    action_mailer_perform_deliveries = ActionMailer::Base.perform_deliveries
+    # Disabling perform_deliveries (avoid to spam fakes email adresses)
+    ActionMailer::Base.perform_deliveries = false
     print "Creating users => "
     count.times do |i|
       u = User.new
@@ -66,13 +69,18 @@ private
       u.motivation = Faker::Lorem.paragraphs
       u.agreement = '1'
       u.save!
-      u.confirmed_at = rand > 0.5 ? Time.now.to_date : nil
+      u.confirmed_at = rand > 0.5 ? rand(10).days.ago : nil
       u.save!
     end
     print "#{count} users created.\n\n"
+    # Switch back to the original perform_deliveries
+    ActionMailer::Base.perform_deliveries = action_mailer_perform_deliveries
   end
 
   def create_messages(count)
+    action_mailer_perform_deliveries = ActionMailer::Base.perform_deliveries
+    # Disabling perform_deliveries (avoid to spam fakes email adresses)
+    ActionMailer::Base.perform_deliveries = false
     print "Creating messages => "
     count.times do |i|
       m = Message.new
@@ -86,4 +94,6 @@ private
       m.save!
     end
     print "#{count} messages created.\n\n"
+    # Switch back to the original perform_deliveries
+    ActionMailer::Base.perform_deliveries = action_mailer_perform_deliveries
   end

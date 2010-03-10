@@ -35,14 +35,14 @@ describe Admin::MailTemplatesController do
   # ==========
   # = update =
   # ==========
-  describe :put => :update, :id => "1" do  # successful
+  describe :put => :update, :mail_template => { :content => "" }, :id => "1" do  # successful
     expects :find, :on => MailTemplate, :with => "1", :returns => mock_mail_template
     expects :update_attributes, :on => mock_mail_template, :returns => true
     
     it { should redirect_to admin_mail_template_path(mock_mail_template) }
   end
   
-  describe :put => :update, :id => "1" do # fail
+  describe :put => :update, :mail_template => { :content => "" }, :id => "1" do # fail
     expects :find, :on => MailTemplate, :with => "1", :returns => mock_mail_template
     expects :update_attributes, :on => mock_mail_template, :returns => false
     

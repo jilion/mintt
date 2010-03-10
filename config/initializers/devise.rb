@@ -4,6 +4,8 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = "mintt@epfl.ch"
   
+  config.mailer_content_type = "text/plain"
+  
   # ==> Configuration for :authenticatable
   # Invoke `rake secret` and use the printed value to setup a pepper to generate
   # the encrypted password. By default no pepper is used.
@@ -29,7 +31,7 @@ Devise.setup do |config|
   # ==> Configuration for :confirmable
   # The time you want give to your user to confirm his account. During this time
   # he will be able to access your application without confirming. Default is nil.
-  # config.confirm_within = 2.days
+  config.confirm_within = 0.days
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.

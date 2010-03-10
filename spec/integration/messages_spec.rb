@@ -3,11 +3,11 @@ require 'spec_helper'
 describe "Messages" do
   
   before :all do
-    ActionMailer::Base.deliveries.clear
+    ActionMailer::Base.deliveries = []
     visit root_path
   end
   
-  it "should be possible to contact" do
+  it "should be possible to create" do
     ActionMailer::Base.deliveries.should be_empty
     click_link "Contact"
     

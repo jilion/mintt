@@ -109,7 +109,7 @@ public
   
 private
   def self.order_hash(options = {})
-    { :order => "#{options[:order_by] || 'created_at'} #{options[:sort_way] || 'desc'}" }
+    { :order => "#{options[:order_by] || 'confirmed_at'} #{options[:sort_way] || 'desc'}" }
   end
   
   def self.should_paginate(params = {})
@@ -136,7 +136,7 @@ class User::LiquidDropClass
   end
   
   def confirmation_link
-    link_to('Confirm my application', { :host => Rails.env.production? ? MINTT_EPFL : MINTT_LOCAL, :controller => 'confirmations', :action => 'show', :confirmation_token => self.confirmation_token })
+    url_for({ :host => Rails.env.production? ? MINTT_EPFL : MINTT_LOCAL, :only_path => false, :controller => 'confirmations', :action => 'show', :confirmation_token => self.confirmation_token })
   end
   
 end

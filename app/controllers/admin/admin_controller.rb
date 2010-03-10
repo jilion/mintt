@@ -7,7 +7,7 @@ class Admin::AdminController < ApplicationController
   
   # GET /admin
   def index
-    redirect_to :controller => 'admin/users'
+    redirect_to admin_users_path
   end
   
 end

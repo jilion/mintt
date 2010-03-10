@@ -11,7 +11,7 @@
       %th= link_to "Name", admin_users_path(sort_parameters('last_name'))
       %th= link_to "School", admin_users_path(sort_parameters('school'))
       %th= link_to "Supervisor", admin_users_path(sort_parameters('thesis_supervisor'))
-      %th= link_to "Email", admin_users_path(sort_parameters('email'))
+      %th= link_to "Application Date", admin_users_path(sort_parameters('confirmed_at'))
       %th
       %th
       
@@ -21,7 +21,8 @@
         %td= link_to user_full_name(user, true), admin_user_path(user)
         %td= user.school
         %td= user.thesis_supervisor
-        %td= mail_to(user.email, user.email, :encode => 'hex')
+        %td.datetime
+          %span.date= sexy_date(user.confirmed_at)
         %td= link_to("edit", edit_admin_user_path(user))
         %td= button_to("delete", admin_user_path(user), :confirm => "Are you sure?", :method => :delete, :class => "button delete")
         
