@@ -18,16 +18,17 @@ config.action_mailer.raise_delivery_errors = false
 config.action_mailer.perform_deliveries = true
 config.action_mailer.default_url_options = { :host => "mintt.local" }
 
-# config.action_mailer.delivery_method = :smtp
-# config.action_mailer.smtp_settings = {
-#   :address => "smtp.gmail.com",
-#   :port => 587,
-#   :authentication => :plain,
-#   :enable_starttls_auto => true,
-#   :user_name => "remy.coutable@gmail.com",
-#   :password => ""
-# }
-# config.action_mailer.default_charset = "utf-8"
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  :address => "mail.epfl.ch",
+  :port => 465,
+  :authentication => :login,
+  :enable_starttls_auto => true,
+  :user_name => "mintt",
+  :password => "VPAIMintt2010"
+}
+config.action_mailer.raise_delivery_errors = true
+config.action_mailer.default_charset = "utf-8"
 
 config.gem "rails-footnotes"
 config.gem "capistrano", :version => ">= 2.5.17"

@@ -33,4 +33,5 @@ tmp/**/*
 db/*.sqlite3
 public/javascripts/all.js
 public/stylesheets/all.css
+public/rcov
 rerun.txt
