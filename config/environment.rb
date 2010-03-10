@@ -3,10 +3,6 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  # Settings in config/environments/* take precedence over those specified here.
-  # Application configuration should go into files in config/initializers
-  # -- all .rb files in that directory are automatically loaded.
-  
   # Add additional load paths for your own custom dirs
   config.load_paths += %W( #{Rails.root}/mailers )
   
@@ -42,4 +38,13 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
   
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true,
+    :user_name => 'mintt@mintt.ch',
+    :password => 'Au0f2ehSbMDx'
+  }
+  config.action_mailer.default_charset = "utf-8"
 end

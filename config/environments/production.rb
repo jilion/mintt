@@ -27,16 +27,7 @@ config.action_view.cache_template_loading            = true
 # Enable threaded mode
 # config.threadsafe!
 
-config.action_mailer.default_url_options = { :host => "mintt.epfl.ch" }
-
-config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
-  :address => "mail.epfl.ch",
-  :port => 465,
-  :authentication => :login,
-  :enable_starttls_auto => true,
-  :user_name => "mintt",
-  :password => "VPAIMintt2010"
-}
-config.action_mailer.raise_delivery_errors = true
-config.action_mailer.default_charset = "utf-8"
+config.action_mailer.delivery_method       = :smtp
+config.action_mailer.perform_deliveries    = true
+config.action_mailer.raise_delivery_errors = false
+config.action_mailer.default_url_options   = { :host => "mintt.epfl.ch" }
