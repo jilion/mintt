@@ -20,7 +20,6 @@ class Admin::MailTemplatesController < Admin::AdminController
   # PUT /admin/mail_template/:id
   def update
     @mail_template = MailTemplate.find(params[:id])
-    
     if @mail_template.update_attributes(params[:mail_template])
       flash[:success] = 'Mail template successfully updated'
       redirect_to admin_mail_template_path(@mail_template)

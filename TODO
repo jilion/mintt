@@ -1,7 +1,7 @@
 Bug/Typo/Style Fix: Général:
 OK • [Remy] Dans Course information, ajouter Number of modules (avec lien vers les modules)
 OK • [Remy] Localiser la date
-• [Remy] Corriger les sauts de ligne dans le mail!
+OK • [Remy] Corriger les sauts de ligne dans le mail!
 
 Home:
 OK • [Remy] Potential assessment -> assessment of the potential • Dans “Content”, ajouter un lien vers les modules
@@ -39,3 +39,4 @@ OK • [Octave] Liens SRI et CDM en vert
 • [Octave] Rediriger mintt.ch vers mintt.epfl.ch
 • [Octave] Google analytics
 • [Octave] Mettre photo de Philippe Eyries
+• [Remy] Comma => mettre le charset a ISO-... (pas UTF8 car Excel pete un cable)

@@ -1,0 +1,6 @@
+= "#{@message.sender_name}<#{@message.sender_email}> sent you a message from the Mintt website."
+= "\n\n"
+= "Click on the following link to view it :\n#{admin_message_url(@message)}"
+= "\n\n"
+= "Message :"
+= @message.content
