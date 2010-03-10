@@ -8,7 +8,7 @@ class Admin::UsersController < Admin::AdminController
         @users = User.index_order_by(params)
         render :index
       end
-      wants.csv { render :csv => User.all(:confirmed_at.ne => nil, :trashed_at => nil) }
+      wants.csv { render :csv => User.all(:confirmed_at.ne => nil, :trashed_at => nil), :style => { :encoding => 'U', :col_sep => ';' } }
     end
   end
   

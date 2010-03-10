@@ -5,6 +5,14 @@ module ApplicationHelper
     @show_title = show_title
   end
   
+  def display_date(date)
+    date.strftime("%B %d, %Y")
+  end
+  
+  def display_date_and_time(date)
+    date.strftime("%B %d, %Y %I:%M %p")
+  end
+  
   def sexy_date(date)
     if date.today?
       "Today"
