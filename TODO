@@ -1,0 +1,41 @@
+Bug/Typo/Style Fix: Général:
+OK • [Remy] Dans Course information, ajouter Number of modules (avec lien vers les modules)
+OK • [Remy] Localiser la date
+• [Remy] Corriger les sauts de ligne dans le mail!
+
+Home:
+OK • [Remy] Potential assessment -> assessment of the potential • Dans “Content”, ajouter un lien vers les modules
+OK • [Remy] “till April 16, 2010” -> “till end of April 2010”
+
+Modules:
+OK • [Remy] Enlever Module 2 et mettre à jour les numéros des modules
+OK • [Remy] Les liens vers les biographies doivent pointer sur les biographie en anglais
+
+Application:
+OK • [Remy] Faculty -> School (“Faculté”)
+OK • [Remy] Ajouter Lab (required)
+OK • [Remy] Mettre les dates vides par défaut
+OK • [Remy] Changer le texte du flash après application par “Thanks for your submission. For security purpose ...”
+OK • [Remy] User.confirmation_link : “confirm my account” -> “confirm my application”
+OK • [Octave] Textarea 2 fois moins haut
+
+Contact:
+OK • [Remy] Please -> please
+
+Users Admin:
+OK • [Remy] Nom, School, Supervisor, Email
+OK • [Remy] User edit: “Comment” -> “SRI Comment”
+OK • [Remy] Nom Prénom plutôt que Prénom Nom
+OK • [Remy] Demander confirmation lors de l’update d’un user (avec nom/prénom dans le pop-up)
+
+New features:
+OK • [Remy] Trash des users (trashed_at)
+OK • [Remy] Export CSV de la listes des candidates
+OK • [Remy] All dans la liste des candidates
+OK • [Octave] Changer l’affichage des flash, mettre un bandeau plus visible
+OK • [Octave] Liens SRI et CDM en vert
+• [Octave] HTTPS pour login ?
+• [Octave] Contour des boutons du menu en vert ?
+• [Octave] Rediriger mintt.ch vers mintt.epfl.ch
+• [Octave] Google analytics
+• [Octave] Mettre photo de Philippe Eyries

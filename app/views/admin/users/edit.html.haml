@@ -23,5 +23,6 @@
     = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?"
     
   - f.buttons do
-    = f.commit_button "Update", :confirm => "Are you sure to update #{user_full_name(@user)} informations ?"
+    = submit_tag "Update", :confirm => "Are you sure to update #{user_full_name(@user)} informations?"
+    /= f.commit_button "Update", :confirm => "Are you sure to update #{user_full_name(@user)} informations ?"
   .required_mention= "<abbr title='required'>*</abbr> required"
