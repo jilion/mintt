@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
  
- caches_page :show
+ # caches_page :show
  
   def show
     render params[:id]
