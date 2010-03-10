@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Registrations" do
   
   before(:each) do
-    ActionMailer::Base.deliveries.clear
+    ActionMailer::Base.deliveries = []
   end
   
   it "should be possible to register and deliver confirmation email" do

@@ -3,7 +3,7 @@
 #register
   - semantic_form_for [:admin, @mail_template],  :html => { :class => "main" } do |f|
     - f.inputs do
-      = f.input :content, :as => :text, :required => true
+      = text_area_tag 'mail_template[content]', @mail_template.content
       
     - f.buttons do
       = f.commit_button "Update template"
