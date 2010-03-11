@@ -1,7 +1,7 @@
 module Admin::AdminHelper
   
   def sort_parameters(field)
-    { :all => params[:all], :order_by => field, :sort_way => invert_sort_way(field), :page => params[:page] }
+    { :all => params[:all], :order_by => field, :sort_way => invert_sort_way(field) }
   end
   
   def invert_sort_way(field)

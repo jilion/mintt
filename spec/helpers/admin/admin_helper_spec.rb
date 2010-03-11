@@ -8,7 +8,7 @@ describe Admin::AdminHelper do
   describe "sort_parameters" do
     describe "with a field and no params" do
       it "should return a default hash with :order_by => field" do
-        helper.sort_parameters('name').should == { :all => nil, :order_by => 'name', :sort_way => 'asc', :page => nil  }
+        helper.sort_parameters('name').should == { :all => nil, :order_by => 'name', :sort_way => 'asc'  }
       end
     end
     
@@ -16,8 +16,7 @@ describe Admin::AdminHelper do
       it "should return a hash with 4 parameters" do
         params[:all] = true
         params[:sort_way] = 'foo'
-        params[:page] = 42
-        helper.sort_parameters('name').should == { :all => true, :order_by => 'name', :sort_way => 'asc', :page => 42  }
+        helper.sort_parameters('name').should == { :all => true, :order_by => 'name', :sort_way => 'asc'  }
       end
     end
     
