@@ -6,4 +6,4 @@
   .actions_right= link_to("edit", edit_admin_mail_template_path(@mail_template))
   
   .content
-    = Liquid::Template.parse(@mail_template.content).render('user' => @user).gsub!(/\n/, '<br />')
+    = auto_link(Liquid::Template.parse(@mail_template.content).render('user' => @user).gsub!(/\n/, '<br />'))
