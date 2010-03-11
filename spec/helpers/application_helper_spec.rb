@@ -7,14 +7,14 @@ describe ApplicationHelper do
   # ================
   describe "display_date" do
     describe "with a blank date" do
-      it "should render nothing" do
+      it "should return nothing" do
         date = nil
         helper.display_date(date).should == ""
       end
     end
     
     describe "with a valid date" do
-      it "should render well" do
+      it "should return well" do
         date = Date.new(2010, 03, 01)
         helper.display_date(date).should == "March 01, 2010"
       end
@@ -26,28 +26,28 @@ describe ApplicationHelper do
   # =============
   describe "sexy_date" do
     describe "with a blank date" do
-      it "should render nothing" do
+      it "should return nothing" do
         date = nil
         helper.sexy_date(date).should == ""
       end
     end
     
     describe "with a today date" do
-      it "should render nothing" do
+      it "should return nothing" do
         date = Time.now
         helper.sexy_date(date).should == "Today"
       end
     end
     
     describe "with a yesterday date" do
-      it "should render nothing" do
+      it "should return nothing" do
         date = Time.now.yesterday
         helper.sexy_date(date).should == "Yesterday"
       end
     end
     
     describe "with a date before yesterday" do
-      it "should render nothing" do
+      it "should return nothing" do
         date = 3.days.ago
         helper.sexy_date(date).should == "#{date.strftime("%B")} #{date.strftime("%d")}, #{date.strftime("%Y")}"
       end
@@ -59,21 +59,21 @@ describe ApplicationHelper do
   # =============
   describe "sexy_time" do
     describe "with a blank time" do
-      it "should render nothing" do
+      it "should return nothing" do
         date = nil
         helper.sexy_time(date).should == ""
       end
     end
     
     describe "with a valid date" do
-      it "should render nothing" do
+      it "should return nothing" do
         date = 3.days.ago
         helper.sexy_time(date).should == "#{date.strftime("%I")}:#{date.strftime("%M")} #{date.strftime("%p")}"
       end
     end
     
     describe "with a valid time" do
-      it "should render nothing" do
+      it "should return nothing" do
         time = Time.now
         helper.sexy_time(time).should == "#{time.strftime("%I")}:#{time.strftime("%M")} #{time.strftime("%p")}"
       end
