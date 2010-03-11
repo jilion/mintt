@@ -10,4 +10,10 @@ class Admin::AdminController < ApplicationController
     redirect_to admin_users_path
   end
   
+  private
+  
+  def ssl_required?
+    true
+  end
+  
 end
