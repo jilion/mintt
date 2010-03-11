@@ -8,6 +8,8 @@
     %p.email
       = image_tag "/images/admin/email.png", :alt => "Email"
       = mail_to @user.email
+  .application_date= "<em>#{display_date(@user.confirmed_at)}</em>"
+  
   .spacer
   .card
     %p
@@ -27,8 +29,6 @@
       %p
         = image_tag "/images/admin/linkedin.png", :alt => "LinkedIn"
         = user_linkedin_url(@user)
-        
-    %p= "<strong>Application date</strong>: #{display_date(@user.confirmed_at)}"
     
   .text_box
     %p= "<strong>Thesis supervisor</strong>: #{@user.thesis_supervisor}"

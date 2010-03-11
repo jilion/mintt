@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :admin_required # remove for production
   
-  skip_before_filter :ensure_proper_protocol # unless Rails.env.production?
+  skip_before_filter :ensure_proper_protocol unless Rails.env.production?
   
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
