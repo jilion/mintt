@@ -99,6 +99,22 @@ a#admin_label span {display:none;}
   text-indent:-9999px;
 }
 
+#content .export {
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+#content .export a {
+  padding:0 0 0 28px;
+  background:url(/images/admin/export_icon.png) no-repeat;
+}
+
+#content .right_links {
+  float:right;
+  padding:20px 0 0;
+}
+
 #content .pagination {
   padding:20px 0 0;
 }

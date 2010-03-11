@@ -8,10 +8,10 @@
     - 5.times do
       %col{ :class => "even" }
     %tr
-      %th.icon_centered= link_to image_tag("/images/admin/unread_label_icon.png", :alt => "Unread?"), trashs_admin_messages_path(sort_parameters('read'))
-      %th.icon_centered= link_to image_tag("/images/admin/replied_label_icon.png", :alt => "Replied?"), trashs_admin_messages_path(sort_parameters('replied'))
-      %th= link_to "From", trashs_admin_messages_path(sort_parameters('sender_name'))
-      %th= link_to "Date Received", trashs_admin_messages_path(sort_parameters('created_at'))
+      %th.icon_centered= link_to image_tag("/images/admin/unread_label_icon.png", :alt => "Unread?"), trashes_admin_messages_path(sort_parameters('read'))
+      %th.icon_centered= link_to image_tag("/images/admin/replied_label_icon.png", :alt => "Replied?"), trashes_admin_messages_path(sort_parameters('replied'))
+      %th= link_to "From", trashes_admin_messages_path(sort_parameters('sender_name'))
+      %th= link_to "Date Received", trashes_admin_messages_path(sort_parameters('created_at'))
       %th
       
     - @messages.each do |message|
@@ -34,7 +34,7 @@
           = button_to("untrash", untrash_admin_message_path(message), :method => :put, :id => "untrash_message_#{message.id}", :class => "button delete")
   
   - unless params.key? :all
+    .right_links= link_to "View all", trashes_admin_messages_path(:all => true)
     = will_paginate(@messages)
-    = link_to "View all", trashs_admin_messages_path(:all => true)
   - else
-    = link_to "View with paginate", trashs_admin_messages_path
+    .right_links= link_to "View with paginate", trashes_admin_messages_path

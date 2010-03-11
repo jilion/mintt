@@ -17,7 +17,7 @@ module Admin::MessagesHelper
   end
   
   def back_to_inbox_or_trash(message)
-    message.trashed? ? link_to('Back to trash', trashs_admin_messages_path) : link_to('Back to inbox', admin_messages_path)
+    message.trashed? ? link_to('Back to trash', trashes_admin_messages_path) : link_to('Back to inbox', admin_messages_path)
   end
   
 end

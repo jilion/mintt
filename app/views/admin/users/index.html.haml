@@ -1,7 +1,7 @@
 - title 'mintt: admin | Candidates'
 .text
   %h3= "Candidates : #{smart_objects_objects_displayed_range(@users)} of #{smart_objects_count(@users)}"
-  
+  .export= link_to "Export all users in CSV", admin_users_path(:format => 'csv')
   %table
     %colgroup
       - 7.times do
@@ -27,9 +27,7 @@
         %td= button_to("delete", admin_user_path(user), :confirm => "Are you sure?", :method => :delete, :class => "button delete")
         
   - unless params.key? :all
+    .right_links= link_to "View all", admin_users_path(:all => true)
     = will_paginate @users
-    = link_to "View all", admin_users_path(:all => true)
   - else
-    = link_to "View with paginate", admin_users_path
-    
-  %p= link_to "Export all users in CSV", admin_users_path(:format => 'csv')
+    .right_links= link_to "View with paginate", admin_users_path

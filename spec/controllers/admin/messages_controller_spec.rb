@@ -19,18 +19,18 @@ describe Admin::MessagesController do
   end
   
   # ==========
-  # = trashs =
+  # = trashes =
   # ==========
-  describe :get => :trashs, :page => 2 do
-    expects :trash_order_by, :on => Message, :with => { "action" => "trashs", "controller" => "admin/messages", "page" => "2" }, :returns => mock_messages
+  describe :get => :trashes, :page => 2 do
+    expects :trash_order_by, :on => Message, :with => { "action" => "trashes", "controller" => "admin/messages", "page" => "2" }, :returns => mock_messages
     
-    it { should render_template 'admin/messages/trashs.html.haml' }
+    it { should render_template 'admin/messages/trashes.html.haml' }
   end
   
-  describe :get => :trashs, :all => true do
-    expects :trash_order_by, :on => Message, :with => { "all" => true, "action" => "trashs", "controller" => "admin/messages" }, :returns => mock_messages
+  describe :get => :trashes, :all => true do
+    expects :trash_order_by, :on => Message, :with => { "all" => true, "action" => "trashes", "controller" => "admin/messages" }, :returns => mock_messages
     
-    it { should render_template 'admin/messages/trashs.html.haml' }
+    it { should render_template 'admin/messages/trashes.html.haml' }
   end
   
   # ========
@@ -78,7 +78,7 @@ describe Admin::MessagesController do
     expects :find, :on => Message, :with => "1", :returns => mock_message
     expects :update_attributes!, :on => mock_message, :with => { :trashed_at => nil }, :returns => true
     
-    it { should redirect_to trashs_admin_messages_path }
+    it { should redirect_to trashes_admin_messages_path }
   end
   
   # ===========
@@ -88,7 +88,7 @@ describe Admin::MessagesController do
     expects :find, :on => Message, :with => "1", :returns => mock_message
     expects :destroy, :on => mock_message, :returns => true
     
-    it { should redirect_to trashs_admin_messages_path }
+    it { should redirect_to trashes_admin_messages_path }
   end
   
 end

@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.admin '/admin', :controller => 'admin/admin', :action => 'index'
   map.namespace :admin do |admin|
     admin.resources :users, :member => { :trash => :put }
-    admin.resources :messages, :collection => { :trashs => :get }, :member => { :reply => :put, :trash => :put, :untrash => :put }
+    admin.resources :messages, :collection => { :trashes => :get }, :member => { :reply => :put, :trash => :put, :untrash => :put }
     admin.resources :mail_templates
   end
   

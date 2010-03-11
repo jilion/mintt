@@ -7,8 +7,8 @@ class Admin::MessagesController < Admin::AdminController
     render :index
   end
   
-  # GET /admin/messages/trashs
-  def trashs
+  # GET /admin/messages/trashes
+  def trashes
     @messages = Message.trash_order_by(params)
   end
   
@@ -39,7 +39,7 @@ class Admin::MessagesController < Admin::AdminController
     @message = Message.find(params[:id])
     
     flash[:success] = 'Message successfully untrashed' if @message.update_attributes!(:trashed_at => nil)
-    redirect_to trashs_admin_messages_path
+    redirect_to trashes_admin_messages_path
   end
   
   # DELETE /admin/messages/:id
@@ -47,7 +47,7 @@ class Admin::MessagesController < Admin::AdminController
     @message = Message.find(params[:id])
     
     flash[:success] = 'Message successfully destroyed' if @message.destroy
-    redirect_to trashs_admin_messages_path
+    redirect_to trashes_admin_messages_path
   end
   
 end
