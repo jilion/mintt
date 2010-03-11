@@ -6,15 +6,15 @@ module ApplicationHelper
   end
   
   def display_date(date)
-    date.strftime("%B %d, %Y") unless date.nil?
+    date.blank? ? "" : date.strftime("%B %d, %Y")
   end
   
   def display_date_and_time(date)
-    date.strftime("%B %d, %Y %I:%M %p") unless date.nil?
+    date.blank? ? "" : date.strftime("%B %d, %Y %I:%M %p")
   end
   
   def sexy_date(date)
-    return '' if date.nil?
+    return "" if date.blank?
     if date.today?
       "Today"
     elsif date.to_time > 2.days.until(Time.now)
@@ -25,14 +25,13 @@ module ApplicationHelper
   end
   
   def sexy_time(date)
-    return '' if date.nil?
+    return "" if date.blank?
     date.strftime("%I:%M %p")
   end
   
   def words_count(text)
-    return 0 if text.nil?
-    count = text.split(' ').size
-    "#{count} word#{"s" if count > 1}"
+    count = text.blank? ? 0 : text.split(' ').size
+    "#{count} word#{"s" if count == 0 || count > 1}"
   end
   
 end

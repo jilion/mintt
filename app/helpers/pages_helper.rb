@@ -11,7 +11,6 @@ module PagesHelper
       end
       haml_tag :div, {:class => 'bottom'}
     end
-    
   end
   
 end
