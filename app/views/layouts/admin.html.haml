@@ -9,7 +9,7 @@
     %link{ :href => "/stylesheets/admin.css", :type => "text/css", :media => "screen", :rel => "stylesheet" }
     %link{ :href => "/stylesheets/print.css", :type => "text/css", :media => "print", :rel => "stylesheet" }
     
-    %script{ :type => "text/javascript", :src => "http://use.typekit.com/qwi4bur.js" }
+    %script{ :type => "text/javascript", :src => "http#{ request.ssl? ? 's':'' }://use.typekit.com/qwi4bur.js" }
     %script{ :type => "text/javascript" }= "try{Typekit.load();}catch(e){};"
     
   %body
