@@ -319,6 +319,10 @@ form.main fieldset {
   border:none;
 }
 
+form legend {
+  color:#d3d3d3;
+}
+
 form.main abbr {
   color:#c3ff00;
   border:none;
@@ -330,7 +334,6 @@ form.main .string label, form.main .text label {
   display:block;
   padding:12px 0 2px;
   line-height:18px;
-  color:#d3d3d3;
 }
 
 form.main .string input, form.main textarea {
