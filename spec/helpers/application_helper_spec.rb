@@ -49,7 +49,7 @@ describe ApplicationHelper do
     describe "with a date before yesterday" do
       it "should return nothing" do
         date = 3.days.ago
-        helper.sexy_date(date).should == "#{date.strftime("%B")} #{date.strftime("%d")}, #{date.strftime("%Y")}"
+        helper.sexy_date(date).should == date.to_s(:lite)
       end
     end
   end
@@ -68,14 +68,14 @@ describe ApplicationHelper do
     describe "with a valid date" do
       it "should return nothing" do
         date = 3.days.ago
-        helper.sexy_time(date).should == "#{date.strftime("%I")}:#{date.strftime("%M")} #{date.strftime("%p")}"
+        helper.sexy_time(date).should == date.to_s(:time)
       end
     end
     
     describe "with a valid time" do
       it "should return nothing" do
         time = Time.now
-        helper.sexy_time(time).should == "#{time.strftime("%I")}:#{time.strftime("%M")} #{time.strftime("%p")}"
+        helper.sexy_time(time).should == time.to_s(:time)
       end
     end
   end
