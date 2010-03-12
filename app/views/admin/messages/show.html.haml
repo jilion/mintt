@@ -1,4 +1,4 @@
-- title "mintt: admin | Messages > From #{message_sender_name(@message)} received #{time_ago_in_words(@message.created_at)}"
+- title "mintt: admin | Messages > From #{message_sender_name(@message)} received #{time_ago_in_words(@message.created_at)} ago"
 
 .text.mail
   %h3= "Message"
@@ -16,5 +16,5 @@
     
   .content
     .from= "<strong>From</strong>: #{message_sender_name_with_email_and_mailto(@message, 'hex', "\n\n\n#{message_sender_name_with_email(@message)} wrote on #{@message.created_at}:\n\n#{@message.content}")}"
-    .date= "<strong>Date Received</strong>: #{sexy_date(@message.created_at)}, #{sexy_time(@message.created_at)}"
+    .date= "<strong>Date Received</strong>: #{sexy_date(@message.created_at)} #{sexy_time(@message.created_at)}"
     .body= message_content(@message)
