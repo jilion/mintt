@@ -69,8 +69,8 @@ body {
   color:#888;
   text-shadow:none;
   cursor:pointer;
-  -webkit-border-radius:21px;
-  -moz-border-radius:21px;
+  -webkit-border-radius:20px;
+  -moz-border-radius:20px;
 }
 
 #menu li.active a, #menu li a:hover {
@@ -330,6 +330,7 @@ form.main .string label, form.main .text label {
   display:block;
   padding:12px 0 2px;
   line-height:18px;
+  color:#d3d3d3;
 }
 
 form.main .string input, form.main textarea {
