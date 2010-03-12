@@ -5,5 +5,5 @@ test:
   user: fake
   pass: fake
 production:
-  user: admin
-  pass: "minttest77"
+  user: admintt
+  pass: "cvgz78"
