@@ -11,7 +11,11 @@
     
     %script{ :type => "text/javascript", :src => "http#{ request.ssl? ? 's':'' }://use.typekit.com/qwi4bur.js" }
     %script{ :type => "text/javascript" }= "try{Typekit.load();}catch(e){};"
-    
+    /[if gte IE 7]
+      == <script type="text/javascript">var curvyCornersNoAutoScan = true;</script>
+      %script{ :src => "/javascripts/curvycorners.js", :type => "text/javascript" }
+    %script{ :src => "/javascripts/prototype.min.js", :type => "text/javascript" }
+    %script{ :src => "/javascripts/application.js", :type => "text/javascript" }
   %body
     - flash.each do |key, value|
       #flash{ :class => "flash_#{key}"}= h value
@@ -38,7 +42,5 @@
       .spacer
       #footer
         %p= "#{ link_to 'Contact', '/contact' } |  © 2010 EPFL , SRI, CM 2-Station 10, CH-1015 Lausanne, tel. +41 (0)21 693 70 23"
-    %script{ :src => "/javascripts/prototype.min.js", :type => "text/javascript" }
-    %script{ :src => "/javascripts/application.js", :type => "text/javascript" }
     
     - google_analytics
