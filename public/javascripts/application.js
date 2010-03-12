@@ -10,4 +10,21 @@ document.observe("dom:loaded", function() {
     });
   });
   
+  if (Prototype.Browser.IE) {
+    var settings = {
+      tl: { radius: 21 },
+      tr: { radius: 21 },
+      bl: { radius: 21 },
+      br: { radius: 21 },
+      antiAlias: true
+    };
+    
+    $$('ul#menu li a').each(function(a){
+      if (!a.up("li").hasClassName("home")) {
+        a.addClassName("curvyRedraw");
+        curvyCorners(settings, a);        
+      }
+    });
+  }
+  
 });

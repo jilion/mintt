@@ -6,9 +6,13 @@
     %title= h(yield(:title) || "mintt")
     
     %link{ :href => "/stylesheets/style.css", :type => "text/css", :media => "screen", :rel => "stylesheet" }
-    
     %script{ :type => "text/javascript", :src => "http#{ request.ssl? ? 's':'' }://use.typekit.com/qwi4bur.js" }
     %script{ :type => "text/javascript" }= "try{Typekit.load();}catch(e){};"
+    /[if gte IE 7]
+      == <script type="text/javascript">var curvyCornersNoAutoScan = true;</script>
+      %script{ :src => "/javascripts/curvycorners.js", :type => "text/javascript" }
+      %script{ :src => "/javascripts/prototype.min.js", :type => "text/javascript" }
+      %script{ :src => "/javascripts/application.js", :type => "text/javascript" }
 
   %body
     - flash.each do |key, value|
@@ -25,8 +29,8 @@
             - link_to root_path do
               %span= "Home"
           %li{ :class => ('active' if params[:id] == 'modules') }= link_to "Modules", "/modules"
-          %li{ :class => ('active' if controller_name == 'applications') }= link_to "Application", new_user_registration_path
-          %li= link_to "Contact", "/contact"
+          %li{ :class => ('active' if controller_name == 'registrations') }= link_to "Application", new_user_registration_path
+          %li{ :class => ('active' if controller_name == 'messages') }= link_to "Contact", "/contact"
       #content
         = yield
       #sidebar

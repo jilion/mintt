@@ -55,6 +55,18 @@ role :db, domain, :primary => true
 #   end
 # end
 
+# ==================
+# = Static Folders =
+# ==================
+
+before "deploy:symlink", "folders:symlink"
+
+namespace :folders do
+  task :symlink do
+    run "ln -nsf #{shared_path}/media #{release_path}/public/media"
+  end
+end
+
 #===========
 # = CUSTOM =
 #===========
