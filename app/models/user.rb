@@ -57,7 +57,7 @@ class User
   URL_REGEX = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/i
   LINKEDIN_URL_REGEX = /\A(http|https):\/\/([a-z]+)\.linkedin\.com\/in\/([a-z0-9]+)\z/i
   
-  validates_presence_of :email, :first_name, :last_name, :school, :lab, :phone, :thesis_supervisor, :thesis_subject, 
+  validates_presence_of :email, :first_name, :last_name, :school, :lab, :phone, :thesis_supervisor, :thesis_subject, :motivation,
                         :message => "This field can't be empty"
   
   validates_uniqueness_of :email

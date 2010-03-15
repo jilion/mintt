@@ -22,7 +22,7 @@
       = f.input :supervisor_authorization, :as => :radio, :collection => [["Yes", "yes"], ["No", "no"]], :label => "Do you have the agreement of your thesis supervisor to participate to mintt?", :required => true
       = f.input :doctoral_school_rules, :as => :radio, :collection => [["Yes", "yes"], ["No", "no"]], :label => "Are you subject to EPFL doctoral school regulations and do you need credits?", :required => true
       = f.input :thesis_invention, :as => :text, :label => "Have you made an invention in the course of your thesis? If yes, could you briefly describe it?:"
-      = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?"
+      = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?", :required => true
       %li
         %p= "I hereby confirm that I will be available for mintt on June 8 and 9 and October 6, 2010, the whole day. I also confirm I have well taken note I will dedicate at least 30 hours during summer 2010 to work on an EPFL invention case study."
       = f.input :agreement, :as => :boolean, :label => "I agree", :required => true
