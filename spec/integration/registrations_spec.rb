@@ -67,7 +67,7 @@ describe "Registrations" do
     ActionMailer::Base.deliveries.size.should == 0
   end
   
-  it "should have errors with incomplete dates" do
+  it "should not have errors with complete dates or no set date" do
     visit root_path
     click_link "registration_button"
     
