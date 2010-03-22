@@ -9,7 +9,7 @@ class Admin::UsersController < Admin::AdminController
         render :index
       end
       wants.csv do
-        @users = User.index_order_by
+        @users = User.index_order_by(:all => true)
         render :csv => @users, :style => { :encoding => 'U', :col_sep => ';' }
       end
     end
