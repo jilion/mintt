@@ -73,11 +73,11 @@ describe User do
       Factory(:user, :lab => nil).should_not be_valid
     end
     
-    it "without last_name" do
+    it "without phone" do
       Factory(:user, :phone => nil).should_not be_valid
     end
     
-    it "without last_name" do
+    it "without email" do
       user = Factory(:user, :email => nil)
       user.should_not be_valid
     end
@@ -112,6 +112,10 @@ describe User do
     
     it "without doctoral_school_rules" do
       Factory(:user, :doctoral_school_rules => nil).should_not be_valid
+    end
+    
+    it "without motivation" do
+      Factory(:user, :motivation => nil).should_not be_valid
     end
     
     it "without agreement" do
