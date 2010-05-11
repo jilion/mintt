@@ -5,7 +5,7 @@ module GoogleAnalyticsHelper
       haml_tag :script, :type => "text/javascript" do
         haml_concat("var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-10280941-6']);
-      _gaq.push(['_setDomainName', '.jilion.com']);
+      _gaq.push(['_setDomainName', 'mintt.epfl.ch']);
       _gaq.push(['_trackPageview']);
       
       (function() {

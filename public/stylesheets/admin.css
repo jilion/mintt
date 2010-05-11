@@ -157,6 +157,12 @@ a#admin_label span {display:none;}
   width:630px;
 }
 
+#content .sheet .application_date {
+  position:absolute;
+  top:20px;
+  right:20px;
+}
+
 #content .sheet p.email img {
   float:left;
   margin:4px 6px 0 0;
