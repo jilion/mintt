@@ -1,3 +1,5 @@
+require 'ffaker'
+
 MALE_FEMALE = %w[male female]
 YES_NO = %w[yes no]
 TRUE_FALSE = [true, false]

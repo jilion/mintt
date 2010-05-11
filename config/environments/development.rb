@@ -18,5 +18,5 @@ config.action_mailer.perform_deliveries    = true
 config.action_mailer.raise_delivery_errors = true
 config.action_mailer.default_url_options   = { :host => "mintt.local" }
 
-config.gem "rails-footnotes"
-config.gem "capistrano", :version => ">= 2.5.17"
+config.gem 'ffaker',          :version => '>= 0.4.0'
+config.gem "capistrano",      :version => ">= 2.5.17"

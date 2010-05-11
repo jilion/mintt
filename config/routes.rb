@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :messages, :only => [:new, :create], :as => 'contact'
   map.contact '/contact', :controller => 'messages', :action => 'new'
   
-  map.admin '/admin', :controller => 'admin/admin', :action => 'index'
+  map.admin '/admin', :controller => 'admin/users', :action => 'index'
   map.namespace :admin do |admin|
     admin.resources :users, :member => { :trash => :put }
     admin.resources :messages, :collection => { :trashes => :get }, :member => { :reply => :put, :trash => :put, :untrash => :put }
