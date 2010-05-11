@@ -4,16 +4,21 @@ class RegistrationsController < ApplicationController
   before_filter :ensure_keys_exists
   ssl_required :new, :create
   
+  def new
+    redirect_to root_url
+  end
+  
   # POST /resource/register
   def create
-    build_resource
-    
-    if resource.save
-      flash[:success] = t("devise.confirmations.send_instructions")
-      redirect_to root_url
-    else
-      render_with_scope :new
-    end
+    redirect_to root_url
+    # build_resource
+    # 
+    # if resource.save
+    #   flash[:success] = t("devise.confirmations.send_instructions")
+    #   redirect_to root_url
+    # else
+    #   render_with_scope :new
+    # end
   end
   
 private

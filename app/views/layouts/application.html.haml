@@ -29,16 +29,17 @@
             - link_to root_path do
               %span= "Home"
           %li{ :class => ('active' if params[:id] == 'modules') }= link_to "Modules", "/modules"
-          %li{ :class => ('active' if controller_name == 'registrations') }= link_to "Application", new_user_registration_path
+          -#%li{ :class => ('active' if controller_name == 'registrations') }= link_to "Application", new_user_registration_path
           %li{ :class => ('active' if controller_name == 'messages') }= link_to "Contact", "/contact"
       #content
         = yield
       #sidebar
         %h3= "2010 Application"
-        %p= "The applications are now open till the end of April 2010. Please use the button below to apply."
-        .box
-          - link_to new_user_registration_path, :id => "registration_button" do
-            %span= "Apply for the 2010 course"
+        %p= "We thank you for your interest. 2010 Registrations are now closed."
+        -#%p= "The applications are now open till the end of April 2010. Please use the button below to apply."
+        -#.box
+        -#  - link_to new_user_registration_path, :id => "registration_button" do
+        -#    %span= "Apply for the 2010 course"
         %h4= "Organizing Entities"
         %ul.entities
           %li.first= link_to image_tag("/images/epfl_logo.png", :alt => "EPFL Logo"), "http://www.epfl.ch", :onclick => 'window.open(this); return false'
