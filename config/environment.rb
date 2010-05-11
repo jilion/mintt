@@ -6,18 +6,17 @@ Rails::Initializer.run do |config|
   # Add additional load paths for your own custom dirs
   config.load_paths += %W( #{Rails.root}/mailers )
   
-  config.gem "devise"
-  config.gem 'warden'
-  config.gem 'haml'
+  config.gem 'devise',          :version => '1.0.7'
+  config.gem 'warden',          :version => '0.10.3'
+  config.gem 'haml',            :version => '2.2.24'
   config.gem 'formtastic'
-  config.gem 'mongo', :version => '0.18.3', :lib => false
-  config.gem 'mongo_ext', :version => '0.18.3', :lib => false
-  config.gem 'mongo_mapper', :version => '0.7'
-  config.gem 'liquid'
-  config.gem 'will_paginate'
-  config.gem 'comma'
-  config.gem 'ssl_requirement'
-  config.gem 'faker'
+  config.gem 'mongo',           :version => '>= 1.0.1', :lib => false
+  config.gem 'mongo_ext',       :version => '>= 0.19.3', :lib => false
+  config.gem 'mongo_mapper',    :version => '>= 0.7.5'
+  config.gem 'liquid',          :version => '>= 2.0.0'
+  config.gem 'will_paginate',   :version => '>= 2.3.12'
+  config.gem 'comma',           :version => '>= 0.3.2'
+  config.gem 'ssl_requirement', :version => '>= 0.1.0'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
