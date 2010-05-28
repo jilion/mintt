@@ -9,11 +9,11 @@ module Admin::MessagesHelper
   end
   
   def message_sender_name_with_email_and_mailto(message, encode = 'hex', body = '')
-    message.blank? ? "" : "#{message_sender_name(message)} (#{mail_to(message.sender_email, nil, :encode => encode, :body => body, :class => "link")})"
+    message.blank? ? "" : "#{message_sender_name(message)} (#{mail_to(message.sender_email, nil, :encode => encode, :body => body, :class => "link")})".html_safe
   end
   
   def message_content(message)
-    message.blank? ? "" : message.content.gsub(/\r\n/, '<br />')
+    message.blank? ? "" : message.content.gsub(/\r\n/, '<br />').html_safe
   end
   
   def back_to_inbox_or_trash(message)

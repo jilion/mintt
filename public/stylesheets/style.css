@@ -400,12 +400,20 @@ form.main .required_mention {
 #flash {
   padding:40px 20px;
   text-align:center;
-  background:#a5ce37;
-  color:#304703;
   text-shadow:none;
   font-weight:bold;
   font-size:30px;
   border-bottom: 1px solid #000;
+}
+
+#flash.notice {
+  background:#a5ce37;
+  color:#304703;
+}
+
+#flash.error {
+  background:#80271e;
+  color:#4a0804;
 }
 
 .spacer {clear:both;}

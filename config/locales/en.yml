@@ -1,2 +1,3 @@
 en:
-  new_message_contact: "[Mintt] New contact message"
+  new_message_contact:          "[mintt] New contact message"
+  sign_up_instructions_subject: "[mintt] Activate your student account on mintt.epfl.ch"

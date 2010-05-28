@@ -29,4 +29,4 @@
       
     - f.buttons do
       = f.commit_button "Apply"
-    .required_mention= "<abbr title='required'>*</abbr> required"
+    .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"

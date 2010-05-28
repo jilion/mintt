@@ -2,12 +2,13 @@
   %h3= "Contact page"
   %p= "If you have any question, please contact us through the following form:"
 #register
+  
   - semantic_form_for @message,  :html => { :class => "main" } do |f|
     - f.inputs do
       = f.input :sender_name, :label => "Name", :required => true
       = f.input :sender_email, :label => "Email", :required => true
       = f.input :content, :as => :text, :label => "Message", :required => true
-
+      
     - f.buttons do
       = f.commit_button "Send message"
     .required_mention= "<abbr title='required'>*</abbr> required"

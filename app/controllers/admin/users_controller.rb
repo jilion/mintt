@@ -41,7 +41,7 @@ class Admin::UsersController < Admin::AdminController
   def trash
     @user = User.find(params[:id])
     
-    flash[:success] = 'User successfully trashed' if @user.update_attributes!(:trashed_at => Time.now)
+    flash[:success] = 'User successfully trashed' if @user.update_attributes(:trashed_at => Time.now)
     redirect_to admin_users_path
   end
   

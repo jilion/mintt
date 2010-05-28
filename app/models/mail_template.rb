@@ -1,7 +1,7 @@
 class MailTemplate
   include MongoMapper::Document
   
-  key :title, String
+  key :title,   String
   key :content, String
   timestamps!
   

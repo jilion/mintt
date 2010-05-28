@@ -16,17 +16,17 @@ describe MailTemplate do
   end
   
   it "should retrieve existing template" do
-    t = Factory.create(:mail_template)
+    t = Factory(:mail_template)
     MailTemplate.find_by_title('test_template').should eql(t)
   end
   
   describe "should be invalid" do
     it "without title" do
-      Factory(:mail_template, :title => nil).should_not be_valid
+      Factory.build(:mail_template, :title => nil).should_not be_valid
     end
     
     it "without content" do
-      Factory(:mail_template, :content => nil).should_not be_valid
+      Factory.build(:mail_template, :content => nil).should_not be_valid
     end
   end
   

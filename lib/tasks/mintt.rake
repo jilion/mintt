@@ -34,6 +34,11 @@ namespace :db do
       create_users(87)
     end
     
+    desc "Add mail template for use sign up"
+    task :user_sign_up_mail_template => :environment do
+      MailTemplate.create(:title => 'user_sign_up_mail_template', :content => "Dear {{user.first_name}} {{user.last_name}},\nwe are honored to accept you in the mintt program.\n\nAn account has been created for you on http://mintt.epfl.ch, start using it by setting your password. To do so, please click on the link below :\n{{user.change_password_link}}\n\nThanks for your interest in the mintt program,\n\nthe whole Mintt team.")
+      puts "Created the mail template 'user_sign_up_mail_template'."
+    end
   end
   
 end

@@ -9,3 +9,5 @@ MINTT_SENDER = "mintt@epfl.ch"
 
 MINTT_EPFL = "mintt.epfl.ch"
 MINTT_LOCAL = "mintt.local"
+
+REGISTRATION_OPEN = false

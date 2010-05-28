@@ -4,6 +4,7 @@
   %h3= "Edit #{user_full_name(@user)}"
 - semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
   - f.inputs do
+    = f.input :is_selected, :as => :boolean, :label => "Selected for the #{@user.year} mintt program? (an account sign-up email will be sent to this student)", :selected => @user.selected?
     = f.input :gender, :as => :radio, :collection => [["Mrs.", "female"], ["Mr.", "male"]], :required => true
     = f.input :first_name, :required => true
     = f.input :last_name, :required => true
@@ -24,4 +25,4 @@
     
   - f.buttons do
     = submit_tag "Update", :confirm => "Are you sure to update #{user_full_name(@user)} informations?"
-  .required_mention= "<abbr title='required'>*</abbr> required"
+  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"

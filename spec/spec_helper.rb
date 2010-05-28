@@ -6,7 +6,6 @@ ENV["RAILS_ENV"] = "test"
 Spork.prefork do
   require File.dirname(__FILE__) + "/../config/environment"
   
-  # require 'spec'
   require 'spec/rails'
   require 'remarkable_rails'
   # require 'remarkable/mongo_mapper'
@@ -35,6 +34,7 @@ Spork.each_run do
     config.after(:each) do
       MongoMapper.database.collections.each { |c| c.remove }
       MailTemplate.create(:title => 'user_application_confirmation', :content => '{{user.first_name}} {{user.last_name}} {{user.confirmation_link}}')
+      MailTemplate.create(:title => 'user_sign_up_mail_template', :content => '{{user.first_name}} {{user.last_name}} {{user.change_password_link}}')
     end
   end
   

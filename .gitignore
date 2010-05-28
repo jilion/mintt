@@ -19,6 +19,7 @@ tmtags
 *.swp
 
 ## Bundler
+.bundle
 bin/
 vendor/bundler_gems/*
 !vendor/bundler_gems/cache/*
@@ -35,3 +36,16 @@ public/javascripts/all.js
 public/stylesheets/all.css
 public/rcov
 rerun.txt
+capybara-*.html
+public/uploads
+public/js
+public/v
+public/logs
+
+## MAC OS
+.DS_Store
+.Trashes
+.com.apple.timemachine.supported
+.fseventsd
+Desktop DB
+Desktop DF

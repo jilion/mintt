@@ -8,6 +8,7 @@
         %col{ :class => cycle("even", "odd") }
     %tr
       %th
+      %th
       %th= link_to "Name", admin_users_path(sort_parameters('last_name'))
       %th= link_to "School", admin_users_path(sort_parameters('school'))
       %th= link_to "Supervisor", admin_users_path(sort_parameters('thesis_supervisor'))
@@ -16,18 +17,10 @@
       %th
       
     - @users.each do |user|
-      %tr[user]{ :class => cycle("", "alt") }
-        %td.gender= link_to image_tag("/images/admin/#{user.gender}.png", :alt => user.gender), admin_user_path(user)
-        %td= link_to user_full_name(user, true), admin_user_path(user)
-        %td= user.school
-        %td= user.thesis_supervisor
-        %td.datetime
-          %span.date= sexy_date(user.confirmed_at)
-        %td= link_to("edit", edit_admin_user_path(user))
-        %td= button_to("delete", admin_user_path(user), :confirm => "Are you sure?", :method => :delete, :class => "button delete")
-        
-  - unless params.key? :all
-    .right_links= link_to "View all", admin_users_path(:all => true)
-    = will_paginate @users
-  - else
+      = render 'user', :object => user
+      
+  - if params.key? :all
     .right_links= link_to "View with paginate", admin_users_path
+  - else
+    .right_links= link_to "View all", admin_users_path(:all => true)
+    = will_paginate
