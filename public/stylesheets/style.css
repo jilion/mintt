@@ -406,7 +406,7 @@ form.main .required_mention {
   border-bottom: 1px solid #000;
 }
 
-#flash.notice {
+#flash.notice, #flash.success {
   background:#a5ce37;
   color:#304703;
 }

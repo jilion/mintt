@@ -4,3 +4,7 @@ en:
       link: "Didn't receive confirmation instructions?"
       send_instructions: 'Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes.'
       confirmed: 'Thank you, your application is now confirmed.'
+    passwords:
+      cant_send_instructions: "We can't send you instructions for resetting your password! Please use the contact form if you still have problems to log in or resetting your password."
+    sessions:
+      not_allowed_to_sign_in: "You are not allowed to sign in the system! Please use the contact form if you think you should be able to log in."

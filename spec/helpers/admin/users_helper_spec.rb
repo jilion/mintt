@@ -21,49 +21,49 @@ describe Admin::UsersHelper do
   end
   
   # ==================
-  # = user_full_name =
+  # = full_name =
   # ==================
-  describe "user_full_name" do
+  describe "full_name" do
     describe "with nil user" do
       it "should return nothing" do
-        helper.user_full_name(nil).should == ''
+        helper.full_name(nil).should == ''
       end
     end
     
     describe "with a valid user and no options" do
       it "should return 'first_name last_name' titleized" do
-        helper.user_full_name(Factory(:user, :first_name => 'steve', :last_name => 'jobs')).should == 'Steve Jobs'
+        helper.full_name(Factory(:user, :first_name => 'steve', :last_name => 'jobs')).should == 'Steve Jobs'
       end
     end
     
     describe "with a valid user and reverse options" do
       it "should return 'first_name last_name' titleized" do
-        helper.user_full_name(Factory(:user, :first_name => 'steve', :last_name => 'jobs'), true).should == 'Jobs Steve'
+        helper.full_name(Factory(:user, :first_name => 'steve', :last_name => 'jobs'), true).should == 'Jobs Steve'
       end
     end
   end
   
   # =============================
-  # = user_full_name_with_email =
+  # = full_name_with_email =
   # =============================
-  describe "user_full_name_with_email" do
+  describe "full_name_with_email" do
     describe "with nil user" do
       it "should return nothing" do
-        helper.user_full_name_with_email(nil).should == ''
+        helper.full_name_with_email(nil).should == ''
       end
     end
     
     describe "with a valid user and no options" do
       it "should return 'first_name last_name' titleized" do
         user = Factory(:user, :first_name => 'steve', :last_name => 'jobs', :email => 'steve@jobs.com')
-        helper.user_full_name_with_email(user).should == "#{helper.user_full_name(user)} #{mail_to('steve@jobs.com', nil, :encode => 'hex', :subject => 'Mintt program: ')}"
+        helper.full_name_with_email(user).should == "#{helper.full_name(user)} #{mail_to('steve@jobs.com', nil, :encode => 'hex', :subject => 'Mintt program: ')}"
       end
     end
     
     describe "with a valid user and reverse options" do
       it "should return 'first_name last_name mail_to(email, nil, :encode => 'hex', :subject => 'Mintt program: ')' titleized" do
         user = Factory(:user, :first_name => 'steve', :last_name => 'jobs', :email => 'steve@jobs.com')
-        helper.user_full_name_with_email(user, true).should == "#{helper.user_full_name(user, true)} #{mail_to('steve@jobs.com', nil, :encode => 'hex', :subject => 'Mintt program: ')}"
+        helper.full_name_with_email(user, true).should == "#{helper.full_name(user, true)} #{mail_to('steve@jobs.com', nil, :encode => 'hex', :subject => 'Mintt program: ')}"
       end
     end
   end

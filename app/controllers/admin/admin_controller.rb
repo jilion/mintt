@@ -5,11 +5,6 @@ class Admin::AdminController < ApplicationController
   
   layout 'admin'
   
-  # GET /admin
-  # def index
-  #   redirect_to admin_users_path
-  # end
-  
 private
   
   def ssl_required?

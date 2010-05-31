@@ -5,13 +5,13 @@ module Admin::UsersHelper
     user.gender == 'male' ? 'M' : 'F'
   end
   
-  def user_full_name(user, reverse = false)
+  def full_name(user, reverse = false)
     return "" if user.blank?
     (reverse ? "#{user.last_name} #{user.first_name}" : "#{user.first_name} #{user.last_name}").titleize
   end
   
-  def user_full_name_with_email(user, reverse = false)
-    user.blank? ? "" : "#{user_full_name(user, reverse)} #{mail_to(user.email, nil, :encode => "hex", :subject => 'Mintt program: ')}"
+  def full_name_with_email(user, reverse = false)
+    user.blank? ? "" : "#{full_name(user, reverse)} #{mail_to(user.email, nil, :encode => "hex", :subject => 'Mintt program: ')}"
   end
   
   def user_url(user)

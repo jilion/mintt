@@ -34,7 +34,7 @@ describe User do
     its(:sign_up_token)            { should be_nil                                      }
     its(:trashed_at)               { should be_nil                                      }
     
-    it { should be_registered  }
+    it { should be_candidate  }
     it { should_not be_trashed }
     it { should be_valid       }
   end
@@ -132,12 +132,69 @@ describe User do
   end
   
   describe "State Machine" do
-    it "should be registered at first" do
-      Factory(:user).should be_registered
+    let(:user) { Factory(:user) }
+    
+    it "should be candidate at first" do
+      user.should be_candidate
+    end
+    
+    it "should be cancelable and re-become simple candidate" do
+      user.should be_candidate
+      user.select
+      user.should be_selected
+      
+      user.cancel
+      
+      user.should be_candidate
     end
   end
   
-  describe "Callbacks" do
+  describe "Instance Methods" do
+    describe "#select!" do
+      before :each do
+        @user = Factory(:user)
+        ActionMailer::Base.deliveries = []
+        @user.is_selected = '1'
+        @user.save
+      end
+      
+      it "should set the user' state as selected" do
+        @user.should be_selected
+      end
+      it "should set the user' selected_at date to now" do
+        @user.selected_at.should > 1.minute.ago
+      end
+      it "should set the user' reset_password_token" do
+        @user.reset_password_token.should be_present
+      end
+      it "should send email" do
+        ActionMailer::Base.deliveries.size.should == 1
+      end
+    end
+    
+    describe "#cancel!" do
+      before :each do
+        @user = Factory(:user)
+        ActionMailer::Base.deliveries = []
+        @user.is_selected = '0'
+        @user.save
+        @user.cancel
+      end
+      
+      it "should set the user' state as candidate" do
+        @user.should be_candidate
+      end
+      it "should set the user' selected_at date to nil" do
+        @user.selected_at.should be_nil
+      end
+      it "should set the user' reset_password_token to nil" do
+        @user.reset_password_token.should be_nil
+      end
+      it "should not send email" do
+        ActionMailer::Base.deliveries.size.should == 0
+      end
+    end
+    
   end
   
 end

@@ -39,11 +39,10 @@ describe "Admin users edit" do
     
     click_link "Candidates"
     click_link_within "#user_#{@user.id}", "edit"
-    
     check 'user_is_selected'
     click_button "Update"
     
-    response.should contain("mintt: admin | Candidates > #{@user.first_name} #{@user.last_name}")
+    response.should contain("mintt admin | Candidates > #{@user.first_name} #{@user.last_name}")
     
     @user.reload
     @user.selected_at.should be_present

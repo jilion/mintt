@@ -62,7 +62,7 @@ describe Admin::UsersController do
   # =========
   describe :put => :trash, :id => "1" do
     expects :find, :on => User, :with => "1", :returns => mock_user
-    expects :update_attributes!, :on => mock_user, :returns => true
+    expects :update_attributes, :on => mock_user, :returns => true
     
     it { should redirect_to admin_users_path }
   end

@@ -37,8 +37,7 @@ describe MinttMailer do
     
     before(:all) do
       @user  = Factory(:user)
-      @user.is_selected = '1'
-      @user.save
+      @user.select
       @email = MinttMailer.create_sign_up_instructions(@user)
     end
     

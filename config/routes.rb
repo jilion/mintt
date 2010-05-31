@@ -3,10 +3,12 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'pages', :action => 'show', :id => 'home'
   
   map.resource :users, :only => [:edit, :update]
-  map.devise_for :users, :path_names => { :sign_up => 'apply' }
+  map.devise_for :users, :path_names => { :sign_up => 'apply', :sign_in => 'login', :sign_out => 'logout' }
   
   map.resource :messages, :only => [:new, :create], :as => 'contact'
   map.contact '/contact', :controller => 'messages', :action => 'new'
+  
+  map.user_root '/dashboard', :controller => 'users', :action => 'index'
   
   map.admin '/admin', :controller => 'admin/users', :action => 'index'
   map.namespace :admin do |admin|

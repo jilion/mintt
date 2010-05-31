@@ -5,7 +5,7 @@ class User
   
   @@per_page = 10
   
-  attr_accessor :agreement, :is_selected
+  attr_accessor :agreement, :is_selected, :sign_up_email
   
   key :gender,                   String, :required => true
   key :first_name,               String, :required => true
@@ -89,13 +89,13 @@ class User
   # =================
   
   state_machine :initial => :candidate do
-    event(:select) do
-      transition :candidate => :selected
-    end
+    event(:select) { transition :candidate => :selected }
+    # after_transition :candidate => :selected, :do => :select!
+    after_transition :on => :select, :do => :select!
     
-    event(:cancel_selection) do
-      transition :selected => :candidate
-    end
+    event(:cancel) { transition :selected => :candidate }
+    # after_transition :selected => :candidate, :do => :cancel!
+    after_transition :on => :cancel, :do => :cancel!
   end
   
   # =================
@@ -123,19 +123,14 @@ class User
   def fire_state_change
     case is_selected
     when '1' # congrats, you're now selected, send mail to sign up
-      if candidate?
-        self.select
-        self.update_attributes!({ :selected_at => Time.now })
-        self.generate_reset_password_token!
-        # ::MinttMailer.sign_up_instructions(self).deliver
-        ::MinttMailer.deliver_sign_up_instructions(self)
-      end
+      self.select if candidate?
     when '0' # cancel selection
-      if selected?
-        self.cancel_selection
-        self.update_attributes!({ :selected_at => nil })
-      end
+      self.cancel if selected?
     end
+  end
+  
+  def has_been_selected?
+    selected_at.present?
   end
   
   def trashed?
@@ -160,6 +155,16 @@ protected
     end
   end
   
+  def select!
+    self.update_attributes!({ :selected_at => Time.now })
+    self.generate_reset_password_token!
+    ::MinttMailer.deliver_sign_up_instructions(self)# if self.sign_up_email == '1'
+  end
+  
+  def cancel!
+    self.update_attributes!({ :selected_at => nil, :reset_password_token => nil })
+  end
+  
 end
 
 
@@ -170,7 +175,7 @@ class User::LiquidDropClass
   include Admin::UsersHelper
   
   def full_name
-    user_full_name(self)
+    full_name(self)
   end
   
   def confirmation_link

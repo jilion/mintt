@@ -1,10 +1,13 @@
-- title "mintt: admin | Users > edit #{user_full_name(@user)}"
+- title " | Candidates > Edit #{full_name(@user)}"
 
 .text
-  %h3= "Edit #{user_full_name(@user)}"
+  %h3= "Edit #{full_name(@user)}"
 - semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
   - f.inputs do
-    = f.input :is_selected, :as => :boolean, :label => "Selected for the #{@user.year} mintt program? (an account sign-up email will be sent to this student)", :selected => @user.selected?
+    %li#user_is_selected_input.boolean
+      - content_tag(:label, :for => 'user_is_selected') do
+        = raw "#{f.check_box(:is_selected)}Selected and confirmed for the #{select_year(@user.year, { :start_year => 1992, :end_year => Time.now.year }, { :name => 'user[year]' })} mintt program?"
+    = f.input :sign_up_email, :as => :boolean, :label => "#{@user.selected? ? 'Re-s' : 'S'}end sign-up email to this student."
     = f.input :gender, :as => :radio, :collection => [["Mrs.", "female"], ["Mr.", "male"]], :required => true
     = f.input :first_name, :required => true
     = f.input :last_name, :required => true
@@ -24,5 +27,5 @@
     = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?", :required => true
     
   - f.buttons do
-    = submit_tag "Update", :confirm => "Are you sure to update #{user_full_name(@user)} informations?"
+    = submit_tag "Update", :confirm => "Are you sure to update #{full_name(@user)} informations?"
   .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"

@@ -1,10 +1,10 @@
-- title "mintt: admin | Candidates > #{user_full_name(@user)}"
+- title " | Candidates > #{full_name(@user)}"
 
 .text.sheet
   .left_box
     = image_tag "/images/admin/#{@user.gender}_big.png", :alt => @user.gender
   .right_box
-    %h3= user_full_name(@user)
+    %h3= full_name(@user)
     %p.email
       = image_tag "/images/admin/email.png", :alt => "Email"
       = mail_to @user.email
