@@ -35,10 +35,9 @@ OK • [Remy] All dans la liste des candidates
 OK • [Octave] Changer l’affichage des flash, mettre un bandeau plus visible
 OK • [Octave] Liens SRI et CDM en vert
 OK • [Octave] HTTPS ?
-• [Octave] Contour des boutons du menu en vert ?
 OK • [Octave] Rediriger mintt.ch vers mintt.epfl.ch
 OK • [Octave] Google analytics
 OK • [Octave] Mettre photo de Philippe Eyries
 OK • [Octave] CSS pour le print
 OK • [Octave] Styliser "Application date" (fiche user)
-• [Remy] Comma => mettre le charset a ISO-... (pas UTF8 car Excel pete un cable)
+OK • [Remy] Comma => mettre le charset a ISO-... (pas UTF8 car Excel pete un cable)

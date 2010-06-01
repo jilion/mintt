@@ -1,0 +1,14 @@
+%h2= "Send invitation"
+
+- form_for resource_name, resource, :url => invitation_path(resource_name) do |f|
+  = f.error_messages
+  
+  %p= f.label :name
+  %p= f.text_field :name
+  
+  %p= f.label :email
+  %p= f.text_field :email
+  
+  %p= f.submit "Send an invitation"
+  
+= link_to "Home", after_sign_in_path_for(resource_name)

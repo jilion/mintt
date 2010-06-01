@@ -1,0 +1,24 @@
+- title ' | Teachers'
+
+= link_to "Invite a teacher", new_teacher_invitation_path
+
+.text
+  %h3= "Teachers : #{smart_objects_objects_displayed_range(@teachers)} of #{smart_objects_count(@teachers)}"
+  %table
+    %colgroup
+      - 4.times do
+        %col{ :class => cycle("even", "odd") }
+    %tr
+      %th= link_to "Name", admin_teachers_path(sort_parameters('name'))
+      %th= link_to "Email", admin_teachers_path(sort_parameters('email'))
+      %th
+      %th
+      
+    - @teachers.each do |teacher|
+      = render 'teacher', :object => teacher
+      
+  - if params.key? :all
+    .right_links= link_to "View with paginate", admin_teachers_path
+  - else
+    .right_links= link_to "View all", admin_teachers_path(:all => true)
+    = will_paginate

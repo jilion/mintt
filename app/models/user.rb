@@ -5,7 +5,7 @@ class User
   
   @@per_page = 10
   
-  attr_accessor :agreement, :is_selected, :sign_up_email
+  attr_accessor :agreement, :is_selected
   
   key :gender,                   String, :required => true
   key :first_name,               String, :required => true
@@ -28,7 +28,6 @@ class User
   key :year,                     Integer, :default => Time.now.year
   key :state,                    String
   key :selected_at,              Time
-  key :sign_up_token,            String
   key :trashed_at,               DateTime, :default => nil
   timestamps!
   
@@ -90,11 +89,9 @@ class User
   
   state_machine :initial => :candidate do
     event(:select) { transition :candidate => :selected }
-    # after_transition :candidate => :selected, :do => :select!
     after_transition :on => :select, :do => :select!
     
     event(:cancel) { transition :selected => :candidate }
-    # after_transition :selected => :candidate, :do => :cancel!
     after_transition :on => :cancel, :do => :cancel!
   end
   
@@ -158,7 +155,7 @@ protected
   def select!
     self.update_attributes!({ :selected_at => Time.now })
     self.generate_reset_password_token!
-    ::MinttMailer.deliver_sign_up_instructions(self)# if self.sign_up_email == '1'
+    ::MinttMailer.deliver_sign_up_instructions(self)
   end
   
   def cancel!

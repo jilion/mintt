@@ -1,10 +1,21 @@
 en:
   devise:
+    registrations:
+      applications_closed: "Applications are closed."
+      updated: "You account has been updated."
     confirmations:
       link: "Didn't receive confirmation instructions?"
-      send_instructions: 'Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes.'
-      confirmed: 'Thank you, your application is now confirmed.'
+      send_instructions: "Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes."
+      confirmed: "Thank you, your application is now confirmed."
     passwords:
-      cant_send_instructions: "We can't send you instructions for resetting your password! Please use the contact form if you still have problems to log in or resetting your password."
+      send_instructions: "You will receive an email with instructions for resetting your password in a few minutes."
+      cant_send_instructions: "You are not allowed to reset your password!"
+      updated: "Your password has been changed. You are now logged in."
     sessions:
-      not_allowed_to_sign_in: "You are not allowed to sign in the system! Please use the contact form if you think you should be able to log in."
+      signed_in: "Logged in successfully."
+      signed_out: "You are now logged out."
+      not_allowed_to_sign_in: "You are not allowed to log in the system!"
+    invitations:
+      send_instructions: "Invitation sent."
+    mailer:
+      invitation: "[mintt] Invitation to sign up for a teacher account"

@@ -1,6 +1,6 @@
-- title ' | Student Log in'
+- title ' | Student log in'
 
-%h2= "Student Log in"
+%h2= "Student log in"
 
 - form_for resource_name, resource, :url => session_path(resource_name) do |f|
   %p= f.label :email
@@ -10,7 +10,7 @@
   - if devise_mapping.rememberable?
     %p= f.check_box :remember_me
     %p= f.label :remember_me
-  %p= f.submit "Sign in"
+  %p= f.submit "Log in"
 
 - if devise_mapping.recoverable?
   %p= link_to "Forgot password?", new_password_path(resource_name)

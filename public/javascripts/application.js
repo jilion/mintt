@@ -5,7 +5,7 @@ document.observe("dom:loaded", function() {
   $$('tr.message').each(function(tr){
     tr.observe('click', function(e){
       if (!e.element().hasClassName("link") && !e.element().hasClassName("button")) {
-        window.location = tr.down('input[type=hidden]').value;        
+        window.location = tr.down('input[type=hidden]').value;
       }
     });
   });
@@ -22,7 +22,7 @@ document.observe("dom:loaded", function() {
     $$('ul#menu li a').each(function(a){
       if (!a.up("li").hasClassName("home")) {
         a.addClassName("curvyRedraw");
-        curvyCorners(settings, a);        
+        curvyCorners(settings, a);
       }
     });
   }

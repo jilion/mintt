@@ -14,11 +14,11 @@
     /[if gte IE 7]
       == <script type="text/javascript">var curvyCornersNoAutoScan = true;</script>
       %script{ :src => "/javascripts/curvycorners.js", :type => "text/javascript" }
-    %script{ :src => "/javascripts/prototype.min.js", :type => "text/javascript" }
+    %script{ :src => "/javascripts/prototype.js", :type => "text/javascript" }
     %script{ :src => "/javascripts/application.js", :type => "text/javascript" }
+    %script{ :src => "/javascripts/admin.js", :type => "text/javascript" }
   %body
-    - flash.each do |key, value|
-      #flash{ :class => key }= h value
+    = render 'layouts/flash', :object => flash
     #global
       #header
         #halo
@@ -33,6 +33,7 @@
             - link_to admin_path do
               %span= "Home"
           %li{ :class => ('active' if controller_name == 'users') }= link_to "Candidates", admin_users_path
+          %li{ :class => ('active' if controller_name == 'teachers') }= link_to "Teachers", admin_teachers_path
           %li{ :class => ('active' if controller_name == 'messages') }= link_to "Messages", admin_messages_path
           %li{ :class => ('active' if controller_name == 'mail_templates') }= link_to "Mail templates", admin_mail_templates_path
       #content.admin{ :class => "#{controller_name} #{action_name}" }

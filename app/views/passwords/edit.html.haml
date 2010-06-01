@@ -1,0 +1,20 @@
+- verb = resource.password.blank? ? "Set" : "Change"
+- title " | #{verb} my password"
+
+%h2= "#{verb} my password"
+- form_for resource_name, resource, :url => password_path(resource_name), :html => { :method => :put } do |f|
+  = f.error_messages
+  = f.hidden_field :reset_password_token
+  %p
+    = f.label :password
+    %br
+    = f.password_field :password
+    = error_message_on resource, :password
+  
+  %p
+    = f.label :password_confirmation
+    %br
+    = f.password_field :password_confirmation
+    = error_message_on resource, :password_confirmation
+    
+  %p= f.submit "#{verb} my password"

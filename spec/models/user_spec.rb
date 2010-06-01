@@ -31,7 +31,6 @@ describe User do
     its(:agreement)                { should == "1"                                      }
     its(:year)                     { should == Time.now.year                            }
     its(:selected_at)              { should be_nil                                      }
-    its(:sign_up_token)            { should be_nil                                      }
     its(:trashed_at)               { should be_nil                                      }
     
     it { should be_candidate  }

@@ -51,5 +51,4 @@ class Admin::UsersController < Admin::AdminController
     flash[:success] = 'User successfully destroyed' if @user.destroy
     redirect_to admin_users_path
   end
-  
 end

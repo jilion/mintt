@@ -19,10 +19,11 @@ tmtags
 *.swp
 
 ## Bundler
-.bundle
+.bundle/*
 bin/
 vendor/bundler_gems/*
 !vendor/bundler_gems/cache/*
+vendor/cache/**/*
 
 ## PROJECT::GENERAL
 coverage

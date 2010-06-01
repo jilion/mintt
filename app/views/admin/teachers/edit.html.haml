@@ -1,0 +1,12 @@
+- title " | Teacher > Edit #{@teacher.name}"
+
+.text
+  %h3= "Edit #{@teacher.name}"
+- semantic_form_for [:admin, @teacher], :html => { :class => "main" } do |f|
+  - f.inputs do
+    = f.input :name, :required => true
+    = f.input :email, :required => true
+    
+  - f.buttons do
+    = submit_tag "Update", :confirm => "Are you sure to update #{@teacher.name} informations?"
+  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"

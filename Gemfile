@@ -1,9 +1,11 @@
 source 'http://rubygems.org'
 
 gem 'rails',                  '2.3.8'
+gem 'actionpack',             :require => 'action_pack'
 
 gem 'devise',                 '1.0.7'
-gem 'haml',                   '~> 3.0.6'
+gem 'devise_invitable',       :git => "git://github.com/emk/devise_invitable.git"
+gem 'haml',                   '3.0.7'
 gem 'formtastic',             :git => "git://github.com/justinfrench/formtastic.git", :branch => 'rails3'
 gem 'mongo_ext',              '~> 0.19.3'
 gem 'mongo_mapper',           '~> 0.7.6'
@@ -32,12 +34,12 @@ group :test do
   # gem 'steak',                '0.4.0.a4'
   
   gem 'remarkable_rails'
-  # "remarkable_mongo"
+  # gem 'remarkable_mongo'
   # gem 'capybara'
   
   gem 'webrat'
   gem 'launchy'
-  # 'cucumber'
+  # gem 'cucumber'
   gem 'email_spec'
   
   gem 'spork'

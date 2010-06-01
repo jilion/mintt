@@ -11,30 +11,15 @@
     /[if gte IE 7]
       == <script type="text/javascript">var curvyCornersNoAutoScan = true;</script>
       %script{ :src => "/javascripts/curvycorners.js", :type => "text/javascript" }
-    %script{ :src => "/javascripts/prototype.min.js", :type => "text/javascript" }
+    %script{ :src => "/javascripts/prototype.js", :type => "text/javascript" }
     %script{ :src => "/javascripts/application.js", :type => "text/javascript" }
     
   %body
-    - flash.each do |key, value|
-      #flash{ :class => key }= value
+    = render 'layouts/flash', :object => flash
     #global
       = render 'layouts/header'
       #content
-        %ul
-          %li= link_to "Program content", "/program"
-          %li= link_to "Modules documents", "/docs"
-          - if user_signed_in?
-            %li= link_to "Logout", destroy_user_session_path
-        - if user_signed_in?
-          - link_to edit_user_registration_path, :class => "user #{controller_name == 'registrations' ? 'active' : ''}" do
-            %strong
-              %span.icon= full_name(current_user)
-            %span.corner
-        - else
-          - link_to new_user_session_path, :class => "user" do
-            %strong
-              %span.icon= "Login"
-            %span.corner
+        = render 'layouts/user_header'
         = yield
       .spacer
       = render 'layouts/footer'
