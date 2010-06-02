@@ -1,0 +1,14 @@
+- if teacher_signed_in?
+  %ul
+    %li= link_to "My course information", "/course"
+    %li= link_to "My course's documents", "/documents"
+    %li= link_to "Log out", destroy_teacher_session_path
+  - link_to edit_teacher_registration_path, :class => "teacher #{controller_name == 'registrations' ? 'active' : ''}" do
+    %strong
+      %span.icon= current_teacher.name || current_teacher.email
+    %span.corner
+- else
+  - link_to new_teacher_session_path, :class => "teacher" do
+    %strong
+      %span.icon= "Log in"
+    %span.corner

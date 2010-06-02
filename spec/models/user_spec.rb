@@ -148,7 +148,131 @@ describe User do
     end
   end
   
+  describe "Class Methods" do
+    
+    describe ".should_paginate(params = {})" do
+      it "should be true if params doesn't have the :all key " do
+        User.should_paginate.should be_true
+      end
+      it "should be false if params does have the :all key " do
+        User.should_paginate(:all => true).should be_false
+      end
+    end
+    
+  end
+  
   describe "Instance Methods" do
+    
+    describe "#fire_state_change" do
+      describe "should fire the select event when is_selected == '1' if user is not already selected" do
+        before :each do
+          @user = Factory(:user)
+          ActionMailer::Base.deliveries = []
+        end
+        
+        it "should fire the select event when user is candidate" do
+          @user.should be_candidate
+          @user.is_selected = '1'
+          @user.save
+          @user.should be_selected
+          ActionMailer::Base.deliveries.size.should == 1
+        end
+        
+        it "should not fire the select event when user is already selected" do
+          @user.should be_candidate
+          @user.select
+          ActionMailer::Base.deliveries.size.should == 1
+          
+          current_selected_at = @user.selected_at
+          current_reset_password_token = @user.reset_password_token
+          
+          @user.is_selected = '1'
+          @user.save
+          @user.should be_selected
+          @user.selected_at.should == current_selected_at
+          @user.reset_password_token.should == current_reset_password_token
+          ActionMailer::Base.deliveries.size.should == 1
+        end
+      end
+      
+      describe "should fire the cancel event when is_selected == '0' if user is not already candidate" do
+        before :each do
+          @user = Factory(:user)
+          ActionMailer::Base.deliveries = []
+        end
+        
+        it "should fire the cancel event when user is selected" do
+          @user.should be_candidate
+          @user.select
+          ActionMailer::Base.deliveries.size.should == 1
+          
+          @user.is_selected = '0'
+          @user.save
+          @user.should be_candidate
+          @user.selected_at.should be_nil
+          @user.reset_password_token.should be_nil
+          ActionMailer::Base.deliveries.size.should == 1
+        end
+        
+        it "should not fire the select event when user is already candidate" do
+          @user.should be_candidate
+          @user.is_selected = '0'
+          @user.save
+          @user.should be_candidate
+          @user.selected_at.should be_nil
+          @user.reset_password_token.should be_nil
+          ActionMailer::Base.deliveries.size.should == 0
+        end
+      end
+    end
+    
+    describe "#has_been_selected?" do
+      before :each do
+        @user = Factory(:user)
+        @user.select
+      end
+      
+      it "should be selected" do
+        @user.should be_selected
+      end
+      it "should has been selected" do
+        @user.should be_has_been_selected
+      end
+    end
+    
+    describe "#has_created_account?" do
+      before :each do
+        @user = Factory(:user)
+        @user.select
+        User.reset_password_by_token(:reset_password_token => @user.reset_password_token, :password => '123456', :password_confirmation => '123456')
+        @user.reload
+      end
+      
+      it "should be selected" do
+        @user.should be_selected
+      end
+      it "should has created account" do
+        @user.should be_has_created_account
+      end
+      it "should not have reset_password_token" do
+        @user.reset_password_token.should be_nil
+      end
+    end
+    
+    describe "#trashed?" do
+      before :each do
+        @user = Factory(:user)
+      end
+      
+      it "should not be trashed by default" do
+        @user.should_not be_trashed
+      end
+      it "should be trashed" do
+        @user.update_attributes(:trashed_at => Time.now)
+        @user.should be_trashed
+      end
+    end
+    
     describe "#select!" do
       before :each do
         @user = Factory(:user)

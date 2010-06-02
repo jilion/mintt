@@ -19,6 +19,11 @@ Factory.define :user do |u|
   u.agreement                "1"
 end
 
+Factory.define :teacher do |u|
+  u.name             'John'
+  u.sequence(:email) { |n| "email#{n}@epfl.com" }
+end
+
 Factory.define :message do |m|
   m.sender_name             "John Doe"
   m.sequence(:sender_email) { |n| "email#{n}@epfl.com" }

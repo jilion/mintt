@@ -56,16 +56,13 @@ class User
     comment
   end
   
-  # Email regex used to validate email formats. Retrieved from authlogic.
-  EMAIL_REGEX = /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2,4}|museum|travel)\z/i
   URL_REGEX = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/i
   LINKEDIN_URL_REGEX = /\A(http|https):\/\/([a-z]+)\.linkedin\.com\/in\/([a-z0-9]+)\z/i
   
   # ===============
   # = Validations =
   # ===============
-  
-  validates_format_of :email, :with => EMAIL_REGEX
+  validates_format_of :email, :with => Devise::EMAIL_REGEX
   validates_format_of :url, :with => URL_REGEX, :allow_blank => true, :message => "Should start with http:// or https://"
   validates_format_of :linkedin_url, :with => LINKEDIN_URL_REGEX, :allow_blank => true, :message => "Should be similar to http://ch.linkedin.com/in/your_name"
   
@@ -130,6 +127,10 @@ class User
     selected_at.present?
   end
   
+  def has_created_account?
+    has_been_selected? && self.reset_password_token.nil?
+  end
+  
   def trashed?
     trashed_at.present?
   end
@@ -146,8 +147,7 @@ protected
   end
   
   def validate_registration_before_admission_date
-    return if self.thesis_registration_date.blank? || self.thesis_admission_date.blank?
-    if self.thesis_registration_date > self.thesis_admission_date
+    if self.thesis_registration_date.present? && self.thesis_admission_date.present? && self.thesis_registration_date > self.thesis_admission_date
       errors.add(:thesis_registration_date, "must be before the admission date")
     end
   end
@@ -179,7 +179,7 @@ class User::LiquidDropClass
     url_for(ApplicationController.new.default_url_options.merge({ :only_path => false, :controller => 'confirmations', :action => 'show', :confirmation_token => self.confirmation_token }))
   end
   
-  def change_password_link
+  def set_password_link
     url_for(ApplicationController.new.default_url_options.merge({ :only_path => false, :controller => 'passwords', :action => 'edit', :reset_password_token => self.reset_password_token }))
   end
   

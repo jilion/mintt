@@ -1,10 +1,10 @@
-- title = resource.password.blank? ? "Set my password & create my account" : "Change my password"
+- title = "Set my password & create my account"
 - title " | #{title}"
 
 %h2= title
-- form_for resource_name, resource, :url => password_path(resource_name), :html => { :method => :put } do |f|
+- form_for resource_name, resource, :url => invitation_path(resource_name), :html => { :method => :put } do |f|
   = f.error_messages
-  = f.hidden_field :reset_password_token
+  = f.hidden_field :invitation_token
   %p
     = f.label :password
     %br

@@ -1,12 +1,11 @@
 source 'http://rubygems.org'
 
 gem 'rails',                  '2.3.8'
-gem 'actionpack',             :require => 'action_pack'
 
 gem 'devise',                 '1.0.7'
-gem 'devise_invitable',       :git => "git://github.com/emk/devise_invitable.git"
-gem 'haml',                   '3.0.7'
-gem 'formtastic',             :git => "git://github.com/justinfrench/formtastic.git", :branch => 'rails3'
+gem 'devise_invitable',       :path => "~/Gems/devise_invitable"#:git => "git://github.com/emk/devise_invitable.git"
+gem 'haml',                   '~> 3.0.9'
+gem 'formtastic',             :path => "~/Gems/formtastic"#:git => "git://github.com/justinfrench/formtastic.git", :branch => 'rails3'
 gem 'mongo_ext',              '~> 0.19.3'
 gem 'mongo_mapper',           '~> 0.7.6'
 gem 'liquid'

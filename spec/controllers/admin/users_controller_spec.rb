@@ -43,14 +43,14 @@ describe Admin::UsersController do
   # ==========
   # = update =
   # ==========
-  describe :put => :update, :id => "1" do # successful
+  describe :put => :update, :id => "1" do
     expects :find, :on => User, :with => "1", :returns => mock_user
     expects :update_attributes, :on => mock_user, :returns => true
     
     it { should redirect_to admin_user_path(mock_user) }
   end
   
-  describe :put => :update, :id => "1" do # fail
+  describe :put => :update, :id => "1" do
     expects :find, :on => User, :with => "1", :returns => mock_user
     expects :update_attributes, :on => mock_user, :returns => false
     

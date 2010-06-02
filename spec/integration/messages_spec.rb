@@ -18,7 +18,7 @@ describe "Messages" do
     
     response.should redirect_to root_url
     
-    flash[:success].should contain('Your message has been successfully sent.')
+    flash[:success].should contain 'Your message has been sent.'
     ActionMailer::Base.deliveries.size.should == 1
   end
   

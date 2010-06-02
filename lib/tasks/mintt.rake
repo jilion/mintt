@@ -13,7 +13,7 @@ namespace :db do
     
     desc "Empty all the tables"
     task :empty_all_tables => :environment do
-      empty_tables(MailTemplate, Message, User)
+      empty_tables(MailTemplate, Message, Teacher, User)
     end
     
     desc "Load MailTemplate development fixtures."
@@ -28,16 +28,34 @@ namespace :db do
       create_messages(46)
     end
     
+    desc "Load Teacher development fixtures."
+    task :teachers => :environment do
+      empty_tables(Teacher)
+      create_teachers(87)
+    end
+    
     desc "Load User development fixtures."
     task :users => :environment do
       empty_tables(User)
       create_users(87)
     end
     
-    desc "Add mail template for use sign up"
-    task :user_sign_up_mail_template => :environment do
-      MailTemplate.create(:title => 'user_sign_up_mail_template', :content => "Dear {{user.first_name}} {{user.last_name}},\nwe are honored to accept you in the mintt program.\n\nAn account has been created for you on http://mintt.epfl.ch, start using it by setting your password. To do so, please click on the link below :\n{{user.change_password_link}}\n\nThanks for your interest in the mintt program,\n\nthe whole Mintt team.")
-      puts "Created the mail template 'user_sign_up_mail_template'."
+    namespace :mail_template do
+      desc "Add mail template for user sign up"
+      task :user_sign_up => :environment do
+        m = MailTemplate.find_by_title('user_sign_up')
+        m.destroy if m
+        MailTemplate.create(:title => 'user_sign_up', :content => "Dear {{user.first_name}} {{user.last_name}},\nwe are honored to accept you in the mintt program.\n\nAn account has been created for you on http://mintt.epfl.ch, start using it by setting your password. To do so, please click on the link below:\n{{user.set_password_link}}\n\nThanks for your interest in the mintt program,\n\nthe whole Mintt team.")
+        puts "Created the mail template 'user_sign_up'."
+      end
+      
+      desc "Add mail template for teacher invitation"
+      task :teacher_invitation => :environment do
+        m = MailTemplate.find_by_title('teacher_invitation')
+        m.destroy if m
+        MailTemplate.create(:title => 'teacher_invitation', :content => "Hello {{teacher.email}}!\n\nSomeone has invited you to http://mintt.epfl.ch, you can accept it through the link below:\n{{teacher.invitation_link}}\n\nIf you don't want to accept the invitation, please ignore this email.\n\nYour account won't be created until you access the link above and set your password.")
+        puts "Created the mail template 'teacher_invitation'."
+      end
     end
   end
   

@@ -1,5 +1,5 @@
 class RegistrationsController < ApplicationController
-  prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
+  prepend_before_filter :require_no_authentication, :only => [:new, :create]
   prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy]
   include Devise::Controllers::InternalHelpers
   
@@ -7,7 +7,7 @@ class RegistrationsController < ApplicationController
   ssl_required :new, :create
   
   def new
-    unless REGISTRATION_OPEN
+    unless APPLICATIONS_OPEN
       set_flash_message :error, :applications_closed
       redirect_to root_url
     end
@@ -15,7 +15,7 @@ class RegistrationsController < ApplicationController
   
   # POST /resource/register
   def create
-    if REGISTRATION_OPEN
+    if APPLICATIONS_OPEN
       build_resource
       if resource.save
         set_flash_message :success, :send_instructions
@@ -31,7 +31,7 @@ class RegistrationsController < ApplicationController
   
   # GET /resource/edit
   def edit
-    render_with_scope :edit
+    render :edit, :layout => resource_name.to_s
   end
   
   # PUT /resource
@@ -40,7 +40,7 @@ class RegistrationsController < ApplicationController
       set_flash_message :success, :updated
       redirect_to after_sign_in_path_for(self.resource)
     else
-      render_with_scope :edit
+      render :edit, :layout => resource_name.to_s
     end
   end
   

@@ -1,6 +1,6 @@
-- title ' | Student log in'
+- title " | #{resource_name.to_s.humanize} log in"
 
-%h2= "Student log in"
+%h2= "#{resource_name.to_s.humanize} log in"
 
 - form_for resource_name, resource, :url => session_path(resource_name) do |f|
   %p= f.label :email

@@ -15,14 +15,14 @@ describe MessagesController do
   # ========
   # = post =
   # ========
-  describe :post => :create do # successful
+  describe :post => :create do
     expects :new, :on => Message, :returns => mock_message
     expects :save, :on => mock_message, :returns => true
     
     it { should redirect_to root_url }
   end
   
-  describe :post => :create do # fail
+  describe :post => :create do
     expects :new, :on => Message, :returns => mock_message
     expects :save, :on => mock_message, :returns => false
     

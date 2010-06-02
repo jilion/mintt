@@ -9,11 +9,11 @@ describe "User" do
       visit edit_user_password_url(:reset_password_token => @user.reset_password_token)
       
       current_url.should =~ %r(http://[^/]+/users/password/edit\?reset_password_token=#{@user.reset_password_token})
-      response.should contain 'Set my password'
+      response.should contain 'Set my password & create my account'
       
       fill_in "Password",              :with => "123456"
       fill_in "Password confirmation", :with => "123456"
-      click_button "Set my password"
+      click_button "Set my password & create my account"
       
       current_url.should =~ %r(http://[^/]+/dashboard)
       flash[:success].should contain "Your password has been changed. You are now logged in."
@@ -61,14 +61,12 @@ describe "User" do
       pending
       visit "/dashboard"
       current_url.should == "/dashboard"
-      
-      integration_session.should contain "Logout"
+      visit "/dashboard"
       click_link "Log out"
       
       current_url.should =~ %r(http://[^/]+/)
       response.should_not contain "#{@user.first_name} #{@user.last_name}"
       response.should contain "Log in"
-      flash[:success].should contain "You are now logged out."
     end
     
   end

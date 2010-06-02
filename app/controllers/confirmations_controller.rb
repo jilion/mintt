@@ -1,4 +1,4 @@
-# This controller is used for candidates to confirm their submission
+# This controller is used for candidates to confirm their application
 class ConfirmationsController < ApplicationController
   include Devise::Controllers::InternalHelpers
   

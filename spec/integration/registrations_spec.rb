@@ -7,7 +7,7 @@ describe "Registrations" do
   end
   
   it "should be possible to register and deliver confirmation email" do
-    if REGISTRATION_OPEN
+    if APPLICATIONS_OPEN
       visit root_path
       click_link "registration_button"
       
@@ -41,7 +41,7 @@ describe "Registrations" do
   end
   
   it "should have errors with incomplete dates" do
-    if REGISTRATION_OPEN
+    if APPLICATIONS_OPEN
       visit root_path
       click_link "registration_button"
       
@@ -78,7 +78,7 @@ describe "Registrations" do
   end
   
   it "should not have errors with complete dates or no set date" do
-    if REGISTRATION_OPEN
+    if APPLICATIONS_OPEN
       visit root_path
       click_link "registration_button"
       

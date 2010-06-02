@@ -9,6 +9,7 @@
       - 4.times do
         %col{ :class => cycle("even", "odd") }
     %tr
+      %th
       %th= link_to "Name", admin_teachers_path(sort_parameters('name'))
       %th= link_to "Email", admin_teachers_path(sort_parameters('email'))
       %th

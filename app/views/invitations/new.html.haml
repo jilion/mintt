@@ -3,9 +3,6 @@
 - form_for resource_name, resource, :url => invitation_path(resource_name) do |f|
   = f.error_messages
   
-  %p= f.label :name
-  %p= f.text_field :name
-  
   %p= f.label :email
   %p= f.text_field :email
   

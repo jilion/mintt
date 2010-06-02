@@ -2,13 +2,13 @@ ActionController::Routing::Routes.draw do |map|
   
   map.devise_for :users, :path_names => { :sign_up => 'apply', :sign_in => 'login', :sign_out => 'logout' }
   map.resource :users, :only => [:index]
+  map.user_root '/dashboard', :controller => 'users', :action => 'index'
   
   map.devise_for :teachers, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+  map.teacher_root '/lobby', :controller => 'teachers', :action => 'index'
   
+  map.contact '/contact', :controller => 'messages', :action => 'new', :conditions => { :method => :get }
   map.resource :messages, :only => [:new, :create], :as => 'contact'
-  map.contact '/contact', :controller => 'messages', :action => 'new'
-  
-  map.user_root '/dashboard', :controller => 'users', :action => 'index'
   
   map.admin '/admin', :controller => 'admin/users', :action => 'index'
   map.namespace :admin do |admin|

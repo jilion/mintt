@@ -1,7 +1,6 @@
 - if user_signed_in?
   %ul
-    %li= link_to "Program content", "/program"
-    %li= link_to "Modules documents", "/docs"
+    %li= link_to "Program and documents", "/program"
     %li= link_to "Log out", destroy_user_session_path
   - link_to edit_user_registration_path, :class => "user #{controller_name == 'registrations' ? 'active' : ''}" do
     %strong
