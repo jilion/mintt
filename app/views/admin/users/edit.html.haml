@@ -8,7 +8,7 @@
       - content_tag(:label, :for => 'user_is_selected') do
         = raw "#{f.check_box(:is_selected, :checked => @user.has_been_selected?)}Selected and confirmed for the mintt program?"
         %span.candidate_selected_contextual_infos{ :style =>'display:none;' }= "(a sign-up email will be sent to this student)" unless @user.has_been_selected?
-    %li#user_year_input.date.candidate_selected_contextual_infos
+    %li#user_year_input.date.candidate_selected_contextual_infos{ :style => @user.has_been_selected? ? '' : 'display:none;' }
       - content_tag(:label, :for => 'user_is_year') do
         = raw "Year of selection: #{select_year(@user.year, { :start_year => 1992, :end_year => Time.now.year }, { :name => 'user[year]' })}"
     = f.input :gender, :as => :radio, :collection => [["Mrs.", "female"], ["Mr.", "male"]], :required => true

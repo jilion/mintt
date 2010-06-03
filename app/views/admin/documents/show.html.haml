@@ -10,4 +10,5 @@
   .card
     %p= "Module ID: #{@document.module_id}"
     
-    %p= link_to @document.file.url, @document.file.url
+    #document{ :class => pretty_class(@document) }
+      %p= link_to pretty_file(@document), @document.filename

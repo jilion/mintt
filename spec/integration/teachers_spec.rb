@@ -5,7 +5,7 @@ describe "Teacher" do
   context "has been selected" do
     before(:each) { @teacher = invited_teacher }
     
-    it "should be able to set his password and access his module when he's been invited" do
+    it "should be able to set his password and access the program when he's been invited" do
       visit accept_teacher_invitation_url(:invitation_token => @teacher.invitation_token)
       
       current_url.should =~ %r(http://[^/]+/teachers/invitation/accept\?invitation_token=#{@teacher.invitation_token})
@@ -15,7 +15,7 @@ describe "Teacher" do
       fill_in "Password confirmation", :with => "123456"
       click_button "Set my password & create my account"
       
-      current_url.should =~ %r(http://[^/]+/module)
+      current_url.should =~ %r(http://[^/]+/program)
       flash[:success].should contain "Your password has been changed. You are now logged in."
     end
   end
@@ -32,7 +32,7 @@ describe "Teacher" do
       fill_in 'Password', :with => '123456'
       click_button 'Log in'
       
-      current_url.should =~ %r(http://[^/]+/module)
+      current_url.should =~ %r(http://[^/]+/program)
       response.should contain @teacher.email
       flash[:success].should contain "Logged in successfully."
     end
@@ -42,8 +42,8 @@ describe "Teacher" do
     before(:each) { sign_in_as_teacher }
     
     it "should be able to change his password" do
-      visit "/module"
-      current_url.should == "/module"
+      visit "/program"
+      current_url.should == "/program"
       
       click_link @current_teacher.email
       
@@ -56,7 +56,7 @@ describe "Teacher" do
       fill_in "Current password",      :with => "123456"
       click_button "Update"
       
-      current_url.should =~ %r(http://[^/]+/module)
+      current_url.should =~ %r(http://[^/]+/program)
       @current_teacher.reload
       response.should contain @current_teacher.name
       
@@ -65,8 +65,8 @@ describe "Teacher" do
     
     it "should be able to log out" do
       pending
-      visit "/module"
-      current_url.should == "/module"
+      visit "/program"
+      current_url.should == "/program"
       
       click_link "Teacher log out"
       

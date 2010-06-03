@@ -9,18 +9,20 @@ gem 'mongo_mapper',           '~> 0.7.6'
 gem 'ssl_requirement'
 
 gem 'devise',                 '1.0.7'
-gem 'devise_invitable',       :path => "gems/devise_invitable"#:path => "~/Gems/devise_invitable"#:git => "git://github.com/emk/devise_invitable.git"
+gem 'devise_invitable',       :path => "vendor/git/devise_invitable"#:path => "~/Gems/devise_invitable"#:git => "git://github.com/emk/devise_invitable.git"
 gem 'state_machine'
 
 gem 'haml',                   '~> 3.0.9'
-gem 'formtastic',             :path => "gems/formtastic"#:path => "~/Gems/formtastic"#:git => "git://github.com/justinfrench/formtastic.git", :branch => 'rails3'
+gem 'formtastic',             :path => "vendor/git/formtastic"#:path => "~/Gems/formtastic"#:git => "git://github.com/justinfrench/formtastic.git", :branch => 'rails3'
 gem 'will_paginate',          '~> 2.3.14'
 gem 'liquid'
 gem 'comma'
 gem 'fastercsv'
 
-# gem 'carrierwave',            :path => "~/Gems/carrierwave"#:git => "git://github.com/jnicklas/carrierwave.git"
-gem 'carrierwave',            '0.4.4'
+# FUCK YOU ALL!
+# gem 'carrierwave',            :path => "vendor/git/carrierwave"#:git => "git://github.com/jnicklas/carrierwave.git"
+# gem 'carrierwave'#,            '0.4.4'
+# gem 'paperclip'
 
 gem 'erubis'
 
