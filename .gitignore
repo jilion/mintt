@@ -21,8 +21,6 @@ tmtags
 ## Bundler
 .bundle/*
 bin/
-vendor/bundler_gems/*
-!vendor/bundler_gems/cache/*
 vendor/cache/**/*
 vendor/cache/*
 
