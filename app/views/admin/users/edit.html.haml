@@ -4,13 +4,19 @@
   %h3= "Editing #{full_name(@user)}"
 - semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
   - f.inputs do
-    %li#user_is_selected_input.boolean
-      - content_tag(:label, :for => 'user_is_selected') do
-        = raw "#{f.check_box(:is_selected, :checked => @user.has_been_selected?)}Selected and confirmed for the mintt program?"
-        %span.candidate_selected_contextual_infos{ :style =>'display:none;' }= "(a sign-up email will be sent to this student)" unless @user.has_been_selected?
-    %li#user_year_input.date.candidate_selected_contextual_infos{ :style => @user.has_been_selected? ? '' : 'display:none;' }
-      - content_tag(:label, :for => 'user_is_year') do
-        = raw "Year of selection: #{select_year(@user.year, { :start_year => 1992, :end_year => Time.now.year }, { :name => 'user[year]' })}"
+    %li.confirmation_box
+      %ol
+        %li#user_is_selected_input.boolean
+          - content_tag(:label, :for => 'user_is_selected') do
+            = raw "#{f.check_box(:is_selected, :checked => @user.has_been_selected?, :class => "checkbox")}Selected and confirmed for the mintt program?"
+            %p.candidate_selected_contextual_info{ :style =>'display:none;' }= "A sign-up email will be sent to this student." unless @user.has_been_selected?
+        %li#user_year_input.date.candidate_selected_contextual_info{ :style => @user.has_been_selected? ? '' : 'display:none;' }
+          - content_tag(:label, :for => 'user_is_year') do
+            = raw "Year of selection: #{select_year(@user.year, { :start_year => 1992, :end_year => Time.now.year }, { :name => 'user[year]' })}"
+        %li
+          - f.buttons do
+            = submit_tag "Update", :confirm => "Are you sure to update #{full_name(@user)} informations?"
+            
     = f.input :gender, :as => :radio, :collection => [["Mrs.", "female"], ["Mr.", "male"]], :required => true
     = f.input :first_name, :required => true
     = f.input :last_name, :required => true

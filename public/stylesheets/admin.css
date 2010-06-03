@@ -12,6 +12,32 @@ a#admin_label {
 
 a#admin_label span {display:none;}
 
+ul#menu {
+  width:530px;
+  top:5px;
+}
+
+ul#menu li {
+  padding:3px 10px 10px;
+}
+
+ul#menu li a {
+  width:110px;
+  font-size:16px;
+  padding:8px 13px 5px;
+  text-align:center;
+}
+
+ul#menu li.active a {
+  background:#8abf20;
+  color:#000;
+  font-weight:bold;
+}
+
+ul#menu li.home {
+  padding:0 10px 20px;
+}
+
 #content.admin.index, #content.admin.users, #content.admin.messages, #content.mail_templates.show {
   width:880px;
 }
@@ -215,4 +241,26 @@ a#admin_label span {display:none;}
   border-bottom:1px solid #333;
   padding:5px 0;
   margin-bottom:15px;
+}
+
+li.confirmation_box {
+  background:#111;
+  width:570px;
+  padding:10px 15px 15px;
+  margin-bottom:15px;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+}
+
+li.confirmation_box input.checkbox {
+  font-size:30px;
+}
+
+li.confirmation_box .candidate_selected_contextual_info {
+  padding:10px 0;  
+}
+
+li.confirmation_box p.candidate_selected_contextual_info {
+  color:#b9fb00;
 }
