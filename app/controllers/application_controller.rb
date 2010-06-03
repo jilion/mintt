@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  require 'carrierwave/orm/mongomapper'
   include SslRequirement
   include AdminAuthenticatedSystem
   

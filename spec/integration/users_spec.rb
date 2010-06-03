@@ -5,7 +5,7 @@ describe "User" do
   context "has been selected" do
     before(:each) { @user = selected_user }
     
-    it "should be able to set his password and access his dashboard when he's been selected" do
+    it "should be able to set his password and access his program when he's been selected" do
       visit edit_user_password_url(:reset_password_token => @user.reset_password_token)
       
       current_url.should =~ %r(http://[^/]+/users/password/edit\?reset_password_token=#{@user.reset_password_token})
@@ -15,7 +15,7 @@ describe "User" do
       fill_in "Password confirmation", :with => "123456"
       click_button "Set my password & create my account"
       
-      current_url.should =~ %r(http://[^/]+/dashboard)
+      current_url.should =~ %r(http://[^/]+/program)
       flash[:success].should contain "Your password has been changed. You are now logged in."
     end
   end
@@ -24,27 +24,28 @@ describe "User" do
     before(:each) { @user = selected_with_password_user }
     
     it "should be able to log in" do
-      visit "/users/login"
+      visit "/"
+      click_link "Student log in"
       
       current_url.should == "/users/login"
       fill_in 'Email',    :with => @user.email
       fill_in 'Password', :with => '123456'
       click_button 'Log in'
       
-      current_url.should =~ %r(http://[^/]+/dashboard)
+      current_url.should =~ %r(http://[^/]+/program)
       response.should contain "#{@user.first_name} #{@user.last_name}"
       flash[:success].should contain "Logged in successfully."
     end
   end
   
   context "is logged in" do
-    before(:each) { @user = sign_in_as_user }
+    before(:each) { sign_in_as_user }
     
     it "should be able to change his password" do
-      visit "/dashboard"
-      current_url.should == "/dashboard"
+      visit "/program"
+      current_url.should == "/program"
       
-      click_link "#{@user.first_name} #{@user.last_name}"
+      click_link "#{@current_user.first_name} #{@current_user.last_name}"
       
       current_url.should == "/users/edit"
       response.should contain "Edit my information"
@@ -59,14 +60,14 @@ describe "User" do
     
     it "should be able to log out" do
       pending
-      visit "/dashboard"
-      current_url.should == "/dashboard"
-      visit "/dashboard"
-      click_link "Log out"
+      visit "/program"
+      current_url.should == "/program"
+      visit "/program"
+      click_link "Student log out"
       
       current_url.should =~ %r(http://[^/]+/)
-      response.should_not contain "#{@user.first_name} #{@user.last_name}"
-      response.should contain "Log in"
+      response.should_not contain "#{@current_user.first_name} #{@current_user.last_name}"
+      response.should contain "Student log in"
     end
     
   end

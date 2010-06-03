@@ -28,7 +28,7 @@ class User
   key :year,                     Integer, :default => Time.now.year
   key :state,                    String
   key :selected_at,              Time
-  key :trashed_at,               DateTime, :default => nil
+  key :trashed_at,               Time, :default => nil
   timestamps!
   
   devise :database_authenticatable, :registerable, :confirmable, :rememberable, :recoverable

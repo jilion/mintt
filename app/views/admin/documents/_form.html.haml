@@ -1,0 +1,9 @@
+- semantic_form_for [:admin, @document], :html => { :class => "main" } do |f|
+  - f.inputs do
+    = f.input :title, :required => true
+    = f.input :module_id
+    = f.input :file
+    
+  - f.buttons do
+    = submit_tag @document.new_record? ? "Create" : "Update"
+  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"

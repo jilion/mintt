@@ -20,6 +20,7 @@
       = render 'layouts/header'
       #content
         = render 'layouts/user_header'
+        %h1= yield(:h1)
         = yield
       .spacer
       = render 'layouts/footer'

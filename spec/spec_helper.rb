@@ -7,6 +7,7 @@ Spork.prefork do
   require File.dirname(__FILE__) + "/../config/environment"
   
   require 'spec/rails'
+  
   require 'remarkable_rails'
   # require 'remarkable/mongo_mapper'
   require "email_spec"

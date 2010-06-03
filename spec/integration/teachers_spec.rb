@@ -5,7 +5,7 @@ describe "Teacher" do
   context "has been selected" do
     before(:each) { @teacher = invited_teacher }
     
-    it "should be able to set his password and access his lobby when he's been invited" do
+    it "should be able to set his password and access his module when he's been invited" do
       visit accept_teacher_invitation_url(:invitation_token => @teacher.invitation_token)
       
       current_url.should =~ %r(http://[^/]+/teachers/invitation/accept\?invitation_token=#{@teacher.invitation_token})
@@ -15,7 +15,7 @@ describe "Teacher" do
       fill_in "Password confirmation", :with => "123456"
       click_button "Set my password & create my account"
       
-      current_url.should =~ %r(http://[^/]+/lobby)
+      current_url.should =~ %r(http://[^/]+/module)
       flash[:success].should contain "Your password has been changed. You are now logged in."
     end
   end
@@ -24,27 +24,28 @@ describe "Teacher" do
     before(:each) { @teacher = invited_with_password_teacher }
     
     it "should be able to log in" do
-      visit "/teachers/login"
+      visit "/"
+      click_link "Teacher log in"
       
       current_url.should == "/teachers/login"
       fill_in 'Email',    :with => @teacher.email
       fill_in 'Password', :with => '123456'
       click_button 'Log in'
       
-      current_url.should =~ %r(http://[^/]+/lobby)
+      current_url.should =~ %r(http://[^/]+/module)
       response.should contain @teacher.email
       flash[:success].should contain "Logged in successfully."
     end
   end
   
   context "is logged in" do
-    before(:each) { @teacher = sign_in_as_teacher }
+    before(:each) { sign_in_as_teacher }
     
     it "should be able to change his password" do
-      visit "/lobby"
-      current_url.should == "/lobby"
+      visit "/module"
+      current_url.should == "/module"
       
-      click_link @teacher.email
+      click_link @current_teacher.email
       
       current_url.should == "/teachers/edit"
       response.should contain "Edit my information"
@@ -55,22 +56,23 @@ describe "Teacher" do
       fill_in "Current password",      :with => "123456"
       click_button "Update"
       
-      current_url.should =~ %r(http://[^/]+/lobby)
-      @teacher.reload
-      response.should contain @teacher.name
+      current_url.should =~ %r(http://[^/]+/module)
+      @current_teacher.reload
+      response.should contain @current_teacher.name
       
       flash[:success].should contain "You account has been updated."
     end
     
     it "should be able to log out" do
-      visit "/lobby"
-      current_url.should == "/lobby"
+      pending
+      visit "/module"
+      current_url.should == "/module"
       
-      click_link "Log out"
+      click_link "Teacher log out"
       
       current_url.should =~ %r(http://[^/]+/)
-      response.should_not contain @teacher.email
-      response.should contain "Log in"
+      response.should_not contain @current_teacher.email
+      response.should contain "Teacher log in"
     end
     
   end

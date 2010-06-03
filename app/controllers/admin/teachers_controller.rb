@@ -37,4 +37,5 @@ class Admin::TeachersController < Admin::AdminController
     flash[:success] = 'Teacher successfully destroyed' if @teacher.destroy
     redirect_to admin_teachers_path
   end
+  
 end

@@ -1,0 +1,13 @@
+- title "Documents > #{@document.title}"
+
+.text.sheet
+  .right_box
+    %h3= @document.title
+  .application_date
+    %p.edit= link_to "edit document", edit_admin_document_path(@document)
+    
+  .spacer
+  .card
+    %p= "Module ID: #{@document.module_id}"
+    
+    %p= link_to @document.file.url, @document.file.url

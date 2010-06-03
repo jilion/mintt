@@ -20,6 +20,8 @@
       = render 'layouts/header'
       #content
         = render 'layouts/user_header'
+        = render 'layouts/teacher_header'
+        %h1= yield(:h1)
         = yield
       = render 'layouts/sidebar'
       = render 'layouts/footer'

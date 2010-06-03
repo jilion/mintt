@@ -2,10 +2,10 @@ ActionController::Routing::Routes.draw do |map|
   
   map.devise_for :users, :path_names => { :sign_up => 'apply', :sign_in => 'login', :sign_out => 'logout' }
   map.resource :users, :only => [:index]
-  map.user_root '/dashboard', :controller => 'users', :action => 'index'
+  map.user_root '/program', :controller => 'users', :action => 'index'
   
   map.devise_for :teachers, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
-  map.teacher_root '/lobby', :controller => 'teachers', :action => 'index'
+  map.teacher_root '/module', :controller => 'teachers', :action => 'index'
   
   map.contact '/contact', :controller => 'messages', :action => 'new', :conditions => { :method => :get }
   map.resource :messages, :only => [:new, :create], :as => 'contact'
@@ -14,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :users, :member => { :trash => :put }
     admin.resources :teachers
+    admin.resources :documents
     admin.resources :messages, :collection => { :trashes => :get }, :member => { :reply => :put, :trash => :put, :untrash => :put }
     admin.resources :mail_templates
   end
