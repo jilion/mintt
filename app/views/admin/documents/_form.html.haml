@@ -1,7 +1,7 @@
 - semantic_form_for [:admin, @document], :html => { :class => "main" } do |f|
   - f.inputs do
     = f.input :title, :required => true
-    = f.input :module_id
+    = f.input :module_id, :as => :select, :collection => ProgramModule.all, :selected => 1
     = f.input :file
     
   - f.buttons do
