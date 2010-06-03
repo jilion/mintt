@@ -38,14 +38,4 @@ public/rcov
 rerun.txt
 capybara-*.html
 public/uploads
-public/js
-public/v
 public/logs
-
-## MAC OS
-.DS_Store
-.Trashes
-.com.apple.timemachine.supported
-.fseventsd
-Desktop DB
-Desktop DF
