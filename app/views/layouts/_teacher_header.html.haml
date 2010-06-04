@@ -1,6 +1,6 @@
 - if teacher_signed_in?
   %ul
-    %li= link_to "My module", "/module"
+    %li= link_to "Program & documents", "/program"
     %li= link_to "Teacher log out", destroy_teacher_session_path
   - link_to edit_teacher_registration_path, :class => "teacher #{controller_name == 'registrations' ? 'active' : ''}" do
     %strong

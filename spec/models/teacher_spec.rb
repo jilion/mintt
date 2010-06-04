@@ -18,9 +18,15 @@ describe User do
   describe "should be valid" do
     
     it "with a nil name" do
-      t = Factory(:teacher, :name => "")
+      t = Factory(:teacher, :name => nil)
       t.should be_valid
-      t.name.should be_blank
+      t.name.should be_nil
+    end
+    
+    it "with a nil name" do
+      t = Factory(:teacher, :module_id => nil)
+      t.should be_valid
+      t.module_id.should be_nil
     end
     
   end

@@ -1,8 +1,9 @@
-- semantic_form_for [:admin, @document], :html => { :class => "main" } do |f|
+- semantic_form_for [:admin, @document], :html => { :class => "main", :multipart => true } do |f|
   - f.inputs do
-    = f.input :title, :required => true
+    = f.input :title
     = f.input :module_id, :as => :select, :collection => ProgramModule.all, :selected => 1
-    = f.input :file
+    = f.input :file, :as => :file
+    = pretty_file(@document)
     
   - f.buttons do
     = submit_tag @document.new_record? ? "Create" : "Update"

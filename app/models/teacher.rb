@@ -3,8 +3,9 @@ class Teacher
   
   @@per_page = 10
   
-  key :name,  String
-  key :email, String, :required => true, :unique => true
+  key :name,      String
+  key :email,     String, :required => true, :unique => true
+  key :module_id, Integer, :default => nil
   timestamps!
   
   devise :database_authenticatable, :registerable, :rememberable, :recoverable, :invitable

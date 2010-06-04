@@ -36,6 +36,7 @@ Factory.define :mail_template do |f|
 end
 
 Factory.define :document do |f|
-  f.title 'A document'
-  f.file  File.open("#{Rails.root}/spec/fixtures/course_document.pdf")
+  f.title     'A document'
+  f.module_id 1
+  f.filename  "course_document.pdf"
 end

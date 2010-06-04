@@ -1,6 +1,7 @@
-- title "#{resource_name.to_s.humanize} log in"
+- t = "#{resource_name.to_s.humanize} log in"
+- title t
 
-%h2= "#{resource_name.to_s.humanize} log in"
+%h2= t
 
 - form_for resource_name, resource, :url => session_path(resource_name) do |f|
   %p= f.label :email
