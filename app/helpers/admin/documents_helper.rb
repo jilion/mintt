@@ -1,8 +1,8 @@
 module Admin::DocumentsHelper
   
-  def pretty_file(document)
+  def pretty_file(document, options={})
     if document.image?
-      image_tag(document.url)
+      image_tag(document.url, :width => options[:width] ? options[:width] : "" )
     else
       document.url
     end

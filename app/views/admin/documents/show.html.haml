@@ -7,8 +7,7 @@
     %p.edit= link_to "edit document", edit_admin_document_path(@document)
     
   .spacer
-  .card
-    %p= "Module ID: #{@document.module_id}"
-    
-    #document{ :class => pretty_class(@document) }
-      %p= link_to pretty_file(@document), @document.url
+  %p= "Module ID: #{@document.module_id}"
+  
+  #document{ :class => pretty_class(@document) }
+    %p= link_to pretty_file(@document, :width => 400), @document.url

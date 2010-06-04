@@ -4,7 +4,7 @@
     = f.input :description, :as => :text
     = f.input :module_id, :as => :select, :collection => ProgramModule.all, :selected => 1
     = f.input :file, :as => :file, :required => true
-    = pretty_file(@document)
+    = pretty_file(@document, :width => 300)
     
   - f.buttons do
     = f.commit_button @document.new_record? ? "Create" : "Update"
