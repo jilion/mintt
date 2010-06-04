@@ -4,7 +4,7 @@
     = f.input :description, :as => :text
     = f.input :module_id, :as => :select, :collection => ProgramModule.all, :selected => 1
     = f.input :file, :as => :file, :required => true
-    = pretty_file(@document, :width => 300)
+    = pretty_file(@document)
     
     = f.input :published_at, :as => :datetime, :selected => Time.now.utc
     = "Time.now: #{Time.now}"
