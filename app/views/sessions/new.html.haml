@@ -1,17 +1,14 @@
 - t = "#{resource_name.to_s.humanize} log in"
 - title t
 
-%h3= t
-
-- form_for resource_name, resource, :url => session_path(resource_name) do |f|
-  %p= f.label :email
-  %p= f.text_field :email
-  %p= f.label :password
-  %p= f.password_field :password
-  - if devise_mapping.rememberable?
-    %p= f.check_box :remember_me
-    %p= f.label :remember_me
-  %p= f.submit "Log in"
+- semantic_form_for resource_name, resource, :url => session_path(resource_name), :html => { :class => "main" } do |f|
+  - f.inputs do
+    = f.input :email
+    = f.input :password
+    - if devise_mapping.rememberable?
+      = f.input :remember_me, :as => :boolean
+  - f.buttons do
+    = f.commit_button "Login"
 
 - if devise_mapping.recoverable?
   %p= link_to "Forgot password?", new_password_path(resource_name)

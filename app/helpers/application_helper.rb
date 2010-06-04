@@ -2,7 +2,7 @@ module ApplicationHelper
   
   def title(page_title, show_title = true)
     @content_for_title      = " | #{strip_tags(page_title.to_s)}"
-    @content_for_page_title = page_title.to_s.html_safe if show_title
+    @content_for_page_title = content_tag(:h3, page_title.to_s.html_safe, :class => "title") if show_title
   end
   
   def display_date(date)

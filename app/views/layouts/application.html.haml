@@ -20,7 +20,7 @@
     #global
       = render 'layouts/header'
       #content
-        %h1= yield(:page_title)
+        = yield(:page_title)
         = yield
       = render 'layouts/sidebar' unless controller_name == "programs"
       = render 'layouts/footer'
