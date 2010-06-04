@@ -481,3 +481,37 @@ img {
 #footnotes_debug span {background:#444 !important;}
 
 #footnotes_debug a {color:#ccc !important;}
+
+
+/* Remy :P */
+#content .slot .left_box {
+  width:300px;
+  float:left;
+}
+
+#content .slot .right_box {
+  float:left;
+  width:250px;
+  background:#222;
+}
+
+#content .sheet p.email img {
+  float:left;
+  margin:4px 6px 0 0;
+}
+
+#content .text.slot {
+  padding:20px;
+  background:#111;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  margin-bottom:10px;
+}
+
+#content .text.sheet .text_box p {
+  border-top:1px solid #333;
+  padding:15px 0 0;
+  margin-top:15px;
+}
+
+#content .text.sheet .text_box.last {border-bottom:none;}

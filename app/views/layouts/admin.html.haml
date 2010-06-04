@@ -38,8 +38,7 @@
           %li{ :class => ('active' if controller_name == 'messages') }= link_to "Messages", admin_messages_path
           %li{ :class => ('active' if controller_name == 'mail_templates') }= link_to "Mail templates", admin_mail_templates_path
       #content.admin{ :class => "#{controller_name} #{action_name}" }
-        .text
-          %h3= yield(:page_title)
+        = yield(:page_title)
         = yield
       #sidebar
         = yield :sidebar
