@@ -1,5 +1,4 @@
-- t = resource.password.blank? ? "Set my password & create my account" : "Change my password"
-- title t
+- title "Change my password"
 
 - form_for resource_name, resource, :url => password_path(resource_name), :html => { :method => :put } do |f|
   = f.error_messages
@@ -16,4 +15,4 @@
     = f.password_field :password_confirmation
     = error_message_on resource, :password_confirmation
     
-  %p= f.submit t
+  %p= f.submit "Change my password"

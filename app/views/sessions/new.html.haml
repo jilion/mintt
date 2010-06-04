@@ -1,7 +1,4 @@
-- t = "#{resource_name.to_s.humanize} log in"
-- title t
-
-%h3= t
+- title "#{resource_name == :user ? 'Student' : resource_name.to_s.humanize} log in"
 
 - form_for resource_name, resource, :url => session_path(resource_name) do |f|
   %p= f.label :email
@@ -12,6 +9,6 @@
     %p= f.check_box :remember_me
     %p= f.label :remember_me
   %p= f.submit "Log in"
-
+  
 - if devise_mapping.recoverable?
   %p= link_to "Forgot password?", new_password_path(resource_name)

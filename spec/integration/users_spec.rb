@@ -9,11 +9,11 @@ describe "User" do
       visit edit_user_password_url(:reset_password_token => @user.reset_password_token)
       
       current_url.should =~ %r(http://[^/]+/users/password/edit\?reset_password_token=#{@user.reset_password_token})
-      response.should contain 'Set my password & create my account'
+      response.should contain 'Change my password'
       
       fill_in "Password",              :with => "123456"
       fill_in "Password confirmation", :with => "123456"
-      click_button "Set my password & create my account"
+      click_button "Change my password"
       
       current_url.should =~ %r(http://[^/]+/program)
       flash[:success].should contain "Your password has been changed. You are now logged in."
