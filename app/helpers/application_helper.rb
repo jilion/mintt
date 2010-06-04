@@ -6,11 +6,11 @@ module ApplicationHelper
   end
   
   def display_date(date)
-    date.blank? ? "" : date.to_s(:lite)
+    date.blank? ? "" : date.to_date.to_s(:lite)
   end
   
   def display_date_and_time(date)
-    date.blank? ? "" : date.to_s(:full)
+    date.blank? ? "" : date.to_datetime.to_s(:full)
   end
   
   def sexy_date(date)
@@ -20,13 +20,13 @@ module ApplicationHelper
     elsif date.to_time > 2.days.until(Time.now)
       "Yesterday"
     else
-      date.to_s(:lite)
+      date.to_date.to_s(:lite)
     end
   end
   
   def sexy_time(date)
     return "" if date.blank?
-    date.to_s(:time)
+    date.to_time.to_s(:time)
   end
   
   def words_count(text)

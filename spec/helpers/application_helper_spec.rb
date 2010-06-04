@@ -16,7 +16,7 @@ describe ApplicationHelper do
     describe "with a valid date" do
       it "should return well" do
         date = Date.new(2010, 03, 01)
-        helper.display_date(date).should == "March 01, 2010"
+        helper.display_date(date).should == date.to_s(:lite)
       end
     end
   end
@@ -33,22 +33,22 @@ describe ApplicationHelper do
     end
     
     describe "with a today date" do
-      it "should return nothing" do
-        date = Time.now
+      it "should return a well formatted date" do
+        date = Time.now.to_date
         helper.sexy_date(date).should == "Today"
       end
     end
     
     describe "with a yesterday date" do
-      it "should return nothing" do
-        date = Time.now.yesterday
+      it "should return a well formatted date" do
+        date = Time.now.yesterday.to_date
         helper.sexy_date(date).should == "Yesterday"
       end
     end
     
     describe "with a date before yesterday" do
-      it "should return nothing" do
-        date = 3.days.ago
+      it "should return a well formatted date" do
+        date = 3.days.ago.to_date
         helper.sexy_date(date).should == date.to_s(:lite)
       end
     end
@@ -66,14 +66,14 @@ describe ApplicationHelper do
     end
     
     describe "with a valid date" do
-      it "should return nothing" do
+      it "should return a well formatted date" do
         date = 3.days.ago
         helper.sexy_time(date).should == date.to_s(:time)
       end
     end
     
     describe "with a valid time" do
-      it "should return nothing" do
+      it "should return a well formatted date" do
         time = Time.now
         helper.sexy_time(time).should == time.to_s(:time)
       end
