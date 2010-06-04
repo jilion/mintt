@@ -1,6 +1,7 @@
 module DocumentsHelper
   
   def pretty_file(document)
+    return if document.new_record?
     html = "#{document.extension.upcase}: #{document.title}"
     html << " (#{document.filename})" unless document.filename == document.title
     html

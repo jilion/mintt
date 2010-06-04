@@ -6,7 +6,7 @@
     = f.input :file, :as => :file, :required => true
     = pretty_file(@document)
     
-    = f.input :published_at, :as => :datetime, :selected => Time.now.utc
+    %li.select= f.datetime_select(:published_at, :default => Time.now.utc)
     = "Time.now: #{Time.now}"
     
   - f.buttons do
