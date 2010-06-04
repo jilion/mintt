@@ -38,7 +38,7 @@ ul#menu li.home {
   padding:0 10px 20px;
 }
 
-#content.admin.index, #content.admin.users, #content.admin.messages, #content.mail_templates.show {
+#content.admin.index, #content.admin.users, #content.admin.messages, #content.admin.documents, #content.mail_templates.show {
   width:880px;
 }
 
