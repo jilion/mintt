@@ -1,7 +1,5 @@
-- title "Candidates > Edit #{full_name(@user)}"
+- title "Edit student: #{content_tag(:em, full_name(@user))}"
 
-.text
-  %h3= "Editing #{full_name(@user)}"
 - semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
   - f.inputs do
     %li.confirmation_box

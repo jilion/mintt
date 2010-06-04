@@ -1,5 +1,4 @@
 class ProgramsController < ApplicationController
-  
   before_filter :authenticate_user!, :unless => proc { |controller| controller.signed_in? :teacher }
   before_filter :authenticate_teacher!, :unless => proc { |controller| controller.signed_in? :user }
   

@@ -1,4 +1,4 @@
-- title "#{'Trashed ' if @message.trashed?}Messages > From #{@message.sender_email} received #{time_ago_in_words(@message.created_at)} ago"
+- title show_message_title(@message), false
 
 .text.mail
   %h3= "Message"
@@ -15,6 +15,6 @@
     = back_to_inbox_or_trash(@message)
     
   .content
-    .from= raw "#{content_tag(:strong, 'From')}: #{message_sender_name_with_email_and_mailto(@message, 'hex', "\n\n\n#{message_sender_name_with_email(@message)} wrote on #{@message.created_at}:\n\n#{@message.content}")}"
+    .from= raw "#{content_tag(:strong, 'From')}: #{sender_name_with_email_and_mailto(@message, 'hex', "\n\n\n#{message_sender_name_with_email(@message)} wrote on #{@message.created_at}:\n\n#{@message.content}")}"
     .date= raw "#{content_tag(:strong, 'Date Received')}: #{sexy_date(@message.created_at)} #{sexy_time(@message.created_at)}"
     .body= message_content(@message)

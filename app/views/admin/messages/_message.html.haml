@@ -7,7 +7,7 @@
     - if message.replied?
       = image_tag("/images/admin/replied_icon.png", :alt => "Replied")
   %td.from
-    %h4= message_sender_name_with_email_and_mailto(message)
+    %h4= sender_name_with_email_and_mailto(message)
     %p.excerpt= truncate message.content, :length => 160
   %td.datetime
     %span.date= sexy_date(message.created_at)

@@ -1,7 +1,6 @@
-- title 'Candidates'
+- title "Students: #{smart_objects_objects_displayed_range(@users)} of #{smart_objects_count(@users)}"
 
 .text
-  %h3= "Candidates : #{smart_objects_objects_displayed_range(@users)} of #{smart_objects_count(@users)}"
   .export= link_to "Export all users in CSV", admin_users_path(:format => 'csv')
   %table
     %colgroup

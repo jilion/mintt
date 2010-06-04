@@ -60,6 +60,10 @@ class Message
     trashed_at.present?
   end
   
+  def sender_name
+    @sender_name.titleize if @sender_name.present?
+  end
+  
 protected
   
   # after_create

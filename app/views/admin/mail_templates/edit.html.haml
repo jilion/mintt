@@ -1,7 +1,5 @@
-- title "Mail templates > Edit #{mail_template_title(@mail_template)}"
+- title "Edit mail template: #{content_tag(:em, mail_template_title(@mail_template))}"
 
-.text
-  %h3= raw "Editing template: #{content_tag(:em, mail_template_title(@mail_template))}"
 #register
   - semantic_form_for [:admin, @mail_template],  :html => { :class => "main" } do |f|
     - f.inputs do

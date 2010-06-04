@@ -55,7 +55,7 @@ describe "User" do
       fill_in "Current password",      :with => "123456"
       click_button "Update"
       
-      flash[:success].should contain "You account has been updated."
+      flash[:success].should contain "Your personal information has been updated."
     end
     
     it "should be able to log out" do
