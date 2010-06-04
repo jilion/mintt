@@ -1,8 +1,6 @@
-- title 'Messages'
+- title "Messages: #{smart_objects_objects_displayed_range(@messages)} of #{smart_objects_count(@messages)}"
 
 .text
-  %h3= "Messages : #{smart_objects_objects_displayed_range(@messages)} of #{smart_objects_count(@messages)}"
-  
   .actions_right= link_to('Go to Trash', trashes_admin_messages_path)
   
   %table

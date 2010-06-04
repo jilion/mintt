@@ -30,7 +30,7 @@ class Admin::UsersController < Admin::AdminController
     @user = User.find(params[:id])
     
     if @user.update_attributes(params[:user])
-      flash[:success] = 'Candidate has been successfully updated'
+      flash[:success] = 'Student has been successfully updated'
       redirect_to admin_user_path(@user)
     else
       render :edit
@@ -41,14 +41,14 @@ class Admin::UsersController < Admin::AdminController
   def trash
     @user = User.find(params[:id])
     
-    flash[:success] = 'Candidate has been successfully trashed' if @user.update_attributes(:trashed_at => Time.now)
+    flash[:success] = 'Student has been successfully trashed' if @user.update_attributes(:trashed_at => Time.now)
     redirect_to admin_users_path
   end
   
   # DELETE /admin/users/:id
   def destroy
     @user = User.find(params[:id])
-    flash[:success] = 'Candidate has been successfully destroyed' if @user.destroy
+    flash[:success] = 'Student has been successfully destroyed' if @user.destroy
     redirect_to admin_users_path
   end
   

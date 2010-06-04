@@ -60,7 +60,7 @@ describe "Teacher" do
       @current_teacher.reload
       response.should contain @current_teacher.name
       
-      flash[:success].should contain "You account has been updated."
+      flash[:success].should contain "Your personal information has been updated."
     end
     
     it "should be able to log out" do

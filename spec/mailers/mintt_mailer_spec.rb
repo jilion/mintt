@@ -50,7 +50,7 @@ describe MinttMailer do
     end
     
     it "should have the correct subject" do
-      @email.should have_subject("[mintt] Activate your student account on mintt.epfl.ch")
+      @email.should have_subject("[mintt] Invitation to sign-up on the mintt website")
     end
     
     it "should contain a link to user's reset_password_token in the email body" do

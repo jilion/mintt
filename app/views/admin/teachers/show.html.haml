@@ -1,4 +1,4 @@
-- title "Teachers > #{@teacher.name || @teacher.email}"
+- title "Teacher: #{content_tag(:em, @teacher.name || @teacher.email)}", false
 
 .text.sheet
   .right_box

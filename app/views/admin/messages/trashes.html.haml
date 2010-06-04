@@ -1,8 +1,6 @@
-- title 'Trashed Messages'
+- title "Trashed messages: #{smart_objects_objects_displayed_range(@messages)} of #{smart_objects_count(@messages)}"
 
 .text
-  %h3= "Trashed Messages : #{smart_objects_objects_displayed_range(@messages)} of #{smart_objects_count(@messages)}"
-  
   .actions_right= link_to('Go to Inbox', admin_messages_path)
   
   %table
@@ -25,7 +23,7 @@
           - if message.replied?
             = image_tag("/images/admin/replied_icon.png", :alt => "Replied")
         %td.from
-          %h4= message_sender_name_with_email_and_mailto(message)
+          %h4= sender_name_with_email_and_mailto(message)
           %p.excerpt= truncate message.content, :length => 160
         -#%td= link_to(words_count(message.content), admin_message_path(message))
         %td.datetime

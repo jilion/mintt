@@ -1,7 +1,5 @@
-- t = "Edit my information"
-- title t
+- title "Edit my information"
 
-%h2= t
 - form_for resource_name, resource, :url => registration_path(resource_name), :html => { :method => :put } do |f|
   = f.error_messages
   

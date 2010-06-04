@@ -1,7 +1,6 @@
-- title 'Teachers'
+- title "Teachers"
 
 .text
-  %h3= "Teachers : #{smart_objects_objects_displayed_range(@teachers)} of #{smart_objects_count(@teachers)}"
   .actions_right= link_to "Invite a teacher", new_teacher_invitation_path
   %table
     %colgroup
@@ -11,6 +10,7 @@
       %th
       %th= link_to "Name", admin_teachers_path(sort_parameters('name'))
       %th= link_to "Email", admin_teachers_path(sort_parameters('email'))
+      %th= "Module"
       %th
       %th
       

@@ -32,7 +32,7 @@ class RegistrationsController < ApplicationController
   
   # GET /resource/edit
   def edit
-    render :edit, :layout => resource_name.to_s
+    render :edit
   end
   
   # PUT /resource
@@ -41,7 +41,7 @@ class RegistrationsController < ApplicationController
       set_flash_message :success, :updated
       redirect_to after_sign_in_path_for(self.resource)
     else
-      render :edit, :layout => resource_name.to_s
+      render :edit
     end
   end
   
