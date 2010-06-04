@@ -34,4 +34,13 @@ describe ProgramsController do
     end
   end
   
+  context "as a guest" do
+    # =======
+    # = get =
+    # =======
+    describe :get => :index do
+      it { should redirect_to new_user_session_url(:host => 'test.host', :unauthenticated => true) }
+    end
+  end
+  
 end
