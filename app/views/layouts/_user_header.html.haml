@@ -1,13 +1,21 @@
-- if user_signed_in?
-  %ul
-    %li= link_to "Program & documents", "/program"
-    %li= link_to "Student log out", destroy_user_session_path
-  - link_to edit_user_registration_path, :class => "user #{controller_name == 'registrations' ? 'active' : ''}" do
-    %strong
-      %span.icon= full_name(current_user)
-    %span.corner
-- else
-  - link_to new_user_session_path, :class => "user" do
-    %strong
-      %span.icon= "Student log in"
-    %span.corner
+#user_header
+  .wrap
+    - if user_signed_in?
+      %ul
+        %li= link_to "Program & documents", "/program"
+        %li= link_to "Student log out", destroy_user_session_path
+      - link_to edit_user_registration_path, :class => "user #{controller_name == 'registrations' ? 'active' : ''}" do
+        %strong
+          %span.icon= full_name(current_user)
+        %span.corner
+    - elsif teacher_signed_in?
+      %ul
+        %li= link_to "Program & documents", "/program"
+        %li= link_to "Teacher log out", destroy_teacher_session_path
+      - link_to edit_teacher_registration_path, :class => "teacher #{controller_name == 'registrations' ? 'active' : ''}" do
+        %strong
+          %span.icon= current_teacher.name || current_teacher.email
+        %span.corner
+    - else
+      = link_to "Student log in", new_user_session_path, :class => "user login"
+      = link_to "Teacher log in", new_teacher_session_path, :class => "teacher login"
