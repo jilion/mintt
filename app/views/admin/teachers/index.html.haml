@@ -1,12 +1,11 @@
 - title 'Teachers'
 
-= link_to "Invite a teacher", new_teacher_invitation_path
-
 .text
   %h3= "Teachers : #{smart_objects_objects_displayed_range(@teachers)} of #{smart_objects_count(@teachers)}"
+  .actions_right= link_to "Invite a teacher", new_teacher_invitation_path
   %table
     %colgroup
-      - 4.times do
+      - 5.times do
         %col{ :class => cycle("even", "odd") }
     %tr
       %th

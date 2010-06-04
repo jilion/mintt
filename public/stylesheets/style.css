@@ -330,7 +330,11 @@ form.main abbr {
   font-weight:bold;
 }
 
-form.main .string label, form.main .text label {
+form.main .file input {
+  margin:0 0 10px;
+}
+
+form.main .string label, form.main .text label, form.main .select label, form.main .file label {
   display:block;
   padding:12px 0 2px;
   line-height:18px;

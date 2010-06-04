@@ -3,10 +3,12 @@
 
 .text
   %h3= t
-- form_for resource_name, resource, :url => invitation_path(resource_name) do |f|
-  = f.error_messages
+- semantic_form_for resource_name, resource, :url => invitation_path(resource_name), :html => { :class => "main" } do |f|
   
-  %p= f.label :email
-  %p= f.text_field :email
+  - f.inputs do  
+    = f.input :email, :required => true
+
+  - f.buttons do
+    = f.commit_button t
   
-  %p= f.submit t
+    -#= f.submit t

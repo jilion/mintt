@@ -6,8 +6,8 @@
   - f.inputs do
     = f.input :name, :required => true
     = f.input :email, :required => true
-    = f.input :module_id
+    = f.input :module_id, :as => :select, :collection => ProgramModule.all, :selected => 1
     
   - f.buttons do
-    = submit_tag "Update"
+    = f.commit_button "Update"
   .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"
