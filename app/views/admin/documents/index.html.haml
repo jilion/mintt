@@ -1,10 +1,9 @@
 - t = "Documents"
 - title t
 
-= link_to "New document", new_admin_document_path
-
 .text
   %h3= t
+  .actions_right= link_to "New document", new_admin_document_path
   %table
     %colgroup
       - 4.times do
