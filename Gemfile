@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source :gemcutter
 
 gem 'rails',                  '2.3.8'
 
@@ -9,11 +9,11 @@ gem 'mongo_mapper',           '~> 0.7.6'
 gem 'ssl_requirement'
 
 gem 'devise',                 '1.0.7'
-gem 'devise_invitable',       :path => "vendor/git/devise_invitable"#:path => "~/Gems/devise_invitable"#:git => "git://github.com/emk/devise_invitable.git"
+gem 'devise_invitable',       :git => "git://github.com/emk/devise_invitable.git"
 gem 'state_machine'
 
 gem 'haml',                   '~> 3.0.9'
-gem 'formtastic',             :path => "vendor/git/formtastic"#:path => "~/Gems/formtastic"#:git => "git://github.com/justinfrench/formtastic.git", :branch => 'rails3'
+gem 'formtastic',             :git => "git://github.com/justinfrench/formtastic.git", :branch => 'rails3'
 gem 'will_paginate',          '~> 2.3.14'
 gem 'liquid'
 gem 'comma'
