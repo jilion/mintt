@@ -6,4 +6,4 @@ test:
   pass: fake
 production:
   user: admintt
-  pass: "cvgz78"
+  pass: cvgz78

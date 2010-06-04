@@ -1,2 +1,18 @@
 en:
   new_contact_message: "[mintt] New contact message"
+  
+  time:
+    formats:
+      lite: "%B %d, %Y"
+      full: "%B %d, %Y %I:%M %p"
+      time: "%I:%M %p"
+  date:
+    formats:
+      lite: "%B %d, %Y"
+      full: "%B %d, %Y %I:%M %p"
+      time: "%I:%M %p"
+  datetime:
+      formats:
+        lite: "%B %d, %Y"
+        full: "%B %d, %Y %I:%M %p"
+        time: "%I:%M %p"

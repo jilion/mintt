@@ -5,9 +5,9 @@ when "production"
   ['mehdi.aminian@epfl.ch', 'rosina.amendola@epfl.ch']
 end
 
-MINTT_SENDER = "mintt@epfl.ch"
+MINTT_SENDER      = "mintt@epfl.ch"
 
-MINTT_EPFL = "mintt.epfl.ch"
-MINTT_LOCAL = "mintt.local"
+MINTT_EPFL        = "mintt.epfl.ch"
+MINTT_LOCAL       = "mintt.local"
 
-APPLICATIONS_OPEN = false#Rails.env.development? ? true : false
+APPLICATIONS_OPEN = false # Rails.env.development? ? true : false

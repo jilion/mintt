@@ -4,10 +4,12 @@
   .right_box
     %h3= @document.title
   .application_date
-    %p.edit= link_to "edit document", edit_admin_document_path(@document)
+    %p.edit= link_to "edit document", edit_admin_document_path(@document), :class => "edit"
     
   .spacer
   %p= "Module ID: #{@document.module_id}"
+  
+  %p= "Published on: #{@document.published_at.to_s(:full)}"
   
   #document{ :class => pretty_class(@document) }
     %p= link_to pretty_file(@document), @document.url

@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
   # Add additional load paths for your own custom dirs
-  config.load_paths += %W[#{Rails.root}/app/mailers #{Rails.root}/app/uploaders]
+  config.load_paths += %W[#{Rails.root}/app/mailers]
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

@@ -2,7 +2,7 @@
 - title "Mail template: #{content_tag(:em, mail_template_title(@mail_template))}"
 
 .text.mail
-  .actions_right= link_to("edit", edit_admin_mail_template_path(@mail_template))
+  .actions_right= link_to("edit mail template", edit_admin_mail_template_path(@mail_template), :class => "edit")
   
   .content
     = raw auto_link(Liquid::Template.parse(@mail_template.content).render(resource.class.to_s.downcase => resource).gsub!(/\n/, '<br />'))

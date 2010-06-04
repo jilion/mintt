@@ -1,5 +1,5 @@
 # load db settings
-db_config = YAML::load(File.read(RAILS_ROOT + "/config/database.yml"))
+db_config = YAML::load(File.read(Rails.root.join('config', 'database.yml')))
 
 # connect to the db
 if db_config[Rails.env] && db_config[Rails.env]['adapter'] == 'mongodb'

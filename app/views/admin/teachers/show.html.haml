@@ -7,7 +7,7 @@
       = image_tag "/images/admin/email.png", :alt => "Email"
       = mail_to @teacher.email
   .application_date
-    %p.edit= link_to "edit teacher", edit_admin_teacher_path(@teacher)
+    %p.edit= link_to "edit teacher", edit_admin_teacher_path(@teacher), :class => "edit"
     
   .spacer
   .card
