@@ -7,7 +7,7 @@
   %h3= t
   %table
     %colgroup
-      - 7.times do
+      - 4.times do
         %col{ :class => cycle("even", "odd") }
     %tr
       %th= link_to "Title", admin_documents_path(sort_parameters('title'))
