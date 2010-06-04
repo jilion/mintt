@@ -1,6 +1,7 @@
 module DocumentsHelper
   
   def pretty_file(document)
+    return if document.new_record?
     html = "#{document.extension.upcase}: #{document.title}"
     html << " (#{document.filename})" unless document.filename == document.title
     html
@@ -15,7 +16,7 @@ module DocumentsHelper
   end
   
   def published_icon(document)
-    (document.published_at && document.published_at <= Time.now) ? "Yes" : "No"
+    (document.published_at && document.published_at <= Time.now) ? image_tag("/images/admin/selected.png", :alt => "selected") : ""
   end
   
   def list_documents_for_module(module_id)
