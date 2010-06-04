@@ -1,5 +1,4 @@
-- t = "#{resource_name.to_s.humanize} log in"
-- title t
+- title "#{resource_name == :user ? 'Student' : resource_name.to_s.humanize} log in"
 
 - semantic_form_for resource_name, resource, :url => session_path(resource_name), :html => { :class => "main" } do |f|
   - f.inputs do
