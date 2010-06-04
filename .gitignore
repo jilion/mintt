@@ -21,8 +21,6 @@ tmtags
 ## Bundler
 .bundle/*
 bin/
-# vendor/cache/**/*
-# vendor/cache/*
 
 ## PROJECT::GENERAL
 coverage

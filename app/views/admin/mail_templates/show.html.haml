@@ -1,9 +1,10 @@
+- resource = fake_resource_for(@mail_template)
 - title "Mail templates > #{mail_template_title(@mail_template)}"
 
 .text.mail
-  %h3= "Mail template"
+  %h3= raw "Mail template: #{content_tag(:em, mail_template_title(@mail_template))}"
   
   .actions_right= link_to("edit", edit_admin_mail_template_path(@mail_template))
   
   .content
-    = raw auto_link(Liquid::Template.parse(@mail_template.content).render(@resource.class.to_s.downcase => fake_resource_for(@mail_template)).gsub!(/\n/, '<br />'))
+    = raw auto_link(Liquid::Template.parse(@mail_template.content).render(resource.class.to_s.downcase => resource).gsub!(/\n/, '<br />'))

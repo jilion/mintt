@@ -19,4 +19,4 @@ en:
       send_instructions: "Invitation sent."
       updated: "Your password has been changed. You are now logged in."
     mailer:
-      invitation: "[mintt] Invitation to sign up for a teacher account"
+      invitation: "[mintt] Invitation to sign-up on the mintt website"

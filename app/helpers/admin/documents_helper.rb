@@ -2,9 +2,9 @@ module Admin::DocumentsHelper
   
   def pretty_file(document)
     if document.image?
-      image_tag(document.filename)
+      image_tag(document.url)
     else
-      document.filename
+      document.url
     end
   end
   

@@ -6,11 +6,11 @@ class MinttMailer < ActionMailer::Base
     reply_to      message.sender_email
     sent_on       Time.now
     content_type  "text/plain"
-    subject       I18n.t(:new_message_contact)
+    subject       I18n.t(:new_contact_message)
     body          :message => message
     
     # @message = message
-    # setup_mail(message, :subject => I18n.t(:new_message_contact), :to => NEW_MESSAGE_RECIPIENTS, :reply_to => message.sender_email)
+    # setup_mail(message, :subject => I18n.t(:new_contact_message), :to => NEW_MESSAGE_RECIPIENTS, :reply_to => message.sender_email)
   end
   
   def sign_up_instructions(user)
@@ -19,7 +19,7 @@ class MinttMailer < ActionMailer::Base
     reply_to      NEW_MESSAGE_RECIPIENTS
     sent_on       Time.now
     content_type  "text/plain"
-    subject       I18n.t(:sign_up_instructions_subject)
+    subject       I18n.t(:"devise.mailer.invitation")
     body          :user => user
     
     # @user = user

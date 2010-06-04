@@ -11,4 +11,4 @@
     %p= "Module ID: #{@document.module_id}"
     
     #document{ :class => pretty_class(@document) }
-      %p= link_to pretty_file(@document), @document.filename
+      %p= link_to pretty_file(@document), @document.url

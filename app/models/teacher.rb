@@ -50,6 +50,10 @@ class Teacher
     invitation_sent_at.present? && invitation_token.nil?
   end
   
+  def name_or_email
+    name || email
+  end
+  
 end
 
 
