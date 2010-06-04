@@ -39,7 +39,7 @@ module MultiParameterAttributes
       if values.size == values_with_empty_parameters.size
         value = if Time == klass
           Time.zone.local(*values)
-        elsif Date == klass
+        elsif [Date, DateTime].include? klass
           begin
             # values = values_with_empty_parameters.collect { |v| v.blank? ? 0 : v }
             Date.new(*values)

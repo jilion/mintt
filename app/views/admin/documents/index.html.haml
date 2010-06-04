@@ -10,7 +10,8 @@
         %col{ :class => cycle("even", "odd") }
     %tr
       %th= link_to "Title", admin_documents_path(sort_parameters('title'))
-      %th= link_to "Module", admin_documents_path(sort_parameters('module_id'))
+      %th= "Module"
+      %th= "Published"
       %th
       %th
       

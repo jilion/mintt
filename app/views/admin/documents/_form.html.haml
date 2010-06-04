@@ -6,6 +6,9 @@
     = f.input :file, :as => :file, :required => true
     = pretty_file(@document)
     
+    = f.input :published_at, :as => :datetime, :selected => Time.now.utc
+    = "Time.now: #{Time.now}"
+    
   - f.buttons do
     = f.commit_button @document.new_record? ? "Create" : "Update"
   .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"
