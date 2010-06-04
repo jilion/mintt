@@ -49,7 +49,7 @@ namespace :db do
         m = MailTemplate.find_by_title('user_application_confirmation')
         m.destroy if m
         puts "Creating the 'New message' mail template => "
-        MailTemplate.create(:title => 'user_application_confirmation', :content => "Dear {{user.first_name}} {{user.last_name}},\nwe've received your request for participating in the Mintt program.\n\nTo confirm your demand, please click on the link below :\n{{user.confirmation_link}}\n\nThanks for your interest in the Mintt program,\n\nthe whole Mintt team.")
+        MailTemplate.create(:title => 'user_application_confirmation', :content => "Dear {{user.first_name}} {{user.last_name}},\nwe've received your request for participating in the Mintt program.\n\nTo confirm your demand, please click on the link below :\n{{user.confirmation_link}}\n\nThanks for your interest in the Mintt program,\n\nthe mintt team.")
         puts "Created the mail template 'user_application_confirmation'."
       end
       
@@ -65,8 +65,7 @@ namespace :db do
       task :teacher_invitation => :environment do
         m = MailTemplate.find_by_title('teacher_invitation')
         m.destroy if m
-        MailTemplate.create(:title => 'teacher_invitation', :content => "Dear {{teacher.email}},\n\nHere is an invitation to sign-up on the mintt website, in order for you to access courses information and documents.\n\nTo create your account, please visit this page:\n{{teacher.invitation_link}}\n\nBest regards,\n
-        the mintt team.")
+        MailTemplate.create(:title => 'teacher_invitation', :content => "Dear {{teacher.email}},\n\nHere is an invitation to sign-up on the mintt website, in order for you to access courses information and documents.\n\nTo create your account, please visit this page:\n{{teacher.invitation_link}}\n\nBest regards,\nthe mintt team.")
         puts "Created the mail template 'teacher_invitation'."
       end
     end

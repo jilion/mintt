@@ -1,13 +1,14 @@
 class Document
   include MongoMapper::Document
+  include MultiParameterAttributes
   
   attr_accessor :file
   
   key :title,        String
   key :description,  String
-  key :module_id,    String,   :default => nil
+  key :module_id,    Integer,   :default => nil
   key :filename,     String,   :required => true
-  key :published_at, DateTime, :default => nil
+  key :published_at, Time, :default => nil
   timestamps!
   
   validate :presence_of_file

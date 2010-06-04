@@ -6,9 +6,9 @@ class Message
   key :sender_name,  String
   key :sender_email, String
   key :content,      String
-  key :read_at,      DateTime, :default => nil
-  key :replied_at,   DateTime, :default => nil
-  key :trashed_at,   DateTime, :default => nil
+  key :read_at,      Time, :default => nil
+  key :replied_at,   Time, :default => nil
+  key :trashed_at,   Time, :default => nil
   timestamps!
   
   # Email regex used to validate email formats. Retrieved from authlogic.
