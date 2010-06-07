@@ -441,77 +441,47 @@ a.edit {
 }
 
 h5.title {
+  font-size:38px;
+  padding:0 0 10px;
+  font-weight:200;
+}
+
+ul.program {
+  list-style-type:none;
+}
+
+ul.program li {
+  padding:8px 0;
+}
+
+li.break, .break {
+  border-top: 2px solid #333;
+  margin-top:20px;
+  padding-bottom:20px;
+}
+
+ul.program li h4 {
   font-size:18px;
+  padding:3px 0;
+}
+
+ul.program li h4.module {
+  color:#9dc925;
+  font-size:22px;
   padding:5px 0 10px;
 }
 
-table.program_day {
-  margin-bottom:20px;
-}
-
-table.program_day, table.program_day table {
-  width:100%;
-  border-collapse:collapse;
-}
-
-table.program_day table {
-  height:100%;
-}
-
-table.program_day th {
-  font-size:13px;
-  padding:5px;
-  text-align:left;
-}
-
-table.program_day tr .title {
-  background:#2b2b2b;
-  font-size:18px;
-/*  font-weight:bold;*/
-}
-
-table.program_day tr.alt .title {
-  background:#222;
-}
-
-table.program_day td.period {
-  width:600px;
-  border-top: 1px solid #333;
-}
-
-table.program_day td.time {
-  background:#111;
-  padding:8px 10px;
-  font-size:14px;
-}
-
-table.program_day td.docs {
-  background:#111;
-  border-top: 1px solid #333;
-}
-
-table.program_day tr.alt td.docs {
-  background:#1a1a1a;
-}
-
-table.program_day td.docs ul {
+ul.program ul {
   list-style-type:none;
-  padding:10px;
+  background:#1a1a1a;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
 }
 
-table.program_day td.docs ul li .description {
-  display:none;
-}
-
-table.program_day td.docs ul li {
-  padding:0 0 10px 20px;
-  background:url(/images/file.png) no-repeat;
-  font-weight:bold;
-  font-size:13px;
-}
-
-table.program_day td.title {
-  padding:10px;
+ul.program ul li {
+  padding:8px 20px 8px 30px;
+  background:url(/images/file.png) no-repeat 10px 8px;
 }
 
 #footer {
