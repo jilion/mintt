@@ -1,10 +1,11 @@
 module DocumentsHelper
   
-  def pretty_file(document, options={})
+  def pretty_file(document, *args)
     return if document.new_record?
-    options = options.symbolize_keys!
-    
-    html = "#{document.extension.upcase}: " unless !options[:type]
+      options = args.extract_options!
+      options.reverse_merge!(:type => true)
+      
+    html = "#{document.extension.upcase}: " if options[:type]
     "#{html}#{link_to(document.title, document.url)}".html_safe
   end
   
