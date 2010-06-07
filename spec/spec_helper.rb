@@ -36,7 +36,7 @@ Spork.each_run do
     config.after(:each) do
       MongoMapper.database.collections.each { |c| c.remove }
       MailTemplate.create(:title => 'user_application_confirmation', :content => '{{user.first_name}} {{user.last_name}} {{user.confirmation_link}}')
-      MailTemplate.create(:title => 'user_invitation', :content => '{{user.first_name}} {{user.last_name}} {{user.set_password_link}}')
+      MailTemplate.create(:title => 'user_invitation', :content => '{{user.first_name}} {{user.last_name}} {{user.invitation_link}}')
       MailTemplate.create(:title => 'teacher_invitation', :content => '{{teacher.email}} {{teacher.invitation_link}}')
     end
   end

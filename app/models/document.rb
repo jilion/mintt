@@ -4,11 +4,11 @@ class Document
   
   attr_accessor :file
   
-  key :title,        String
+  key :title,        String,  :required => true
   key :description,  String
-  key :module_id,    Integer,   :default => nil
-  key :filename,     String,   :required => true
-  key :published_at, Time, :default => nil
+  key :module_id,    Integer, :default => nil
+  key :filename,     String,  :required => true
+  key :published_at, Time,    :default => nil
   timestamps!
   
   validate :presence_of_file

@@ -258,9 +258,13 @@ li.confirmation_box input.checkbox {
 }
 
 li.confirmation_box .candidate_selected_contextual_info {
-  padding:10px 0;  
+  padding:10px 0;
 }
 
 li.confirmation_box p.candidate_selected_contextual_info {
   color:#b9fb00;
+}
+
+#document_file {
+  color:#d3d3d3;
 }

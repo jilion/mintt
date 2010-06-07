@@ -57,7 +57,7 @@ namespace :db do
       task :user_invitation => :environment do
         m = MailTemplate.find_by_title('user_invitation')
         m.destroy if m
-        MailTemplate.create(:title => 'user_invitation', :content => "Dear {{user.first_name}} {{user.last_name}},\n\nHere is an invitation to sign-up on the mintt website, in order for you to access courses information and documents. \n\nTo create your account, please visit this page:\n{{user.set_password_link}}\n\nBest regards,\nthe mintt team.")
+        MailTemplate.create(:title => 'user_invitation', :content => "Dear {{user.first_name}} {{user.last_name}},\n\nHere is an invitation to sign-up on the mintt website, in order for you to access courses information and documents. \n\nTo create your account, please visit this page:\n{{user.invitation_link}}\n\nBest regards,\nthe mintt team.")
         puts "Created the mail template 'user_invitation'."
       end
       

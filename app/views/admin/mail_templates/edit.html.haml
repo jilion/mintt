@@ -6,7 +6,7 @@
       = text_area_tag 'mail_template[content]', @mail_template.content
       
     - f.buttons do
-      = f.commit_button "Update template"
+      = f.commit_button "Update mail template"
     .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"
     
 - content_for :sidebar do
@@ -16,6 +16,7 @@
     - case @mail_template.title
     - when /user/
       %li Confirmation link : <span>user.confirmation_link</span>
+      %li Invitation link : <span>user.invitation_link</span>
       %li First name : <span>user.first_name</span>
       %li Last name : <span>user.last_name</span>
       %li Full name : <span>user.full_name</span>

@@ -1,8 +1,6 @@
 - title "Set my password"
 
 - semantic_form_for [resource_name, resource], :url => invitation_path(resource_name), :html => { :class => "main", :method => :put } do |f|
-  = f.error_messages
-  
   - f.inputs do
     = f.input :invitation_token, :as => :hidden
     = f.input :password, :required => true

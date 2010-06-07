@@ -179,7 +179,7 @@ class User::LiquidDropClass
     url_for(ApplicationController.new.default_url_options.merge({ :only_path => false, :controller => 'confirmations', :action => 'show', :confirmation_token => self.confirmation_token }))
   end
   
-  def set_password_link
+  def invitation_link
     url_for(ApplicationController.new.default_url_options.merge({ :only_path => false, :controller => 'passwords', :action => 'edit', :reset_password_token => self.reset_password_token }))
   end
   

@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.user_root '/program', :controller => 'programs', :action => 'index'
   
   map.devise_for :teachers, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+  map.resources :teachers, :only => :update
   map.teacher_root '/program', :controller => 'programs', :action => 'index'
   
   map.contact '/contact', :controller => 'messages', :action => 'new', :conditions => { :method => :get }

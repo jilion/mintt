@@ -1,14 +1,15 @@
 - semantic_form_for [:admin, @document], :html => { :class => "main", :multipart => true } do |f|
   - f.inputs do
-    = f.input :title
+    = f.input :title, :required => true
     = f.input :description, :as => :text
-    = f.input :module_id, :as => :select, :collection => ProgramModule.all, :selected => 1
-    = f.input :file, :as => :file, :required => true
-    = pretty_file(@document)
+    = f.input :module_id, :as => :select, :collection => ProgramModule.all, :selected => @document.module_id || 1
+    = f.input :file, :as => :file, :required => true, :html => { :style => 'background-color:#333;' }
+    = raw "#{content_tag(:strong, 'Current file')}: #{pretty_file(@document, :type => false)}" unless @document.new_record?
     
-    %li.select= f.datetime_select(:published_at, :default => Time.now.utc)
-    = "Now: #{Time.now}"
+    %li.select
+      = f.label :published_at, "Publish on (current time is: #{Time.now.strftime("%Y-%B-%d - %H:%M")}):"
+      = f.datetime_select(:published_at, :default => Time.now.utc)
     
   - f.buttons do
-    = f.commit_button @document.new_record? ? "Create" : "Update"
+    = f.commit_button "#{@document.new_record? ? "Create" : "Update"} document"
   .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"

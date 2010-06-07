@@ -1,11 +1,11 @@
 module DocumentsHelper
   
-  def pretty_file(document)
+  def pretty_file(document, options={})
     return if document.new_record?
-    html = "#{document.extension.upcase}: "
-    linked = "#{document.title}"
-    linked << " (#{document.filename})" unless document.filename == document.title
-    "#{html}#{link_to(linked, document.url)}".html_safe
+    options = options.symbolize_keys!
+    
+    html = "#{document.extension.upcase}: " unless !options[:type]
+    "#{html}#{link_to(document.title, document.url)}".html_safe
   end
   
   def pretty_class(document)
