@@ -51,9 +51,10 @@ describe "User" do
       response.should contain "Edit my information"
       
       fill_in "Password",              :with => "654321"
-      fill_in "Password confirmation", :with => "654321"
       fill_in "Current password",      :with => "123456"
       click_button "Update my information"
+      
+      current_url.should =~ %r(http://[^/]+/users/edit)
       
       flash[:success].should contain "Your personal information has been updated."
     end

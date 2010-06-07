@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
     { :host => Rails.env.production? ? MINTT_EPFL : MINTT_LOCAL }
   end
   
+  def after_update_path_for(resource_or_scope)
+    send "edit_#{resource_or_scope.class.to_s.underscore}_registration_path"
+  end
+  
 protected
   
   def ensure_keys_exists

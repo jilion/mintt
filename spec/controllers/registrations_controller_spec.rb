@@ -84,7 +84,7 @@ describe RegistrationsController do
       expects :find, :find, :on => User, :returns => mock_user
       expects :update_with_password, :on => mock_user, :returns => true
       
-      it { should redirect_to user_root_path }
+      it { should redirect_to edit_user_registration_path }
     end
     
     describe :put => :update do

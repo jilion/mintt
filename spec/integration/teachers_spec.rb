@@ -41,7 +41,7 @@ describe "Teacher" do
   context "is logged in" do
     before(:each) { sign_in_as_teacher }
     
-    it "should be able to change his password" do
+    it "should be able to change his name" do
       visit "/program"
       current_url.should == "/program"
       
@@ -50,17 +50,14 @@ describe "Teacher" do
       current_url.should == "/teachers/edit"
       response.should contain "Edit my information"
       
-      fill_in "Name",                  :with => 'John Doe'
-      fill_in "Password",              :with => "654321"
-      fill_in "Password confirmation", :with => "654321"
-      fill_in "Current password",      :with => "123456"
-      click_button "Update my information"
+      fill_in "Name", :with => 'John Doe'
+      click_button "Update my name"
       
-      current_url.should =~ %r(http://[^/]+/program)
+      current_url.should =~ %r(http://[^/]+/teachers/edit)
       @current_teacher.reload
       response.should contain @current_teacher.name
       
-      flash[:success].should contain "Your personal information has been updated."
+      flash[:success].should contain "Your name has been updated."
     end
     
     it "should be able to log out" do
