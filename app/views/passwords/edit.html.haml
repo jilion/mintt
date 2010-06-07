@@ -6,8 +6,9 @@
   
   - f.inputs do
     = f.input :reset_password_token, :as => :hidden
-    = f.input :password
-    = f.input :password_confirmation
+    = f.input :password, :required => true
+    = f.input :password_confirmation, :required => true
     
   - f.buttons do
     = f.commit_button t
+  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"

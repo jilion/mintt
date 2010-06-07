@@ -5,10 +5,9 @@
   %h3= t
 - semantic_form_for resource_name, resource, :url => invitation_path(resource_name), :html => { :class => "main" } do |f|
   
-  - f.inputs do  
+  - f.inputs do
     = f.input :email, :required => true
-
+    
   - f.buttons do
     = f.commit_button t
-  
-    -#= f.submit t
+  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"
