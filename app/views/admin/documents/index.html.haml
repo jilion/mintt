@@ -4,10 +4,10 @@
   .actions_right= link_to "New document", new_admin_document_path
   %table
     %colgroup
-      - 4.times do
+      - 5.times do
         %col{ :class => cycle("even", "odd") }
     %tr
-      %th= link_to "Title", admin_documents_path(sort_parameters('title'))
+      %th= "Title"
       %th= "Module"
       %th= "Published"
       %th

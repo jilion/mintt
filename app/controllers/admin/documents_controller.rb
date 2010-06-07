@@ -3,7 +3,7 @@ class Admin::DocumentsController < Admin::AdminController
   
   # GET /admin/documents
   def index
-    @documents = Document.all
+    @documents = Document.all(:order => 'published_at DESC')
   end
   
   # GET /admin/documents/:id

@@ -11,10 +11,10 @@
     
   .spacer
   .card
-    %p= "Invitation token: #{@teacher.invitation_token}"
+    %p= raw "#{content_tag(:strong, 'Invitation token')}: #{@teacher.invitation_token}"
     
     - if @teacher.has_accepted_invitation?
-      %p= "Registered"
+      %p= content_tag(:strong, 'Registered')
     - else
       - form_for :teacher, @teacher, :url => invitation_path(@teacher) do |f|
         = f.hidden_field :email

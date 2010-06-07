@@ -9,11 +9,11 @@ describe "Teacher" do
       visit accept_teacher_invitation_url(:invitation_token => @teacher.invitation_token)
       
       current_url.should =~ %r(http://[^/]+/teachers/invitation/accept\?invitation_token=#{@teacher.invitation_token})
-      response.should contain 'Change my password'
+      response.should contain 'Set my password'
       
       fill_in "Password",              :with => "123456"
       fill_in "Password confirmation", :with => "123456"
-      click_button "Change my password"
+      click_button "Set my password"
       
       current_url.should =~ %r(http://[^/]+/program)
       flash[:success].should contain "Your password has been changed. You are now logged in."

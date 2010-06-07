@@ -4,8 +4,9 @@
   .actions_right= link_to('Go to Trash', trashes_admin_messages_path)
   
   %table
-    - 5.times do
-      %col{ :class => "even" }
+    %colgroup
+      - 5.times do
+        %col{ :class => "even" }
     %tr
       %th.icon_centered= link_to image_tag("/images/admin/unread_label_icon.png", :alt => "Unread?"), admin_messages_path(sort_parameters('read_at'))
       %th.icon_centered= link_to image_tag("/images/admin/replied_label_icon.png", :alt => "Replied?"), admin_messages_path(sort_parameters('replied_at'))

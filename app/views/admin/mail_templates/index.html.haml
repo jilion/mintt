@@ -2,8 +2,9 @@
 
 .text
   %table
-    - 2.times do
-      %col{ :class => "even" }
+    %colgroup
+      - 2.times do
+        %col{ :class => cycle("even", "odd") }
     %tr
       %th Title
       %th Actions
