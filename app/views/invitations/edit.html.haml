@@ -1,18 +1,12 @@
 - title "Set my password"
 
-- form_for resource_name, resource, :url => invitation_path(resource_name), :html => { :method => :put } do |f|
+- semantic_form_for [resource_name, resource], :url => invitation_path(resource_name), :html => { :class => "main", :method => :put } do |f|
   = f.error_messages
-  = f.hidden_field :invitation_token
-  %p
-    = f.label :password
-    %br
-    = f.password_field :password
-    = error_message_on resource, :password
+  
+  - f.inputs do
+    = f.input :invitation_token, :as => :hidden
+    = f.input :password
+    = f.input :password_confirmation
     
-  %p
-    = f.label :password_confirmation
-    %br
-    = f.password_field :password_confirmation
-    = error_message_on resource, :password_confirmation
-    
-  %p= f.submit "Set my password"
+  - f.buttons do
+    = f.commit_button "Set my password"
