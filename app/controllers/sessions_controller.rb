@@ -2,6 +2,10 @@ class SessionsController < ApplicationController
   prepend_before_filter :require_no_authentication, :only => [:new, :create]
   include Devise::Controllers::InternalHelpers
   
+  def new
+    flash[:error] = "You are not logged in." if params[:unauthenticated]
+  end
+  
   # POST /resource/sign_in
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => "new")
