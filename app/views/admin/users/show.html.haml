@@ -33,7 +33,7 @@
         = user_linkedin_url(@user)
         
   .text_box
-    %p= content_tag(:strong, "#{@user.selected_at.present? ? 'S' : 'Not s'}elected to participate in the #{@user.year} program")
+    %p= content_tag(:strong, "#{@user.selected_at.present? ? 'S' : 'Not s'}elected to participate in the #{@user.year || Time.now.year} program")
     %p= raw "#{content_tag(:strong, 'Thesis supervisor')}: #{@user.thesis_supervisor}"
     %p= raw "#{content_tag(:strong, 'Thesis subject')}: #{@user.thesis_subject}"
     %p= raw "#{content_tag(:strong, 'Thesis registration date')}: #{display_date(@user.thesis_registration_date)}"

@@ -97,7 +97,7 @@ class User
   # =================
   
   def self.index_order_by(params = {})
-    options = order_hash(params).merge(:confirmed_at.ne => nil, :trashed_at => nil, :year => Time.now.year)
+    options = order_hash(params).merge(:confirmed_at.ne => nil, :trashed_at => nil)
     options.merge!({ :page => params[:page], :per_page => @@per_page }) if should_paginate(params)
     send((should_paginate(params) ? "paginate" : "all"), options)
   end
