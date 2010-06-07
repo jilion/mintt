@@ -11,7 +11,7 @@
         - if teacher_signed_in?
           = link_to "Logout", destroy_teacher_session_path
           - link_to edit_teacher_registration_path, :class => "teacher #{controller_name == 'registrations' ? 'active' : ''}" do
-            %span.icon= current_teacher.name || current_teacher.email
+            %span.icon= current_teacher.name_or_email
     - else
       = link_to "Student log in", new_user_session_path, :class => "user login"
       = link_to "Teacher log in", new_teacher_session_path, :class => "teacher login"
