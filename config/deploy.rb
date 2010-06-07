@@ -64,23 +64,44 @@ before "deploy:symlink", "folders:symlink"
 namespace :folders do
   task :symlink do
     run "ln -nsf #{shared_path}/media #{release_path}/public/media"
+    run "ln -nsf #{shared_path}/uploads #{release_path}/public/uploads"
   end
 end
 
-#===========
-# = CUSTOM =
-#===========
+namespace :bundler do
+  desc "Create symlink for bundler"
+  task :create_symlink, :roles => :app do
+    shared_dir  = File.join(shared_path, 'bundle')
+    release_dir = File.join(current_release, '.bundle')
+    run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
+  end
+  
+  desc "Bundle new release (bundle install)"
+  task :bundle_new_release, :roles => :app do
+    bundler.create_symlink
+    run "cd #{release_path} && bundle install #{release_path}/.bundle --without test"
+  end
+  
+  desc "Bundle lock"
+  task :lock, :roles => :app do
+    run "cd #{current_release} && bundle lock"
+  end
+  
+  desc "Bundle unlock"
+  task :unlock, :roles => :app do
+    run "cd #{current_release} && bundle unlock"
+  end
+end
 
 namespace :deploy do
-  
-task :start, :roles => :app do
-  run "touch #{current_release}/tmp/restart.txt"
-end
-task :stop, :roles => :app do
-# Do nothing.
-end
-desc "Restart Application"
-task :restart, :roles => :app do
-  run "touch #{current_release}/tmp/restart.txt"
-end
+  task :start, :roles => :app do
+    run "touch #{current_release}/tmp/restart.txt"
+  end
+  task :stop, :roles => :app do
+  # Do nothing.
+  end
+  desc "Restart Application"
+  task :restart, :roles => :app do
+    run "touch #{current_release}/tmp/restart.txt"
+  end
 end

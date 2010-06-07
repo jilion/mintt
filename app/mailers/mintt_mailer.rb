@@ -16,7 +16,6 @@ class MinttMailer < ActionMailer::Base
   def sign_up_instructions(user)
     recipients    user.email
     from          MINTT_SENDER
-    reply_to      NEW_MESSAGE_RECIPIENTS
     sent_on       Time.now
     content_type  "text/plain"
     subject       I18n.t(:"devise.mailer.invitation")

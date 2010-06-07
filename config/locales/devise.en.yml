@@ -17,6 +17,6 @@ en:
       not_allowed_to_sign_in: "You are not allowed to log in the system!"
     invitations:
       send_instructions: "Invitation sent."
-      updated: "Your password has been changed. You are now logged in."
+      updated: "Your password has been set. You are now logged in."
     mailer:
       invitation: "[mintt] Invitation to sign-up on the mintt website"

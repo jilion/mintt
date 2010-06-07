@@ -1,7 +1,6 @@
 # This controller is used for teachers to confirm their invitation
 class InvitationsController < ApplicationController
   include Devise::Controllers::InternalHelpers
-  
   before_filter :require_no_authentication, :only => [:edit, :update]
   before_filter :admin_required, :only => [:new, :create]
   helper_method :after_sign_in_path_for

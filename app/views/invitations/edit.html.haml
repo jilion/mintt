@@ -1,4 +1,4 @@
-- title "Change my password"
+- title "Set my password"
 
 - form_for resource_name, resource, :url => invitation_path(resource_name), :html => { :method => :put } do |f|
   = f.error_messages
@@ -15,4 +15,4 @@
     = f.password_field :password_confirmation
     = error_message_on resource, :password_confirmation
     
-  %p= f.submit "Change my password"
+  %p= f.submit "Set my password"
