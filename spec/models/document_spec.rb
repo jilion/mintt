@@ -35,6 +35,16 @@ describe Document do
   
   describe "Instance Methods" do
     
+    describe "#published?" do
+      it "should be published?" do
+        Factory(:document, :published_at => 2.days.ago).should be_published
+      end
+      
+      it "should not be published?" do
+        Factory(:document, :published_at => 2.days.from_now).should_not be_published
+      end
+    end
+    
   end
   
 end

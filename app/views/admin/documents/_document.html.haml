@@ -1,6 +1,9 @@
-%tr[document]{ :class => cycle("", "alt") }
+%tr[document]{ :class => cycle("", "alt") + published_class(document) }
+  %td
+    - if document.published?
+      = link_to image_tag("/images/admin/selected.png", :alt => "selected"), admin_document_path(document)
   %td= link_to document.title, admin_document_path(document)
   %td= document.module_id
-  %td= published_icon_or_date(document)
+  %td= published_infos(document)
   %td= link_to("edit", edit_admin_document_path(document))
   %td= button_to("delete", admin_document_path(document), :confirm => "Are you sure?", :method => :delete, :class => "button delete")

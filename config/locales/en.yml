@@ -14,7 +14,7 @@ en:
       time: "%I:%M %p"
       
   datetime:
-      formats:
-        lite: "%B %d, %Y"
-        full: "%B %d, %Y %I:%M %p"
-        time: "%I:%M %p"
+    formats:
+      lite: "%B %d, %Y"
+      full: "%B %d, %Y %I:%M %p"
+      time: "%I:%M %p"

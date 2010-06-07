@@ -41,6 +41,10 @@ class Document
     @title.present? ? @title : @filename
   end
   
+  def published?
+    published_at <= Time.now
+  end
+  
   def method_missing(method, *args, &block)
     if /^(.+)\?$/.match(method.to_s).present?
       extension == $1

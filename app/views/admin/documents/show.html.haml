@@ -9,9 +9,9 @@
   
   %p= raw "#{content_tag(:strong, 'Module ID')}: #{@document.module_id}"
   
-  %p= raw "#{content_tag(:strong, 'Published on')}: #{@document.published_at.to_s(:full)}"
+  %p= raw "#{content_tag(:strong, 'Published on')}: #{@document.published_at.strftime("%B %d, %Y %H:%M")}"
   
-  #document{ :class => pretty_class(@document) }
+  #document
     %p
       - if @document.image?
         = image_tag(@document.url)
