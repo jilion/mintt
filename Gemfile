@@ -13,7 +13,7 @@ gem 'devise_invitable',       :git => "git://github.com/emk/devise_invitable.git
 gem 'state_machine'
 
 gem 'haml',                   '~> 3.0.9'
-gem 'formtastic',             :git => "git://github.com/justinfrench/formtastic.git", :branch => 'rails3'
+gem 'formtastic',             '~> 0.9.10'# :git => "git://github.com/justinfrench/formtastic.git", :branch => 'rails3'
 gem 'will_paginate',          '~> 2.3.14'
 gem 'liquid'
 gem 'comma'
