@@ -83,17 +83,17 @@ namespace :bundler do
   desc "Bundle new release (bundle install)"
   task :bundle_new_release, :roles => :app do
     bundler.create_symlink
-    run "cd #{release_path} && bundle install #{release_path}/.bundle --without test"
+    run "cd #{release_path} && /opt/ruby-enterprise-1.8.7-2010.01/bin/bundle install #{release_path}/.bundle --without test"
   end
   
   desc "Bundle lock"
   task :lock, :roles => :app do
-    run "cd #{current_release} && bundle lock"
+    run "cd #{current_release} && /opt/ruby-enterprise-1.8.7-2010.01/bin/bundle lock"
   end
   
   desc "Bundle unlock"
   task :unlock, :roles => :app do
-    run "cd #{current_release} && bundle unlock"
+    run "cd #{current_release} && /opt/ruby-enterprise-1.8.7-2010.01/bin/bundle unlock"
   end
 end
 
