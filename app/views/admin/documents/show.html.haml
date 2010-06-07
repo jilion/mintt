@@ -9,7 +9,7 @@
   
   %p= raw "#{content_tag(:strong, 'Module ID')}: #{@document.module_id}"
   
-  %p= raw "#{content_tag(:strong, 'Published on')}: #{@document.published_at.strftime("%B %d, %Y %H:%M")}"
+  %p= raw "#{content_tag(:strong, "#{@document.published? ? 'P' : 'Will be p'}ublished on")}: #{@document.published_at.strftime("%B %d, %Y %H:%M")}"
   
   #document
     %p
