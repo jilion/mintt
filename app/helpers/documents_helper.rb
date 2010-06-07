@@ -5,7 +5,7 @@ module DocumentsHelper
     html = "#{document.extension.upcase}: "
     linked = "#{document.title}"
     linked << " (#{document.filename})" unless document.filename == document.title
-    "#{html}#{link_to(linked, document.url)}"
+    "#{html}#{link_to(linked, document.url)}".html_safe
   end
   
   def pretty_class(document)

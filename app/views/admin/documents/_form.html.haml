@@ -7,7 +7,7 @@
     = pretty_file(@document)
     
     %li.select= f.datetime_select(:published_at, :default => Time.now.utc)
-    = "Time.now: #{Time.now}"
+    = "Now: #{Time.now}"
     
   - f.buttons do
     = f.commit_button @document.new_record? ? "Create" : "Update"

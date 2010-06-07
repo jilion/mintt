@@ -6,10 +6,11 @@
   - f.inputs do
     - if resource_name == :teacher
       = f.input :name
-    = f.input :email
+    = f.input :email, :required => true
     = f.input :password
     = f.input :password_confirmation
-    = f.input :current_password, :label => "Current password (we need it to confirm your changes)"
+    = f.input :current_password, :required => true, :label => "Current password (we need it to confirm your changes)"
     
   - f.buttons do
     = f.commit_button "Update my information"
+  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"
