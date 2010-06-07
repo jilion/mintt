@@ -51,7 +51,7 @@ class Teacher
   end
   
   def name_or_email
-    name || email
+    name.blank? ? email : name
   end
   
 end

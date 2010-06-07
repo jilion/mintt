@@ -1,8 +1,8 @@
-- title "Teacher: #{content_tag(:em, @teacher.name || @teacher.email)}", false
+- title "Teacher: #{content_tag(:em, @teacher.name_or_email)}", false
 
 .text.sheet
   .right_box
-    %h3= @teacher.name || @teacher.email
+    %h3= @teacher.name_or_email
     %p.email
       = image_tag "/images/admin/email.png", :alt => "Email"
       = mail_to @teacher.email
