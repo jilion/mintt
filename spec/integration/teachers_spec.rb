@@ -16,7 +16,7 @@ describe "Teacher" do
       click_button "Set my password"
       
       current_url.should =~ %r(http://[^/]+/program)
-      flash[:success].should contain "Your password has been changed. You are now logged in."
+      flash[:success].should contain "Your password has been set. You are now logged in."
     end
   end
   
