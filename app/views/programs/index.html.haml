@@ -1,72 +1,160 @@
 - title "Program Overview & Documents"
+- content_for :class_content do
+  = "wide"
 
 .text
   %p= "This is the detailed schedule of the course program."
-  
-.day
-  .text.slot
-    .left_box= "08:15"
-    .right_box= "Accueil"
-    
-  .text.slot
-    .left_box= "08:30"
-    .right_box= "Welcome"
-    
-  .text.slot#module1
-    .left_box= "09:00"
-    .right_box
-      %p= "Invention and Inventors"
+
+%h5.title= "Day one" 
+%table.program_day
+  %tr
+    %td.period
+      %table
+        %tr
+          %td.time= "08:15"
+        %tr
+          %td.title= "Accueil"
+    %td.docs
+  %tr.alt
+    %td.period
+      %table
+        %tr
+          %td.time= "08:30"
+        %tr
+          %td.title= "Welcome"
+    %td.docs
+  %tr#module1
+    %td.period
+      %table
+        %tr
+          %td.time= "09:00"
+        %tr
+          %td.title= "Invention and Inventors"
+    %td.docs
       %ul
         = list_documents_for_module(1)
-          
-  .text.slot
-    .left_box= "10:30"
-    .right_box= "Pause"
-    
-  .text.slot
-    .left_box
-      %p= "11:00"
-      %p= "12:00"
-    .right_box= "Intervenant"
-    
-  .text.slot
-    .left_box= "12:05"
-    .right_box= "Lunch"
-    
-  %li#module2
-    %p= "13:30 - 15:00 : Identify the Potential"
-    %p= "15:00 - 15:30 : Pause"
-    %ul.documents
-      = list_documents_for_module(2)
-    
-  %li#module3
-    %p= "15:30 - 16:30 : Intellectual Property"
-    %p= "16:30 - 17:30 : Intervenant"
-    %p= "17:30 - 18:00 : Case study"
-    %ul.documents
-      = list_documents_for_module(3)
-      
-  %li= "18:00 - xx:xx : Apéro"
-    
-.day.sheet
-  %ol
-    %li#module4
-      %p= "08:30 - 10:00 : Licensing"
-      %p= "10:00 - 10:30 : Pause"
-      %p= "10:30 - 12:00 : Licensing"
-      %p= "12:00 - 13:30 : Lunch"
-      %ul.documents
+  %tr.alt
+    %td.period
+      %table
+        %tr
+          %td.time= "10:30"
+        %tr
+          %td.title= "Pause"
+    %td.docs
+  %tr.alt
+    %td.period
+      %table
+        %tr
+          %td.time= "11:00"
+        %tr
+          %td.title= "Intervenant"
+        %tr
+          %td.time= "12:00"
+    %td.docs
+  %tr
+    %td.period
+      %table
+        %tr
+          %td.time= "12:05"
+        %tr
+          %td.title= "Lunch"
+    %td.docs
+  %tr.alt#module2
+    %td.period
+      %table
+        %tr
+          %td.time= "13:30"
+        %tr
+          %td.title= "Identify the Potential"
+        %tr
+          %td.time= "15:00"
+        %tr
+          %td.title= "Pause"
+    %td.docs
+      %ul
+        = list_documents_for_module(2)
+  %tr#module3
+    %td.period
+      %table
+        %tr
+          %td.time= "15:30"
+        %tr
+          %td.title= "Intellectual Property"
+        %tr
+          %td.time= "16:30"
+        %tr
+          %td.title= "Intervenant"
+        %tr
+          %td.time= "17:30"
+        %tr
+          %td.title= "Case study"
+    %td.docs
+      %ul
+        = list_documents_for_module(3)
+  %tr.alt
+    %td.period
+      %table
+        %tr
+          %td.time= "18:00"
+        %tr
+          %td.title= "Apéro"
+    %td.docs
+
+%h5.title= "Day two"
+%table.program_day
+  %tr#module4
+    %td.period
+      %table
+        %tr
+          %td.time= "08:30"
+        %tr
+          %td.title= "Licensing"
+        %tr
+          %td.time= "10:00"
+        %tr
+          %td.title= "Pause"
+        %tr
+          %td.time= "10:30"
+        %tr
+          %td.title= "Licensing"
+        %tr
+          %td.time= "12:00"
+        %tr
+          %td.title= "Lunch"
+    %td.docs
+      %ul
         = list_documents_for_module(4)
-        
-    %li#module5
-      %p= "13:30 - 15:00 : Start-up?"
-      %p= "15:00 - 15:30 : Pause"
-      %ul.documents
+  %tr.alt#module5
+    %td.period
+      %table
+        %tr
+          %td.time= "13:30"
+        %tr
+          %td.title= "Start-up?"
+        %tr
+          %td.time= "15:00"
+        %tr
+          %td.title= "Pause"
+    %td.docs
+      %ul
         = list_documents_for_module(5)
-        
-    %li#module6
-      %p= "15:30 - 17:00 : Sales"
-      %ul.documents
+  %tr#module6
+    %td.period
+      %table
+        %tr
+          %td.time= "15:30"
+        %tr
+          %td.title= "Sales"
+    %td.docs
+      %ul
         = list_documents_for_module(6)
-        
-    %li= "17:00 - 17:30 : Clôture"
+  %tr.alt
+    %td.period
+      %table
+        %tr
+          %td.time= "17:00"
+        %tr
+          %td.title= "Clôture"
+        %tr
+          %td.time= "17:30"
+    %td.docs
