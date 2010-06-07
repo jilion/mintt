@@ -8,6 +8,9 @@
 %h5.title= "Day one" 
 %table.program_day
   %tr
+    %th
+    %th= "Documents"
+  %tr
     %td.period
       %table
         %tr
@@ -41,7 +44,7 @@
         %tr
           %td.title= "Pause"
     %td.docs
-  %tr.alt
+  %tr
     %td.period
       %table
         %tr
@@ -51,7 +54,7 @@
         %tr
           %td.time= "12:00"
     %td.docs
-  %tr
+  %tr.alt
     %td.period
       %table
         %tr
@@ -59,7 +62,7 @@
         %tr
           %td.title= "Lunch"
     %td.docs
-  %tr.alt#module2
+  %tr#module2
     %td.period
       %table
         %tr
@@ -73,7 +76,7 @@
     %td.docs
       %ul
         = list_documents_for_module(2)
-  %tr#module3
+  %tr.alt#module3
     %td.period
       %table
         %tr
@@ -91,7 +94,7 @@
     %td.docs
       %ul
         = list_documents_for_module(3)
-  %tr.alt
+  %tr
     %td.period
       %table
         %tr
