@@ -61,6 +61,10 @@ role :db, domain, :primary => true
 
 before "deploy:symlink", "folders:symlink"
 
+after "deploy:update_code" do
+  bundler.bundle_new_release
+end
+
 namespace :folders do
   task :symlink do
     run "ln -nsf #{shared_path}/media #{release_path}/public/media"
