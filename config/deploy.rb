@@ -63,7 +63,7 @@ before "deploy:symlink", "folders:symlink"
 
 namespace :folders do
   task :symlink do
-    run "ln -nsf #{shared_path}/media #{release_path}/public/media" # useless IMHO
+    run "ln -nsf #{shared_path}/media #{release_path}/public/media"
     run "ln -nsf #{shared_path}/uploads #{release_path}/public/uploads"
   end
 end
