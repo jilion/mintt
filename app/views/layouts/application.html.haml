@@ -19,7 +19,7 @@
     = render 'layouts/user_header'
     #global
       = render 'layouts/header'
-      #content
+      #content{ :class => yield(:class_content) }
         = yield(:page_title)
         = yield
       = render 'layouts/sidebar' unless controller_name == "programs"

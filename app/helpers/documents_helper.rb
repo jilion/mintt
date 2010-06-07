@@ -22,8 +22,9 @@ module DocumentsHelper
   
   def list_documents_for_module(module_id)
     @documents.select { |doc| doc.module_id == module_id }.inject("") do |html, doc|
-      html << "<li class='#{pretty_class(doc)}'>#{pretty_file(doc)}
-      #{content_tag(:div, doc.description, :class => 'description') if doc.description.present?}"
+      # html << "<li class='#{pretty_class(doc)}'>#{pretty_file(doc)}
+      # #{content_tag(:div, doc.description, :class => 'description') if doc.description.present?}"
+      html << "<li class='#{pretty_class(doc)}' title='#{doc.description if doc.description.present?}'>#{pretty_file(doc)}"
     end.html_safe
   end
   

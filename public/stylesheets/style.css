@@ -102,6 +102,10 @@ body {
   float:left;
 }
 
+#content.wide {
+  width:880px;
+}
+
 h2.headline {
   font-size:30px;
   font-weight:200;
@@ -424,6 +428,86 @@ a.edit {
   margin-right:20px;
 }
 
+#user_header .right {
+  float:right;
+}
+
+#user_header .right a {
+  padding:0 6px;
+}
+
+#user_header .right a.logout {
+  font-weight:normal;
+}
+
+h5.title {
+  font-size:18px;
+  padding:5px 0 10px;
+}
+
+table.program_day {
+  margin-bottom:20px;
+}
+
+table.program_day, table.program_day table {
+  width:100%;
+  border-collapse:collapse;
+}
+
+table.program_day table {
+  height:100%;
+}
+
+table.program_day tr .title {
+  background:#2b2b2b;
+  font-size:18px;
+/*  font-weight:bold;*/
+}
+
+table.program_day tr.alt .title {
+  background:#222;
+}
+
+table.program_day td.period {
+  width:600px;
+  border-top: 1px solid #333;
+}
+
+table.program_day td.time {
+  background:#111;
+  padding:8px 10px;
+  font-size:14px;
+}
+
+table.program_day td.docs {
+  background:#111;
+  border-top: 1px solid #333;
+}
+
+table.program_day tr.alt td.docs {
+  background:#1a1a1a;
+}
+
+table.program_day td.docs ul {
+  list-style-type:none;
+  padding:10px;
+}
+
+table.program_day td.docs ul li .description {
+  display:none;
+}
+
+table.program_day td.docs ul li {
+  padding:0 0 10px 20px;
+  background:url(/images/file.png) no-repeat;
+  font-weight:bold;
+  font-size:13px;
+}
+
+table.program_day td.title {
+  padding:10px;
+}
+
 #footer {
   padding:30px 0;
   text-align:center;
@@ -481,37 +565,3 @@ img {
 #footnotes_debug span {background:#444 !important;}
 
 #footnotes_debug a {color:#ccc !important;}
-
-
-/* Remy :P */
-#content .slot .left_box {
-  width:300px;
-  float:left;
-}
-
-#content .slot .right_box {
-  float:left;
-  width:250px;
-  background:#222;
-}
-
-#content .sheet p.email img {
-  float:left;
-  margin:4px 6px 0 0;
-}
-
-#content .text.slot {
-  padding:20px;
-  background:#111;
-  -webkit-border-radius:10px;
-  -moz-border-radius:10px;
-  margin-bottom:10px;
-}
-
-#content .text.sheet .text_box p {
-  border-top:1px solid #333;
-  padding:15px 0 0;
-  margin-top:15px;
-}
-
-#content .text.sheet .text_box.last {border-bottom:none;}
