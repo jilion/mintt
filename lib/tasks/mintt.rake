@@ -43,6 +43,13 @@ namespace :db do
       create_users(87)
     end
     
+    namespace :initial_state do
+      task :users => :environment do
+        User.all.each { |u| u.update_attributes(:state => 'candidate') }
+        puts User.all.map(&:state).inspect
+      end
+    end
+    
     namespace :mail_template do
       desc "Add mail template for user application confirmation"
       task :user_application_confirmation => :environment do
