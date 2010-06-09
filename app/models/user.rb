@@ -88,7 +88,7 @@ class User
     event(:select) { transition :candidate => :selected }
     after_transition :on => :select, :do => :select!
     
-    event(:cancel) { transition :selected => :candidate }
+    event(:cancel) { transition any => :candidate }
     after_transition :on => :cancel, :do => :cancel!
   end
   

@@ -45,7 +45,7 @@ namespace :db do
     
     namespace :initial_state do
       task :users => :environment do
-        User.all.each { |u| u.update_attributes(:state => 'candidate') }
+        User.all.each { |u| u.cancel }
         puts User.all.map(&:state).inspect
       end
     end
