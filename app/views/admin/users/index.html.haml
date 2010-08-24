@@ -1,26 +1,7 @@
-- title "Students: #{smart_objects_objects_displayed_range(@users)} of #{smart_objects_count(@users)}"
+= title "mintt 2010 Students: #{smart_objects_objects_displayed_range(@users)} of #{smart_objects_count(@users)}"
 
 .text
   .export= link_to "Export all users in CSV", admin_users_path(:format => 'csv')
-  %table
-    %colgroup
-      - 8.times do
-        %col{ :class => cycle("even", "odd") }
-    %tr
-      %th
-      %th
-      %th= link_to "Name", admin_users_path(sort_parameters('last_name'))
-      %th= link_to "School", admin_users_path(sort_parameters('school'))
-      %th= link_to "Supervisor", admin_users_path(sort_parameters('thesis_supervisor'))
-      %th= link_to "Application Date", admin_users_path(sort_parameters('confirmed_at'))
-      %th
-      %th
-      
-    - @users.each do |user|
-      = render 'user', :object => user
-      
-  - if params.key? :all
-    .right_links= link_to "View with paginate", admin_users_path
-  - else
-    .right_links= link_to "View all", admin_users_path(:all => true)
-    = will_paginate
+  
+  #users_table_wrap
+    = render 'users'

@@ -1,4 +1,4 @@
-- title "Edit teacher: #{content_tag(:em, @teacher.name_or_email)}"
+= title "Edit teacher: #{content_tag(:em, @teacher.name_or_email)}"
 
 - semantic_form_for [:admin, @teacher], :html => { :class => "main" } do |f|
   - f.inputs do

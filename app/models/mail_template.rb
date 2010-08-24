@@ -1,9 +1,10 @@
 class MailTemplate
-  include MongoMapper::Document
+  include Mongoid::Document
+  include Mongoid::Timestamps
   
-  key :title,   String
-  key :content, String
-  timestamps!
+  field :title,   :type => String
+  field :content, :type => String
+  # timestamps!
   
   validates_presence_of :title, :content, :message => "This field can't be empty"
   

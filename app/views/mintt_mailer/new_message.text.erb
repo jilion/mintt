@@ -1,0 +1,9 @@
+<%= @message.sender_name %> <<%= @message.sender_email %>> sent you a message from mintt.epfl.ch.
+
+Click on the following link to view it in the mintt administration interface:
+
+<%= admin_message_url(@message) %>
+
+Message :
+
+<%= @message.content %>

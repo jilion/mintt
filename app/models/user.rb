@@ -1,39 +1,46 @@
 class User
-  include MongoMapper::Document
+  include Mongoid::Document
+  include Mongoid::Timestamps
   # For dates (because dates are splitted in multiple parameters in forms, it recreate the real attribute from these multiple parts)
   include MultiParameterAttributes
   
+  cattr_accessor :per_page
   @@per_page = 10
   
-  attr_accessor :agreement, :is_selected
+  attr_accessor :agreement
   
-  key :gender,                   String, :required => true
-  key :first_name,               String, :required => true
-  key :last_name,                String, :required => true
-  key :school,                   String, :required => true
-  key :lab,                      String, :required => true
-  key :email,                    String, :required => true, :unique => true
-  key :phone,                    String, :required => true
-  key :url,                      String
-  key :linkedin_url,             String
-  key :thesis_supervisor,        String, :required => true
-  key :thesis_subject,           String, :required => true
-  key :thesis_registration_date, Date
-  key :thesis_admission_date,    Date
-  key :supervisor_authorization, String
-  key :doctoral_school_rules,    String
-  key :thesis_invention,         String
-  key :motivation,               String, :required => true
-  key :comment,                  String
-  key :year,                     Integer, :default => Time.now.year
-  key :state,                    String
-  key :selected_at,              Time
-  key :trashed_at,               Time, :default => nil
-  timestamps!
+  # Application fields
+  field :gender,                   :type => String
+  field :first_name,               :type => String
+  field :last_name,                :type => String
+  field :school,                   :type => String
+  field :lab,                      :type => String
+  field :email,                    :type => String, :unique => true
+  field :phone,                    :type => String
+  field :url,                      :type => String
+  field :linkedin_url,             :type => String
+  field :thesis_supervisor,        :type => String
+  field :thesis_subject,           :type => String
+  field :thesis_registration_date, :type => Date
+  field :thesis_admission_date,    :type => Date
+  field :supervisor_authorization, :type => String
+  field :doctoral_school_rules,    :type => String
+  field :thesis_invention,         :type => String
+  field :motivation,               :type => String
   
-  devise :database_authenticatable, :registerable, :confirmable, :rememberable, :recoverable
+  # Internal / protected fields
+  field :comment,                  :type => String
+  field :year,                     :type => Integer, :default => Time.now.year
+  field :state,                    :type => String
+  field :selected_at,              :type => Time
+  field :case_study_title,         :type => String
+  field :case_study_teacher,       :type => String
+  field :credits_granted,          :type => Integer, :default => nil
+  field :trashed_at,               :type => Time, :default => nil
   
-  liquid_methods *User.keys.keys
+  devise :database_authenticatable, :validatable, :registerable, :confirmable, :rememberable, :recoverable
+  
+  liquid_methods *User.fields.keys
   
   comma do
     gender
@@ -54,6 +61,9 @@ class User
     thesis_invention
     motivation
     comment
+    case_study_title
+    case_study_teacher
+    credits_granted
   end
   
   URL_REGEX = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/i
@@ -62,13 +72,17 @@ class User
   # ===============
   # = Validations =
   # ===============
-  validates_format_of :email, :with => Devise::EMAIL_REGEX
+  validates_presence_of :gender, :first_name, :last_name, :school, :lab, :email, :phone, :thesis_supervisor, :thesis_subject, :motivation
+  
+  # validates_uniqueness_of :email
+  
+  # validates_format_of :email, :with => Devise.email_regexp
   validates_format_of :url, :with => URL_REGEX, :allow_blank => true, :message => "Should start with http:// or https://"
   validates_format_of :linkedin_url, :with => LINKEDIN_URL_REGEX, :allow_blank => true, :message => "Should be similar to http://ch.linkedin.com/in/your_name"
   
-  validates_inclusion_of :gender,                    :within => %w(male female), :message => "Choose a gender"
-  validates_inclusion_of :supervisor_authorization,  :within => %w(yes no), :message => "Choose an answer"
-  validates_inclusion_of :doctoral_school_rules,     :within => %w(yes no), :message => "Choose an answer"
+  validates_inclusion_of :gender,                    :in => %w(male female), :message => "Choose a gender"
+  validates_inclusion_of :supervisor_authorization,  :in => %w(yes no), :message => "Choose an answer"
+  validates_inclusion_of :doctoral_school_rules,     :in => %w(yes no), :message => "Choose an answer"
   
   validate :validate_registration_and_admission_date
   validate :validate_registration_before_admission_date
@@ -77,33 +91,21 @@ class User
   # =============
   # = Callbacks =
   # =============
+  before_update :update_state
   
-  after_update :fire_state_change
-  
-  # =================
-  # = State Machine =
-  # =================
-  
-  state_machine :initial => :candidate do
-    event(:select) { transition :candidate => :selected }
-    after_transition :on => :select, :do => :select!
-    
-    event(:cancel) { transition any => :candidate }
-    after_transition :on => :cancel, :do => :cancel!
-  end
+  # ==========
+  # = Scopes =
+  # ==========
+  scope :default_scope, where(:confirmed_at.ne => nil, :trashed_at => nil)
   
   # =================
   # = Class Methods =
   # =================
-  
   def self.index_order_by(params = {})
-    options = order_hash(params).merge(:confirmed_at.ne => nil, :trashed_at => nil)
-    options.merge!({ :page => params[:page], :per_page => @@per_page }) if should_paginate(params)
-    send((should_paginate(params) ? "paginate" : "all"), options)
-  end
-  
-  def self.order_hash(options = {})
-    { :order => "#{options[:order_by] || 'confirmed_at'} #{options[:sort_way] || 'desc'}" }
+    options = { :page => params[:page], :per_page => @@per_page } if should_paginate(params)
+    
+    default_scope.order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || 'desc')).
+    send((should_paginate(params) ? "paginate" : "all"), options || {})
   end
   
   def self.should_paginate(params = {})
@@ -113,22 +115,32 @@ class User
   # ====================
   # = Instance Methods =
   # ====================
+  def password_required?
+    false
+  end
   
-  def fire_state_change
-    case is_selected
-    when '1' # congrats, you're now selected, send mail to sign up
-      self.select if candidate?
-    when '0' # cancel selection
-      self.cancel if selected?
+  def update_state
+    return unless self.state_changed?
+    
+    if self.state_change == ['candidate', 'selected']
+      self.selected_at = Time.now
+      self.generate_reset_password_token
+      ::MinttMailer.sign_up_instructions(self).deliver
+    elsif self.state_change == ['selected', 'candidate']
+      self.selected_at, self.reset_password_token = nil, nil
     end
   end
   
-  def has_been_selected?
-    selected_at.present?
+  def candidate?
+    state == 'candidate'
+  end
+  
+  def selected?
+    state == 'selected'
   end
   
   def has_created_account?
-    has_been_selected? && self.reset_password_token.nil?
+    selected? && reset_password_token.nil? && encrypted_password.present?
   end
   
   def trashed?
@@ -152,23 +164,11 @@ protected
     end
   end
   
-  def select!
-    self.update_attributes!({ :selected_at => Time.now })
-    self.generate_reset_password_token!
-    ::MinttMailer.deliver_sign_up_instructions(self)
-  end
-  
-  def cancel!
-    self.update_attributes!({ :selected_at => nil, :reset_password_token => nil })
-  end
-  
 end
-
 
 class User::LiquidDropClass
   
-  include ActionView::Helpers::UrlHelper
-  include ActionController::UrlWriter
+  include Mintt::Application.routes.url_helpers
   include Admin::UsersHelper
   
   def full_name
@@ -176,11 +176,11 @@ class User::LiquidDropClass
   end
   
   def confirmation_link
-    url_for(ApplicationController.new.default_url_options.merge({ :only_path => false, :controller => 'confirmations', :action => 'show', :confirmation_token => self.confirmation_token }))
+    user_confirmation_url(:host => ActionMailer::Base.default_url_options[:host], :confirmation_token => self.confirmation_token)
   end
   
   def invitation_link
-    url_for(ApplicationController.new.default_url_options.merge({ :only_path => false, :controller => 'passwords', :action => 'edit', :reset_password_token => self.reset_password_token }))
+    edit_user_password_url(:host => ActionMailer::Base.default_url_options[:host], :reset_password_token => self.reset_password_token)
   end
   
 end

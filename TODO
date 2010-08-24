@@ -1,3 +1,41 @@
+Next iteration:
+  - Admin:
+    - Better design for document form
+    
+    - Possibility to add alumni (with/without invitation to create an account)
+    
+    - Add a year context for all (teacher, documents, mail templates)
+      - Student have 1 year
+      - Teachers can have n years
+      - Add year filter for students list
+      - Add year filter for teachers list
+      
+      - Teachers:
+        - Add photo, title and bio link
+        
+      - Modules:
+        - Link with year(s) also
+        - Add an editor for description (edit directly the /modules) and link teachers with modules (with order between teachers)
+        
+      - Messages:
+        - Add an "empty trash" functionality
+        - Add a "archive" functionality
+        
+      - Layout:
+        - Possibility to edit the home text
+        - Possibility to edit the sidebar
+        
+  - Front:
+    - Better design:
+      - Stylize the buttons
+      - Program page
+      
+    - Students:
+      - Add possibility to add a photo
+      
+    - Alumni:
+      - Add features
+      
 Bug/Typo/Style Fix: Général:
 OK • [Remy] Dans Course information, ajouter Number of modules (avec lien vers les modules)
 OK • [Remy] Localiser la date

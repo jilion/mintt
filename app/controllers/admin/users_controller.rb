@@ -3,14 +3,14 @@ class Admin::UsersController < Admin::AdminController
   
   # GET /admin/users
   def index
-    respond_to do |wants|
-      wants.html do
+    respond_to do |format|
+      if /html|javascript/ =~ request.format
         @users = User.index_order_by(params)
-        render :index
       end
-      wants.csv do
-        @users = User.index_order_by(:all => true)
-        render :csv => @users, :style => { :encoding => 'U', :col_sep => ';' }
+      format.js
+      format.html
+      format.csv do
+        render :csv => User.index_order_by(:all => true), :filename => "mintt_users-#{I18n.l(Time.now, :format => :filename)}.csv", :style => { :encoding => 'U', :col_sep => ';' }
       end
     end
   end

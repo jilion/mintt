@@ -1,15 +1,16 @@
 require 'spec_helper'
 
-describe DeviseMailer do
+describe Devise::Mailer do
   
   include ActionView::Helpers::UrlHelper
-  include ActionController::UrlWriter
+  include Mintt::Application.routes.url_helpers
   
   describe "application submitted" do
     
-    before(:all) do 
+    before(:all) do
       @user = Factory.create(:user)
-      @email = DeviseMailer.create_confirmation_instructions(@user)
+      Devise::Mailer.confirmation_instructions(@user).deliver
+      @email = ActionMailer::Base.deliveries.last
     end
     
     it "should be delivered from mintt's official email adress" do

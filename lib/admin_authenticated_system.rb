@@ -1,5 +1,5 @@
 module AdminAuthenticatedSystem
-
+  
 private
   
   def admin_required
@@ -62,7 +62,7 @@ private
   end
   
   def admin_credential
-    config_path = File.join(RAILS_ROOT, 'config', "admin.yml")
+    config_path = File.join(Rails.root, 'config', "admin.yml")
     begin
       @default_storage ||= YAML::load_file(config_path)[Rails.env]
       @default_storage.to_options

@@ -86,9 +86,7 @@ def user_application(options={})
 end
 
 def selected_user(options={})
-  user = user_application(options)
-  user.select
-  user
+  user_application(options.merge(:state => 'selected'))
 end
 
 def selected_with_password_user(options={})

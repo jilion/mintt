@@ -1,0 +1,12 @@
+- t = resource.encrypted_password.blank? ? "Set my password" : "Change my password"
+= title t
+
+- semantic_form_for [resource_name, resource], :url => password_path(resource_name), :html => { :class => "main", :method => :put } do |f|
+  - f.inputs do
+    = f.input :reset_password_token, :as => :hidden
+    = f.input :password, :required => true
+    = f.input :password_confirmation, :required => true
+    
+  - f.buttons do
+    = f.commit_button t
+  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"

@@ -1,11 +1,11 @@
-class RegistrationsController < ApplicationController
+class RegistrationsController < Devise::RegistrationsController
   include Devise::Controllers::InternalHelpers
   
   prepend_before_filter :require_no_authentication, :only => [:new, :create]
   prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy]
   
   before_filter :ensure_keys_exists
-  ssl_required :new, :create
+  # ssl_required :new, :create
   
   def new
     unless APPLICATIONS_OPEN

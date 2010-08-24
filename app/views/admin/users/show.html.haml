@@ -1,4 +1,4 @@
-- title "Student: #{full_name(@user)}", false
+= title "Student: #{full_name(@user)}", false
 
 .text.sheet
   .left_box
@@ -33,7 +33,17 @@
         = user_linkedin_url(@user)
         
   .text_box
-    %p= content_tag(:strong, "#{@user.selected_at.present? ? 'S' : 'Not s'}elected to participate in the #{@user.year || Time.now.year} program")
+    %p
+      = content_tag(:strong, "#{@user.selected_at.present? ? 'S' : 'Not s'}elected to participate in the #{@user.year || Time.now.year} program.")
+      %br
+      = content_tag(:strong, "Case study title: ")
+      = user_case_study_title(@user)
+      %br
+      = content_tag(:strong, "Responsible teacher: ")
+      = user_case_study_teacher(@user)
+      %br
+      = content_tag(:strong, "Credits granted: ")
+      = user_credits_granted(@user)
     %p= raw "#{content_tag(:strong, 'Thesis supervisor')}: #{@user.thesis_supervisor}"
     %p= raw "#{content_tag(:strong, 'Thesis subject')}: #{@user.thesis_subject}"
     %p= raw "#{content_tag(:strong, 'Thesis registration date')}: #{display_date(@user.thesis_registration_date)}"
@@ -44,9 +54,9 @@
     %p= raw "#{content_tag(:strong, 'Motivation')}: #{@user.motivation}"
     
     %p
-    - semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
-      - f.inputs do
+    = semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
+      = f.inputs do
         = f.input :comment, :as => :text, :label => "SRI Comment"
         
-      - f.buttons do
+      = f.buttons do
         = f.commit_button "Save comment"

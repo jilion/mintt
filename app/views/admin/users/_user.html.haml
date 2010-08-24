@@ -1,6 +1,6 @@
 %tr[user]{ :class => cycle("", "alt") }
   %td
-    - if user.has_been_selected?
+    - if user.selected?
       = link_to image_tag("/images/admin/selected.png", :alt => "selected"), admin_user_path(user)
   %td.gender= link_to image_tag("/images/admin/#{user.gender}.png", :alt => user.gender), admin_user_path(user)
   %td= link_to full_name(user, true), admin_user_path(user)

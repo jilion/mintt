@@ -1,5 +1,5 @@
 - resource = fake_resource_for(@mail_template)
-- title "Mail template: #{content_tag(:em, mail_template_title(@mail_template))}"
+= title "Mail template: #{content_tag(:em, mail_template_title(@mail_template))}"
 
 .text.mail
   .actions_right= link_to("edit mail template", edit_admin_mail_template_path(@mail_template), :class => "edit")

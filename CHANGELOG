@@ -1,0 +1,10 @@
+2010-08-24
+  - Passage à Rails 3.0.0.rc2.
+  - Passage à mongoid.
+  - Ajout du tri sur tous les champs de la liste des étudiants.
+  - Tri et pagination via AJAX de la liste des étudiants.
+  - Colonne avec "vu en vert" à intituler ’10.
+  - Titre "mintt 2010 Students: # of #".
+  - Ajout des champs “Nom du cas traité par l’étudiant”, “Nom du parrain” et “Crédit accordé”, exporté dans l'export CSV.
+  - L'export CSV génère maintenant un nom de fichier avec la date d'export de la liste.
+  - Fixé invitation et acceptation d'invitation

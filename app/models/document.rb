@@ -1,15 +1,16 @@
 class Document
-  include MongoMapper::Document
+  include Mongoid::Document
+  include Mongoid::Timestamps
   include MultiParameterAttributes
   
   attr_accessor :file
   
-  key :title,        String,  :required => true
-  key :description,  String
-  key :module_id,    Integer, :default => nil
-  key :filename,     String,  :required => true
-  key :published_at, Time,    :default => nil
-  timestamps!
+  field :title,        :type => String,  :required => true
+  field :description,  :type => String
+  field :module_id,    :type => Integer, :default => nil
+  field :filename,     :type => String,  :required => true
+  field :published_at, :type => Time,    :default => nil
+  # timestamps!
   
   validate :presence_of_file
   
@@ -58,9 +59,9 @@ protected
   end
   
   def self.upload_path
-    p = Rails.root.join('public', *self.upload_folder)
-    FileUtils.mkdir_p p unless p.directory?
-    p
+    path = Rails.root.join('public', *self.upload_folder)
+    FileUtils.mkdir_p(path) unless path.directory?
+    path
   end
   
   def self.upload_folder
@@ -73,7 +74,7 @@ protected
   end
   
   def delete_file
-    File.delete(path) if File.file? path
+    File.delete(path) if File.file?(path)
   end
   
 end

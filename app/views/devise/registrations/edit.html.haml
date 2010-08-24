@@ -1,0 +1,23 @@
+= title "Edit my information"
+
+- if resource_name == :teacher
+  - semantic_form_for [resource_name, resource], :url => teacher_path(resource), :html => { :class => "main", :method => :put } do |f|
+    - f.inputs do
+      = f.input :name
+      
+    - f.buttons do
+      = f.commit_button "Update my name"
+      
+- semantic_form_for [resource_name, resource], :url => registration_path(resource_name), :html => { :class => "main", :method => :put } do |f|
+  - f.inputs do
+    = f.input :password, :label => "New password"
+    
+    - if resource.errors.on(:current_password) == 'blank'
+      - resource.errors.clear
+      - resource.errors.add(:current_password, "Can't be blank")
+    
+    = f.input :current_password, :required => true, :label => "Current password (we need it to confirm your changes)", :render_inline_errors => false
+    
+  - f.buttons do
+    = f.commit_button "Update my password"
+  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"

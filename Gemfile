@@ -1,30 +1,23 @@
-source :gemcutter
+source :rubygems
 
-gem 'rails',                  '2.3.8'
+gem 'rails',             '3.0.0.rc2'
+gem 'rack-ssl-enforcer', :git => 'git://github.com/thibaudgg/rack-ssl-enforcer.git'
 
-gem 'mongo'
-gem 'mongo_ext',              '~> 0.19.3'
-gem 'mongo_mapper',           '~> 0.7.6'
+gem 'mongoid',  :git => 'git://github.com/mongoid/mongoid.git'#'~> 2.0.0.beta.16'
+gem 'bson_ext', '~> 1.0.4'
 
 gem 'ssl_requirement'
 
-gem 'devise',                 '1.0.7'
-gem 'devise_invitable',       :git => "git://github.com/emk/devise_invitable.git"
-gem 'state_machine'
-
-gem 'haml',                   '~> 3.0.9'
-gem 'formtastic',             '~> 0.9.10'# :git => "git://github.com/justinfrench/formtastic.git", :branch => 'rails3'
-gem 'will_paginate',          '~> 2.3.14'
+gem 'devise',                '~> 1.1.1'
+gem 'devise_invitable',      :git => 'git://github.com/rymai/devise_invitable.git'
+gem 'state_machine',         '~> 0.9.4'
+gem 'state_machine-mongoid', :git => 'git://github.com/thibaudgg/state_machine-mongoid.git'
+gem 'haml',                  '~> 3.0.16'
+gem 'formtastic',            :git => 'git://github.com/justinfrench/formtastic.git', :branch => 'rails3'
+gem 'will_paginate',         '~> 3.0.pre2'
 gem 'liquid'
 gem 'comma'
 gem 'fastercsv'
-
-# FUCK YOU ALL!
-# gem 'carrierwave',            :path => "vendor/git/carrierwave"#:git => "git://github.com/jnicklas/carrierwave.git"
-# gem 'carrierwave'#,            '0.4.4'
-# gem 'paperclip'
-
-gem 'erubis'
 
 group :development do
   gem 'ffaker'
@@ -33,25 +26,13 @@ end
 
 group :test do
   gem 'spork'
-  gem 'rspactor'
-  
-  # Rails 2
-  gem 'rspec',                '~> 1.3.0'
-  gem 'rspec-rails',          '~> 1.3.2'
-  gem 'factory_girl'
-  gem 'remarkable_rails'
-  # gem 'remarkable_mongo'
-  
-  gem 'webrat'
+  gem 'rspactor',    '~> 0.7.beta.6'
+  gem 'shoulda'
+  gem 'rspec-rails', '~> 2.0.0.beta.19'
+  # gem 'remarkable_rails'
+  gem 'steak',       '~> 0.4.0.beta.1'
+  gem 'capybara'
   gem 'launchy'
-  gem 'email_spec'
-  
+  gem 'factory_girl_rails'
   gem 'ffaker'
-  gem 'bson_ext',             '1.0'
-  
-  # Rails 3
-  # gem 'rspec',                  '2.0.0.beta.8'
-  # gem 'rspec-rails',  :git => 'git://github.com/rspec/rspec-rails.git', :ref => "d2fb9f35c7867225cd68758152f51dd3d1152a09"
-  # gem 'steak',                '0.4.0.a4'
-  # gem 'capybara'
 end

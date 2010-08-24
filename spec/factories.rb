@@ -17,6 +17,7 @@ Factory.define :user do |f|
   f.thesis_invention         "The iPad"
   f.motivation               "Huge!"
   f.agreement                "1"
+  f.state                    "candidate"
 end
 
 Factory.define :teacher do |f|

@@ -1,28 +1,60 @@
-ActionController::Routing::Routes.draw do |map|
+Mintt::Application.routes.draw do
+  devise_for :users, :path_names => { :sign_up => 'apply', :sign_in => 'login', :sign_out => 'logout' }
   
-  map.devise_for :users, :path_names => { :sign_up => 'apply', :sign_in => 'login', :sign_out => 'logout' }
-  map.user_root '/program', :controller => 'programs', :action => 'index'
+  match '/program' => "programs#index", :as => "user_root"
   
-  map.devise_for :teachers, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
-  map.resources :teachers, :only => :update
-  map.teacher_root '/program', :controller => 'programs', :action => 'index'
+  devise_for :teachers,
+  :path_names => { :sign_in => 'login', :sign_out => 'logout' }, :skip => [:invitations] do
+    scope :controller => 'admin/teachers/invitations', :as => :teacher_invitation do # admin routes
+      get  :new,    :path => '/admin/teachers/invitation/new'
+      post :create, :path => '/admin/teachers/invitation', :as => ''
+    end
+    scope :controller => 'devise/invitations', :as => :teacher_invitation do
+      get :edit,   :path => '/invitation/accept', :as => 'accept'
+      put :update, :path => '/invitation', :as => ''
+    end
+  end
+  match '/program' => "programs#index", :as => "teacher_root"
   
-  map.contact '/contact', :controller => 'messages', :action => 'new', :conditions => { :method => :get }
-  map.resource :messages, :only => [:new, :create], :as => 'contact'
+  resources :teachers, :only => :update
   
-  map.admin '/admin', :controller => 'admin/users', :action => 'index'
-  map.namespace :admin do |admin|
-    admin.resources :users, :member => { :trash => :put }
-    admin.resources :teachers
-    admin.resources :documents
-    admin.resources :messages, :collection => { :trashes => :get }, :member => { :reply => :put, :trash => :put, :untrash => :put }
-    admin.resources :mail_templates
+  match '/contact' => 'messages#new'
+  resource :messages, :only => [:new, :create], :as => 'contact'
+  
+  # =========
+  # = Admin =
+  # =========
+  match '/admin' => 'admin/users#index', :as => 'admin'
+  namespace :admin do
+    resources :users do
+      member do
+        put :trash
+      end
+    end
+    
+    resources :teachers
+    # scope :controller => 'teachers/invitations', :as => :teacher_invitation do
+    #   get  :new,    :path => 'teachers/invitation/new'
+    #   post :create, :path => 'teachers/invitation', :as => ''
+    # end
+    
+    resources :documents
+    resources :messages do
+      collection do
+        get :trashes
+      end
+      member do
+        put :reply
+        put :trash
+        put :untrash
+      end
+    end
+    resources :mail_templates, :except => [:destroy]
   end
   
-  map.root :controller => 'pages', :action => 'show', :id => 'home'
+  root :to => 'pages#show', :id => 'home'
   
-  map.page ':id', :controller => 'pages', :action => 'show', :requirements => { :id => /home|modules/ }
+  match ':id' => 'pages#show', :requirements => { :id => /home|modules/ }, :as => 'page'
   
-  map.connect "*path", :controller => 'pages', :action => 'show', :id => 'home'
-  
+  match "*path" => redirect('pages#show'), :id => 'home'
 end

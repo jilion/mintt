@@ -46,7 +46,7 @@ describe User do
       
       teacher = Factory.build(:teacher, :email => "remy@jilion.com")
       teacher.should_not be_valid
-      teacher.errors.on(:email).should be_present
+      teacher.errors[:email].should be_present
     end
     
   end
@@ -55,8 +55,8 @@ describe User do
     describe "#has_accepted_invitation?" do
       before :each do
         ActionMailer::Base.deliveries = []
-        @teacher = Teacher.send_invitation(:email => "test@test.com")
-        Teacher.accept_invitation!(:invitation_token => @teacher.invitation_token, :password => '123456', :password_confirmation => '123456')
+        @teacher = Teacher.invite(:email => "test@test.com")
+        Teacher.accept_invitation(:invitation_token => @teacher.invitation_token, :password => '123456', :password_confirmation => '123456')
         @teacher.reload
       end
       

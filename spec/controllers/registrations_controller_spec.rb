@@ -62,9 +62,8 @@ describe RegistrationsController do
   
   context "with or without applications open" do
     before(:each) do
-      @user = Factory(:user)
+      @user = Factory(:user, :state => 'selected')
       @user.confirm!
-      @user.select
       sign_in @user
     end
     

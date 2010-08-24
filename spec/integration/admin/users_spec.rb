@@ -39,7 +39,7 @@ describe "Admin users edit" do
     
     click_link "Students"
     click_link_within "#user_#{@user.id}", "edit"
-    check 'user_is_selected'
+    check 'user_state'
     click_button "Update"
     
     response.should contain("mintt admin | Student: #{@user.first_name} #{@user.last_name}")

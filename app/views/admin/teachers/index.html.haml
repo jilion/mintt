@@ -1,24 +1,7 @@
-- title "Teachers"
+= title "Teachers"
 
 .text
   .actions_right= link_to "Invite a teacher", new_teacher_invitation_path
-  %table
-    %colgroup
-      - 6.times do
-        %col{ :class => cycle("even", "odd") }
-    %tr
-      %th
-      %th= "Name"
-      %th= "Email"
-      %th= "Module"
-      %th
-      %th
-      
-    - @teachers.each do |teacher|
-      = render 'teacher', :object => teacher
-      
-  - if params.key? :all
-    .right_links= link_to "View with paginate", admin_teachers_path
-  - else
-    .right_links= link_to "View all", admin_teachers_path(:all => true)
-    = will_paginate
+  
+  #teachers_table_wrap
+    = render 'teachers'

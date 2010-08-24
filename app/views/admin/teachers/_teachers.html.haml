@@ -1,0 +1,18 @@
+%table
+  %colgroup
+    - 6.times do
+      %col{ :class => cycle("even", "odd") }
+  %tr
+    %th
+    %th= "Name"
+    %th= "Email"
+    %th= "Module"
+    %th
+    %th
+  = render @teachers
+    
+- if params.key? :all
+  .right_links= link_to "View with paginate", admin_teachers_path, :remote => true
+- elsif @teachers.total_entries > Teacher.per_page
+  .right_links= link_to "View all", admin_teachers_path(:all => true), :remote => true
+  = will_paginate(:params => { :format => nil }, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')

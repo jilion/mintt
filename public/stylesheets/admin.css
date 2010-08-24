@@ -253,6 +253,10 @@ li.confirmation_box {
   border-radius:10px;
 }
 
+form.main .string input {
+  width:560px;
+}
+
 li.confirmation_box input.checkbox {
   font-size:30px;
 }

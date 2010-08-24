@@ -4,8 +4,9 @@ class Admin::TeachersController < Admin::AdminController
   # GET /admin/teachers
   def index
     @teachers = Teacher.paginate(:page => params[:page], :per_page => Teacher.per_page)
-    respond_to do |wants|
-      wants.html
+    respond_to do |format|
+      format.js
+      format.html
     end
   end
   

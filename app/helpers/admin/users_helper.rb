@@ -32,6 +32,33 @@ module Admin::UsersHelper
     user.blank? ? "" : truncate(user.motivation, :length => 50)
   end
   
+  def user_case_study_title(user)
+    return "" if user.blank?
+    user.case_study_title.nil? ? "Not available" : user.case_study_title
+  end
+  
+  def user_case_study_teacher(user)
+    return "" if user.blank?
+    user.case_study_teacher.nil? ? "Not available" : user.case_study_teacher
+  end
+  
+  def user_credits_granted(user)
+    return "" if user.blank?
+    user.credits_granted.nil? ? "Not yet" : (user.credits_granted == 0 ? "Failed" : user.credits_granted)
+  end
+  
+  def hide_if_selected(user)
+    user.selected? ? nil : 'display:none;'
+  end
+  
+  def male_female_for_select
+    [["Mrs.", "female"], ["Mr.", "male"]]
+  end
+  
+  def yes_no_for_select
+    [["Yes", "yes"], ["No", "no"]]
+  end
+  
 private
   def url_or_none(url)
     url.blank? ? 'none' : link_to(url, url, :onclick => "window.open(this); return false")

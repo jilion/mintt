@@ -1,46 +1,23 @@
 class Teacher
-  include MongoMapper::Document
+  include Mongoid::Document
+  include Mongoid::Timestamps
   
+  cattr_accessor :per_page
   @@per_page = 10
   
-  key :name,      String
-  key :email,     String, :required => true, :unique => true
-  key :module_id, Integer, :default => nil
-  timestamps!
+  field :name,      :type => String
+  field :email,     :type => String, :required => true, :unique => true
+  field :module_id, :type => Integer, :default => nil
   
-  devise :database_authenticatable, :registerable, :rememberable, :recoverable, :invitable
+  devise :database_authenticatable, :validatable, :registerable, :rememberable, :recoverable, :invitable
   
-  liquid_methods *Teacher.keys.keys
-  
-  # ================
-  # = Associations =
-  # ================
-  
-  # ==========
-  # = Scopes =
-  # ==========
+  liquid_methods *Teacher.fields.keys
   
   # ===============
   # = Validations =
   # ===============
   
-  # ===============
-  # = Validations =
-  # ===============
-  
-  validates_format_of :email, :with => Devise::EMAIL_REGEX
-  
-  # =============
-  # = Callbacks =
-  # =============
-  
-  # =================
-  # = State Machine =
-  # =================
-  
-  # =================
-  # = Class Methods =
-  # =================
+  # validates_format_of :email, :with => Devise.email_regexp
   
   # ====================
   # = Instance Methods =
@@ -56,14 +33,12 @@ class Teacher
   
 end
 
-
 class Teacher::LiquidDropClass
   
-  include ActionView::Helpers::UrlHelper
-  include ActionController::UrlWriter
+  include Mintt::Application.routes.url_helpers
   
   def invitation_link
-    url_for(ApplicationController.new.default_url_options.merge({ :only_path => false, :controller => 'invitations', :action => 'edit', :invitation_token => self.invitation_token }))
+    accept_teacher_invitation_url(:host => ActionMailer::Base.default_url_options[:host], :invitation_token => self.invitation_token)
   end
   
 end

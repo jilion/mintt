@@ -1,13 +1,14 @@
 #header
   #halo
   %h1
-    - link_to root_path do
+    = link_to root_path do
       %span= "mintt"
   %h2= "Management of Innovation and Technology Transfer"
   %ul#menu
     %li.home
-      - link_to root_path do
+      = link_to root_path do
         %span= "Home"
+    %li{ :class => ('active' if controller_name == 'programs') }= link_to "Program", "/program"
     %li{ :class => ('active' if params[:id] == 'modules') }= link_to "Modules", "/modules"
     - if APPLICATIONS_OPEN
       %li{ :class => ('active' if controller_name == 'registrations') }= link_to "Application", new_user_registration_path

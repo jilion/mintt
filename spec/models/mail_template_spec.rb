@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe MailTemplate do
-  # Waiting for remarkable_mongo to work...
-  # it { should have_keys(:sender_name, :sender_email, :content, String) }
-  # it { should have_keys(:read, :replied, Boolean) }
-  # it { should validate_presence_of(:sender_name, :sender_email, :content) }
   
   describe "default" do
     subject { Factory(:mail_template) }
@@ -17,7 +13,7 @@ describe MailTemplate do
   
   it "should retrieve existing template" do
     t = Factory(:mail_template)
-    MailTemplate.find_by_title('test_template').should eql(t)
+    MailTemplate.where(:title => 'test_template').first.should eql(t)
   end
   
   describe "should be invalid" do

@@ -1,7 +1,7 @@
 class ProgramModule
   
   def self.all
-    (1..6)
+    (0..7)
   end
   
 end

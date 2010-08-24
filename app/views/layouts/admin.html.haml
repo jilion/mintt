@@ -5,32 +5,29 @@
     
     %title= "mintt admin#{yield(:title)}"
     
-    %link{ :href => "/stylesheets/style.css", :type => "text/css", :media => "screen", :rel => "stylesheet" }
-    %link{ :href => "/stylesheets/admin.css", :type => "text/css", :media => "screen", :rel => "stylesheet" }
-    %link{ :href => "/stylesheets/print.css", :type => "text/css", :media => "print", :rel => "stylesheet" }
+    = stylesheet_link_tag 'style', 'admin'
+    = stylesheet_link_tag 'print', :media => "print"
     
-    %script{ :type => "text/javascript", :src => "http#{ request.ssl? ? 's':'' }://use.typekit.com/qwi4bur.js" }
-    %script{ :type => "text/javascript" }= "try{Typekit.load();}catch(e){};"
+    = javascript_include_tag "http#{ request.ssl? ? 's':'' }://use.typekit.com/qwi4bur.js"
+    = javascript_tag "try{Typekit.load();}catch(e){};"
     /[if gte IE 7]
       == <script type="text/javascript">var curvyCornersNoAutoScan = true;</script>
-      %script{ :src => "/javascripts/curvycorners.js", :type => "text/javascript" }
-    %script{ :src => "/javascripts/prototype.js", :type => "text/javascript" }
-    %script{ :src => "/javascripts/application.js", :type => "text/javascript" }
-    %script{ :src => "/javascripts/admin.js", :type => "text/javascript" }
+      = javascript_include_tag 'curvycorners'
+    = javascript_include_tag :defaults, 'admin'
   %body
     = render 'layouts/flash', :object => flash
     #global
       #header
         #halo
         %h1
-          - link_to root_path do
+          = link_to root_path do
             %span= "mintt"
         %h2= "Management of Innovation and Technology Transfer"
-        - link_to admin_path, :id => "admin_label" do
+        = link_to admin_path, :id => "admin_label" do
           %span= "Admin"
         %ul#menu
           %li.home
-            - link_to admin_path do
+            = link_to admin_path do
               %span= "Home"
           %li{ :class => ('active' if controller_name == 'users') }= link_to "Students", admin_users_path
           %li{ :class => ('active' if controller_name == 'teachers') }= link_to "Teachers", admin_teachers_path
@@ -44,4 +41,4 @@
         = yield :sidebar
       .spacer
       = render 'layouts/footer'
-    - google_analytics
+    = google_analytics

@@ -1,11 +1,6 @@
 require 'spec_helper'
 
 describe User do
-  # Waiting for remarkable_mongo to work...
-  # it { should have_keys(:gender, :supervisor_authorization, :doctoral_school_rules, :agreement, Boolean) }
-  # it { should have_keys(:first_name, :last_name, :school, :phone, :email, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :motivation, String) }
-  # it { should validate_presence_of(:first_name) }
-  
   before(:each) do
     Factory.create(:mail_template)
   end
@@ -93,7 +88,7 @@ describe User do
       
       user = Factory.build(:user, :email => "remy@jilion.com")
       user.should_not be_valid
-      user.errors.on(:email).should be_present
+      user.errors[:email].should be_present
     end
     
     it "without thesis_supervisor" do
@@ -130,24 +125,6 @@ describe User do
     
   end
   
-  describe "State Machine" do
-    let(:user) { Factory(:user) }
-    
-    it "should be candidate at first" do
-      user.should be_candidate
-    end
-    
-    it "should be cancelable and re-become simple candidate" do
-      user.should be_candidate
-      user.select
-      user.should be_selected
-      
-      user.cancel
-      
-      user.should be_candidate
-    end
-  end
-  
   describe "Class Methods" do
     
     describe ".should_paginate(params = {})" do
@@ -163,87 +140,72 @@ describe User do
   
   describe "Instance Methods" do
     
-    describe "#fire_state_change" do
-      describe "should fire the select event when is_selected == '1' if user is not already selected" do
+    describe "#update_state" do
+      context "from state 'candidate' to 'selected'" do
         before :each do
           @user = Factory(:user)
-          ActionMailer::Base.deliveries = []
+          ActionMailer::Base.deliveries.clear
+          @user.update_attributes(:state => 'selected')
         end
         
-        it "should fire the select event when user is candidate" do
-          @user.should be_candidate
-          @user.is_selected = '1'
-          @user.save
-          @user.should be_selected
-          ActionMailer::Base.deliveries.size.should == 1
+        it "should set the user' selected_at date to now" do
+          @user.selected_at.should > 30.seconds.ago
         end
         
-        it "should not fire the select event when user is already selected" do
-          @user.should be_candidate
-          @user.select
-          ActionMailer::Base.deliveries.size.should == 1
-          
-          current_selected_at = @user.selected_at
-          current_reset_password_token = @user.reset_password_token
-          
-          @user.is_selected = '1'
-          @user.save
-          @user.should be_selected
-          @user.selected_at.should == current_selected_at
-          @user.reset_password_token.should == current_reset_password_token
+        it "should set the user' reset_password_token" do
+          @user.reset_password_token.should be_present
+        end
+        
+        it "should send email" do
           ActionMailer::Base.deliveries.size.should == 1
         end
       end
       
-      describe "should fire the cancel event when is_selected == '0' if user is not already candidate" do
+      context "from state 'selected' to 'candidate'" do
         before :each do
-          @user = Factory(:user)
-          ActionMailer::Base.deliveries = []
+          @user = Factory(:user, :state => 'selected')
+          ActionMailer::Base.deliveries.clear
+          @user.update_attributes(:state => 'candidate')
         end
         
-        it "should fire the cancel event when user is selected" do
-          @user.should be_candidate
-          @user.select
-          ActionMailer::Base.deliveries.size.should == 1
-          
-          @user.is_selected = '0'
-          @user.save
-          @user.should be_candidate
+        it "should set the user' selected_at date to nil" do
           @user.selected_at.should be_nil
-          @user.reset_password_token.should be_nil
-          ActionMailer::Base.deliveries.size.should == 1
         end
         
-        it "should not fire the select event when user is already candidate" do
-          @user.should be_candidate
-          @user.is_selected = '0'
-          @user.save
-          @user.should be_candidate
-          @user.selected_at.should be_nil
+        it "should set the user' reset_password_token to nil" do
           @user.reset_password_token.should be_nil
+        end
+        
+        it "should not send email" do
           ActionMailer::Base.deliveries.size.should == 0
         end
       end
     end
     
-    describe "#has_been_selected?" do
+    describe "#candidate?" do
       before :each do
-        @user = Factory(:user)
-        @user.select
+        @user = Factory(:user, :state => 'candidate')
+      end
+      
+      it "should be candidate" do
+        @user.should be_candidate
+      end
+    end
+    
+    describe "#selected?" do
+      before :each do
+        @user = Factory(:user, :state => 'selected')
       end
       
       it "should be selected" do
         @user.should be_selected
       end
-      it "should has been selected" do
-        @user.should be_has_been_selected
-      end
     end
     
     describe "#has_created_account?" do
       before :each do
-        @user = Factory(:user)
-        @user.select
+        @user = Factory(:user, :state => 'selected')
+        @user.send_reset_password_instructions
         User.reset_password_by_token(:reset_password_token => @user.reset_password_token, :password => '123456', :password_confirmation => '123456')
         @user.reload
       end
@@ -270,51 +232,6 @@ describe User do
       it "should be trashed" do
         @user.update_attributes(:trashed_at => Time.now)
         @user.should be_trashed
-      end
-    end
-    
-    describe "#select!" do
-      before :each do
-        @user = Factory(:user)
-        ActionMailer::Base.deliveries = []
-        @user.is_selected = '1'
-        @user.save
-      end
-      
-      it "should set the user' state as selected" do
-        @user.should be_selected
-      end
-      it "should set the user' selected_at date to now" do
-        @user.selected_at.should > 1.minute.ago
-      end
-      it "should set the user' reset_password_token" do
-        @user.reset_password_token.should be_present
-      end
-      it "should send email" do
-        ActionMailer::Base.deliveries.size.should == 1
-      end
-    end
-    
-    describe "#cancel!" do
-      before :each do
-        @user = Factory(:user)
-        ActionMailer::Base.deliveries = []
-        @user.is_selected = '0'
-        @user.save
-        @user.cancel
-      end
-      
-      it "should set the user' state as candidate" do
-        @user.should be_candidate
-      end
-      it "should set the user' selected_at date to nil" do
-        @user.selected_at.should be_nil
-      end
-      it "should set the user' reset_password_token to nil" do
-        @user.reset_password_token.should be_nil
-      end
-      it "should not send email" do
-        ActionMailer::Base.deliveries.size.should == 0
       end
     end
     
