@@ -1,18 +1,7 @@
-= title "Documents"
+= title_and_page_title "Documents"
 
 .text
   .actions_right= link_to "New document", new_admin_document_path
-  %table
-    %colgroup
-      - 6.times do
-        %col{ :class => cycle("even", "odd") }
-    %tr
-      %th
-      %th= "Title"
-      %th= "Module"
-      %th= "Published"
-      %th
-      %th
-      
-    - @documents.each do |document|
-      = render 'document', :object => document
+  
+  #documents_table_wrap
+    = render 'documents'

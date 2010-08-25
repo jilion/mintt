@@ -5,8 +5,8 @@ Spork.prefork do
   ENV["RAILS_ENV"] = 'test'
   require File.dirname(__FILE__) + "/../config/environment" unless defined?(Rails)
   require 'rspec/rails'
-  # require 'remarkable_rails'
   require 'shoulda'
+  # require 'mongoid-rspec'
 end
 
 Spork.each_run do

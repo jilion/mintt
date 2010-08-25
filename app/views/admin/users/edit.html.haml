@@ -1,4 +1,4 @@
-= title "Edit student: #{content_tag(:em, full_name(@user))}"
+= title_and_page_title "Edit student: #{content_tag(:em, full_name(@user))}"
 
 = semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
   = f.inputs do
@@ -22,8 +22,9 @@
             = raw "Credits granted: #{f.select(:credits_granted, [["Not yet", nil], ["0 credits", 0], ["3 credits", 3]])}"
         %li
           = f.buttons do
-            = submit_tag "Update", :confirm => "Are you sure to update #{full_name(@user)} informations?"
+            = submit_tag "Update student", :confirm => "Are you sure to update #{full_name(@user)} informations?"
             
+= semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
     = f.input :gender, :as => :radio, :collection => male_female_for_select, :required => true
     = f.input :first_name, :required => true
     = f.input :last_name, :required => true
@@ -44,4 +45,6 @@
     
   = f.buttons do
     = submit_tag "Update student", :confirm => "Are you sure to update #{full_name(@user)} informations?"
-  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"
+  .required_mention
+    = content_tag(:abbr, '*', :title => 'required')
+    = "required"

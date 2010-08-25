@@ -32,7 +32,7 @@ describe "Registrations" do
       click_button "Apply"
       
       response.should redirect_to root_url
-      flash[:success].should contain('Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes.')
+      flash[:notice].should contain('Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes.')
       ActionMailer::Base.deliveries.size.should == 1
     else
       visit root_path

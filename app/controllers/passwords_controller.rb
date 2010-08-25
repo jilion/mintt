@@ -9,7 +9,7 @@ class PasswordsController < Devise::PasswordsController
     else
       if resource.persisted? && ((resource_name == :user && resource.selected?) || resource_name != :user)
         resource.send_reset_password_instructions
-        set_flash_message :success, :send_instructions
+        set_flash_message :notice, :send_instructions
       else
         set_flash_message :error, :cant_send_instructions
       end

@@ -1,4 +1,4 @@
-= title "Teacher: #{content_tag(:em, @teacher.name_or_email)}", false
+= title "Teacher: #{content_tag(:em, @teacher.name_or_email)}"
 
 .text.sheet
   .right_box
@@ -6,19 +6,17 @@
     %p.email
       = image_tag "/images/admin/email.png", :alt => "Email"
       = mail_to @teacher.email
+    %p
+      = content_tag(:strong, "Speaker in module:")
+      = module_title(@teacher.module_id)
   .application_date
     %p.edit= link_to "edit teacher", edit_admin_teacher_path(@teacher), :class => "edit"
-    
   .spacer
-  .card
-    - unless @teacher.has_accepted_invitation?
-      %p= raw "#{content_tag(:strong, 'Invitation token')}: #{@teacher.invitation_token}"
-      
-      = semantic_form_for [:teacher, @teacher], :url => invitation_path(@teacher), :html => { :class => "main", :method => :post } do |f|
-        = f.inputs do
-          = f.input :email, :as => :hidden
-          
-        = f.buttons do
-          = f.commit_button "Re-send an invitation"
-          
-    %p= raw "#{content_tag(:strong, 'Module')}: #{@teacher.module_id}"
+  
+  - unless @teacher.has_accepted_invitation?
+    .break
+    %p
+      = content_tag(:strong, "This teacher hasn't accepted his/her invitation yet.")
+      = form_for [:admin, @teacher], :html => { :class => "main", :method => :post } do |f|
+        = f.hidden_field :email
+        = f.submit "Re-send invitation"

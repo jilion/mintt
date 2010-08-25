@@ -1,4 +1,4 @@
-= title "Document: #{content_tag(:em, @document.title)}", false
+= title "Document: #{content_tag(:em, @document.title)}"
 
 .text.sheet
   .right_box
@@ -7,13 +7,9 @@
     %p.edit= link_to "edit document", edit_admin_document_path(@document), :class => "edit"
   .spacer
   
-  %p= raw "#{content_tag(:strong, 'Module ID')}: #{@document.module_id}"
+  %p= raw "#{content_tag(:strong, 'Module')}: #{module_title(@document.module_id)}"
   
-  %p= raw "#{content_tag(:strong, "#{@document.published? ? 'P' : 'Will be p'}ublished on")}: #{@document.published_at.strftime("%B %d, %Y %H:%M")}"
+  %p= raw "#{content_tag(:strong, "#{@document.published? ? 'P' : 'Will be p'}ublished on")}: #{published_infos(@document)}"
   
   #document
-    %p
-      - if @document.image?
-        = image_tag(@document.url)
-      - else
-        = pretty_file(@document)
+    %p= @document.image? ? image_tag(@document.url) : pretty_file(@document)

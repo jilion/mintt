@@ -1,15 +1,19 @@
-- semantic_form_for [:admin, @document], :html => { :class => "main", :multipart => true } do |f|
-  - f.inputs do
+= semantic_form_for [:admin, @document], :html => { :class => "main", :multipart => true } do |f|
+  = f.inputs do
     = f.input :title, :required => true
     = f.input :description, :as => :text
-    = f.input :module_id, :as => :select, :collection => ProgramModule.all, :selected => @document.module_id || 1
+    = f.input :module_id, :as => :select, :collection => modules_for_select, :selected => (@document.module_id || 0)
     = f.input :file, :as => :file, :required => true, :html => { :style => 'background-color:#333;' }
-    = raw "#{content_tag(:strong, 'Current file')}: #{pretty_file(@document, :type => false)}" unless @document.new_record?
-    
+    - unless @document.new_record?
+      = content_tag(:strong, "Current file: ")}
+      = pretty_file(@document, :type => false)
+      
     %li.select
-      = f.label :published_at, "Publish on (current time is: #{Time.now.strftime("%Y-%B-%d - %H:%M")}):"
+      = f.label :published_at, "Publish on (current time is: #{l(Time.now, :format => :long)}):"
       = f.datetime_select(:published_at, :default => Time.now.utc)
-    
-  - f.buttons do
+      
+  = f.buttons do
     = f.commit_button "#{@document.new_record? ? "Create" : "Update"} document"
-  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"
+  .required_mention
+    = content_tag(:abbr, '*', :title => 'required')
+    = "required"

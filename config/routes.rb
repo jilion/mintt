@@ -1,55 +1,47 @@
 Mintt::Application.routes.draw do
-  devise_for :users, :path_names => { :sign_up => 'apply', :sign_in => 'login', :sign_out => 'logout' }
-  
-  match '/program' => "programs#index", :as => "user_root"
+  devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }, :skip => [:registrations] do
+    scope :controller => 'users/registrations', :as => :user_registration do
+      get  :new,    :path => '/apply'
+      post :create, :path => '/apply', :as => ''
+    end
+    scope :controller => 'devise/registrations', :as => :user_registration do
+      get  :edit,   :path => '/user_account/edit'
+      put  :update, :path => '/user_account/credentials'
+    end
+  end
   
   devise_for :teachers,
-  :path_names => { :sign_in => 'login', :sign_out => 'logout' }, :skip => [:invitations] do
+  :path_names => { :sign_in => 'login', :sign_out => 'logout' }, :skip => [:invitations, :registrations] do
     scope :controller => 'admin/teachers/invitations', :as => :teacher_invitation do # admin routes
       get  :new,    :path => '/admin/teachers/invitation/new'
       post :create, :path => '/admin/teachers/invitation', :as => ''
     end
     scope :controller => 'devise/invitations', :as => :teacher_invitation do
       get :edit,   :path => '/invitation/accept', :as => 'accept'
-      put :update, :path => '/invitation', :as => ''
+      put :update, :path => '/invitation'
+    end
+    scope :controller => 'devise/registrations', :as => :teacher_registration do
+      get  :edit,   :path => '/teacher_account/edit'
+      put  :update, :path => '/teacher_account/credentials'
     end
   end
-  match '/program' => "programs#index", :as => "teacher_root"
+  resources :teachers, :only => [:update]
   
-  resources :teachers, :only => :update
+  match '/program' => "programs#index", :as => "program"
   
   match '/contact' => 'messages#new'
-  resource :messages, :only => [:new, :create], :as => 'contact'
+  resource :messages, :only => [:new, :create]
   
   # =========
   # = Admin =
   # =========
   match '/admin' => 'admin/users#index', :as => 'admin'
   namespace :admin do
-    resources :users do
-      member do
-        put :trash
-      end
-    end
-    
-    resources :teachers
-    # scope :controller => 'teachers/invitations', :as => :teacher_invitation do
-    #   get  :new,    :path => 'teachers/invitation/new'
-    #   post :create, :path => 'teachers/invitation', :as => ''
-    # end
-    
     resources :documents
-    resources :messages do
-      collection do
-        get :trashes
-      end
-      member do
-        put :reply
-        put :trash
-        put :untrash
-      end
-    end
-    resources :mail_templates, :except => [:destroy]
+    resources :mail_templates, :only => [:index, :show, :edit, :update]
+    resources :messages, :only => [:index, :show, :update]
+    resources :teachers, :only => [:index, :show, :edit, :update, :destroy]
+    resources :users, :only => [:index, :show, :edit, :update]
   end
   
   root :to => 'pages#show', :id => 'home'

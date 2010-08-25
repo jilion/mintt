@@ -1,7 +1,4 @@
 class MessagesController < ApplicationController
-  before_filter :ensure_keys_exists
-  
-  # ssl_required :new, :create
   
   # GET /contact
   def new
@@ -13,8 +10,7 @@ class MessagesController < ApplicationController
     @message = Message.new(params[:message])
     
     if @message.save
-      flash[:success] = 'Your message has been sent.'
-      redirect_to root_url
+      redirect_to root_url, :notice => "Your message has been sent."
     else
       render :new
     end

@@ -6,8 +6,7 @@ class TeachersController < ApplicationController
     @teacher = Teacher.find(current_teacher.id)
     respond_to do |format|
       if @teacher.update_attributes(params[:teacher])
-        flash[:success] = "Your name has been updated."
-        format.html { redirect_to edit_teacher_registration_path }
+        format.html { redirect_to edit_teacher_registration_path, :notice => "Your name has been updated." }
       else
         format.html { render 'registrations/edit' }
       end

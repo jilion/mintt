@@ -2,6 +2,7 @@ class Message
   include Mongoid::Document
   include Mongoid::Timestamps
   
+  cattr_accessor :per_page
   @@per_page = 10
   
   field :sender_name,  :type => String
@@ -10,39 +11,42 @@ class Message
   field :read_at,      :type => Time, :default => nil
   field :replied_at,   :type => Time, :default => nil
   field :trashed_at,   :type => Time, :default => nil
-  # timestamps!
   
-  # Email regex used to validate email formats. Retrieved from authlogic.
-  # EMAIL_REGEX = /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2,4}|museum|travel)\z/i
-  
+  # ===============
+  # = Validations =
+  # ===============
   validates_presence_of :sender_name, :message => "This field can't be empty"
   validates_presence_of :sender_email, :message => "This field can't be empty"
   validates_presence_of :content, :message => "This field can't be empty"
-  
   validates_format_of :sender_email, :with => Devise.email_regexp
   
+  # =============
+  # = Callbacks =
+  # =============
   after_create :notify_of_new_message
+  
+  # ==========
+  # = Scopes =
+  # ==========
+  scope :trashed, lambda { |trashed| trashed ? where(:trashed_at.ne => nil) : where(:trashed_at => nil) }
   
   # =================
   # = Class Methods =
   # =================
-  
   def self.index_order_by(params = {})
-    options = order_hash(params).merge(:trashed_at => nil)
-    options.merge!({ :page => params[:page], :per_page => @@per_page }) if should_paginate(params)
-    send((should_paginate(params) ? "paginate" : "all"), options)
+    options = { :page => params[:page], :per_page => @@per_page } if should_paginate(params)
+    
+    trashed(params[:trashed]).order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).
+    send((should_paginate(params) ? :paginate : :all), options || {})
   end
   
-  def self.trash_order_by(params = {})
-    options = order_hash(params).merge(:trashed_at.ne => nil)
-    options.merge!({ :page => params[:page], :per_page => @@per_page }) if should_paginate(params)
-    send((should_paginate(params) ? "paginate" : "all"), options)
+  def self.should_paginate(params = {})
+    !params.key? :all
   end
   
   # ====================
   # = Instance Methods =
   # ====================
-  
   def unread?
     read_at.nil?
   end
@@ -64,7 +68,7 @@ class Message
   end
   
   def sender_name
-    read_attribute(:sender_name).titleize
+    read_attribute(:sender_name).present? ? read_attribute(:sender_name).titleize : ""
   end
   
 protected
@@ -76,10 +80,6 @@ protected
   
   def self.order_hash(options = {})
     { :order => "#{options[:order_by] || 'created_at'} #{options[:sort_way] || 'desc'}" }
-  end
-  
-  def self.should_paginate(params = {})
-    !params.key? :all
   end
   
 end

@@ -1,20 +1,11 @@
 module ApplicationHelper
   
-  def title(page_title, show_title = true)
-    content_for :title do
-      " | #{strip_tags(page_title.to_s)}"
-    end
-    content_for :page_title do
-      content_tag(:h3, page_title.to_s.html_safe, :class => "title")
-    end if show_title
-  end
-  
   def display_date(date)
-    date.blank? ? "" : date.to_date.to_s(:lite)
+    date.blank? ? "" : l(date.to_date, :format => :lite)
   end
   
   def display_date_and_time(date)
-    date.blank? ? "" : date.to_datetime.to_s(:full)
+    date.blank? ? "" : l(date.to_date, :format => :full)
   end
   
   def sexy_date(date)
@@ -24,13 +15,13 @@ module ApplicationHelper
     elsif date.to_time > 2.days.until(Time.now)
       "Yesterday"
     else
-      date.to_date.to_s(:lite)
+      l(date.to_date, :format => :lite)
     end
   end
   
   def sexy_time(date)
     return "" if date.blank?
-    date.to_time.to_s(:time)
+    l(date.to_time, :format => :time)
   end
   
   def words_count(text)

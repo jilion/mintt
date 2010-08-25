@@ -1,0 +1,13 @@
+%ul#program_menu
+  %li{ :class => ('active' if params[:day] && params[:day] == "1") }
+    = link_to("June 8, 2010", program_path(:day => 1), :remote => true)
+  %li{ :class => ('active' if params[:day] && params[:day] == "2") }
+    = link_to("June 9, 2010", program_path(:day => 2), :remote => true)
+  %li{ :class => ('active' if params[:day] && params[:day] == "3") }
+    = link_to("October 6, 2010", program_path(:day => 3), :remote => true)
+    
+.break
+%br
+
+- if params[:day] && (1..3).include?(params[:day].to_i)
+  = render "day_#{params[:day]}"

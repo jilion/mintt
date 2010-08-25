@@ -1,25 +1,6 @@
-= title "Messages: #{smart_objects_objects_displayed_range(@messages)} of #{smart_objects_count(@messages)}"
+= title "#{params[:trashed] ? "Trashed m" : "M"}essages"
 
 .text
-  .actions_right= link_to('Go to Trash', trashes_admin_messages_path)
-  
-  %table
-    %colgroup
-      - 5.times do
-        %col{ :class => "even" }
-    %tr
-      %th.icon_centered= link_to image_tag("/images/admin/unread_label_icon.png", :alt => "Unread?"), admin_messages_path(sort_parameters('read_at'))
-      %th.icon_centered= link_to image_tag("/images/admin/replied_label_icon.png", :alt => "Replied?"), admin_messages_path(sort_parameters('replied_at'))
-      %th= link_to "From", admin_messages_path(sort_parameters('sender_name'))
-      %th= link_to "Date Received", admin_messages_path(sort_parameters('created_at'))
-      %th
-      
-    - @messages.each do |message|
-      = render 'message', :object => message
-      
-  - if params.key? :all
-    .right_links= link_to "View with paginate", admin_messages_path
-  - else
-    .right_links= link_to "View all", admin_messages_path(:all => true)
-    = will_paginate
-    
+  .actions_right
+    = link_to("Go to #{params[:trashed] ? "Inbox" : "Trash"}", admin_messages_path(:trashed => !params[:trashed]))
+  #messages_table_wrap= render 'messages'

@@ -1,20 +1,24 @@
-= title show_message_title(@message), false
+= title show_message_title(@message)
 
 .text.mail
   %h3= "Message"
   
   .actions_left
     - if @message.unreplied?
-      = button_to("Mark as replied", reply_admin_message_path(@message), :method => :put, :id => "reply_message_#{@message.id}", :class => "button mark_as_replied")
+      = update_field_form(@message, :replied_at, Time.now, "Mark as replied", {}, :id => "reply_message_#{@message.id}", :class => "button mark_as_replied")
     - if @message.trashed?
-      = button_to("Move to inbox", untrash_admin_message_path(@message), :method => :put, :id => "untrash_message_#{@message.id}", :class => "button move_to_inbox")
+      = update_field_form(@message, :trashed_at, nil, "Move to inbox", {}, :id => "untrash_message_#{@message.id}", :class => "button move_to_inbox")
     - else
-      = button_to("Move to trash", trash_admin_message_path(@message), :method => :put, :id => "trash_message_#{@message.id}", :class => "button move_to_trash")
+      = update_field_form(@message, :trashed_at, Time.now, "Move to trash", {}, :id => "trash_message_#{@message.id}", :class => "button move_to_trash")
     .spacer
   .actions_right
     = back_to_inbox_or_trash(@message)
     
   .content
-    .from= raw "#{content_tag(:strong, 'From')}: #{sender_name_with_email_and_mailto(@message, 'hex', "\n\n\n#{message_sender_name_with_email(@message)} wrote on #{@message.created_at}:\n\n#{@message.content}")}"
-    .date= raw "#{content_tag(:strong, 'Date Received')}: #{sexy_date(@message.created_at)} #{sexy_time(@message.created_at)}"
+    .from
+      = content_tag(:strong, "From: ")
+      = sender_name_with_email_and_mailto(@message, 'hex', "\n\n\n#{message_sender_name_with_email(@message)} wrote on #{@message.created_at}:\n\n#{@message.content}")
+    .date
+      = content_tag(:strong, "Date Received: ")
+      = "#{sexy_date(@message.created_at)} #{sexy_time(@message.created_at)}"
     .body= message_content(@message)

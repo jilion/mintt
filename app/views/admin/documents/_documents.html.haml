@@ -1,0 +1,12 @@
+%table
+  %colgroup
+    - 6.times do
+      %col{ :class => cycle("even", "odd") }
+  %tr
+    %th= link_to "Published", admin_documents_path(sort_parameters('published_at')), :remote => true
+    %th= link_to "Title", admin_documents_path(sort_parameters('title')), :remote => true
+    %th= link_to "Module", admin_documents_path(sort_parameters('module_id')), :remote => true
+    %th= link_to "Publication date", admin_documents_path(sort_parameters('published_at')), :remote => true
+    %th
+    %th
+  = render @documents

@@ -1,33 +1,48 @@
 class Document
   include Mongoid::Document
   include Mongoid::Timestamps
-  include MultiParameterAttributes
   
   attr_accessor :file
   
-  field :title,        :type => String,  :required => true
+  field :title,        :type => String
   field :description,  :type => String
   field :module_id,    :type => Integer, :default => nil
-  field :filename,     :type => String,  :required => true
+  field :filename,     :type => String
   field :published_at, :type => Time,    :default => nil
-  # timestamps!
   
+  # ===============
+  # = Validations =
+  # ===============
+  validates_presence_of :title
   validate :presence_of_file
   
+  # =============
+  # = Callbacks =
+  # =============
   after_destroy :delete_file
   
+  # =================
+  # = Class Methods =
+  # =================
+  def self.index_order_by(params = {})
+    order_by((params[:order_by] || :published_at).to_sym.send(params[:sort_way] || :desc))
+  end
+  
+  # ====================
+  # = Instance Methods =
+  # ====================
   def file=(new_file)
     ext = File.extname(new_file.original_filename)
-    @filename = new_file.original_filename[0..new_file.original_filename.size-ext.size].parameterize + ext
-    File.open(path, "wb") { |f| f.write(new_file.read) }
+    self.filename = new_file.original_filename[0..new_file.original_filename.size-ext.size].parameterize + ext
+    File.open(path, "w+") { |f| f.write(new_file.read) }
   end
   
   def file
-    File.open(@filename, "r")
+    File.open(read_attribute(:filename), "r")
   end
   
   def url
-    "/#{Document.upload_folder.join('/')}/#{@filename}" if @filename
+    "/#{Document.upload_folder.join('/')}/#{read_attribute(:filename)}" if read_attribute(:filename)
   end
   
   def image?
@@ -35,15 +50,15 @@ class Document
   end
   
   def extension
-    File.extname(@filename).sub('.', '') if @filename
+    File.extname(read_attribute(:filename)).sub('.', '') if read_attribute(:filename)
   end
   
   def title
-    @title.present? ? @title : @filename
+    read_attribute(:title).present? ? read_attribute(:title) : read_attribute(:filename)
   end
   
   def published?
-    published_at <= Time.now
+    published_at.present? && published_at <= Time.now
   end
   
   def method_missing(method, *args, &block)
@@ -55,7 +70,7 @@ class Document
 protected
   
   def path
-    Pathname.new(Document.upload_path).join(@filename)
+    Pathname.new(Document.upload_path).join(read_attribute(:filename))
   end
   
   def self.upload_path
@@ -70,7 +85,7 @@ protected
   
   # validate
   def presence_of_file
-    errors.add(:file, "File must be present!") if @filename.blank?
+    errors.add(:file, "File must be present!") if read_attribute(:filename).blank?
   end
   
   def delete_file

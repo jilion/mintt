@@ -1,13 +1,13 @@
 Mintt::Application.configure do
-  config.middleware.use(Rack::SslEnforcer, [/^\/admin\//, "/contact", "/apply"])
+  config.middleware.use(Rack::SslEnforcer, [%r(/admin), %r(/teachers), %r(/users), %r(/contact), %r(/apply)])
   
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
   config.cache_classes = true
   
   # Full error reports are disabled and caching is turned on
-  config.action_controller.consider_all_requests_local = false
-  config.action_controller.perform_caching             = true
+  config.consider_all_requests_local       = false
+  config.action_controller.perform_caching = true
   
   # See everything in the log (default is :info)
   # config.log_level = :debug

@@ -3,10 +3,8 @@ source :rubygems
 gem 'rails',             '3.0.0.rc2'
 gem 'rack-ssl-enforcer', :git => 'git://github.com/thibaudgg/rack-ssl-enforcer.git'
 
-gem 'mongoid',  :git => 'git://github.com/mongoid/mongoid.git'#'~> 2.0.0.beta.16'
+gem 'mongoid',  :git => 'git://github.com/rymai/mongoid.git', :branch => 'better_multi_parameter_attributes'#'~> 2.0.0.beta.16'
 gem 'bson_ext', '~> 1.0.4'
-
-gem 'ssl_requirement'
 
 gem 'devise',                '~> 1.1.1'
 gem 'devise_invitable',      :git => 'git://github.com/rymai/devise_invitable.git'
@@ -27,9 +25,9 @@ end
 group :test do
   gem 'spork'
   gem 'rspactor',    '~> 0.7.beta.6'
-  gem 'shoulda'
   gem 'rspec-rails', '~> 2.0.0.beta.19'
-  # gem 'remarkable_rails'
+  gem 'shoulda'
+  # gem 'mongoid-rspec'
   gem 'steak',       '~> 0.4.0.beta.1'
   gem 'capybara'
   gem 'launchy'

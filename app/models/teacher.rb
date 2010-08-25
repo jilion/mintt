@@ -6,7 +6,7 @@ class Teacher
   @@per_page = 10
   
   field :name,      :type => String
-  field :email,     :type => String, :required => true, :unique => true
+  field :email,     :type => String
   field :module_id, :type => Integer, :default => nil
   
   devise :database_authenticatable, :validatable, :registerable, :rememberable, :recoverable, :invitable
@@ -16,13 +16,26 @@ class Teacher
   # ===============
   # = Validations =
   # ===============
+  validates_presence_of :email, :message => "This field can't be empty"
+  validates_uniqueness_of :email
   
-  # validates_format_of :email, :with => Devise.email_regexp
+  # =================
+  # = Class Methods =
+  # =================
+  def self.index_order_by(params = {})
+    options = { :page => params[:page], :per_page => @@per_page } if should_paginate(params)
+    
+    order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).
+    send((should_paginate(params) ? :paginate : :all), options || {})
+  end
+  
+  def self.should_paginate(params = {})
+    !params.key? :all
+  end
   
   # ====================
   # = Instance Methods =
   # ====================
-  
   def has_accepted_invitation?
     invitation_sent_at.present? && invitation_token.nil?
   end

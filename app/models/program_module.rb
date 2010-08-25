@@ -1,7 +1,10 @@
 class ProgramModule
   
   def self.all
-    (0..7)
+    [
+      "General Information", "About inventions and inventors", "Evaluate the Potential", "Intellectual Property",
+      "Licensing", "Start-up", "From innovation to sales. A long way?", "Case Studies"
+    ]
   end
   
 end

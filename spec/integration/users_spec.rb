@@ -16,7 +16,7 @@ describe "User" do
       click_button "Set my password"
       
       current_url.should =~ %r(http://[^/]+/program)
-      flash[:success].should contain "Your password has been changed. You are now logged in."
+      flash[:notice].should contain "Your password has been changed. You are now logged in."
     end
   end
   
@@ -34,7 +34,7 @@ describe "User" do
       
       current_url.should =~ %r(http://[^/]+/program)
       response.should contain "#{@user.first_name} #{@user.last_name}"
-      flash[:success].should contain "Logged in successfully."
+      flash[:notice].should contain "Logged in successfully."
     end
   end
   
@@ -56,7 +56,7 @@ describe "User" do
       
       current_url.should =~ %r(http://[^/]+/users/edit)
       
-      flash[:success].should contain "Your personal information has been updated."
+      flash[:notice].should contain "Your personal information has been updated."
     end
     
     it "should be able to log out" do

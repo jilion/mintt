@@ -1,9 +1,12 @@
 class Admin::DocumentsController < Admin::AdminController
-  before_filter :ensure_keys_exists
   
   # GET /admin/documents
   def index
-    @documents = Document.order_by(:published_at.desc)
+    @documents = Document.index_order_by(params)
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
   
   # GET /admin/documents/:id
@@ -19,10 +22,8 @@ class Admin::DocumentsController < Admin::AdminController
   # POST /admin/documents/:id
   def create
     @document = Document.new(params[:document])
-    
     if @document.save
-      flash[:success] = 'Document successfully created'
-      redirect_to admin_document_path(@document)
+      redirect_to admin_document_path(@document), :notice => "Document successfully created."
     else
       render :new
     end
@@ -38,8 +39,7 @@ class Admin::DocumentsController < Admin::AdminController
     @document = Document.find(params[:id])
     
     if @document.update_attributes(params[:document])
-      flash[:success] = 'Document successfully updated'
-      redirect_to admin_document_path(@document)
+      redirect_to admin_document_path(@document), :notice => "Document successfully updated."
     else
       render :edit
     end
@@ -48,7 +48,7 @@ class Admin::DocumentsController < Admin::AdminController
   # DELETE /admin/documents/:id
   def destroy
     @document = Document.find(params[:id])
-    flash[:success] = 'Document successfully destroyed' if @document.destroy
+    flash[:notice] = 'Document successfully destroyed' if @document.destroy
     redirect_to admin_documents_path
   end
   

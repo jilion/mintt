@@ -1,7 +1,7 @@
 module DocumentsHelper
   
   def pretty_file(document, *args)
-    return if document.new_record?
+    return if document.new_record? || document.extension.blank?
     options = args.extract_options!
     options.reverse_merge!(:type => true)
     
@@ -13,19 +13,15 @@ module DocumentsHelper
   end
   
   def published_infos(document)
-    if document.published?
-      "#{time_ago_in_words(document.published_at)} ago"
-    else
-      document.published_at.strftime("%B %d, %Y %H:%M")
-    end.html_safe
+    return if document.blank? || document.published_at.blank?
+    l(document.published_at, :format => :full)
   end
   
   def list_documents_for_module(module_id)
+    return unless @documents
     @documents.select { |doc| doc.module_id == module_id }.inject("") do |html, doc|
-      # html << "<li class='#{pretty_class(doc)}'>#{pretty_file(doc)}
-      # #{content_tag(:div, doc.description, :class => 'description') if doc.description.present?}"
       html << content_tag(:li, pretty_file(doc), :title => doc.description)
-    end
+    end.html_safe
   end
   
 end

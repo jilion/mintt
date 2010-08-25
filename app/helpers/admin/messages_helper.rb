@@ -1,5 +1,9 @@
 module Admin::MessagesHelper
   
+  def messages_sort_parameters(field)
+    sort_parameters(field).merge(:trashed => params[:trashed])
+  end
+  
   def show_message_title(message)
     "#{message.trashed? ? 'Trashed m' : 'M'}essage: From #{message.sender_email} received #{time_ago_in_words(message.created_at, true)} ago"
   end

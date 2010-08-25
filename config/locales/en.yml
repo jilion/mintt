@@ -5,7 +5,8 @@ en:
     formats:
       filename: "%Y%m%d"
       lite: "%B %d, %Y"
-      full: "%B %d, %Y %I:%M %p"
+      full: "%B %d, %Y %H:%M"
+      long: "%Y-%B-%d - %H:%M"
       time: "%I:%M %p"
       
   date:

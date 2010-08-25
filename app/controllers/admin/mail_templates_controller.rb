@@ -1,5 +1,4 @@
 class Admin::MailTemplatesController < Admin::AdminController
-  before_filter :ensure_keys_exists
   
   # GET /admin/mail_templates
   def index
@@ -20,8 +19,7 @@ class Admin::MailTemplatesController < Admin::AdminController
   def update
     @mail_template = MailTemplate.find(params[:id])
     if @mail_template.update_attributes(params[:mail_template])
-      flash[:success] = 'Mail template successfully updated'
-      redirect_to admin_mail_template_path(@mail_template)
+      redirect_to admin_mail_template_path(@mail_template), :notice => "Mail template successfully updated."
     else
       render :edit
     end

@@ -16,7 +16,7 @@ describe "Teacher" do
       click_button "Set my password"
       
       current_url.should =~ %r(http://[^/]+/program)
-      flash[:success].should contain "Your password has been set. You are now logged in."
+      flash[:notice].should contain "Your password has been set. You are now logged in."
     end
   end
   
@@ -34,7 +34,7 @@ describe "Teacher" do
       
       current_url.should =~ %r(http://[^/]+/program)
       response.should contain @teacher.email
-      flash[:success].should contain "Logged in successfully."
+      flash[:notice].should contain "Logged in successfully."
     end
   end
   
@@ -57,7 +57,7 @@ describe "Teacher" do
       @current_teacher.reload
       response.should contain @current_teacher.name
       
-      flash[:success].should contain "Your name has been updated."
+      flash[:notice].should contain "Your name has been updated."
     end
     
     it "should be able to log out" do

@@ -4,10 +4,10 @@ class MailTemplate
   
   field :title,   :type => String
   field :content, :type => String
-  # timestamps!
   
+  # ===============
+  # = Validations =
+  # ===============
   validates_presence_of :title, :content, :message => "This field can't be empty"
-  
   validates_uniqueness_of :title
-  
 end

@@ -1,7 +1,6 @@
-= title "mintt 2010 Students: #{smart_objects_objects_displayed_range(@users)} of #{smart_objects_count(@users)}"
+= title "’10 Students"
 
 .text
   .export= link_to "Export all users in CSV", admin_users_path(:format => 'csv')
   
-  #users_table_wrap
-    = render 'users'
+  #users_table_wrap= render 'users'

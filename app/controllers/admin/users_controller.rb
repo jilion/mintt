@@ -1,5 +1,4 @@
 class Admin::UsersController < Admin::AdminController
-  before_filter :ensure_keys_exists
   
   # GET /admin/users
   def index
@@ -30,26 +29,10 @@ class Admin::UsersController < Admin::AdminController
     @user = User.find(params[:id])
     
     if @user.update_attributes(params[:user])
-      flash[:success] = 'Student has been successfully updated'
-      redirect_to admin_user_path(@user)
+      redirect_to admin_users_path, :notice => "Student has been successfully updated"
     else
       render :edit
     end
-  end
-  
-  # PUT /admin/users/:id/trash
-  def trash
-    @user = User.find(params[:id])
-    
-    flash[:success] = 'Student has been successfully trashed' if @user.update_attributes(:trashed_at => Time.now)
-    redirect_to admin_users_path
-  end
-  
-  # DELETE /admin/users/:id
-  def destroy
-    @user = User.find(params[:id])
-    flash[:success] = 'Student has been successfully destroyed' if @user.destroy
-    redirect_to admin_users_path
   end
   
 end

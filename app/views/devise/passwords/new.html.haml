@@ -1,9 +1,8 @@
-= title "Forgot your password?"
+= title_and_page_title "Forgot your password?"
 
-- semantic_form_for [resource_name, resource], :url => password_path(resource_name), :html => { :class => "main" } do |f|
-  - f.inputs do
-    = f.input :email, :required => true
+= semantic_form_for [resource_name, resource], :url => password_path(resource_name), :html => { :class => "main" } do |f|
+  = f.inputs do
+    = f.input :email, :required => false
     
-  - f.buttons do
+  = f.buttons do
     = f.commit_button "Send me reset password instructions"
-  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"
