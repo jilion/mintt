@@ -1,6 +1,8 @@
 Mintt::Application.configure do
-  config.middleware.use(Rack::SslEnforcer, [%r(/admin), %r(/teachers), %r(/users), %r(/contact), %r(/apply)])
-  
+  config.middleware.use(Rack::SslEnforcer, [%r(/admin), %r(/contact), %r(/program),
+                                            %r(/apply), %r(/users), %(/user_account),
+                                            %r(/invitation), %r(/teachers), %(/teacher_account)])
+                                            
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
   config.cache_classes = true

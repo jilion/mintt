@@ -33,4 +33,5 @@ group :test do
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'rcov'
 end
