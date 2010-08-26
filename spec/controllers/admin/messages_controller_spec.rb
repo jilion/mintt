@@ -1,94 +1,40 @@
 require 'spec_helper'
 
 describe Admin::MessagesController do
-  mock_model :message
   
-  # =========
-  # = index =
-  # =========
-  describe :get => :index, :page => 2 do
-    expects :index_order_by, :on => Message, :with => { "action" => "index", "controller" => "admin/messages", "page" => "2" }, :returns => mock_messages
-    
-    it { should render_template 'admin/messages/index.html.haml' }
+  it "should respond with success to GET :index" do
+    Message.stub(:index_order_by).and_return([])
+    get :index, :page => 2
+    response.should be_success
   end
   
-  describe :get => :index, :all => true do
-    expects :index_order_by, :on => Message, :with => { "all" => true, "action" => "index", "controller" => "admin/messages" }, :returns => mock_messages
-    
-    it { should render_template 'admin/messages/index.html.haml' }
+  it "should respond with success to GET :show" do
+    Message.stub(:find).and_return(mock_message)
+    mock_message.stub(:unread?).and_return(false)
+    get :show, :id => 1
+    response.should be_success
   end
   
-  # ==========
-  # = trashes =
-  # ==========
-  describe :get => :trashes, :page => 2 do
-    expects :trash_order_by, :on => Message, :with => { "action" => "trashes", "controller" => "admin/messages", "page" => "2" }, :returns => mock_messages
-    
-    it { should render_template 'admin/messages/trashes.html.haml' }
+  it "should respond with success to PUT :update and redirect to inbox if message is not trashed" do
+    Message.stub(:find).and_return(mock_message)
+    mock_message.stub(:update_attributes).and_return(true)
+    mock_message.stub(:trashed?).and_return(false)
+    put :update, :id => '1'
+    response.should redirect_to(admin_messages_path)
   end
   
-  describe :get => :trashes, :all => true do
-    expects :trash_order_by, :on => Message, :with => { "all" => true, "action" => "trashes", "controller" => "admin/messages" }, :returns => mock_messages
-    
-    it { should render_template 'admin/messages/trashes.html.haml' }
+  it "should respond with success to PUT :update and redirect to trash if message is trashed" do
+    Message.stub(:find).and_return(mock_message)
+    mock_message.stub(:update_attributes).and_return(true)
+    mock_message.stub(:trashed?).and_return(true)
+    put :update, :id => '1'
+    response.should redirect_to(admin_messages_path(:trashed => true))
   end
   
-  # ========
-  # = show =
-  # ========
-  describe :get => :show, :message => Factory.attributes_for(:message), :id => "1" do
-    expects :find, :on => Message, :with => "1", :returns => mock_message
-    expects :unread?, :on => mock_message, :returns => true
-    expects :update_attributes!, :on => mock_message, :returns => true
-    
-    it { should render_template 'admin/messages/show.html.haml' }
-  end
+private
   
-  describe :get => :show, :message => Factory.attributes_for(:message).merge({ :read => true }), :id => "1" do
-    expects :find, :on => Message, :with => "1", :returns => mock_message
-    expects :unread?, :on => mock_message, :returns => false
-    
-    it { should render_template 'admin/messages/show.html.haml' }
-  end
-  
-  # =========
-  # = reply =
-  # =========
-  describe :put => :reply, :id => "1" do
-    expects :find, :on => Message, :with => "1", :returns => mock_message
-    expects :update_attributes!, :on => mock_message, :returns => true
-    
-    it { should redirect_to admin_message_path(mock_message) }
-  end
-  
-  # =========
-  # = trash =
-  # =========
-  describe :put => :trash, :id => "1" do
-    expects :find, :on => Message, :with => "1", :returns => mock_message
-    expects :update_attributes!, :on => mock_message, :returns => true
-    
-    it { should redirect_to admin_messages_path }
-  end
-  
-  # ===========
-  # = untrash =
-  # ===========
-  describe :put => :untrash, :id => "1" do
-    expects :find, :on => Message, :with => "1", :returns => mock_message
-    expects :update_attributes!, :on => mock_message, :with => { :trashed_at => nil }, :returns => true
-    
-    it { should redirect_to trashes_admin_messages_path }
-  end
-  
-  # ===========
-  # = destroy =
-  # ===========
-  describe :delete => :destroy, :id => "1" do
-    expects :find, :on => Message, :with => "1", :returns => mock_message
-    expects :destroy, :on => mock_message, :returns => true
-    
-    it { should redirect_to trashes_admin_messages_path }
+  def mock_message(stubs={})
+    @mock_message ||= mock_model(Message, stubs)
   end
   
 end

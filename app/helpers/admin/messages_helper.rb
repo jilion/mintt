@@ -1,7 +1,7 @@
 module Admin::MessagesHelper
   
-  def messages_sort_parameters(field)
-    sort_parameters(field).merge(:trashed => params[:trashed])
+  def messages_sort_parameters(field, params = {})
+    sort_parameters(field, params).merge(:trashed => params[:trashed])
   end
   
   def show_message_title(message)
@@ -22,7 +22,7 @@ module Admin::MessagesHelper
   
   def back_to_inbox_or_trash(message)
     return if message.nil?
-    message.trashed? ? link_to('Back to trash', trashes_admin_messages_path) : link_to('Back to inbox', admin_messages_path)
+    link_to("Back to #{message.trashed? ? 'trash' : 'inbox'}", admin_messages_path(:trashed => message.trashed?))
   end
   
 end

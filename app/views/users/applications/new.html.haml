@@ -7,7 +7,7 @@
   %p= "Please fill out the following form precisely and clearly."
   
 #register
-  = semantic_form_for resource_name, resource, :url => registration_path(resource_name), :html => { :class => "main" } do |f|
+  = semantic_form_for resource, :as => resource_name, :url => user_application_path, :html => { :class => "main" } do |f|
     = f.inputs do
       = f.input :gender, :as => :radio, :collection => [["Mrs.", "female"], ["Mr.", "male"]], :required => true
       = f.input :first_name, :required => true
@@ -32,6 +32,4 @@
       
     = f.buttons do
       = f.commit_button "Apply"
-    .required_mention
-      = content_tag(:abbr, '*', :title => 'required')
-      = "required"
+    = render '/shared/required_mention'

@@ -1,56 +1,43 @@
 require 'spec_helper'
 
 describe Admin::MailTemplatesController do
-  mock_model :mail_template, :user, :teacher
   
-  # =========
-  # = index =
-  # =========
-  describe :get => :index do
-    expects :all, :on => MailTemplate, :returns => mock_mail_templates
-    
-    it { should render_template 'admin/mail_templates/index.html.haml' }
+  it "should respond with success to GET :index" do
+    MailTemplate.stub(:all).and_return([])
+    get :index, :page => 2
+    response.should be_success
   end
   
-  # ========
-  # = show =
-  # ========
-  describe :get => :show, :id => "1" do
-    expects :find, :on => MailTemplate, :with => "1", :returns => mock_mail_template
-    
-    it { should render_template 'admin/mail_templates/show.html.haml' }
+  it "should respond with success to GET :show" do
+    MailTemplate.stub(:find).and_return(mock_mail_template)
+    get :show, :id => 1
+    response.should be_success
   end
   
-  describe :get => :show, :id => "1" do
-    expects :find, :on => MailTemplate, :with => "1", :returns => mock_mail_template
-    
-    it { should render_template 'admin/mail_templates/show.html.haml' }
+  it "should respond with success to GET :edit" do
+    MailTemplate.stub(:find).and_return(mock_mail_template)
+    get :edit, :id => '1'
+    response.should be_success
   end
   
-  # ========
-  # = edit =
-  # ========
-  describe :get => :edit, :id => "1" do
-    expects :find, :on => MailTemplate, :with => "1", :returns => mock_mail_template
-    
-    it { should render_template 'admin/mail_templates/edit.html.haml' }
+  it "should respond with success to PUT :update successful" do
+    MailTemplate.stub(:find).and_return(mock_mail_template)
+    mock_mail_template.stub(:update_attributes).and_return(true)
+    put :update, :id => '1'
+    response.should redirect_to(admin_mail_template_path(mock_mail_template))
   end
   
-  # ==========
-  # = update =
-  # ==========
-  describe :put => :update, :mail_template => { :content => "" }, :id => "1" do
-    expects :find, :on => MailTemplate, :with => "1", :returns => mock_mail_template
-    expects :update_attributes, :on => mock_mail_template, :returns => true
-    
-    it { should redirect_to admin_mail_template_path(mock_mail_template) }
+  it "should respond with success to PUT :update unsuccessful" do
+    MailTemplate.stub(:find).and_return(mock_mail_template)
+    mock_mail_template.stub(:update_attributes).and_return(false)
+    put :update, :id => '1'
+    response.should be_success
   end
   
-  describe :put => :update, :mail_template => { :content => "" }, :id => "1" do
-    expects :find, :on => MailTemplate, :with => "1", :returns => mock_mail_template
-    expects :update_attributes, :on => mock_mail_template, :returns => false
-    
-    it { should render_template 'admin/mail_templates/edit.html.haml' }
+private
+  
+  def mock_mail_template(stubs={})
+    @mock_mail_template ||= mock_model(MailTemplate, stubs)
   end
   
 end

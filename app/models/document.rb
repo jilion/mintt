@@ -2,7 +2,7 @@ class Document
   include Mongoid::Document
   include Mongoid::Timestamps
   
-  attr_accessor :file
+  attr_writer :file
   
   field :title,        :type => String
   field :description,  :type => String
@@ -13,7 +13,7 @@ class Document
   # ===============
   # = Validations =
   # ===============
-  validates_presence_of :title
+  validates_presence_of :title, :message => "This field can't be empty"
   validate :presence_of_file
   
   # =============
@@ -37,16 +37,8 @@ class Document
     File.open(path, "w+") { |f| f.write(new_file.read) }
   end
   
-  def file
-    File.open(read_attribute(:filename), "r")
-  end
-  
   def url
-    "/#{Document.upload_folder.join('/')}/#{read_attribute(:filename)}" if read_attribute(:filename)
-  end
-  
-  def image?
-    (extension =~ /(jpe?|pn)g|gif/).present?
+    "/#{Document.upload_folder.join('/')}/#{read_attribute(:filename)}"
   end
   
   def extension
@@ -55,6 +47,10 @@ class Document
   
   def title
     read_attribute(:title).present? ? read_attribute(:title) : read_attribute(:filename)
+  end
+  
+  def image?
+    (extension =~ /(jpe?|pn)g|gif/).present?
   end
   
   def published?
@@ -69,14 +65,10 @@ class Document
   
 protected
   
-  def path
-    Pathname.new(Document.upload_path).join(read_attribute(:filename))
-  end
-  
   def self.upload_path
-    path = Rails.root.join('public', *self.upload_folder)
-    FileUtils.mkdir_p(path) unless path.directory?
-    path
+    p = Rails.root.join('public', *self.upload_folder)
+    FileUtils.mkdir_p(p) unless p.directory?
+    p
   end
   
   def self.upload_folder
@@ -86,6 +78,10 @@ protected
   # validate
   def presence_of_file
     errors.add(:file, "File must be present!") if read_attribute(:filename).blank?
+  end
+  
+  def path
+    Pathname.new(Document.upload_path).join(read_attribute(:filename))
   end
   
   def delete_file

@@ -1,6 +1,7 @@
 class Message
   include Mongoid::Document
   include Mongoid::Timestamps
+  include FinderExtension
   
   cattr_accessor :per_page
   @@per_page = 10
@@ -34,14 +35,8 @@ class Message
   # = Class Methods =
   # =================
   def self.index_order_by(params = {})
-    options = { :page => params[:page], :per_page => @@per_page } if should_paginate(params)
-    
-    trashed(params[:trashed]).order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).
-    send((should_paginate(params) ? :paginate : :all), options || {})
-  end
-  
-  def self.should_paginate(params = {})
-    !params.key? :all
+    method, options = method_and_options(params)
+    trashed(params[:trashed]).order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).send(method, options)
   end
   
   # ====================
@@ -73,13 +68,13 @@ class Message
   
 protected
   
+  def self.order_hash(options = {})
+    { :order => "#{options[:order_by] || 'created_at'} #{options[:sort_way] || 'desc'}" }
+  end
+  
   # after_create
   def notify_of_new_message
     MinttMailer.new_message(self).deliver
-  end
-  
-  def self.order_hash(options = {})
-    { :order => "#{options[:order_by] || 'created_at'} #{options[:sort_way] || 'desc'}" }
   end
   
 end

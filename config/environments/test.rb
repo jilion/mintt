@@ -12,8 +12,8 @@ Mintt::Application.configure do
   config.whiny_nils = true
   
   # Show full error reports and disable caching
-  config.consider_all_requests_local        = true
-  config.action_controller.perform_caching  = false
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
   
   # Raise exceptions instead of rendering exception templates
   config.action_dispatch.show_exceptions = false
@@ -25,7 +25,7 @@ Mintt::Application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
-  config.action_mailer.default_url_options = { :host => "mintt.local" }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

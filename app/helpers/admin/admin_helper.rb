@@ -1,10 +1,10 @@
 module Admin::AdminHelper
   
-  def sort_parameters(field)
-    { :all => params[:all], :order_by => field, :sort_way => invert_sort_way(field) }
+  def sort_parameters(field, params = {})
+    { :all => params[:all], :order_by => field, :sort_way => invert_sort_way(field, params) }
   end
   
-  def invert_sort_way(field)
+  def invert_sort_way(field, params = {})
     (params[:sort_way]||'').downcase == 'asc' && params[:order_by] == field ? 'desc' : 'asc'
   end
   

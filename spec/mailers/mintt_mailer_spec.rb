@@ -5,7 +5,6 @@ describe MinttMailer do
   include Mintt::Application.routes.url_helpers
   
   describe "new message" do
-    
     before(:all) do
       @message = Factory(:message)
       MinttMailer.new_message(@message).deliver
@@ -21,7 +20,7 @@ describe MinttMailer do
     end
     
     it "should have the correct subject" do
-      @email.subject.should include "[mintt] New contact message"
+      @email.subject.should include I18n.t("new_contact_message")
     end
     
     it "should contain the user's message in the email body" do
@@ -35,7 +34,6 @@ describe MinttMailer do
   end
   
   describe "sign up" do
-    
     before(:all) do
       @user  = Factory(:user, :state => 'selected')
       MinttMailer.sign_up_instructions(@user).deliver
@@ -51,7 +49,7 @@ describe MinttMailer do
     end
     
     it "should have the correct subject" do
-      @email.subject.should include I18n.t("devise.mailer.invitation_instructions.user_subject")
+      @email.subject.should include I18n.t("devise.mailer.sign_up_instructions.user_subject")
     end
     
     it "should contain a link to user's reset_password_token in the email body" do

@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include FinderExtension
   
   cattr_accessor :per_page
   @@per_page = 10
@@ -36,7 +37,6 @@ class User
   field :credits_granted,          :type => Integer, :default => nil
   field :trashed_at,               :type => Time, :default => nil
   
-  validates_presence_of :email, :message => "This field in needed"
   devise :database_authenticatable, :validatable, :registerable, :confirmable, :rememberable, :recoverable
   
   liquid_methods *User.fields.keys
@@ -73,6 +73,7 @@ class User
   # ===============
   validates_presence_of :first_name, :last_name, :school, :lab, :phone,
   :thesis_supervisor, :thesis_subject, :motivation, :message => "This field can't be empty"
+  validates_presence_of :email, :message => "This field in needed"
   
   validates_format_of :url, :with => URL_REGEX, :allow_blank => true, :message => "Should start with http:// or https://"
   validates_format_of :linkedin_url, :with => LINKEDIN_URL_REGEX, :allow_blank => true, :message => "Should be similar to http://ch.linkedin.com/in/your_name"
@@ -99,14 +100,8 @@ class User
   # = Class Methods =
   # =================
   def self.index_order_by(params = {})
-    options = { :page => params[:page], :per_page => @@per_page } if should_paginate(params)
-    
-    default_scope.order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).
-    send((should_paginate(params) ? :paginate : :all), options || {})
-  end
-  
-  def self.should_paginate(params = {})
-    !params.key? :all
+    method, options = method_and_options(params)
+    default_scope.order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).send(method, options)
   end
   
   # ====================
@@ -114,6 +109,15 @@ class User
   # ====================
   def password_required?
     password.present? || password_confirmation.present?
+  end
+  
+  # Devise customization
+  def send_reset_password_instructions
+    if selected?
+      super
+    else
+      errors.add(:email, "You're not allowed to reset your password!")
+    end
   end
   
   def update_state

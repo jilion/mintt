@@ -1,80 +1,49 @@
 require 'spec_helper'
 
 describe Admin::UsersController do
-  mock_model :user
   
-  # =========
-  # = index =
-  # =========
-  describe :get => :index, :page => 2 do
-    expects :index_order_by, :on => User, :with => { "action" => "index", "controller" => "admin/users", "page" => "2" }, :returns => mock_users
-    
-    it { should render_template 'admin/users/index.html.haml' }
+  it "should respond with success to GET :index" do
+    User.stub(:index_order_by).and_return([])
+    get :index, :page => 2
+    response.should be_success
   end
   
-  describe :get => :index, :all => true do
-    expects :index_order_by, :on => User, :with => { "all" => true, "action" => "index", "controller" => "admin/users" }, :returns => mock_users
-    
-    it { should render_template 'admin/users/index.html.haml' }
+  it "should respond with success to GET :index" do
+    User.stub(:index_order_by).with(:all => true).and_return([])
+    get :index, :format => :csv
+    response.should be_success
   end
   
-  describe :get => :index, :page => 2, :format => 'csv' do
-    expects :all, :on => User, :with => { "action" => "index", "controller" => "admin/users", "format" => "csv" }, :returns => mock_users
+  it "should respond with success to GET :show" do
+    User.stub(:find).and_return(mock_user)
+    get :show, :id => 1
+    response.should be_success
   end
   
-  # ========
-  # = show =
-  # ========
-  describe :get => :show, :id => "1" do
-    expects :find, :on => User, :with => "1", :returns => mock_user
-    
-    it { should render_template 'admin/users/show.html.haml' }
+  it "should respond with success to GET :edit" do
+    User.stub(:find).and_return(mock_user)
+    get :edit, :id => '1'
+    response.should be_success
   end
   
-  # ========
-  # = edit =
-  # ========
-  describe :get => :edit, :id => "1" do
-    expects :find, :on => User, :with => "1", :returns => mock_user
-    
-    it { should render_template 'admin/users/edit.html.haml' }
+  it "should respond with success to PUT :update successful" do
+    User.stub(:find).and_return(mock_user)
+    mock_user.stub(:update_attributes).and_return(true)
+    put :update, :id => '1'
+    response.should redirect_to(admin_users_path)
   end
   
-  # ==========
-  # = update =
-  # ==========
-  describe :put => :update, :id => "1" do
-    expects :find, :on => User, :with => "1", :returns => mock_user
-    expects :update_attributes, :on => mock_user, :returns => true
-    
-    it { should redirect_to admin_user_path(mock_user) }
+  it "should respond with success to PUT :update unsuccessful" do
+    User.stub(:find).and_return(mock_user)
+    mock_user.stub(:update_attributes).and_return(false)
+    put :update, :id => '1'
+    response.should be_success
   end
   
-  describe :put => :update, :id => "1" do
-    expects :find, :on => User, :with => "1", :returns => mock_user
-    expects :update_attributes, :on => mock_user, :returns => false
-    
-    it { should render_template 'admin/users/edit.html.haml' }
-  end
+private
   
-  # =========
-  # = trash =
-  # =========
-  describe :put => :trash, :id => "1" do
-    expects :find, :on => User, :with => "1", :returns => mock_user
-    expects :update_attributes, :on => mock_user, :returns => true
-    
-    it { should redirect_to admin_users_path }
-  end
-  
-  # ===========
-  # = destroy =
-  # ===========
-  describe :delete => :destroy, :id => "1" do
-    expects :find, :on => User, :with => "1", :returns => mock_user
-    expects :destroy, :on => mock_user, :returns => true
-    
-    it { should redirect_to admin_users_path }
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs)
   end
   
 end

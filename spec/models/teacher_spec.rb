@@ -1,13 +1,10 @@
 require 'spec_helper'
 
 describe User do
-  # Waiting for remarkable_mongo to work...
-  # it { should have_keys(:gender, :supervisor_authorization, :doctoral_school_rules, :agreement, Boolean) }
-  # it { should have_keys(:first_name, :last_name, :school, :phone, :email, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :motivation, String) }
-  # it { should validate_presence_of(:first_name) }
+  let(:teacher) { Factory(:teacher) }
   
   describe "default" do
-    subject { Factory(:teacher) }
+    subject { teacher }
     
     its(:name)  { should == "John"                    }
     its(:email) { should match /email[0-9]+@epfl.com/ }

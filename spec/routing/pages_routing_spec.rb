@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PagesController do
   
-  should_route :get, '/',        :controller => 'pages',  :action => :show, :id => 'home'
-  should_route :get, '/modules', :controller => 'pages', :action => :show,  :id => 'modules'
+  it { should route(:get, "/").to(:action => :show, :id => 'home') }
+  it { should route(:get, "/modules").to(:action => :show, :id => 'modules') }
   
 end

@@ -32,8 +32,8 @@ Factory.define :message do |f|
 end
 
 Factory.define :mail_template do |f|
-  f.title   'test_template'
-  f.content "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  f.sequence(:title)   { |n| "test template #{n}" }
+  f.content            "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor."
 end
 
 Factory.define :document do |f|

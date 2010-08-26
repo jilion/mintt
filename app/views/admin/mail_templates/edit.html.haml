@@ -1,15 +1,15 @@
 = title "Edit mail template: #{content_tag(:em, mail_template_title(@mail_template))}"
 
 #register
-  - semantic_form_for [:admin, @mail_template],  :html => { :class => "main" } do |f|
-    - f.inputs do
+  = semantic_form_for [:admin, @mail_template],  :html => { :class => "main" } do |f|
+    = f.inputs do
       = text_area_tag 'mail_template[content]', @mail_template.content
       
-    - f.buttons do
+    = f.buttons do
       = f.commit_button "Update mail template"
-    .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"
+    = render '/shared/required_mention'
     
-- content_for :sidebar do
+= content_for :sidebar do
   %h3 Available tags
   %p Insert a tag with {{the_tag_here}}
   %ul

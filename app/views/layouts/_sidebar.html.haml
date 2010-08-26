@@ -1,16 +1,20 @@
 #sidebar
-  %h3= "2010 Application"
-  %p= raw "We thank you for your interest.<br /> 2010 Registrations are now closed."
-  - if APPLICATIONS_OPEN
+  - if APPLICATIONS_OPEN && !user_signed_in? && !teacher_signed_in?
+    %h3= "2010 Application"
     %p= "The applications are now open till the end of April 2010. Please use the button below to apply."
-    .box
-      - link_to new_user_registration_path, :id => "registration_button" do
-        %span= "Apply for the 2010 course"
+    - unless user_signed_in? || teacher_signed_in?
+      .box
+        = link_to new_user_application_path, :id => "registration_button" do
+          %span= "Apply for the 2010 course"
+  - unless APPLICATIONS_OPEN
+    %p= raw "We thank you for your interest.<br /> 2010 Registrations are now closed."
+    
   %h4= "Organizing Entities"
   %ul.entities
     %li.first= link_to image_tag("/images/epfl_logo.png", :alt => "EPFL Logo"), "http://www.epfl.ch", :onclick => 'window.open(this); return false'
     %li= link_to "SRI #{content_tag(:em, '(Tech transfer Office)')}".html_safe, "http://sri.epfl.ch", :onclick => 'window.open(this); return false'
     %li.last= link_to "CDM", "http://cdm.epfl.ch", :onclick => 'window.open(this); return false'
+  
   %h4= "Course Information"
   %ul
     %li= "Language: English"
@@ -20,9 +24,10 @@
     %li= "Form of Exam: Project report and oral presentation"
     %li
       = "Delay to submit application: End of April 2010"
-      - if APPLICATIONS_OPEN
-        = raw " through #{link_to 'online application', new_user_registration_path}"
+      - if APPLICATIONS_OPEN && !user_signed_in? && !teacher_signed_in?
+        = raw " through #{link_to 'online application', new_user_application_path}"
     %li= raw "Location: #{link_to 'EPFL Science Park, PSE-C building', 'http://bit.ly/aWDL19', :onclick => 'window.open(this); return false'}"
+    
   %h4= "More info"
-  %p= raw "If you have any question, please contact us through the following #{link_to 'form', '/contact'}."
+  %p= raw "If you have any question, please contact us through the following #{link_to 'form', contact_path}."
 .spacer

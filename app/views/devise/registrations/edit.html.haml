@@ -1,7 +1,7 @@
 = title_and_page_title "Edit my information"
 
 - if resource_name == :teacher
-  = semantic_form_for [resource_name, resource], :url => teacher_path(resource), :html => { :class => "main", :method => :put } do |f|
+  = semantic_form_for resource, :url => teachers_path, :html => { :class => "main", :method => :put } do |f|
     = f.inputs do
       = f.input :name
     = f.buttons do
@@ -12,7 +12,7 @@
     = f.input :email, :label => "Email"
     = f.input :password, :label => "New password", :required => false
     
-    - if resource.errors.on(:current_password) == 'blank'
+    - if resource.errors[:current_password] == 'blank'
       - resource.errors.clear
       - resource.errors.add(:current_password, "Can't be blank")
     .break
@@ -20,6 +20,4 @@
     
   = f.buttons do
     = f.commit_button "Update my credentials"
-  .required_mention
-    = content_tag(:abbr, '*', :title => 'required')
-    = "required"
+  = render '/shared/required_mention'

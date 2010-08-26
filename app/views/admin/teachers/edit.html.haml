@@ -8,4 +8,4 @@
     
   = f.buttons do
     = f.commit_button "Update teacher"
-  .required_mention= raw "#{content_tag(:abbr, '*', :title => 'required')} required"
+  = render '/shared/required_mention'

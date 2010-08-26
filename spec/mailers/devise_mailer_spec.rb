@@ -2,33 +2,54 @@ require 'spec_helper'
 
 describe Devise::Mailer do
   
-  include ActionView::Helpers::UrlHelper
   include Mintt::Application.routes.url_helpers
   
   describe "application submitted" do
-    
     before(:all) do
       @user = Factory.create(:user)
       Devise::Mailer.confirmation_instructions(@user).deliver
       @email = ActionMailer::Base.deliveries.last
     end
     
-    it "should be delivered from mintt's official email adress" do
-      @email.should deliver_from(MINTT_SENDER)
+    it "should be delivered from mintt's official email address" do
+      @email.from.should == [MINTT_SENDER]
     end
     
     it "should be delivered to the applicant's email" do
-      @email.should deliver_to(@user.email)
-    end
-    
-    it "should render the liquid template with interpolation" do
-      @email.should have_text("#{@user.first_name} #{@user.last_name} #{url_for({ :host => MINTT_LOCAL, :only_path => false, :controller => 'confirmations', :action => 'show', :confirmation_token => @user.confirmation_token })}\n")
+      @email.to.should == [@user.email]
     end
     
     it "should have the correct subject" do
-      @email.should have_subject("Confirmation instructions")
+      @email.subject.should include I18n.t("devise.mailer.confirmation_instructions.subject")
     end
     
+    it "should contain link to confirm application" do
+      @email.body.should include user_confirmation_url(:host => ActionMailer::Base.default_url_options[:host], :confirmation_token => @user.confirmation_token)
+    end
+  end
+  
+  describe "new teacher invitation" do
+    before(:all) do
+      @teacher = Teacher.invite(:email => "test@test.com")
+      Devise::Mailer.invitation_instructions(@teacher).deliver
+      @email = ActionMailer::Base.deliveries.last
+    end
+    
+    it "should be delivered from mintt's official email address" do
+      @email.from.should == [MINTT_SENDER]
+    end
+    
+    it "should be delivered to the applicant's email" do
+      @email.to.should == [@teacher.email]
+    end
+    
+    it "should have the correct subject" do
+      @email.subject.should include I18n.t("devise.mailer.invitation_instructions.teacher_subject")
+    end
+    
+    it "should contain link to accept invitation" do
+      @email.body.should include accept_teacher_invitation_url(:host => ActionMailer::Base.default_url_options[:host], :invitation_token => @teacher.invitation_token)
+    end
   end
   
 end

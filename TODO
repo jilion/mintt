@@ -1,6 +1,3 @@
-2010-08-26 AM
-  - Fixer toutes les specs (entre-autre virer les mock_model dans les controllers specs)
-  
 Next iteration:
   - Admin:
     - Better design for document form

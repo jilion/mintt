@@ -25,6 +25,7 @@
             = submit_tag "Update student", :confirm => "Are you sure to update #{full_name(@user)} informations?"
             
 = semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
+  = f.inputs do
     = f.input :gender, :as => :radio, :collection => male_female_for_select, :required => true
     = f.input :first_name, :required => true
     = f.input :last_name, :required => true
@@ -45,6 +46,4 @@
     
   = f.buttons do
     = submit_tag "Update student", :confirm => "Are you sure to update #{full_name(@user)} informations?"
-  .required_mention
-    = content_tag(:abbr, '*', :title => 'required')
-    = "required"
+  = render '/shared/required_mention'

@@ -1,17 +1,22 @@
 Mintt::Application.routes.draw do
-  devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }, :skip => [:registrations] do
-    scope :controller => 'users/registrations', :as => :user_registration do
+  devise_for :users,
+  :controllers => { :confirmations => 'users/confirmations', :sessions => 'sessions' },
+  :path_names => { :confirmation => 'confirm', :sign_in => 'login', :sign_out => 'logout' },
+  :skip => [:registrations] do
+    scope :controller => 'users/applications', :as => :user_application do
       get  :new,    :path => '/apply'
       post :create, :path => '/apply', :as => ''
     end
     scope :controller => 'devise/registrations', :as => :user_registration do
-      get  :edit,   :path => '/user_account/edit'
-      put  :update, :path => '/user_account/credentials'
+      get :edit,   :path => '/user_account/edit'
+      put :update, :path => '/user_account', :as => ''
     end
   end
   
   devise_for :teachers,
-  :path_names => { :sign_in => 'login', :sign_out => 'logout' }, :skip => [:invitations, :registrations] do
+  :controllers => { :sessions => 'sessions' },
+  :path_names => { :sign_in => 'login', :sign_out => 'logout' },
+  :skip => [:invitations, :registrations] do
     scope :controller => 'admin/teachers/invitations', :as => :teacher_invitation do # admin routes
       get  :new,    :path => '/admin/teachers/invitation/new'
       post :create, :path => '/admin/teachers/invitation', :as => ''
@@ -21,21 +26,21 @@ Mintt::Application.routes.draw do
       put :update, :path => '/invitation'
     end
     scope :controller => 'devise/registrations', :as => :teacher_registration do
-      get  :edit,   :path => '/teacher_account/edit'
-      put  :update, :path => '/teacher_account/credentials'
+      get :edit,   :path => '/teacher_account/edit'
+      put :update, :path => '/teacher_account', :as => ''
     end
   end
-  resources :teachers, :only => [:update]
+  resource :teachers, :only => [:update]
   
-  match '/program' => "programs#index", :as => "program"
+  match '/program' => "programs#index", :as => 'program'
   
-  match '/contact' => 'messages#new'
-  resource :messages, :only => [:new, :create]
+  match '/contact' => 'messages#new',    :via => :get, :as => 'contact'
+  match '/contact' => 'messages#create', :via => :post, :as => 'contact'
   
   # =========
   # = Admin =
   # =========
-  match '/admin' => 'admin/users#index', :as => 'admin'
+  match '/admin' => redirect('/admin/users'), :as => 'admin'
   namespace :admin do
     resources :documents
     resources :mail_templates, :only => [:index, :show, :edit, :update]
@@ -46,7 +51,7 @@ Mintt::Application.routes.draw do
   
   root :to => 'pages#show', :id => 'home'
   
-  match ':id' => 'pages#show', :requirements => { :id => /home|modules/ }, :as => 'page'
+  match ':id' => 'pages#show', :id => /home|modules/, :as => 'page'
   
   match "*path" => redirect('pages#show'), :id => 'home'
 end

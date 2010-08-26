@@ -1,60 +1,50 @@
 require 'spec_helper'
 
 describe Admin::TeachersController do
-  mock_model :teacher
   
-  # =========
-  # = index =
-  # =========
-  describe :get => :index do
-    expects :paginate, :on => Teacher, :returns => mock_teachers
-    
-    it { should render_template 'admin/teachers/index.html.haml' }
+  it "should respond with success to GET :index" do
+    Teacher.stub(:index_order_by).and_return([])
+    get :index, :page => 2
+    response.should be_success
   end
   
-  # ========
-  # = show =
-  # ========
-  describe :get => :show, :id => "1" do
-    expects :find, :on => Teacher, :with => "1", :returns => mock_teacher
-    
-    it { should render_template 'admin/teachers/show.html.haml' }
+  it "should respond with success to GET :show" do
+    Teacher.stub(:find).and_return(mock_teacher)
+    get :show, :id => 1
+    response.should be_success
   end
   
-  # ========
-  # = edit =
-  # ========
-  describe :get => :edit, :id => "1" do
-    expects :find, :on => Teacher, :with => "1", :returns => mock_teacher
-    
-    it { should render_template 'admin/teachers/edit.html.haml' }
+  it "should respond with success to GET :edit" do
+    Teacher.stub(:find).and_return(mock_teacher)
+    get :edit, :id => '1'
+    response.should be_success
   end
   
-  # ==========
-  # = update =
-  # ==========
-  describe :put => :update, :id => "1" do
-    expects :find, :on => Teacher, :with => "1", :returns => mock_teacher
-    expects :update_attributes, :on => mock_teacher, :returns => true
-    
-    it { should redirect_to admin_teacher_path(mock_teacher) }
+  it "should respond with success to PUT :update successful" do
+    Teacher.stub(:find).and_return(mock_teacher)
+    mock_teacher.stub(:update_attributes).and_return(true)
+    put :update, :id => '1'
+    response.should redirect_to(admin_teachers_path)
   end
   
-  describe :put => :update, :id => "1" do
-    expects :find, :on => Teacher, :with => "1", :returns => mock_teacher
-    expects :update_attributes, :on => mock_teacher, :returns => false
-    
-    it { should render_template 'admin/teachers/edit.html.haml' }
+  it "should respond with success to PUT :update unsuccessful" do
+    Teacher.stub(:find).and_return(mock_teacher)
+    mock_teacher.stub(:update_attributes).and_return(false)
+    put :update, :id => '1'
+    response.should be_success
   end
   
-  # ===========
-  # = destroy =
-  # ===========
-  describe :delete => :destroy, :id => "1" do
-    expects :find, :on => Teacher, :with => "1", :returns => mock_teacher
-    expects :destroy, :on => mock_teacher, :returns => true
-    
-    it { should redirect_to admin_teachers_path }
+  it "should respond with success to DELETE :destroy" do
+    Teacher.stub(:find).and_return(mock_teacher)
+    mock_teacher.stub(:destroy).and_return(true)
+    delete :destroy, :id => '1'
+    response.should redirect_to(admin_teachers_path)
+  end
+  
+private
+  
+  def mock_teacher(stubs={})
+    @mock_teacher ||= mock_model(Teacher, stubs)
   end
   
 end

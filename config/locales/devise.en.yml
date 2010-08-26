@@ -3,9 +3,9 @@ en:
     registrations:
       applications_closed: "Applications are closed."
       updated: "Your personal information has been updated."
+      send_instructions: "Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes."
     confirmations:
       link: "Didn't receive confirmation instructions?"
-      send_instructions: "Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes."
       confirmed: "Thank you, your application is now confirmed."
     passwords:
       send_instructions: "You will receive an email with instructions for resetting your password in a few minutes."
@@ -16,19 +16,16 @@ en:
       signed_out: "You are now logged out."
       not_allowed_to_sign_in: "You are not allowed to log in the system!"
     invitations:
-      admin:
-        send_instructions: "Invitation sent."
-        updated: "Your password has been set. You are now logged in."
-      user:
-        send_instructions: "Invitation sent."
-        updated: "Your password has been set. You are now logged in."
+      send_instructions: "Invitation sent."
+      updated: "Your password has been set. You are now logged in."
     mailer:
       confirmation_instructions:
-        subject: 'Confirmation instructions'
-      invitation_instructions:
-        admin_subject: "[mintt] Invitation to sign-up on the mintt website"
+        subject: "[mintt] Confirmation instructions"
+      sign_up_instructions:
         user_subject: "[mintt] Invitation to sign-up on the mintt website"
+      invitation_instructions:
+        teacher_subject: "[mintt] Invitation to sign-up on the mintt website"
       reset_password_instructions:
-        subject: 'Reset password instructions'
+        subject: '[mintt] Reset password instructions'
       unlock_instructions:
         subject: 'Unlock Instructions'

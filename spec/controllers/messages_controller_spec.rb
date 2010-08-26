@@ -1,32 +1,33 @@
 require 'spec_helper'
 
 describe MessagesController do
-  mock_model :message
   
-  # =======
-  # = get =
-  # =======
-  describe :get => :new do
-    expects :new, :on => Message, :returns => mock_message
-    
-    it { should render_template 'messages/new.html.haml' }
+  it "should respond with redirect to GET :new successful" do
+    Teacher.stub(:new).and_return(mock_message)
+    get :new
+    response.should be_success
+    response.should render_template('messages/new')
   end
   
-  # ========
-  # = post =
-  # ========
-  describe :post => :create do
-    expects :new, :on => Message, :returns => mock_message
-    expects :save, :on => mock_message, :returns => true
-    
-    it { should redirect_to root_url }
+  it "should respond with success to PUT :update successful" do
+    Message.stub(:new).and_return(mock_message)
+    mock_message.stub(:save).and_return(true)
+    post :create, :message => {}
+    response.should redirect_to(root_url)
   end
   
-  describe :post => :create do
-    expects :new, :on => Message, :returns => mock_message
-    expects :save, :on => mock_message, :returns => false
-    
-    it { should render_template 'messages/new.html.haml' }
+  it "should respond with success to PUT :update unsuccessful" do
+    Message.stub(:new).and_return(mock_message)
+    mock_message.stub(:save).and_return(false)
+    post :create, :message => {}
+    response.should be_success
+    response.should render_template('messages/new')
+  end
+  
+private
+  
+  def mock_message(stubs={})
+    @mock_message ||= mock_model(Message, stubs)
   end
   
 end

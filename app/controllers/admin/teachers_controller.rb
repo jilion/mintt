@@ -23,7 +23,7 @@ class Admin::TeachersController < Admin::AdminController
   def update
     @teacher = Teacher.find(params[:id])
     if @teacher.update_attributes(params[:teacher])
-      redirect_to admin_teacher_path(@teacher), :notice => "Teacher successfully updated."
+      redirect_to admin_teachers_path, :notice => "Teacher successfully updated."
     else
       render :edit
     end

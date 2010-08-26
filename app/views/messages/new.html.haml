@@ -5,7 +5,7 @@
   %p= "If you have any question, please contact us through the following form:"
   
 #register
-  = semantic_form_for @message, :html => { :class => "main" } do |f|
+  = semantic_form_for @message, :url => contact_path, :html => { :method => :post, :class => "main" } do |f|
     = f.inputs do
       = f.input :sender_name, :label => "Name"
       = f.input :sender_email, :label => "Email"
@@ -13,6 +13,4 @@
       
     = f.buttons do
       = f.commit_button "Send message"
-    .required_mention
-      = content_tag(:abbr, '*', :title => 'required')
-      = "required"
+    = render '/shared/required_mention'

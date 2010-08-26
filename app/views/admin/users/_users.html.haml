@@ -5,12 +5,12 @@
     - 8.times do
       %col{ :class => cycle("even", "odd") }
   %tr
-    %th= link_to "’10", admin_users_path(sort_parameters('selected_at')), :remote => true
-    %th= link_to "Gender", admin_users_path(sort_parameters('gender')), :remote => true
-    %th= link_to "Name", admin_users_path(sort_parameters('last_name')), :remote => true
-    %th= link_to "School", admin_users_path(sort_parameters('school')), :remote => true
-    %th= link_to "Supervisor", admin_users_path(sort_parameters('thesis_supervisor')), :remote => true
-    %th= link_to "Application Date", admin_users_path(sort_parameters('confirmed_at')), :remote => true
+    %th= link_to "’10", admin_users_path(sort_parameters('selected_at', params)), :remote => true
+    %th= link_to "Gender", admin_users_path(sort_parameters('gender', params)), :remote => true
+    %th= link_to "Name", admin_users_path(sort_parameters('last_name', params)), :remote => true
+    %th= link_to "School", admin_users_path(sort_parameters('school', params)), :remote => true
+    %th= link_to "Supervisor", admin_users_path(sort_parameters('thesis_supervisor', params)), :remote => true
+    %th= link_to "Application Date", admin_users_path(sort_parameters('confirmed_at', params)), :remote => true
     %th
     %th
   = render @users

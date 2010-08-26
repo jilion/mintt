@@ -5,25 +5,7 @@ describe User do
     Factory.create(:mail_template)
   end
   
-  # it { should validate_presence_of(:gender) }
-  # it { should validate_presence_of(:first_name) }
-  # it { should validate_presence_of(:last_name) }
-  # it { should validate_presence_of(:school) }
-  # it { should validate_presence_of(:lab) }
-  # it { should validate_presence_of(:email) }
-  # it { should validate_presence_of(:phone) }
-  # it { should validate_presence_of(:thesis_supervisor) }
-  # it { should validate_presence_of(:thesis_subject) }
-  # it { should validate_presence_of(:motivation) }
-  # 
-  # it { should validate_format_of(:url).to_allow("http://test.com").not_to_allow("test.com") }
-  # it { should validate_format_of(:linkedin_url).to_allow("http://ch.linkedin.com/in/remy").not_to_allow("http://test.com") }
-  # 
-  # it { should validate_inclusion_of(:gender).to_allow("male", "female") }
-  # it { should validate_inclusion_of(:supervisor_authorization).to_allow("yes", "no") }
-  # it { should validate_inclusion_of(:doctoral_school_rules).to_allow("yes", "no") }
-  
-  describe "default" do
+  context "with valid attributes" do
     subject { Factory(:user) }
     
     its(:gender)                   { should == "male"                                   }
@@ -139,19 +121,6 @@ describe User do
     
     it "without agreement" do
       Factory.build(:user, :agreement => false).should_not be_valid
-    end
-    
-  end
-  
-  describe "Class Methods" do
-    
-    describe ".should_paginate(params = {})" do
-      it "should be true if params doesn't have the :all key " do
-        User.should_paginate.should be_true
-      end
-      it "should be false if params does have the :all key " do
-        User.should_paginate(:all => true).should be_false
-      end
     end
     
   end

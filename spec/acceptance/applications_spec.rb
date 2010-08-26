@@ -1,16 +1,21 @@
-require 'spec_helper'
+require File.dirname(__FILE__) + '/acceptance_helper'
 
-describe "Registrations" do
+feature "Applications" do
   
-  before(:each) do
-    ActionMailer::Base.deliveries = []
+  background do
+    ActionMailer::Base.deliveries.clear
+    visit '/'
+    click_link "registration_button" if APPLICATIONS_OPEN
+  end
+  
+  it "should not display link to application if applications are closed" do
+    unless APPLICATIONS_OPEN
+      page.should_not have_css('#registration_button')
+    end
   end
   
   it "should be possible to register and deliver confirmation email" do
     if APPLICATIONS_OPEN
-      visit root_path
-      click_link "registration_button"
-      
       choose "user_gender_male"
       fill_in "user_first_name",                 :with => "Joe"
       fill_in "user_last_name",                  :with => "Blow"
@@ -31,20 +36,14 @@ describe "Registrations" do
       check "user_agreement"
       click_button "Apply"
       
-      response.should redirect_to root_url
-      flash[:notice].should contain('Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes.')
+      current_url.should =~ %r(^http://[^/]+/modules$)
+      page.should have_content('Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes.')
       ActionMailer::Base.deliveries.size.should == 1
-    else
-      visit root_path
-      response.should_not have_selector('#registration_button')
     end
   end
   
   it "should have errors with incomplete dates" do
     if APPLICATIONS_OPEN
-      visit root_path
-      click_link "registration_button"
-      
       choose "user_gender_male"
       fill_in "user_first_name",        :with => "Joe"
       fill_in "user_last_name",         :with => "Blow"
@@ -69,19 +68,13 @@ describe "Registrations" do
       check "user_agreement"
       click_button "Apply"
       
-      response.should contain('please enter a valid date')
+      page.should have_content('please enter a valid date')
       ActionMailer::Base.deliveries.size.should == 0
-    else
-      visit root_path
-      response.should_not have_selector('#registration_button')
     end
   end
   
   it "should not have errors with complete dates or no set date" do
     if APPLICATIONS_OPEN
-      visit root_path
-      click_link "registration_button"
-      
       choose "user_gender_male"
       fill_in "user_first_name",                 :with => "Joe"
       fill_in "user_last_name",                  :with => "Blow"
@@ -106,12 +99,9 @@ describe "Registrations" do
       check "user_agreement"
       click_button "Apply"
       
-      response.should_not contain('please enter a valid date')
-      response.should redirect_to root_url
+      page.should have_content('please enter a valid date')
+      current_url.should =~ %r(^http://[^/]+/$)
       ActionMailer::Base.deliveries.size.should == 1
-    else
-      visit root_path
-      response.should_not have_selector('#registration_button')
     end
   end
   
