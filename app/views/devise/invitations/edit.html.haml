@@ -1,6 +1,6 @@
 = title "Set my password"
 
-= semantic_form_for [resource_name, resource], :url => update_teacher_invitation_path, :html => { :class => "main", :method => :put } do |f|
+= semantic_form_for [resource_name, resource], :url => teacher_invitation_path, :html => { :class => "main", :method => :put } do |f|
   = f.inputs do
     = f.input :invitation_token, :as => :hidden
     = f.input :password, :required => true

@@ -3,31 +3,35 @@ Mintt::Application.routes.draw do
   :controllers => { :confirmations => 'users/confirmations', :sessions => 'sessions' },
   :path_names => { :confirmation => 'confirm', :sign_in => 'login', :sign_out => 'logout' },
   :skip => [:registrations] do
-    scope :controller => 'users/applications', :as => :user_application do
-      get  :new,    :path => '/apply'
-      post :create, :path => '/apply', :as => ''
+    resource :user_application, :only => [], :controller => 'users/applications', :path => '' do
+      get  :new,    :path => '/apply', :as => 'new'
+      post :create, :path => '/apply'
     end
-    scope :controller => 'devise/registrations', :as => :user_registration do
-      get :edit,   :path => '/user_account/edit'
-      put :update, :path => '/user_account', :as => ''
+    
+    resource :user_registration, :only => [], :controller => 'devise/registrations', :path => '' do
+      get :edit,    :path => '/user_account/edit', :as => 'edit'
+      put :update,  :path => '/user_account'
     end
+    
   end
   
   devise_for :teachers,
   :controllers => { :sessions => 'sessions' },
   :path_names => { :sign_in => 'login', :sign_out => 'logout' },
   :skip => [:invitations, :registrations] do
-    scope :controller => 'admin/teachers/invitations', :as => :teacher_invitation do # admin routes
-      get  :new,    :path => '/admin/teachers/invitation/new'
-      post :create, :path => '/admin/teachers/invitation', :as => ''
+    resource :teacher_invitation, :only => [], :controller => 'admin/teachers/invitations', :path => "" do
+      get  :new,    :path => '/admin/teachers/invitation/new', :as => 'new'
+      post :create, :path => '/admin/teachers/invitation'
     end
-    scope :controller => 'devise/invitations', :as => :teacher_invitation do
+    
+    resource :teacher_invitation, :only => [], :controller => 'devise/invitations', :path => "" do
       get :edit,   :path => '/invitation/accept', :as => 'accept'
       put :update, :path => '/invitation'
     end
-    scope :controller => 'devise/registrations', :as => :teacher_registration do
-      get :edit,   :path => '/teacher_account/edit'
-      put :update, :path => '/teacher_account', :as => ''
+    
+    resource :teacher_registration, :only => [], :controller => 'devise/registrations', :path => '' do
+      get :edit,   :path => '/teacher_account/edit', :as => 'edit'
+      put :update, :path => '/teacher_account'
     end
   end
   resource :teachers, :only => [:update]

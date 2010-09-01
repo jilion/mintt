@@ -1,7 +1,7 @@
 = title_and_page_title "New teacher invitation"
 
 .text
-= semantic_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => "post", :class => "main" } do |f|
+= semantic_form_for resource, :as => resource_name, :url => "/admin/teachers/invitation", :html => { :method => "post", :class => "main" } do |f|
   = f.inputs do
     = f.input :email, :required => true
   = f.buttons do
