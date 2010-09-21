@@ -22,7 +22,10 @@
       #content
         = yield(:page_title)
         = yield
-      = render 'layouts/sidebar' unless %w[programs registrations].include?(controller_name)
+      - if %w[programs registrations].include?(controller_name)
+        = yield(:sidebar)
+      - else
+        = render 'layouts/sidebar'
       = render 'layouts/footer'
       
     = google_analytics

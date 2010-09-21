@@ -1,8 +1,9 @@
-%h5.title= "October 6, 2010"
-
-%ul.program
-  %li
-    %p.time= "08:30"
-    %h4.module= "7. Case Studies"
-    %ul
-      = list_documents_for_module(7)
+%table.program
+  %tr
+    %td.time= "08:30"
+    %td.description.module.start.end
+      %h3
+        %strong= "Module 7"
+        = "Case Studies"
+      %ul.document_list
+        = list_documents_for_module(7)

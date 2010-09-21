@@ -1,13 +1,10 @@
-= title_and_page_title "Program Overview & Documents"
-
-.text
-  -#%p= "This is the detailed schedule of the course program."
-  %ul.program
-    %li
-      %h4.module= "General information and documents"
-    %li
-      %ul
-        = list_documents_for_module(1)
+= title_and_page_title "Course Schedule"
         
 #program_content
   = render 'program_content'
+
+= content_for :sidebar do
+  #sidebar
+    %h4= raw "General information<br/> and documents"
+    %ul.document_list
+      = list_documents_for_module(0)

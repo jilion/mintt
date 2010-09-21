@@ -1,47 +1,61 @@
-%h5.title= "June 8, 2010"
-
-%ul.program
-  %li
-    %p.time= "08:15"
-    %h4="Registration"
-  %li
-    %p.time= "08:30"
-    %h4= "Introduction"
-  %li
-    %p.time= "09:00"
-    %h4.module= "1. Invention and Inventors"
-    %ul
-      = list_documents_for_module(1)
-  %li
-    %p.time= "10:30"
-    %h4= "Break"
-  %li
-    %p.time= "11:00"
-    %h4= "Speaker"
-  %li
-    %p.time= "12:00"
-    %h4= "Lunch"
-  %li.break
-  %li
-    %p.time= "13:30"
-    %h4.module= "2. Identify the Potential"
-    %ul
-      = list_documents_for_module(2)
-  %li
-    %p.time= "15:00"
-    %h4= "Break"
-  %li
-    %p.time= "15:30"
-    %h4.module= "3. Intellectual Property"
-    %ul
-      = list_documents_for_module(3)
-  %li
-    %p.time= "16:30"
-    %h4= "Speaker"
-  %li
-    %p.time= "17:30"
-    %h4= "Case study"
-  %li
-    %p.time= "18:00"
-    %h4= "Apéro"
-  %li.break
+%table.program
+  %tr
+    %td.time= "08:15"
+    %td.description
+      %h4="Registration"
+  %tr
+    %td.time= "08:30"
+    %td.description
+      %h4= "Introduction"
+  %tr
+    %td.time= "09:00"
+    %td.description.module.start
+      %h3
+        %strong= "Module 1"
+        = "Invention and Inventors"
+      %ul.document_list
+        = list_documents_for_module(1)
+  %tr
+    %td.time= "10:30"
+    %td.description.module
+      %h4= "Break"
+  %tr
+    %td.time= "11:00"
+    %td.description.module.end
+      %h4= "Speaker"
+  %tr
+    %td.time= "12:00"
+    %td.description
+      %h4= "Lunch"
+  %tr
+    %td.time= "13:30"
+    %td.description.module.start.end
+      %h3
+        %strong= "Module 2"
+        = "Identify the Potential"
+      %ul.document_list
+        = list_documents_for_module(2)
+  %tr
+    %td.time= "15:00"
+    %td.description
+      %h4= "Break"  
+  %tr
+    %td.time= "15:30"
+    %td.description.module.start
+      %h3
+        %strong= "Module 3"
+        = "Intellectual Property"
+      %ul.document_list
+        = list_documents_for_module(3)
+  %tr
+    %td.time= "16:30"
+    %td.description.module
+      %h4= "Speaker"
+  %tr
+    %td.time= "17:30"
+    %td.description.module.end
+      %h4= "Case Study"
+  %tr
+    %td.time= "18:00"
+    %td.description
+      %h4= "Apéro"
