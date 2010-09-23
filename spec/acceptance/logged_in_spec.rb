@@ -27,7 +27,7 @@ feature "Logged in" do
     end
     
     it "should  see program link" do
-      page.should have_content("Program")
+      page.should have_content("Schedule")
     end
     it "should never see application link" do
       if APPLICATIONS_OPEN
@@ -48,7 +48,7 @@ feature "Logged in" do
     end
     
     it "should  see program link" do
-      page.should have_content("Program")
+      page.should have_content("Schedule")
     end
     it "should never see application link" do
       if APPLICATIONS_OPEN
