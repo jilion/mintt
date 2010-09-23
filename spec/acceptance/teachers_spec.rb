@@ -15,7 +15,7 @@ feature "Teacher" do
       fill_in "Password confirmation", :with => "123456"
       click_button "Set my password"
       
-      current_url.should =~ %r(^http://[^/]+/program$)
+      current_url.should =~ %r(^http://[^/]+/schedule$)
       page.should have_content("Your password has been set. You are now logged in.")
     end
   end
@@ -32,7 +32,7 @@ feature "Teacher" do
       fill_in 'Password', :with => '123456'
       click_button 'Log in'
       
-      current_url.should =~ %r(^http://[^/]+/program$)
+      current_url.should =~ %r(^http://[^/]+/schedule$)
       page.should have_content(@teacher.email)
       page.should have_content("Logged in successfully.")
     end
@@ -42,8 +42,8 @@ feature "Teacher" do
     background { sign_in_as_teacher }
     
     it "should be able to change his name" do
-      visit "/program"
-      current_url.should =~ %r(^http://[^/]+/program$)
+      visit "/schedule"
+      current_url.should =~ %r(^http://[^/]+/schedule$)
       
       click_link @current_teacher.email
       
@@ -59,8 +59,8 @@ feature "Teacher" do
     end
     
     it "should be able to log out" do
-      visit "/program"
-      current_url.should =~ %r(^http://[^/]+/program$)
+      visit "/schedule"
+      current_url.should =~ %r(^http://[^/]+/schedule$)
       
       click_link "Log out"
       

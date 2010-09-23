@@ -1,5 +1,5 @@
 Mintt::Application.configure do
-  # config.middleware.use(Rack::SslEnforcer, [%r(/admin), %r(/contact), %r(/program),
+  # config.middleware.use(Rack::SslEnforcer, [%r(/admin), %r(/contact), %r(/schedule),
   #                                           %r(/apply), %r(/users), %(/user_account),
   #                                           %r(/invitation), %r(/teachers), %(/teacher_account)])
                                             

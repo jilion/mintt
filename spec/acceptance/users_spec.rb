@@ -15,7 +15,7 @@ feature "User" do
       fill_in "Password confirmation", :with => "123456"
       click_button "Set my password"
       
-      current_url.should =~ %r(^http://[^/]+/program$)
+      current_url.should =~ %r(^http://[^/]+/schedule$)
       page.should have_content("Your password has been changed. You are now logged in.")
     end
   end
@@ -32,7 +32,7 @@ feature "User" do
       fill_in 'Password', :with => '123456'
       click_button 'Log in'
       
-      current_url.should =~ %r(^http://[^/]+/program$)
+      current_url.should =~ %r(^http://[^/]+/schedule$)
       page.should have_content("#{@user.first_name} #{@user.last_name}")
       page.should have_content("Logged in successfully.")
     end
@@ -42,8 +42,8 @@ feature "User" do
     background { sign_in_as_user }
     
     it "should be able to change his password" do
-      visit "/program"
-      current_url.should =~ %r(^http://[^/]+/program$)
+      visit "/schedule"
+      current_url.should =~ %r(^http://[^/]+/schedule$)
       
       click_link "#{@current_user.first_name} #{@current_user.last_name}"
       
@@ -60,9 +60,9 @@ feature "User" do
     end
     
     it "should be able to log out" do
-      visit "/program"
-      current_url.should =~ %r(^http://[^/]+/program$)
-      visit "/program"
+      visit "/schedule"
+      current_url.should =~ %r(^http://[^/]+/schedule$)
+      visit "/schedule"
       click_link "Log out"
       
       current_url.should =~ %r(^http://[^/]+/$)
