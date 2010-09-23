@@ -36,7 +36,7 @@ Mintt::Application.routes.draw do
   end
   resource :teachers, :only => [:update]
   
-  match '/program' => "programs#index", :as => 'program'
+  match '/schedule' => "programs#index", :as => 'program'
   
   match '/contact' => 'messages#new',    :via => :get, :as => 'contact'
   match '/contact' => 'messages#create', :via => :post, :as => 'contact'
