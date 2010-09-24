@@ -1,7 +1,7 @@
 source :rubygems
 
 gem 'rails',             '~> 3.0.0'
-gem 'rack-ssl-enforcer', :git => 'git://github.com/thibaudgg/rack-ssl-enforcer.git'
+gem 'rack-ssl-enforcer', '~> 0.1.8'
 
 gem 'mongoid',  :git => 'git://github.com/rymai/mongoid.git', :branch => 'fauxparse'#'~> 2.0.0.beta.16'
 gem 'bson_ext', '~> 1.0.4'

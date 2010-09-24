@@ -1,7 +1,7 @@
 Mintt::Application.configure do
-  config.middleware.use(Rack::SslEnforcer, [%r(/admin), %r(/contact), %r(/schedule),
-                                            %r(/apply), %r(/users), %(/user_account),
-                                            %r(/invitation), %r(/teachers), %(/teacher_account)])
+  config.middleware.use(Rack::SslEnforcer, :only => [%r(/admin), %r(/contact), %r(/schedule),
+                                                     %r(/apply), %r(/users), %(/user_account),
+                                                     %r(/invitation), %r(/teachers), %(/teacher_account)])
                                             
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
@@ -33,10 +33,11 @@ Mintt::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options   = { :host => "mintt.epfl.ch" }
   
-  config.active_support.deprecation = :log
+  # Send deprecation notices to registered listeners
+  config.active_support.deprecation = :notify
   
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
+  config.action_mailer.smtp_settings   = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :user_name            => 'mintt@mintt.ch',
