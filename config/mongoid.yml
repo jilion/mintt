@@ -26,5 +26,5 @@ production:
   <<: *defaults
   # host: <%= ENV['MONGOID_HOST'] %>
   # port: <%= ENV['MONGOID_PORT'] %>
-  database: mint-prod#<%= ENV['MONGOID_DATABASE'] %>
+  database: mint-prod
   persist_in_safe_mode: true
