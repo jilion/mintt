@@ -23,6 +23,7 @@ end
 Factory.define :teacher do |f|
   f.name             'John'
   f.sequence(:email) { |n| "email#{n}@epfl.com" }
+  f.password         '123456'
 end
 
 Factory.define :message do |f|
