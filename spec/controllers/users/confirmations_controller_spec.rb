@@ -10,10 +10,4 @@ describe Users::ConfirmationsController do
     response.should redirect_to(root_url)
   end
   
-private
-  
-  def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs)
-  end
-  
 end

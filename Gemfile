@@ -1,35 +1,60 @@
 source :rubygems
 
-gem 'rails',             '~> 3.0.0'
-gem 'rack-ssl-enforcer', '~> 0.1.8'
+gem 'rails',             '3.0.5'
 
-gem 'mongoid',  :git => 'git://github.com/mongoid/mongoid.git'
+# Internals
+gem 'state_machine',         '0.9.4'
 
-gem 'devise',                '~> 1.1.3'
-gem 'devise_invitable',      :git => 'git://github.com/rymai/devise_invitable.git'
-gem 'state_machine',         '~> 0.9.4'
-gem 'haml',                  '~> 3.0.18'
-gem 'formtastic',            '~> 1.1.0'
-gem 'will_paginate',         '~> 3.0.pre2'
-gem 'liquid'
-gem 'comma'
+# Utils
+gem 'settingslogic',         '2.0.6'
 gem 'fastercsv'
 
+# Database
+gem 'bson_ext',              '1.2.4'
+gem 'mongo',                 '1.2.4'
+gem 'mongoid',               '~> 2.0.0.rc.7'
+
+# Auth / invitations
+gem 'devise',                '1.1.7'
+gem 'devise_invitable',      :git => 'git://github.com/rymai/devise_invitable.git'
+
+# Views
+gem 'haml',                  '3.0.24'
+gem 'formtastic',            '1.2.3'
+gem 'will_paginate',         '3.0.pre2'
+gem 'liquid'
+
+group :production do
+  gem 'rack-ssl-enforcer', '0.2.1'
+  gem 'rack-google-analytics', '0.9.2', :require => 'rack/google-analytics'
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'passenger'
+end
+
 group :development do
-  gem 'ffaker'
   gem 'capistrano'
-  gem 'rspec-rails', '~> 2.0.0.beta.22'
+  gem 'ffaker'
 end
 
 group :test do
-  gem 'spork'
-  gem 'rspactor',    '~> 0.7.beta.7'
-  gem 'rspec-rails', '~> 2.0.0.beta.22'
+  gem 'spork',              '~> 0.9.0.rc4'
+  gem 'rb-fsevent'
+  gem 'growl'
+  gem 'guard'
+  gem 'guard-bundler'
+  gem 'guard-passenger'
+  gem 'guard-spork'
+  gem 'guard-rspec'
+  gem 'livereload'
+  gem 'guard-livereload'
+
   gem 'shoulda'
-  gem 'steak',       '~> 1.0.0.beta.2'
-  gem 'capybara'
+  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
   gem 'launchy'
-  gem 'factory_girl_rails'
-  gem 'ffaker'
-  gem 'rcov'
+
+  gem 'factory_girl_rails', :require => false # loaded in spec_helper Spork.each_run
+  gem 'database_cleaner'
 end

@@ -1,5 +1,5 @@
 class SessionsController < Devise::SessionsController
-  
+
   # POST /resource/sign_in
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => "new")
@@ -11,5 +11,5 @@ class SessionsController < Devise::SessionsController
       redirect_to root_path
     end
   end
-  
+
 end

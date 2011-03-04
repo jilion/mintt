@@ -1,7 +1,7 @@
-= title_and_page_title "Course Schedule"
+= title_and_page_title "#{current_user ? current_user.year : Time.now.year} Course Schedule"
         
 #program_content
-  = render 'program_content'
+  = render "/programs/#{current_user ? current_user.year : Time.now.year}/program_content"
 
 = content_for :sidebar do
   #sidebar

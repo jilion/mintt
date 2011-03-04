@@ -1,12 +1,12 @@
 class Users::ApplicationsController < Devise::RegistrationsController
   prepend_before_filter do |controller|
-    unless APPLICATIONS_OPEN
+    unless SiteSettings.applications_open
       set_flash_message :alert, :applications_closed
       redirect_to root_url
     end
   end
   prepend_before_filter :require_no_authentication, :only => [:new, :create]
-  
+
   # POST /resource/register
   def create
     build_resource
@@ -17,5 +17,5 @@ class Users::ApplicationsController < Devise::RegistrationsController
       render_with_scope :new
     end
   end
-  
+
 end

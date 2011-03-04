@@ -42,3 +42,18 @@ Factory.define :document do |f|
   f.module_id 1
   f.filename  "course_document.pdf"
 end
+
+Factory.define :user_application_confirmation, :class => MailTemplate do |f|
+  f.title   'user_application_confirmation'
+  f.content '{{user.first_name}} {{user.last_name}} {{user.confirmation_link}}'
+end
+
+Factory.define :user_invitation, :class => MailTemplate do |f|
+  f.title   'user_invitation'
+  f.content '{{user.first_name}} {{user.last_name}} {{user.invitation_link}}'
+end
+
+Factory.define :teacher_invitation, :class => MailTemplate do |f|
+  f.title   'teacher_invitation'
+  f.content '{{teacher.email}} {{teacher.invitation_link}}'
+end

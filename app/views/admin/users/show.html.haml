@@ -34,7 +34,7 @@
         
   .text_box
     %p
-      = content_tag(:strong, "#{@user.selected_at.present? ? 'S' : 'Not s'}elected to participate in the #{@user.year || Time.now.year} program.")
+      = content_tag(:strong, "#{@user.selected_at.present? ? 'S' : 'Not s'}elected to participate in the #{@user.year || '2010'} program.")
       %br
       = content_tag(:strong, "Case study title: ")
       = user_case_study_title(@user)

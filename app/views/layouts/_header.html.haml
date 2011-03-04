@@ -11,6 +11,6 @@
     - if user_signed_in? || teacher_signed_in?
       %li{ :class => ('active' if controller_name == 'programs') }= link_to "Schedule", program_path
     %li{ :class => ('active' if params[:id] == 'modules') }= link_to "Modules", page_path('modules')
-    - if APPLICATIONS_OPEN && !user_signed_in? && !teacher_signed_in?
+    - if SiteSettings.applications_open && !user_signed_in? && !teacher_signed_in?
       %li{ :class => ('active' if controller_name == 'applications') }= link_to "Application", new_user_application_path
     %li{ :class => ('active' if controller_name == 'messages') }= link_to "Contact", contact_path

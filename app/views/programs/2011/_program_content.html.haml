@@ -1,0 +1,9 @@
+%ul#program_menu
+  %li.first{ :class => ('active' if (params[:day] && params[:day] == "1") || !params.key?(:day)) }
+    = link_to("June 7, 2011", program_path(:day => 1), :remote => true)
+  %li{ :class => ('active' if params[:day] && params[:day] == "2") }
+    = link_to("June 8, 2011", program_path(:day => 2), :remote => true)
+  %li.last{ :class => ('active' if params[:day] && params[:day] == "3") }
+    = link_to("October 5, 2011", program_path(:day => 3), :remote => true)
+.spacer
+= render "programs/2011/day_#{params[:day] && (1..3).include?(params[:day].to_i) ? params[:day] : 1}"

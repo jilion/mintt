@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SessionsController do
   include Devise::TestHelpers
-  
+
   it "should respond with redirect to POST :create" do
     request.env['devise.mapping'] = Devise.mappings[:user]
     warden.stub(:authenticate!).and_return(mock_user)
@@ -10,11 +10,5 @@ describe SessionsController do
     post :create, :user => {}
     response.should redirect_to(program_url)
   end
-  
-private
-  
-  def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs)
-  end
-  
+
 end

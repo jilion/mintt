@@ -1,0 +1,16 @@
+defaults: &defaults
+  mintt_sender: mintt@epfl.ch
+  applications_open: true
+
+development:
+  <<: *defaults
+  new_message_recipients: - remy@jilion.com
+
+test:
+  <<: *defaults
+  new_message_recipients: - remy@jilion.com
+
+production:
+  <<: *defaults
+  new_message_recipients: - mehdi.aminian@epfl.ch
+                          - rosina.amendola@epfl.ch

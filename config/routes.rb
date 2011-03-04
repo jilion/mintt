@@ -19,7 +19,7 @@ Mintt::Application.routes.draw do
   :controllers => { :sessions => 'sessions' },
   :path_names => { :sign_in => 'login', :sign_out => 'logout' },
   :skip => [:invitations, :registrations] do
-    resource :teacher_invitation, :only => [], :controller => 'admin/teachers/invitations', :path => "" do
+    resource :admin_teacher_invitation, :only => [], :controller => 'admin/teachers/invitations', :path => "" do
       get  :new,    :path => '/admin/teachers/invitation/new', :as => 'new'
       post :create, :path => '/admin/teachers/invitation'
     end

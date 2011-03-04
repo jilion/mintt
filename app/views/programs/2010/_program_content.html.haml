@@ -6,7 +6,4 @@
   %li.last{ :class => ('active' if params[:day] && params[:day] == "3") }
     = link_to("October 6, 2010", program_path(:day => 3), :remote => true)
 .spacer
-- if params[:day] && (1..3).include?(params[:day].to_i)
-  = render "day_#{params[:day]}"
-- else
-  = render "day_1"
+= render "programs/2010/day_#{params[:day] && (1..3).include?(params[:day].to_i) ? params[:day] : 1}"

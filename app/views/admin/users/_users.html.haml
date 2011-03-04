@@ -1,11 +1,15 @@
-= dynamic_page_title "2010 Students: #{count_of_total_for(@users)}"
+= dynamic_page_title "#{session[:year]} Students: #{count_of_total_for(@users)}"
+
+= form_tag [:admin, :users], :method => 'get' do
+  = select_tag "year", options_for_select((2010..Time.now.year), session[:year])
+  = submit_tag "Change year"
 
 %table
   %colgroup
     - 8.times do
       %col{ :class => cycle("even", "odd") }
   %tr
-    %th= link_to "’10", admin_users_path(sort_parameters('selected_at', params)), :remote => true
+    %th= link_to "’#{session[:year][-2,2]}", admin_users_path(sort_parameters('selected_at', params)), :remote => true
     %th= link_to "Gender", admin_users_path(sort_parameters('gender', params)), :remote => true
     %th= link_to "Name", admin_users_path(sort_parameters('last_name', params)), :remote => true
     %th= link_to "School", admin_users_path(sort_parameters('school', params)), :remote => true
@@ -14,7 +18,7 @@
     %th
     %th
   = render @users
-  
+
 - if params.key? :all
   .right_links= link_to "View with paginate", admin_users_path, :remote => true
 - elsif @users.total_entries > User.per_page

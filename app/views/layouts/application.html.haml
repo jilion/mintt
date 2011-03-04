@@ -2,18 +2,18 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
   %head
     %meta{'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
-    
+
     %title= "mintt#{yield(:title)}"
-    
+
     = stylesheet_link_tag 'style'
-    
+
     = javascript_include_tag "http#{ request.ssl? ? 's':'' }://use.typekit.com/qwi4bur.js"
     = javascript_tag "try{Typekit.load();}catch(e){};"
     /[if gte IE 7]
       == <script type="text/javascript">var curvyCornersNoAutoScan = true;</script>
       = javascript_include_tag 'curvycorners'
     = javascript_include_tag :defaults
-    
+
   %body
     = render :partial => 'layouts/flash', :object => flash
     = render 'layouts/user_header'
@@ -27,5 +27,3 @@
       - else
         = render 'layouts/sidebar'
       = render 'layouts/footer'
-      
-    = google_analytics

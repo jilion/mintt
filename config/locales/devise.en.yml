@@ -1,9 +1,10 @@
 en:
   devise:
-    registrations:
+    applications:
       applications_closed: "Applications are closed."
-      updated: "Your personal information has been updated."
       send_instructions: "Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes."
+    registrations:
+      updated: "Your personal information has been updated."
     confirmations:
       link: "Didn't receive confirmation instructions?"
       confirmed: "Thank you, your application is now confirmed."

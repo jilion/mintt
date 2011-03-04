@@ -1,1 +1,1 @@
-$('program_content').update("<%= escape_javascript(render 'program_content') %>");
+$('program_content').update('<%= escape_javascript(render "/programs/#{Time.now.year}/program_content") %>');

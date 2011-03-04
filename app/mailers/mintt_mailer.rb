@@ -1,9 +1,9 @@
 class MinttMailer < ActionMailer::Base
-  default :from => MINTT_SENDER, :content_type => "text/plain"
+  default :from => SiteSettings.mintt_sender, :content_type => "text/plain"
   
   def new_message(message)
     @message = message
-    mail(:to => NEW_MESSAGE_RECIPIENTS, :reply_to => @message.sender_email, :subject => I18n.t(:new_contact_message))
+    mail(:to => SiteSettings.new_message_recipients, :reply_to => @message.sender_email, :subject => I18n.t(:new_contact_message))
   end
   
   def sign_up_instructions(user)
