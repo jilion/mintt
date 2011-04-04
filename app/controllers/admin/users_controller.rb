@@ -13,7 +13,7 @@ class Admin::UsersController < Admin::AdminController
       format.js
       format.html
       format.csv do
-        render :csv => User.index_order_by(:all => true, :year => session[:year]).to_a, :filename => "mintt_users-#{I18n.l(Time.now, :format => :filename)}", :style => { :encoding => 'U', :col_sep => ',' }
+        render :csv => User.index_order_by(:all => true, :year => session[:year]).to_a, :filename => "mintt_users-#{I18n.l(Time.now, :format => :filename)}", :style => { :encoding => 'U', :col_sep => ';' }
       end
     end
   end
