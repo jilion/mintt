@@ -14,7 +14,7 @@ module Spec
 
       def selected_user(options={})
         user = user_application(options)
-        user.update_attributes(:state => 'selected')
+        user.update_attribute(:state, 'selected')
         user
       end
 
@@ -40,13 +40,13 @@ module Spec
       end
 
       def invited_teacher(options={})
-        teacher = Teacher.invite(:email => "test@test.com")
+        teacher = Teacher.invite!(:email => "test@test.com")
         teacher
       end
 
       def invited_with_password_teacher(options={})
         teacher = invited_teacher(options)
-        Teacher.accept_invitation(:invitation_token => teacher.invitation_token, :password => '123456', :password_confirmation => '123456')
+        Teacher.accept_invitation!(:invitation_token => teacher.invitation_token, :password => '123456', :password_confirmation => '123456')
         teacher
       end
 

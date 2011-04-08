@@ -1,8 +1,9 @@
 class Admin::TeachersController < Admin::AdminController
+  before_filter :set_year, :only => :index
   
   # GET /admin/teachers
   def index
-    @teachers = Teacher.index_order_by(params)
+    @teachers = Teacher.index_order_by(params.merge(:year => session[:admin_year]))
     respond_to do |format|
       format.js
       format.html

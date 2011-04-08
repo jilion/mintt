@@ -17,7 +17,7 @@ en:
       signed_out: "You are now logged out."
       not_allowed_to_sign_in: "You are not allowed to log in the system!"
     invitations:
-      send_instructions: "Invitation sent."
+      send_instructions: "Invitation sent to %{email}."
       updated: "Your password has been set. You are now logged in."
     mailer:
       confirmation_instructions:

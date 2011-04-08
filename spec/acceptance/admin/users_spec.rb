@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 feature "Admin users index" do
   background do
     ActionMailer::Base.deliveries.clear
@@ -48,6 +50,7 @@ feature "Admin users edit" do
     current_url.should =~ %r(^http://[^/]+/admin/users$)
 
     @user.reload
+    @user.should be_selected
     @user.selected_at.should be_present
     @user.reset_password_token.should be_present
 

@@ -30,7 +30,7 @@ describe Devise::Mailer do
 
   describe "new teacher invitation" do
     before(:each) do
-      @teacher = Teacher.invite(:email => "test@test.com")
+      @teacher = Teacher.invite!(:email => "test@test.com")
       Devise::Mailer.invitation_instructions(@teacher).deliver
       @email = ActionMailer::Base.deliveries.last
     end

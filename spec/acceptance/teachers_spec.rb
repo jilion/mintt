@@ -1,6 +1,8 @@
+require 'spec_helper'
+
 feature "Teacher" do
 
-  context "has been selected" do
+  context "has been invited" do
     background { @teacher = invited_teacher }
 
     it "should be able to set his password and access the program when he's been invited" do
@@ -14,7 +16,7 @@ feature "Teacher" do
       click_button "Set my password"
 
       current_url.should =~ %r(^http://[^/]+/schedule$)
-      page.should have_content("Your password has been set. You are now logged in.")
+      page.should have_content(I18n.t('devise.invitations.updated'))
     end
   end
 
@@ -32,7 +34,7 @@ feature "Teacher" do
 
       current_url.should =~ %r(^http://[^/]+/schedule$)
       page.should have_content(@teacher.email)
-      page.should have_content("Logged in successfully.")
+      page.should have_content(I18n.t('devise.sessions.signed_in'))
     end
   end
 
@@ -53,7 +55,7 @@ feature "Teacher" do
 
       current_url.should =~ %r(^http://[^/]+/teacher_account/edit$)
       page.should have_content(@current_teacher.reload.name)
-      page.should have_content("Your name has been updated.")
+      page.should have_content(I18n.t('devise.registrations.updated'))
     end
 
     it "should be able to log out" do
@@ -65,6 +67,37 @@ feature "Teacher" do
       current_url.should =~ %r(^http://[^/]+/$)
       page.should_not have_content(@current_teacher.email)
       page.should have_content("Teacher log in")
+    end
+
+    context "with only one year of activity" do
+      background { @current_teacher.update_attribute(:years, [2010]) }
+
+      it "should not see the select for changing year" do
+        @current_teacher.years.should == [2010]
+
+        visit "/schedule"
+        current_url.should =~ %r(^http://[^/]+/schedule$)
+        page.should have_content("2010 Course Schedule")
+        page.should_not have_selector("#change_year")
+      end
+    end
+
+    context "with two years of activity" do
+      background { @current_teacher.update_attribute(:years, [2010, 2011]) }
+
+      it "should see the select for changing year" do
+        @current_teacher.years.should == [2010, 2011]
+        
+        visit "/schedule"
+        current_url.should =~ %r(^http://[^/]+/schedule$)
+        page.should have_content("2010 Course Schedule")
+        page.should have_selector("#change_year")
+        
+        select "2011", :from => "year"
+        click_button "Change year"
+        
+        page.should have_content("2011 Course Schedule")
+      end
     end
 
   end

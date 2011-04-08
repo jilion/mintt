@@ -16,4 +16,4 @@
     - if message.trashed?
       = update_field_form(message, :trashed_at, nil, "untrash", {}, :id => "untrash_message_#{message.id}", :class => "button delete")
     - else
-      = update_field_form(message, :trashed_at, Time.now, "trash", {}, :id => "trash_message_#{message.id}", :class => "button delete")
+      = update_field_form(message, :trashed_at, Time.now.utc, "trash", {}, :id => "trash_message_#{message.id}", :class => "button delete")

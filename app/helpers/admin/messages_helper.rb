@@ -12,7 +12,7 @@ module Admin::MessagesHelper
     "#{message.sender_name} <#{message.sender_email}>" unless message.nil?
   end
   
-  def sender_name_with_email_and_mailto(message, encode = 'hex', body = '')
+  def sender_name_with_email_and_mailto(message, encode='hex', body='')
     "#{message.sender_name} (#{mail_to(message.sender_email, nil, :encode => encode, :body => body, :class => "link")})".html_safe  unless message.nil?
   end
   

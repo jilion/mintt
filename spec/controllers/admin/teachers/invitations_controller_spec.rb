@@ -4,8 +4,6 @@ describe Admin::Teachers::InvitationsController do
 
   context "as an admin" do
     before(:each) do
-      Teacher.stub(:new).and_return(mock_teacher)
-      Teacher.stub(:invite).and_return(mock_teacher)
       request.env['devise.mapping'] = Devise.mappings[:teacher]
     end
 
@@ -16,14 +14,20 @@ describe Admin::Teachers::InvitationsController do
     end
 
     it "should respond with success to POST :create successful" do
-      mock_teacher.stub(:invited?).and_return(true)
+      Teacher.should_receive(:invite!).and_return(mock_teacher(:email => "remy@jilion.com", :errors => []))
+
       post :create, :teacher => {}
+      flash[:notice].should == I18n.t("devise.invitations.send_instructions", :email => "remy@jilion.com")
+      flash[:alert].should be_nil
       response.should redirect_to(admin_teachers_path)
     end
 
     it "should respond with success to POST :create unsuccessful" do
-      mock_teacher.stub(:invited?).and_return(false)
+      Teacher.should_receive(:invite!).and_return(mock_teacher(:errors => ['error!']))
+
       post :create, :teacher => {}
+      flash[:notice].should be_nil
+      flash[:alert].should be_nil
       response.should be_success
       response.should render_template('admin/teachers/invitations/new', :layout => 'admin')
     end

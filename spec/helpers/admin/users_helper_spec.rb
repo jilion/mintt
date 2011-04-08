@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe Admin::UsersHelper do
   
-  # ===============
-  # = user_gender =
-  # ===============
-  describe "user_gender" do
+  describe "#user_gender" do
     describe "with nil user" do
       it "should return nothing" do
         helper.user_gender(nil).should == ''
@@ -19,59 +16,8 @@ describe Admin::UsersHelper do
       end
     end
   end
-  
-  # ==================
-  # = full_name =
-  # ==================
-  describe "full_name" do
-    describe "with nil user" do
-      it "should return nothing" do
-        helper.full_name(nil).should == ''
-      end
-    end
-    
-    describe "with a valid user and no options" do
-      it "should return 'first_name last_name' titleized" do
-        helper.full_name(Factory(:user, :first_name => 'steve', :last_name => 'jobs')).should == 'Steve Jobs'
-      end
-    end
-    
-    describe "with a valid user and reverse options" do
-      it "should return 'first_name last_name' titleized" do
-        helper.full_name(Factory(:user, :first_name => 'steve', :last_name => 'jobs'), true).should == 'Jobs Steve'
-      end
-    end
-  end
-  
-  # =============================
-  # = full_name_with_email =
-  # =============================
-  describe "full_name_with_email" do
-    describe "with nil user" do
-      it "should return nothing" do
-        helper.full_name_with_email(nil).should == ''
-      end
-    end
-    
-    describe "with a valid user and no options" do
-      it "should return 'first_name last_name' titleized" do
-        user = Factory(:user, :first_name => 'steve', :last_name => 'jobs', :email => 'steve@jobs.com')
-        helper.full_name_with_email(user).should == "#{helper.full_name(user)} #{mail_to('steve@jobs.com', nil, :encode => 'hex', :subject => 'Mintt program: ')}"
-      end
-    end
-    
-    describe "with a valid user and reverse options" do
-      it "should return 'first_name last_name mail_to(email, nil, :encode => 'hex', :subject => 'Mintt program: ')' titleized" do
-        user = Factory(:user, :first_name => 'steve', :last_name => 'jobs', :email => 'steve@jobs.com')
-        helper.full_name_with_email(user, true).should == "#{helper.full_name(user, true)} #{mail_to('steve@jobs.com', nil, :encode => 'hex', :subject => 'Mintt program: ')}"
-      end
-    end
-  end
-  
-  # ============
-  # = user_url =
-  # ============
-  describe "user_url" do
+
+  describe "#user_url" do
     describe "with nil user" do
       it "should return nothing" do
         helper.user_url(nil).should == ''
@@ -93,10 +39,7 @@ describe Admin::UsersHelper do
     end
   end
   
-  # =====================
-  # = user_linkedin_url =
-  # =====================
-  describe "user_linkedin_url" do
+  describe "#user_linkedin_url" do
     describe "with nil user" do
       it "should return nothing" do
         helper.user_linkedin_url(nil).should == ''
@@ -118,10 +61,7 @@ describe Admin::UsersHelper do
     end
   end
   
-  # =======================
-  # = user_thesis_subject =
-  # =======================
-  describe "user_thesis_subject" do
+  describe "#user_thesis_subject" do
     describe "with nil user" do
       it "should return nothing" do
         helper.user_thesis_subject(nil).should == ''
@@ -136,10 +76,7 @@ describe Admin::UsersHelper do
     end
   end
   
-  # ===================
-  # = user_motivation =
-  # ===================
-  describe "user_motivation" do
+  describe "#user_motivation" do
     describe "with nil user" do
       it "should return nothing" do
         helper.user_motivation(nil).should == ''

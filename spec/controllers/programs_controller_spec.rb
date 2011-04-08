@@ -22,8 +22,8 @@ describe ProgramsController do
 
   context "as a teacher" do
     before :each do
-      @teacher = Teacher.invite(:email => "test@test.com")
-      Teacher.accept_invitation(:invitation_token => @teacher.invitation_token, :password => '123456')
+      @teacher = Teacher.invite!(:email => "test@test.com")
+      Teacher.accept_invitation!(:invitation_token => @teacher.invitation_token, :password => '123456')
       @teacher.reload
       sign_in @teacher
     end

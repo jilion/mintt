@@ -1,6 +1,8 @@
-= title "Teachers"
+= title_and_page_title "Teachers"
 
 .text
-  .actions_right= link_to "Invite a teacher", new_admin_teacher_invitation_path
+  .actions_right
+    = render '/admin/shared/change_year_form'
+    = link_to "Invite a teacher", new_admin_teacher_invitation_path
   
   #teachers_table_wrap= render 'teachers'

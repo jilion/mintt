@@ -3,9 +3,6 @@ class Message
   include Mongoid::Timestamps
   include FinderExtension
   
-  cattr_accessor :per_page
-  @@per_page = 10
-  
   field :sender_name,  :type => String
   field :sender_email, :type => String
   field :content,      :type => String
@@ -13,13 +10,16 @@ class Message
   field :replied_at,   :type => Time, :default => nil
   field :trashed_at,   :type => Time, :default => nil
   
+  cattr_accessor :per_page
+  @@per_page = 10
+  
+  attr_accessible :sender_name, :sender_email, :content, :read_at, :replied_at, :trashed_at
+  
   # ===============
   # = Validations =
   # ===============
-  validates_presence_of :sender_name, :message => "This field can't be empty"
-  validates_presence_of :sender_email, :message => "This field can't be empty"
-  validates_presence_of :content, :message => "This field can't be empty"
-  validates_format_of :sender_email, :with => Devise.email_regexp
+  validates :sender_name, :sender_email, :content, :presence => true
+  validates :sender_email, :format => { :with => Devise.email_regexp }
   
   # =============
   # = Callbacks =
@@ -29,13 +29,13 @@ class Message
   # ==========
   # = Scopes =
   # ==========
-  scope :trashed, lambda { |trashed| trashed ? where(:trashed_at.ne => nil) : where(:trashed_at => nil) }
+  scope :trashed, lambda { |trashed|  where(trashed ? { :trashed_at.ne => nil } : { :trashed_at => nil }) }
   
   # =================
   # = Class Methods =
   # =================
-  def self.index_order_by(params = {})
-    method, options = method_and_options(params)
+  def self.index_order_by(params={})
+    method, options = method_and_options_for_paginate(params)
     trashed(params[:trashed]).order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).send(method, options)
   end
   

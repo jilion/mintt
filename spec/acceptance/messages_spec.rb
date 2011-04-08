@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 feature "Messages" do
 
   background do

@@ -1,9 +1,10 @@
 %tr[teacher]{ :class => cycle("", "alt") }
   %td
-    - if teacher.has_accepted_invitation?
+    - if teacher.invitation_accepted?
       = link_to image_tag("/images/admin/selected.png", :alt => "selected"), admin_teacher_path(teacher)
   %td= link_to((teacher.name.blank? ? "No name yet" : teacher.name), admin_teacher_path(teacher))
   %td= mail_to(teacher.email, nil, :encode => 'hex', :class => "link")
+  %td= teacher.years.join(", ")
   %td= teacher.module_id
   %td= link_to("edit", edit_admin_teacher_path(teacher))
   %td= button_to("delete", admin_teacher_path(teacher), :confirm => "Are you sure?", :method => :delete, :class => "button delete")

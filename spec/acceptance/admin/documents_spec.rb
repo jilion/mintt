@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 feature "Admin documents index" do
   background do
     @documents = 3.times.inject([]) { |memo, i| memo << Factory(:document) }

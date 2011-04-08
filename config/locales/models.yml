@@ -1,0 +1,29 @@
+en:
+  mongoid:
+    errors:
+      messages:
+        blank: "%{attribute} can't be empty."
+        taken: "%{attribute} is already taken."
+      
+      models:
+        user:
+          attributes:
+            gender:
+              inclusion: "Please choose your gender."
+            url:
+              invalid: "Should start with http:// or https://"
+            linkedin_url:
+              invalid: "Should be similar to http://ch.linkedin.com/in/your_name"
+            supervisor_authorization:
+              inclusion: "Please choose an answer."
+            doctoral_school_rules:
+              inclusion: "Please choose an answer."
+            thesis_registration_date:
+              after_admission_date: "%{attribute} must be before the admission date"
+            motivation:
+              blank: "Please let us know more about your motivation."
+            agreement:
+              accepted: "You must accept the agreement."
+            current_password:
+              invalid: "%{attribute} is invalid."
+              

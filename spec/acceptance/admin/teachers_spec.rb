@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 feature "Admin teachers index" do
   background do
     ActionMailer::Base.deliveries.clear

@@ -1,13 +1,13 @@
 #sidebar
   - if SiteSettings.applications_open && !user_signed_in? && !teacher_signed_in?
-    %h3= "#{Time.now.year} Application"
-    %p= "The applications are now open till the end of April #{Time.now.year}. Please use the button below to apply."
+    %h3= "#{Time.now.utc.year} Application"
+    %p= "The applications are now open till the end of April #{Time.now.utc.year}. Please use the button below to apply."
     - unless user_signed_in? || teacher_signed_in?
       .box
         = link_to new_user_application_path, :id => "registration_button" do
-          %span= "Apply for the #{Time.now.year} course"
+          %span= "Apply for the #{Time.now.utc.year} course"
   - unless SiteSettings.applications_open
-    %p= raw "We thank you for your interest.<br /> #{Time.now.year} Registrations are now closed."
+    %p= raw "We thank you for your interest.<br /> #{Time.now.utc.year} Registrations are now closed."
 
   %h4= "Organizing Entities"
   %ul.entities

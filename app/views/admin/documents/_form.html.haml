@@ -9,8 +9,9 @@
       = pretty_file(@document, :type => false)
       
     %li.select
-      = f.label :published_at, "Publish on (current time is: #{l(Time.now, :format => :long)}):"
-      = f.datetime_select(:published_at, :default => Time.now.utc)
+      = f.label :published_at, "Publish on (current time is: #{l(Time.now.in_time_zone, :format => :long)}):"
+      - @document.published_at = (@document.published_at || Time.now) + (@document.published_at || Time.now).in_time_zone.utc_offset
+      = f.datetime_select(:published_at, :default => Time.now.in_time_zone)
       
   = f.buttons do
     = f.commit_button "#{@document.new_record? ? "Create" : "Update"} document"

@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 feature "Pages" do
 
   background do

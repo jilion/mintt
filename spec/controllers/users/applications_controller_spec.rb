@@ -9,7 +9,7 @@ describe Users::ApplicationsController do
 
   context "with applications open" do
     before(:each) do
-      SiteSettings.stub(:applications_open).and_return(true)
+      SiteSettings.stub(:applications_open) { true }
     end
 
     it "should respond with redirect to GET :new" do
@@ -19,16 +19,22 @@ describe Users::ApplicationsController do
     end
 
     it "should respond with redirect to POST :create" do
-      User.stub(:new).and_return(mock_user)
-      mock_user.stub(:save).and_return(true)
+      User.should_receive(:new).and_return(mock_user)
+      mock_user.should_receive(:save) { true }
+
       post :create, :user => {}
+      flash[:notice].should == I18n.t('devise.applications.send_instructions')
+      flash[:alert].should be_nil
       response.should redirect_to(root_url)
     end
 
     it "should respond with redirect to POST :create" do
-      User.stub(:new).and_return(mock_user)
-      mock_user.stub(:save).and_return(false)
+      User.should_receive(:new).and_return(mock_user)
+      mock_user.should_receive(:save) { false }
+
       post :create, :user => {}
+      flash[:notice].should be_nil
+      flash[:alert].should be_nil
       response.should be_success
       response.should render_template('applications/new')
     end
@@ -41,16 +47,22 @@ describe Users::ApplicationsController do
 
     it "should respond with redirect to GET :new" do
       get :new
+      flash[:notice].should be_nil
+      flash[:alert].should == I18n.t('devise.applications.applications_closed')
       response.should redirect_to(root_url)
     end
 
     it "should respond with redirect to POST :create" do
       post :create, :user => {}
+      flash[:notice].should be_nil
+      flash[:alert].should == I18n.t('devise.applications.applications_closed')
       response.should redirect_to(root_url)
     end
 
     it "should respond with redirect to POST :create" do
       post :create, :user => {}
+      flash[:notice].should be_nil
+      flash[:alert].should == I18n.t('devise.applications.applications_closed')
       response.should redirect_to(root_url)
     end
   end

@@ -7,7 +7,7 @@
           = link_to "Log out", destroy_user_session_path
           = "|"
           = link_to edit_user_registration_path, :class => "user #{controller_name == 'registrations' ? 'active' : ''}" do
-            %span.icon= full_name(current_user)
+            %span.icon= current_user.full_name
         - if teacher_signed_in?
           = link_to "Log out", destroy_teacher_session_path
           = "|"

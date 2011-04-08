@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe User do
   before(:each) do
-    Factory.create(:mail_template)
+    Factory(:mail_template)
   end
 
-  context "with valid attributes" do
-    subject { Factory(:user) }
+  context "from factory" do
+    subject { Factory.build(:user) }
 
     its(:gender)                   { should == "male"                                   }
     its(:first_name)               { should == "John"                                   }
@@ -23,8 +23,8 @@ describe User do
     its(:doctoral_school_rules)    { should == "yes"                                    }
     its(:thesis_invention)         { should == "The iPad"                               }
     its(:motivation)               { should == "Huge!"                                  }
-    its(:agreement)                { should == "1"                                      }
-    its(:year)                     { should == Time.now.year                            }
+    its(:agreement)                { should be_true                                     }
+    its(:year)                     { should == Time.now.utc.year                        }
     its(:selected_at)              { should be_nil                                      }
     its(:trashed_at)               { should be_nil                                      }
 
@@ -33,50 +33,40 @@ describe User do
     it { should be_valid       }
   end
 
-  describe "should be valid" do
-
-    it "with a nil thesis_registration_date" do
-      u = Factory(:user, :thesis_registration_date => "")
-      u.should be_valid
-      u.thesis_registration_date.should be_nil
+  describe "Validations" do
+    [:gender, :first_name, :last_name, :school, :lab, :email, :phone, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :thesis_registration_date, :thesis_admission_date, :supervisor_authorization, :doctoral_school_rules, :motivation].each do |attribute|
+      it { should allow_mass_assignment_of(attribute) }
     end
 
-    it "with a nil thesis_admission_date" do
-      u = Factory(:user, :thesis_admission_date => "")
-      u.should be_valid
-      u.thesis_admission_date.should be_nil
+    [:first_name, :last_name, :school, :lab, :email, :phone, :thesis_supervisor, :thesis_subject].each do |attribute|
+      it "should validates presence of #{attribute}" do
+        should validate_presence_of(attribute).with_message(I18n.t('mongoid.errors.messages.blank', :attribute => attribute.to_s.chars.to_a[0].upcase + attribute.to_s.gsub('_', ' ').chars.to_a[1..-1].join))
+      end
     end
 
-  end
+    it { should validate_presence_of(:motivation).with_message(I18n.t('mongoid.errors.models.user.attributes.motivation.blank', :attribute => "Motivation")) }
 
-  describe "should be invalid" do
+    it { should allow_value('male').for(:gender) }
+    it { should allow_value('female').for(:gender) }
+    it { should_not allow_value('').for(:gender) }
+    it { should_not allow_value('fake').for(:gender) }
 
-    it "without gender" do
-      Factory.build(:user, :gender => nil).should_not be_valid
-    end
+    it { should allow_value('yes').for(:supervisor_authorization) }
+    it { should allow_value('no').for(:supervisor_authorization) }
+    it { should_not allow_value('').for(:supervisor_authorization) }
+    it { should_not allow_value('maybe').for(:supervisor_authorization) }
 
-    it "without first_name" do
-      Factory.build(:user, :first_name => nil).should_not be_valid
-    end
+    it { should allow_value('yes').for(:doctoral_school_rules) }
+    it { should allow_value('no').for(:doctoral_school_rules) }
+    it { should_not allow_value('').for(:doctoral_school_rules) }
+    it { should_not allow_value('maybe').for(:doctoral_school_rules) }
 
-    it "without last_name" do
-      Factory.build(:user, :last_name => nil).should_not be_valid
-    end
+    it { should validate_format_of(:url).with(User::URL_REGEX) }
+    it { should validate_format_of(:linkedin_url).with(User::LINKEDIN_URL_REGEX) }
 
-    it "without school" do
-      Factory.build(:user, :school => nil).should_not be_valid
-    end
-
-    it "without lab" do
-      Factory.build(:user, :lab => nil).should_not be_valid
-    end
-
-    it "without phone" do
-      Factory.build(:user, :phone => nil).should_not be_valid
-    end
-
-    it "without email" do
-      Factory.build(:user, :email => nil).should_not be_valid
+    describe "thesis_registration_date" do
+      it { Factory.build(:user, :thesis_registration_date => "").should be_valid }
+      it { Factory.build(:user, :thesis_admission_date => "").should be_valid }
     end
 
     it "with invalid email" do
@@ -91,56 +81,57 @@ describe User do
       user.errors[:email].should be_present
     end
 
-    it "without thesis_supervisor" do
-      Factory.build(:user, :thesis_supervisor => nil).should_not be_valid
-    end
-
-    it "without thesis_subject" do
-      Factory.build(:user, :thesis_subject => nil).should_not be_valid
-    end
-
     it "without thesis_registration_date > thesis_admission_date" do
-      Factory.build(:user, :thesis_registration_date => 1.day.from_now, :thesis_admission_date => Time.now).should_not be_valid
+      Factory.build(:user, :thesis_registration_date => 1.day.from_now, :thesis_admission_date => Time.now.utc).should_not be_valid
     end
 
     it "without thesis_admission_date < thesis_registration_date" do
-      Factory.build(:user, :thesis_admission_date => Time.now, :thesis_registration_date => 1.day.from_now).should_not be_valid
-    end
-
-    it "without supervisor_authorization" do
-      Factory.build(:user, :supervisor_authorization => nil).should_not be_valid
-    end
-
-    it "without doctoral_school_rules" do
-      Factory.build(:user, :doctoral_school_rules => nil).should_not be_valid
-    end
-
-    it "without motivation" do
-      Factory.build(:user, :motivation => nil).should_not be_valid
+      Factory.build(:user, :thesis_admission_date => Time.now.utc, :thesis_registration_date => 1.day.from_now).should_not be_valid
     end
 
     it "without agreement" do
       Factory.build(:user, :agreement => false).should_not be_valid
     end
-
   end
 
   describe "Instance Methods" do
 
     describe "#update_state" do
+      context "from state nil to 'selected'" do
+        before :each do
+          @user = Factory(:user, :state => nil)
+          @user.state.should be_nil
+          ActionMailer::Base.deliveries.clear
+          @user.state = 'selected'
+          @user.save
+          @user.reload.state.should == 'selected'
+        end
+        subject { @user }
+
+        it "should set selected_at and reset_password_token" do
+          subject.selected_at.should be_within(5).of(Time.now.utc)
+          subject.reset_password_token.should be_present
+        end
+
+        it "should send email" do
+          ActionMailer::Base.deliveries.size.should == 1
+        end
+      end
+
       context "from state 'candidate' to 'selected'" do
         before :each do
-          @user = Factory(:user)
+          @user = Factory(:user, :state => 'candidate')
+          @user.state.should == 'candidate'
           ActionMailer::Base.deliveries.clear
-          @user.update_attributes(:state => 'selected')
+          @user.state = 'selected'
+          @user.save
+          @user.reload.state.should == 'selected'
         end
+        subject { @user }
 
-        it "should set the user' selected_at date to now" do
-          @user.selected_at.should > 30.seconds.ago
-        end
-
-        it "should set the user' reset_password_token" do
-          @user.reset_password_token.should be_present
+        it "should set selected_at and reset_password_token" do
+          subject.selected_at.should be_within(5).of(Time.now.utc)
+          subject.reset_password_token.should be_present
         end
 
         it "should send email" do
@@ -151,16 +142,17 @@ describe User do
       context "from state 'selected' to 'candidate'" do
         before :each do
           @user = Factory(:user, :state => 'selected')
+          @user.state.should == 'selected'
           ActionMailer::Base.deliveries.clear
-          @user.update_attributes(:state => 'candidate')
+          @user.state = 'candidate'
+          @user.save
+          @user.reload.state.should == 'candidate'
         end
+        subject { @user }
 
-        it "should set the user' selected_at date to nil" do
-          @user.selected_at.should be_nil
-        end
-
-        it "should set the user' reset_password_token to nil" do
-          @user.reset_password_token.should be_nil
+        it "should clear selected_at and reset_password_token" do
+          subject.selected_at.should be_nil
+          subject.reset_password_token.should be_nil
         end
 
         it "should not send email" do
@@ -170,58 +162,52 @@ describe User do
     end
 
     describe "#candidate?" do
-      before :each do
-        @user = Factory(:user, :state => 'candidate')
-      end
-
-      it "should be candidate" do
-        @user.should be_candidate
-      end
+      it { Factory(:user, :state => 'candidate').should be_candidate }
     end
 
     describe "#selected?" do
-      before :each do
-        @user = Factory(:user, :state => 'selected')
-      end
-
-      it "should be selected" do
-        @user.should be_selected
-      end
+      it { Factory(:user, :state => 'selected').should be_selected }
     end
 
-    describe "#has_created_account?" do
+    describe "#account_created?" do
       before :each do
-        @user = Factory(:user, :state => 'selected')
-        @user.send_reset_password_instructions
+        @user = Factory(:user)
+        @user.update_attribute(:state, 'selected')
         User.reset_password_by_token(:reset_password_token => @user.reset_password_token, :password => '123456', :password_confirmation => '123456')
-        @user.reload
       end
+      subject { @user.reload }
 
-      it "should be selected" do
-        @user.should be_selected
-      end
-      it "should has created account" do
-        @user.should be_has_created_account
-      end
-      it "should not have reset_password_token" do
-        @user.reset_password_token.should be_nil
+      it "should be selected, have an account and clear reset_password_token" do
+        subject.should be_selected
+        subject.should be_account_created
+        subject.reset_password_token.should be_nil
       end
     end
 
     describe "#trashed?" do
       before :each do
         @user = Factory(:user)
-      end
-
-      it "should not be trashed by default" do
+        @user.trashed_at.should be_nil
         @user.should_not be_trashed
       end
+      subject { @user }
+
       it "should be trashed" do
-        @user.update_attributes(:trashed_at => Time.now)
-        @user.should be_trashed
+        subject.update_attribute(:trashed_at, Time.now.utc)
+        subject.reload.trashed_at.should be_present
+        subject.should be_trashed
       end
     end
 
+    describe "#full_name" do
+      it "should return 'first_name last_name' titleized" do
+        Factory(:user, :first_name => 'steve', :last_name => 'jobs').full_name.should == "Steve Jobs"
+      end
+      
+      it "should return 'last_name first_name' titleized" do
+        Factory(:user, :first_name => 'steve', :last_name => 'jobs').full_name(:reverse => true).should == "Jobs Steve"
+      end
+    end
   end
 
 end

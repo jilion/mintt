@@ -4,7 +4,8 @@
   = f.inputs do
     = f.input :name
     = f.input :email, :required => true
-    = f.input :module_id, :label => "Speaker in module", :as => :select, :collection => modules_for_select, :selected => @teacher.module_id || 0
+    = f.input :module_id, :label => "Speaker in module", :as => :select, :collection => modules_for_select, :default => 0
+    = f.input :years, :as => :check_boxes, :collection => @teacher.years_for_select
     
   = f.buttons do
     = f.commit_button "Update teacher"

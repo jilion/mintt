@@ -9,11 +9,14 @@
     %p
       = content_tag(:strong, "Speaker in module:")
       = module_title(@teacher.module_id)
+    %p
+      = content_tag(:strong, "Active in:")
+      = @teacher.years.to_sentence
   .application_date
     %p.edit= link_to "edit teacher", edit_admin_teacher_path(@teacher), :class => "edit"
   .spacer
   
-  - unless @teacher.has_accepted_invitation?
+  - unless @teacher.invitation_accepted?
     .break
     %p
       = content_tag(:strong, "This teacher hasn't accepted his/her invitation yet.")

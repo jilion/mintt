@@ -1,6 +1,6 @@
 Mintt::Application.routes.draw do
   devise_for :users,
-  :controllers => { :confirmations => 'users/confirmations', :sessions => 'sessions' },
+  :controllers => { :confirmations => 'users/confirmations' },
   :path_names => { :confirmation => 'confirm', :sign_in => 'login', :sign_out => 'logout' },
   :skip => [:registrations] do
     resource :user_application, :only => [], :controller => 'users/applications', :path => '' do
@@ -16,7 +16,6 @@ Mintt::Application.routes.draw do
   end
   
   devise_for :teachers,
-  :controllers => { :sessions => 'sessions' },
   :path_names => { :sign_in => 'login', :sign_out => 'logout' },
   :skip => [:invitations, :registrations] do
     resource :admin_teacher_invitation, :only => [], :controller => 'admin/teachers/invitations', :path => "" do
@@ -34,7 +33,8 @@ Mintt::Application.routes.draw do
       put :update, :path => '/teacher_account'
     end
   end
-  resource :teachers, :only => [:update]
+  resource :teachers, :only => :update
+  resources :documents, :only => :show
   
   match '/schedule' => "programs#index", :as => 'program'
   

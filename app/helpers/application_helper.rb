@@ -12,7 +12,7 @@ module ApplicationHelper
     return "" if date.blank?
     if date.today?
       "Today"
-    elsif date.to_time > 2.days.until(Time.now)
+    elsif date.to_time > 2.days.until(Time.now.utc)
       "Yesterday"
     else
       l(date.to_date, :format => :lite)

@@ -3,7 +3,7 @@ Mintt::Application.configure do
                                                      %r(/apply), %r(/users), %(/user_account),
                                                      %r(/invitation), %r(/teachers), %(/teacher_account)])
   config.middleware.use(Rack::GoogleAnalytics, :tracker => 'UA-10280941-6')
-                                            
+  
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
   config.cache_classes = true

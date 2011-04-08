@@ -34,14 +34,14 @@ describe ApplicationHelper do
     
     describe "with a today date" do
       it "should return a well formatted date" do
-        date = Time.now.to_date
+        date = Time.now.utc.to_date
         helper.sexy_date(date).should == "Today"
       end
     end
     
     describe "with a yesterday date" do
       it "should return a well formatted date" do
-        date = Time.now.yesterday.to_date
+        date = Time.now.utc.yesterday.to_date
         helper.sexy_date(date).should == "Yesterday"
       end
     end
@@ -74,7 +74,7 @@ describe ApplicationHelper do
     
     describe "with a valid time" do
       it "should return a well formatted date" do
-        time = Time.now
+        time = Time.now.utc
         helper.sexy_time(time).should == l(time, :format => :time)
       end
     end

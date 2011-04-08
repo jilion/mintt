@@ -1,3 +1,7 @@
+2011-04-08
+  - Ajout du lien entre professeur et années d'activité
+  - Ajout d'un select-menu dans /schedule pour choisir l'année du programme à afficher (seuls les documents de cette année sont également montrés)
+
 2011-03-04
   - Update des dates (2010 => 2011)
   

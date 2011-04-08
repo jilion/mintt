@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 feature "Admin mail_templates index" do
   background do
     @mail_templates = 3.times.inject([]) { |memo, i| memo << Factory(:mail_template) }

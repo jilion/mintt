@@ -1,5 +1,3 @@
-= dynamic_page_title "Teachers: #{count_of_total_for(@teachers)}"
-
 %table
   %colgroup
     - 6.times do
@@ -8,6 +6,7 @@
     %th= link_to "Registered", admin_teachers_path(sort_parameters('invitation_token', params)), :remote => true
     %th= link_to "Name", admin_teachers_path(sort_parameters('name', params)), :remote => true
     %th= link_to "Email", admin_teachers_path(sort_parameters('email', params)), :remote => true
+    %th= "Active in"
     %th= link_to "Module", admin_teachers_path(sort_parameters('module_id', params)), :remote => true
     %th
     %th
@@ -18,3 +17,4 @@
 - elsif @teachers.total_entries > Teacher.per_page
   .right_links= link_to "View all", admin_teachers_path(:all => true), :remote => true
   = will_paginate(:params => { :format => nil }, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
+  = page_entries_info @teachers

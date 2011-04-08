@@ -12,7 +12,7 @@ class Admin::MessagesController < Admin::AdminController
   # GET /admin/messages/:id
   def show
     @message = Message.find(params[:id])
-    @message.update_attributes(:read_at => Time.now) if @message.unread?
+    @message.update_attribute(:read_at, Time.now.utc) if @message.unread?
   end
 
   # PUT /admin/messages/:id

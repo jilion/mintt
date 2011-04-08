@@ -89,7 +89,7 @@ describe Admin::MessagesHelper do
     
     describe "with a valid message" do
       it "should return a link to trashs with a trashed message" do
-        message = Factory(:message, :trashed_at => Time.now)
+        message = Factory(:message, :trashed_at => Time.now.utc)
         helper.back_to_inbox_or_trash(message).should == link_to('Back to trash', admin_messages_path(:trashed => true))
       end
     end

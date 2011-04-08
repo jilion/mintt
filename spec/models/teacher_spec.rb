@@ -49,22 +49,44 @@ describe User do
   end
 
   describe "Instance Methods" do
-    describe "#has_accepted_invitation?" do
+    describe "#invitation_accepted?" do
       before :each do
         ActionMailer::Base.deliveries = []
-        @teacher = Teacher.invite(:email => "test@test.com")
-        Teacher.accept_invitation(:invitation_token => @teacher.invitation_token, :password => '123456', :password_confirmation => '123456')
+        @teacher = Teacher.invite!(:email => "test@test.com")
+        Teacher.accept_invitation!(:invitation_token => @teacher.invitation_token, :password => '123456', :password_confirmation => '123456')
         @teacher.reload
       end
 
       it "should has accepted invitation" do
-        @teacher.should be_has_accepted_invitation
+        @teacher.should be_invitation_accepted
       end
       it "should send email" do
         ActionMailer::Base.deliveries.size.should == 1
       end
     end
-
+    
+    describe "#years_for_select", :focus => true do
+      context "a teacher with no years" do
+        subject { Factory(:teacher) }
+        
+        its(:years) { should == [Time.now.utc.year] }
+        its(:years_for_select) { should == [Time.now.utc.year] }
+      end
+      
+      context "a teacher with 1 year of activity" do
+        subject { Factory(:teacher, :years => [2010]) }
+        
+        its(:years) { should == [2010] }
+        its(:years_for_select) { should == (2010..Time.now.utc.year).to_a }
+      end
+      
+      context "a teacher with 2 years of activity" do
+        subject { Factory(:teacher, :years => [2009, 2010]) }
+        
+        its(:years) { should == [2009, 2010] }
+        its(:years_for_select) { should == (2009..Time.now.utc.year).to_a }
+      end
+    end
   end
 
 end

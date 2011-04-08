@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 describe MailTemplate do
-  let(:mail_template) { Factory(:mail_template) }
 
-  context "with valid attributes" do
-    subject { mail_template }
+  context "from Factory" do
+    subject { Factory.build(:mail_template) }
 
     its(:title)   { should =~ /test template \d/ }
     its(:content) { should =~ /Lorem ipsum dolor sit amet/ }
@@ -12,23 +11,18 @@ describe MailTemplate do
     it { should be_valid }
   end
 
-  describe "should be invalid" do
-    it "without title" do
-      Factory.build(:mail_template, :title => nil).should_not be_valid
+  describe "Validations" do
+    [:title, :content].each do |attribute|
+      it { should allow_mass_assignment_of(attribute) }
     end
 
-    it "without a unique title" do
-      Factory(:mail_template, :title => "test_template")
-
-      mt = Factory.build(:mail_template, :title => "test_template")
-      mt.should_not be_valid
-      mt.errors[:title].should be_present
+    [:title, :content].each do |attribute|
+      it "should validates presence of #{attribute}" do
+        should validate_presence_of(attribute).with_message(I18n.t('mongoid.errors.messages.blank', :attribute => attribute.to_s.chars.to_a[0].upcase + attribute.to_s.gsub('_', ' ').chars.to_a[1..-1].join))
+      end
     end
 
-    it "without content" do
-      Factory.build(:mail_template, :content => nil).should_not be_valid
-      Factory.build(:mail_template, :content => "").should_not be_valid
-    end
+    it { should validate_uniqueness_of(:title).with_message(I18n.t('mongoid.errors.messages.taken', :attribute => "Title")) }
   end
 
 end

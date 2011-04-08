@@ -5,15 +5,6 @@ module Admin::UsersHelper
     user.gender == 'male' ? 'M' : 'F'
   end
   
-  def full_name(user, reverse = false)
-    return "" if user.blank?
-    (reverse ? "#{user.last_name} #{user.first_name}" : "#{user.first_name} #{user.last_name}").titleize
-  end
-  
-  def full_name_with_email(user, reverse = false)
-    user.blank? ? "" : "#{full_name(user, reverse)} #{mail_to(user.email, nil, :encode => "hex", :subject => 'Mintt program: ')}"
-  end
-  
   def user_url(user)
     return "" if user.blank?
     url_or_none(user.url)
@@ -60,8 +51,9 @@ module Admin::UsersHelper
   end
   
 private
-  def url_or_none(url)
-    url.blank? ? 'none' : link_to(url, url, :onclick => "window.open(this); return false")
+  def url_or_none(url, options={ :popup => true })
+    link_options = options[:popup] ? { :onclick => "window.open(this); return false" } : {}
+    url.blank? ? 'none' : link_to(url, url, link_options)
   end
   
 end

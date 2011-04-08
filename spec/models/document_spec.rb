@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Document do
 
-  context "with valid attributes" do
-    subject { Factory(:document) }
+  context "from Factory" do
+    subject { Factory.build(:document) }
 
     its(:title)    { should == "A document" }
     its(:filename) { should be_present      }
@@ -11,21 +11,32 @@ describe Document do
     it { should be_valid }
   end
 
-  describe "should be invalid" do
+  describe "Validations" do
+    [:title, :description, :module_id, :file, :published_at].each do |attribute|
+      it { should allow_mass_assignment_of(attribute) }
+    end
+    
+    it { should validate_presence_of(:title).with_message(I18n.t('mongoid.errors.messages.blank', :attribute => 'Title')) }
 
     it "without filename" do
-      Factory.build(:document, :filename => nil).should_not be_valid
+      document = Factory.build(:document, :filename => nil)
+      document.should_not be_valid
+      document.errors[:file].should == [I18n.t('mongoid.errors.messages.blank', :attribute => 'File')]
     end
 
-  end
-
-  describe "should be valid" do
     it "without title" do
       Factory.build(:document, :title => nil).should be_valid
     end
+  end
 
-    it "without module_id" do
-      Factory.build(:document, :module_id => nil).should be_valid
+  describe "Callbacks" do
+    before(:each) do
+      @f = File.new(Rails.root.join("spec/fixtures/coursé_document.pdf"))
+      @f.stub(:original_filename).and_return('coursé_document.pdf')
+    end
+    
+    it "should set the right Mime::Type" do
+      Factory(:document, :file => @f).mime_type.should == "application/pdf"
     end
   end
 
@@ -33,13 +44,14 @@ describe Document do
 
     describe "#file=" do
       before(:each) do
-        @f = File.new(Rails.root.join("spec/fixtures/course_document.pdf"))
-        @f.stub(:original_filename).and_return('course_document.pdf')
+        @f = File.new(Rails.root.join("spec/fixtures/coursé_document.pdf"))
+        @f.stub(:original_filename).and_return('coursé_document.pdf')
       end
 
       it "should set filename from file" do
         Factory(:document, :file => @f).filename.should == "course_document.pdf"
       end
+      
       it "should set filename from file" do
         doc = Factory(:document, :file => @f)
         File.file?(File.new("#{Rails.root}/public#{doc.url}")).should be_true
@@ -48,7 +60,8 @@ describe Document do
 
     describe "#url" do
       it "should return entire url with upload folder and filename" do
-        Factory(:document, :filename => "image.jpg").url.should == "/#{Document.upload_folder.join('/')}/image.jpg"
+        doc = Factory(:document, :filename => "image.jpg")
+        doc.url.should == "/#{doc.upload_folder.join('/')}/image.jpg"
       end
     end
 
@@ -68,16 +81,6 @@ describe Document do
       end
     end
 
-    describe "#published?" do
-      it "should be published?" do
-        Factory(:document, :published_at => 2.days.ago).should be_published
-      end
-
-      it "should not be published?" do
-        Factory(:document, :published_at => 2.days.from_now).should_not be_published
-      end
-    end
-
     describe "#image?" do
       it "should be image with jpg image extension" do
         Factory(:document, :filename => "image.jpg").should be_image
@@ -91,10 +94,32 @@ describe Document do
       end
     end
 
+    describe "#published?" do
+      it "should be published?" do
+        Factory(:document, :published_at => 2.days.ago).should be_published
+      end
+
+      it "should not be published?" do
+        Factory(:document, :published_at => 2.days.from_now).should_not be_published
+      end
+    end
+
     describe "#method_missing" do
       it "should dynamicaly check extension" do
         Factory(:document, :filename => "image.pdf").should be_pdf
         Factory(:document, :filename => "image.pages").should be_pages
+      end
+    end
+
+    describe "#upload_folder" do
+      it "should return an array with the year, month and day of Time.now.utc" do
+        doc = Factory.build(:document, :filename => "image.pdf")
+        doc.upload_folder.should == %W[uploads documents #{Time.now.utc.year} #{Time.now.utc.month} #{Time.now.utc.day}]
+      end
+      
+      it "should return an array with the year, month and day of created_at" do
+        doc = Factory(:document, :filename => "image.pdf")
+        doc.upload_folder.should == %W[uploads documents #{doc.created_at.year} #{doc.created_at.month} #{doc.created_at.day}]
       end
     end
 

@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 feature "User" do
 
   context "has been selected" do
@@ -14,7 +16,7 @@ feature "User" do
       click_button "Set my password"
 
       current_url.should =~ %r(^http://[^/]+/schedule$)
-      page.should have_content("Your password has been changed. You are now logged in.")
+      page.should have_content(I18n.t('devise.passwords.updated'))
     end
   end
 
@@ -32,7 +34,7 @@ feature "User" do
 
       current_url.should =~ %r(^http://[^/]+/schedule$)
       page.should have_content("#{@user.first_name} #{@user.last_name}")
-      page.should have_content("Logged in successfully.")
+      page.should have_content(I18n.t('devise.sessions.signed_in'))
     end
   end
 
@@ -48,13 +50,41 @@ feature "User" do
       current_url.should =~ %r(^http://[^/]+/user_account/edit$)
       page.should have_content("Edit my information")
 
-      fill_in "New password",         :with => "654321"
+      fill_in "New password",     :with => "654321"
       fill_in "Current password", :with => "123456"
       click_button "Update my credentials"
 
-      current_url.should =~ %r(^http://[^/]+/user_account/edit$)
-
-      page.should have_content("Your personal information has been updated.")
+      current_url.should =~ %r(^http://[^/]+/schedule$)
+      page.should have_content(I18n.t('devise.registrations.updated'))
+      
+      sign_out
+      visit "/"
+      click_link "Student log in"
+      
+      current_url.should =~ %r(^http://[^/]+/users/login$)
+      fill_in 'Email',    :with => @current_user.email
+      fill_in 'Password', :with => '654321'
+      click_button 'Log in'
+      
+      current_url.should =~ %r(^http://[^/]+/schedule$)
+      page.should have_content("#{@current_user.first_name} #{@current_user.last_name}")
+      page.should have_content(I18n.t('devise.sessions.signed_in'))
+    end
+    
+    it "should only see it's year of selection" do
+      @current_user.update_attribute(:year, 2010)
+      
+      visit "/schedule"
+      current_url.should =~ %r(^http://[^/]+/schedule$)
+    
+      page.should have_content("2010 Course Schedule")
+    end
+    
+    it "should never see the 'Change year' form" do
+      visit "/schedule"
+      current_url.should =~ %r(^http://[^/]+/schedule$)
+    
+      page.should_not have_selector("#change_year")
     end
 
     it "should be able to log out" do

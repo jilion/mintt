@@ -1,4 +1,4 @@
-= title_and_page_title "Edit student: #{content_tag(:em, full_name(@user))}"
+= title_and_page_title "Edit student: #{content_tag(:em, @user.full_name)}"
 
 = semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
   = f.inputs do
@@ -10,7 +10,7 @@
             %p.candidate_selected_contextual_info{ :style =>'display:none;' }= "A sign-up email will be sent to this student." unless @user.selected?
         %li#user_year_input.date.candidate_selected_contextual_info{ :style => hide_if_selected(@user) }
           = content_tag(:label, :for => 'user_year') do
-            = raw "Year of selection: #{select_year(@user.year, { :start_year => 1992, :end_year => Time.now.year }, { :name => 'user[year]' })}"
+            = raw "Year of selection: #{select_year(@user.year, { :start_year => 2010, :end_year => Time.now.utc.year }, { :name => 'user[year]' })}"
         %li#user_case_study_title.candidate_selected_contextual_info{ :style => hide_if_selected(@user) }
           = content_tag(:label, :for => 'user_case_study_title', :class => 'string') do
             = raw "Case study title: #{f.text_field(:case_study_title)}"
@@ -22,7 +22,7 @@
             = raw "Credits granted: #{f.select(:credits_granted, [["Not yet", nil], ["0 credits", 0], ["3 credits", 3]])}"
         %li
           = f.buttons do
-            = submit_tag "Update student", :confirm => "Are you sure to update #{full_name(@user)} informations?"
+            = submit_tag "Update student", :confirm => "Are you sure to update #{@user.full_name} informations?"
             
     = f.input :gender, :as => :radio, :collection => male_female_for_select, :required => true
     = f.input :first_name, :required => true
@@ -43,5 +43,5 @@
     = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?", :required => true
     
   = f.buttons do
-    = submit_tag "Update student", :confirm => "Are you sure to update #{full_name(@user)} informations?"
+    = submit_tag "Update student", :confirm => "Are you sure to update #{@user.full_name} informations?"
   = render '/shared/required_mention'

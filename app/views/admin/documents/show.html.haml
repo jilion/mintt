@@ -12,4 +12,5 @@
   %p= raw "#{content_tag(:strong, "#{@document.published? ? 'P' : 'Will be p'}ublished on")}: #{published_infos(@document)}"
   
   #document
-    %p= @document.image? ? image_tag(@document.url) : pretty_file(@document)
+    %p= link_to("Download this file", document_path(@document))
+    %p= admin_pretty_file(@document)

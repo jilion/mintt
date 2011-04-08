@@ -8,7 +8,7 @@ class MinttMailer < ActionMailer::Base
   
   def sign_up_instructions(user)
     @user = user
-    mail(:to => @user.email, :subject => I18n.t("devise.mailer.sign_up_instructions.user_subject"))
+    mail(:to => @user.email, :subject => I18n.t('devise.mailer.sign_up_instructions.user_subject'))
   end
   
 end

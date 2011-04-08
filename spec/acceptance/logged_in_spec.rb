@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 feature "Logged in" do
 
   context "as a lambda visitor" do
@@ -60,32 +62,4 @@ feature "Logged in" do
     end
   end
 
-end
-
-def warden
-  request.env['warden']
-end
-
-def invited_teacher(options={})
-  teacher = Teacher.invite(:email => "test@test.com")
-  teacher
-end
-
-def invited_with_password_teacher(options={})
-  teacher = invited_teacher(options)
-  Teacher.accept_invitation(:invitation_token => teacher.invitation_token, :password => '123456', :password_confirmation => '123456')
-  teacher
-end
-
-def sign_in_as_teacher(options={}, &block)
-  @current_teacher ||= begin
-    teacher = invited_with_password_teacher(options)
-    visit "/teachers/login"
-    fill_in 'Email',    :with => teacher.email
-    fill_in 'Password', :with => '123456'
-    check   'Remember me' if options[:remember_me] == true
-    yield if block_given?
-    click_button 'Log in'
-    teacher
-  end
 end

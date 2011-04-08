@@ -8,12 +8,12 @@ class Admin::UsersController < Admin::AdminController
   def index
     respond_to do |format|
       if /html|javascript/ =~ request.format
-        @users = User.index_order_by(params)
+        @users = User.index_order_by(params.merge(:year => session[:admin_year]))
       end
       format.js
       format.html
       format.csv do
-        render :csv => User.index_order_by(:all => true, :year => session[:year]).to_a, :filename => "mintt_users-#{I18n.l(Time.now, :format => :filename)}", :style => { :encoding => 'U', :col_sep => ';' }
+        render :csv => User.index_order_by(:all => true, :year => session[:admin_year]).to_a, :filename => "mintt_users-#{I18n.l(Time.now.utc, :format => :filename)}", :style => { :encoding => 'U', :col_sep => ';' }
       end
     end
   end
@@ -36,17 +36,6 @@ class Admin::UsersController < Admin::AdminController
       redirect_to admin_users_path, :notice => "Student has been successfully updated"
     else
       render :edit
-    end
-  end
-  
-private
-  
-  def set_year
-    if params[:year]
-      session[:year] = params[:year]
-    else
-      session[:year] ||= Time.now.year.to_s
-      params[:year]    = session[:year]
     end
   end
 

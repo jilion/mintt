@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 feature "Applications" do
 
   background do
@@ -39,18 +41,51 @@ feature "Applications" do
       fill_in "user_thesis_invention",           :with => "The iPad"
       fill_in "user_motivation",                 :with => "Huge!"
       check "user_agreement"
-      click_button "Apply"
+      expect { click_button "Apply" }.to change(ActionMailer::Base.deliveries, :count).by(1)
 
       current_url.should =~ %r(^http://[^/]+/$)
-      page.should have_content('Thanks for your submission. For security purpose you will receive an email with instructions about how to confirm your application in a few minutes.')
+      page.should have_content(I18n.t('devise.applications.send_instructions'))
       ActionMailer::Base.deliveries.size.should == 1
     end
 
     it "should have errors with not filled fields" do
-      click_button "Apply"
+      expect { click_button "Apply" }.to_not change(ActionMailer::Base.deliveries, :count)
 
-      page.should have_content('Choose a gender')
+      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'First name'))
+      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Last name'))
+      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'School'))
+      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Lab'))
+      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Email'))
+      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Phone'))
+      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Thesis supervisor'))
+      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Thesis subject'))
+      page.should have_content(I18n.t('mongoid.errors.models.user.attributes.motivation.blank', :attribute => 'Motivation'))
+      page.should have_content(I18n.t('mongoid.errors.models.user.attributes.gender.inclusion'))
+      page.should have_content(I18n.t('mongoid.errors.models.user.attributes.agreement.accepted'))
       ActionMailer::Base.deliveries.size.should == 0
+    end
+
+    it "should have errors with an already taken email" do
+      Factory(:user, :email => "remy@jilion.com")
+      
+      fill_in "user_email", :with => "remy@jilion.com"
+      expect { click_button "Apply" }.to_not change(ActionMailer::Base.deliveries, :count)
+
+      page.should have_content(I18n.t('mongoid.errors.messages.taken', :attribute => 'Email'))
+    end
+
+    it "should have errors with non-chronological thesis registration and admission dates" do
+      Factory(:user, :email => "remy@jilion.com")
+      
+      select "2011",  :from => "user_thesis_registration_date_1i"
+      select "April", :from => "user_thesis_registration_date_2i"
+      select "2",     :from => "user_thesis_registration_date_3i"
+      select "2010",  :from => "user_thesis_admission_date_1i"
+      select "April", :from => "user_thesis_admission_date_2i"
+      select "26",    :from => "user_thesis_admission_date_3i"
+      expect { click_button "Apply" }.to_not change(ActionMailer::Base.deliveries, :count)
+
+      page.should have_content(I18n.t('mongoid.errors.models.user.attributes.thesis_registration_date.after_admission_date', :attribute => 'Thesis registration date'))
     end
   end
 

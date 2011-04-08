@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SessionsController do
+describe Devise::SessionsController do
 
   it { should route(:get,  "/users/login").to(:action => :new) }
   it { should route(:post, "/users/login").to(:action => :create) }

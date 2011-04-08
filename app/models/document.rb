@@ -1,19 +1,24 @@
 class Document
   include Mongoid::Document
+  include Mongoid::MultiParameterAttributes
   include Mongoid::Timestamps
-  
-  attr_writer :file
   
   field :title,        :type => String
   field :description,  :type => String
   field :module_id,    :type => Integer, :default => nil
   field :filename,     :type => String
+  field :mime_type,    :type => String
   field :published_at, :type => Time,    :default => nil
+  
+  attr_writer :file
+  
+  attr_accessible :title, :description, :module_id, :file, :published_at
   
   # ===============
   # = Validations =
   # ===============
-  validates_presence_of :title, :message => "This field can't be empty"
+  validates :title, :presence => true
+  validates :filename, :uniqueness => true
   validate :presence_of_file
   
   # =============
@@ -21,10 +26,16 @@ class Document
   # =============
   after_destroy :delete_file
   
+  # ==========
+  # = Scopes =
+  # ==========
+  scope :in_year, lambda { |year| where(:published_at.gte => Time.utc(year.to_i).beginning_of_year, :published_at.lte => Time.utc(year.to_i).end_of_year) }
+  scope :published, where(:published_at.lt => Time.now.utc)
+  
   # =================
   # = Class Methods =
   # =================
-  def self.index_order_by(params = {})
+  def self.index_order_by(params={})
     order_by((params[:order_by] || :published_at).to_sym.send(params[:sort_way] || :desc))
   end
   
@@ -32,29 +43,30 @@ class Document
   # = Instance Methods =
   # ====================
   def file=(new_file)
-    ext = File.extname(new_file.original_filename)
-    self.filename = new_file.original_filename[0..new_file.original_filename.size-ext.size].parameterize + ext
+    ext = File.extname(new_file.original_filename).downcase
+    self.filename  = new_file.original_filename[0..new_file.original_filename.size-ext.size].parameterize + ext
+    self.mime_type = MIME::Types.of(new_file.original_filename)
     File.open(path, "w+") { |f| f.write(new_file.read) }
   end
   
   def url
-    "/#{Document.upload_folder.join('/')}/#{read_attribute(:filename)}"
+    "/#{upload_folder.join('/')}/#{filename}"
   end
   
   def extension
-    File.extname(read_attribute(:filename)).sub('.', '') if read_attribute(:filename)
+    File.extname(filename).sub('.', '') if filename?
   end
   
   def title
-    read_attribute(:title).present? ? read_attribute(:title) : read_attribute(:filename)
+    read_attribute(:title).present? ? read_attribute(:title) : filename
   end
   
   def image?
-    (extension =~ /(jpe?|pn)g|gif/).present?
+    !(extension =~ /(jpe?|pn)g|gif/).nil?
   end
   
   def published?
-    published_at.present? && published_at <= Time.now
+    published_at? && published_at <= Time.now.utc
   end
   
   def method_missing(method, *args, &block)
@@ -63,27 +75,32 @@ class Document
     end
   end
   
-protected
-  
-  def self.upload_path
-    p = Rails.root.join('public', *self.upload_folder)
-    FileUtils.mkdir_p(p) unless p.directory?
-    p
-  end
-  
-  def self.upload_folder
-    %w[uploads documents]
-  end
-  
-  # validate
-  def presence_of_file
-    errors.add(:file, "File must be present!") if read_attribute(:filename).blank?
+  def upload_folder
+    if created_at >= Time.utc(2011,4,7) # backward compatibility
+      year  = created_at.try(:year) || Time.now.utc.year
+      month = created_at.try(:month) || Time.now.utc.month
+      day   = created_at.try(:day) || Time.now.utc.day
+      
+      %W[uploads documents #{year} #{month} #{day}]
+    else
+      %W[uploads documents]
+    end
   end
   
   def path
-    Pathname.new(Document.upload_path).join(read_attribute(:filename))
+    p = Rails.root.join('public', *upload_folder)
+    FileUtils.mkdir_p(p) unless p.directory?
+    Pathname.new(p).join(filename)
   end
   
+protected
+  
+  # validate
+  def presence_of_file
+    errors.add(:file, :blank) if filename.blank?
+  end
+  
+  # after_destroy
   def delete_file
     File.delete(path) if File.file?(path)
   end

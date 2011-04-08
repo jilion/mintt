@@ -6,7 +6,7 @@ class TeachersController < ApplicationController
     @teacher = Teacher.find(current_teacher.id)
 
     if @teacher.update_attributes(params[:teacher])
-      redirect_to edit_teacher_registration_path, :notice => "Your name has been updated."
+      redirect_to edit_teacher_registration_path, :notice => t('devise.registrations.updated')
     else
       render 'devise/registrations/edit'
     end
