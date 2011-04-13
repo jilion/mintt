@@ -6,7 +6,7 @@ class Teacher
   field :name,      :type => String
   field :email,     :type => String
   field :module_id, :type => Integer, :default => nil
-  field :years,     :type => Array, :default => [2010]
+  field :years,     :type => Array, :default => [Time.now.utc.year]
 
   devise :database_authenticatable, :validatable, :registerable, :rememberable, :recoverable, :invitable, :encryptable, :encryptor => :sha1
 
@@ -53,7 +53,7 @@ class Teacher
   end
 
   def years_for_select
-    ((years.min || 2010)..Time.now.utc.year).to_a
+    ([years.min, 2010].min..Time.now.utc.year).to_a
   end
 
 end

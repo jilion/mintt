@@ -73,8 +73,10 @@ feature "Teacher" do
       background { @current_teacher.update_attribute(:years, [2010]) }
 
       it "should not see the select for changing year" do
+        sign_out # clear the session
+        sign_in_as_teacher
         @current_teacher.years.should == [2010]
-
+        
         visit "/schedule"
         current_url.should =~ %r(^http://[^/]+/schedule$)
         page.should have_content("2010 Course Schedule")
@@ -86,16 +88,18 @@ feature "Teacher" do
       background { @current_teacher.update_attribute(:years, [2010, 2011]) }
 
       it "should see the select for changing year" do
+        sign_out # clear the session
+        sign_in_as_teacher
         @current_teacher.years.should == [2010, 2011]
-        
+
         visit "/schedule"
         current_url.should =~ %r(^http://[^/]+/schedule$)
-        page.should have_content("2010 Course Schedule")
+        page.should have_content("2011 Course Schedule")
         page.should have_selector("#change_year")
-        
+
         select "2011", :from => "year"
         click_button "Change year"
-        
+
         page.should have_content("2011 Course Schedule")
       end
     end

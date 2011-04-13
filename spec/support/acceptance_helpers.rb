@@ -27,16 +27,14 @@ module Spec
       end
 
       def sign_in_as_user(options={}, &block)
-        @current_user ||= begin
-          user = selected_with_password_user(options)
-          visit "/users/login"
-          fill_in 'Email',    :with => user.email
-          fill_in 'Password', :with => '123456'
-          check   'Remember me' if options[:remember_me] == true
-          yield if block_given?
-          click_button 'Log in'
-          user
-        end
+        @current_user ||= selected_with_password_user(options)
+        visit "/users/login"
+        fill_in 'Email',    :with => @current_user.email
+        fill_in 'Password', :with => '123456'
+        check   'Remember me' if options[:remember_me] == true
+        yield if block_given?
+        click_button 'Log in'
+        @current_user
       end
 
       def invited_teacher(options={})
@@ -51,16 +49,14 @@ module Spec
       end
 
       def sign_in_as_teacher(options={}, &block)
-        @current_teacher ||= begin
-          teacher = invited_with_password_teacher(options)
-          visit "/teachers/login"
-          fill_in 'Email',    :with => teacher.email
-          fill_in 'Password', :with => '123456'
-          check   'Remember me' if options[:remember_me] == true
-          yield if block_given?
-          click_button 'Log in'
-          teacher
-        end
+        @current_teacher ||= invited_with_password_teacher(options)
+        visit "/teachers/login"
+        fill_in 'Email',    :with => @current_teacher.email
+        fill_in 'Password', :with => '123456'
+        check   'Remember me' if options[:remember_me] == true
+        yield if block_given?
+        click_button 'Log in'
+        @current_teacher
       end
 
       def sign_out

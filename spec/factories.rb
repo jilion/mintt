@@ -37,10 +37,15 @@ Factory.define :mail_template do |f|
   f.content            "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor."
 end
 
-Factory.define :document do |f|
-  f.title     'A document'
-  f.module_id 1
-  f.filename  "course_document.pdf"
+Factory.define :fake_document, :class => Document do |f|
+  f.sequence(:title)    { |n| "A document #{n}" }
+  f.module_id           1
+end
+
+Factory.define :document, :parent => :fake_document do |f|
+  f.sequence(:title)    { |n| "A document #{n}" }
+  f.module_id           1
+  f.sequence(:filename) { |n| "course_document#{n}.pdf" }
 end
 
 Factory.define :user_application_confirmation, :class => MailTemplate do |f|

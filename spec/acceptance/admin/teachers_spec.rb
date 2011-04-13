@@ -11,7 +11,7 @@ feature "Admin teachers index" do
     click_link "Teachers"
 
     current_url.should =~ %r(^http://[^/]+/admin/teachers$)
-    page.should have_content("Teachers: 1-3 of 3")
+    page.should have_content("Teachers")
 
     page.should have_css("tr#teacher_#{@teachers.first.id}")
     page.should have_css("tr#teacher_#{@teachers.last.id}")

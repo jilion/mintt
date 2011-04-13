@@ -65,12 +65,12 @@ describe User do
       end
     end
     
-    describe "#years_for_select", :focus => true do
+    describe "#years_for_select" do
       context "a teacher with no years" do
         subject { Factory(:teacher) }
         
         its(:years) { should == [Time.now.utc.year] }
-        its(:years_for_select) { should == [Time.now.utc.year] }
+        its(:years_for_select) { should == (2010..Time.now.utc.year).to_a }
       end
       
       context "a teacher with 1 year of activity" do

@@ -29,7 +29,7 @@ class Document
   # ==========
   # = Scopes =
   # ==========
-  scope :in_year, lambda { |year| where(:published_at.gte => Time.utc(year.to_i).beginning_of_year, :published_at.lte => Time.utc(year.to_i).end_of_year) }
+  scope :in_year,   lambda { |year| where(:published_at.gte => Time.utc(year.to_i).beginning_of_year, :published_at.lte => Time.utc(year.to_i).end_of_year) }
   scope :published, where(:published_at.lt => Time.now.utc)
   
   # =================
@@ -76,14 +76,14 @@ class Document
   end
   
   def upload_folder
-    if created_at >= Time.utc(2011,4,7) # backward compatibility
+    if created_at && created_at < Time.utc(2011,4,7) # backward compatibility
+      %W[uploads documents]
+    else
       year  = created_at.try(:year) || Time.now.utc.year
       month = created_at.try(:month) || Time.now.utc.month
       day   = created_at.try(:day) || Time.now.utc.day
       
       %W[uploads documents #{year} #{month} #{day}]
-    else
-      %W[uploads documents]
     end
   end
   

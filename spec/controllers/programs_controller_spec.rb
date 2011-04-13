@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ProgramsController do
   include Devise::TestHelpers
   before(:each) do
-    Document.stub_chain(:where, :order_by).and_return([])
+    Document.stub_chain(:in_year, :published, :order_by).and_return([])
   end
 
   context "as a student" do

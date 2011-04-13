@@ -5,8 +5,8 @@ describe Document do
   context "from Factory" do
     subject { Factory.build(:document) }
 
-    its(:title)    { should == "A document" }
-    its(:filename) { should be_present      }
+    its(:title)    { should =~ /A document \d+/ }
+    its(:filename) { should be_present          }
 
     it { should be_valid }
   end
@@ -15,7 +15,7 @@ describe Document do
     [:title, :description, :module_id, :file, :published_at].each do |attribute|
       it { should allow_mass_assignment_of(attribute) }
     end
-    
+
     it { should validate_presence_of(:title).with_message(I18n.t('mongoid.errors.messages.blank', :attribute => 'Title')) }
 
     it "without filename" do
@@ -34,9 +34,9 @@ describe Document do
       @f = File.new(Rails.root.join("spec/fixtures/coursé_document.pdf"))
       @f.stub(:original_filename).and_return('coursé_document.pdf')
     end
-    
+
     it "should set the right Mime::Type" do
-      Factory(:document, :file => @f).mime_type.should == "application/pdf"
+      Factory(:fake_document, :file => @f).mime_type.should == "application/pdf"
     end
   end
 
@@ -49,11 +49,11 @@ describe Document do
       end
 
       it "should set filename from file" do
-        Factory(:document, :file => @f).filename.should == "course_document.pdf"
+        Factory(:fake_document, :file => @f).filename.should == "course_document.pdf"
       end
-      
+
       it "should set filename from file" do
-        doc = Factory(:document, :file => @f)
+        doc = Factory(:fake_document, :file => @f)
         File.file?(File.new("#{Rails.root}/public#{doc.url}")).should be_true
       end
     end
@@ -116,7 +116,7 @@ describe Document do
         doc = Factory.build(:document, :filename => "image.pdf")
         doc.upload_folder.should == %W[uploads documents #{Time.now.utc.year} #{Time.now.utc.month} #{Time.now.utc.day}]
       end
-      
+
       it "should return an array with the year, month and day of created_at" do
         doc = Factory(:document, :filename => "image.pdf")
         doc.upload_folder.should == %W[uploads documents #{doc.created_at.year} #{doc.created_at.month} #{doc.created_at.day}]
