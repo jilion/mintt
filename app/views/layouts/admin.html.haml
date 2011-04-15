@@ -29,11 +29,12 @@
           %li.home
             = link_to admin_path do
               %span= "Home"
-          %li{ :class => ('active' if controller_name == 'users') }= link_to "Students", admin_users_path
-          %li{ :class => ('active' if controller_name == 'teachers') }= link_to "Teachers", admin_teachers_path
-          %li{ :class => ('active' if controller_name == 'documents') }= link_to "Documents", admin_documents_path
-          %li{ :class => ('active' if controller_name == 'messages') }= link_to "Messages", admin_messages_path
-          %li{ :class => ('active' if controller_name == 'mail_templates') }= link_to "Mail templates", admin_mail_templates_path
+          %li{ :class => ('active' if controller_name == 'users') }= link_to "Students", [:admin, :users]
+          %li{ :class => ('active' if controller_name == 'teachers') }= link_to "Teachers", [:admin, :teachers]
+          %li{ :class => ('active' if controller_name == 'documents') }= link_to "Documents", [:admin, :documents]
+          %li{ :class => ('active' if controller_name == 'modules') }= link_to "Modules", [:admin, :teaching_modules]
+          %li{ :class => ('active' if controller_name == 'messages') }= link_to "Messages", [:admin, :messages]
+          %li{ :class => ('active' if controller_name == 'mail_templates') }= link_to "Mail templates", [:admin, :mail_templates]
       #content.admin{ :class => "#{controller_name} #{action_name}" }
         = yield(:page_title)
         = yield

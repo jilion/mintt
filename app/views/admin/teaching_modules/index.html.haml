@@ -1,0 +1,8 @@
+= title_and_page_title "Modules (#{session[:admin_year]})"
+
+.text
+  .actions_right
+    = render '/admin/shared/change_year_form', :no_all => false
+    = link_to "New module", [:new, :admin, :teaching_module]
+
+  #teaching_modules_table_wrap= render 'teaching_modules'

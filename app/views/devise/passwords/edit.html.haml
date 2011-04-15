@@ -1,5 +1,4 @@
-- t = resource.encrypted_password.blank? ? "Set my password" : "Change my password"
-= title_and_page_title t
+= title_and_page_title "Set my password"
 
 = semantic_form_for [resource_name, resource], :url => password_path(resource_name), :html => { :class => "main", :method => :put } do |f|
   = f.inputs do
@@ -8,5 +7,5 @@
     = f.input :password_confirmation, :required => true
     
   = f.buttons do
-    = f.commit_button t
+    = f.commit_button "Set my password"
   = render '/shared/required_mention'

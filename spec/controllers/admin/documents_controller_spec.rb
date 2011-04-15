@@ -24,7 +24,7 @@ describe Admin::DocumentsController do
     Document.stub(:new).and_return(mock_document)
     mock_document.stub(:save).and_return(true)
     post :create
-    response.should redirect_to(admin_document_path(mock_document))
+    response.should redirect_to([:admin, :documents])
   end
 
   it "should respond with success to GET :edit" do
@@ -37,7 +37,7 @@ describe Admin::DocumentsController do
     Document.stub(:find).and_return(mock_document)
     mock_document.stub(:update_attributes).and_return(true)
     put :update, :id => '1'
-    response.should redirect_to(admin_document_path(mock_document))
+    response.should redirect_to([:admin, :documents])
   end
 
   it "should respond with success to PUT :update unsuccessful" do
@@ -51,7 +51,7 @@ describe Admin::DocumentsController do
     Document.stub(:find).and_return(mock_document)
     mock_document.stub(:destroy).and_return(true)
     delete :destroy, :id => '1'
-    response.should redirect_to(admin_documents_path)
+    response.should redirect_to([:admin, :documents])
   end
 
 end

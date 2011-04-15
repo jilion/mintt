@@ -7,14 +7,9 @@
     %th= link_to "Name", admin_teachers_path(sort_parameters('name', params)), :remote => true
     %th= link_to "Email", admin_teachers_path(sort_parameters('email', params)), :remote => true
     %th= "Active in"
-    %th= link_to "Module", admin_teachers_path(sort_parameters('module_id', params)), :remote => true
     %th
     %th
   = render @teachers
-  
-- if params.key? :all
-  .right_links= link_to "View with paginate", admin_teachers_path, :remote => true
-- elsif @teachers.total_entries > Teacher.per_page
-  .right_links= link_to "View all", admin_teachers_path(:all => true), :remote => true
-  = will_paginate(:params => { :format => nil }, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
-  = page_entries_info @teachers
+
+= will_paginate(:params => { :format => nil }, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
+= page_entries_info @teachers

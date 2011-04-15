@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-feature "Admin teachers index" do
+feature "GET /admin/teachers" do
   background do
     ActionMailer::Base.deliveries.clear
     @teachers = 3.times.inject([]) { |memo, i| memo << Factory(:teacher) }
     visit '/admin'
   end
 
-  it "should be possible to list teachers" do
+  it "lists teachers" do
     click_link "Teachers"
 
     current_url.should =~ %r(^http://[^/]+/admin/teachers$)
-    page.should have_content("Teachers")
+    page.should have_content("Teachers (2011)")
 
     page.should have_css("tr#teacher_#{@teachers.first.id}")
     page.should have_css("tr#teacher_#{@teachers.last.id}")
@@ -19,13 +19,13 @@ feature "Admin teachers index" do
   end
 end
 
-feature "Admin teachers invitation" do
+feature "GET /admin/teachers/invitation/new" do
   background do
     ActionMailer::Base.deliveries.clear
     visit '/admin/teachers'
   end
 
-  it "should be possible to invite teacher" do
+  it "invites teacher" do
     click_link "Invite a teacher"
 
     current_url.should =~ %r(^http://[^/]+/admin/teachers/invitation/new$)
@@ -39,13 +39,13 @@ feature "Admin teachers invitation" do
   end
 end
 
-feature "Admin teachers show" do
+feature "GET /admin/teachers/:id" do
   background do
     @teacher = Factory(:teacher)
     visit '/admin/teachers'
   end
 
-  it "should be possible to edit a teacher" do
+  it "shows a teacher" do
     click_link @teacher.name
 
     current_url.should =~ %r(^http://[^/]+/admin/teachers/#{@teacher.id}$)
@@ -53,13 +53,13 @@ feature "Admin teachers show" do
   end
 end
 
-feature "Admin teachers edit" do
+feature "GET /admin/teachers/:id/edit" do
   background do
     @teacher = Factory(:teacher)
     visit '/admin/teachers'
   end
 
-  it "should be possible to edit a teacher" do
+  it "edits a teacher" do
     within("#teacher_#{@teacher.id}") do
       click_link "edit"
     end
@@ -74,5 +74,23 @@ feature "Admin teachers edit" do
 
     @teacher.reload
     @teacher.name.should == "Remy"
+  end
+end
+
+feature "DELETE /admin/teachers/:id" do
+  background do
+    @teacher1 = Factory(:teacher)
+    @teacher2 = Factory(:teacher)
+    Teacher.count.should == 2
+    visit '/admin/teachers'
+  end
+
+  it "deletes a teacher" do
+    within("#teacher_#{@teacher2.id}") do
+      click_button "delete"
+    end
+
+    Teacher.count.should == 1
+    current_url.should =~ %r(^http://[^/]+/admin/teachers$)
   end
 end

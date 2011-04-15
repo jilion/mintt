@@ -20,11 +20,33 @@ Factory.define :user do |f|
   f.state                    "candidate"
 end
 
+
 Factory.define :teacher do |f|
-  f.name             'John'
+  f.name             'John Doe'
   f.sequence(:email) { |n| "email#{n}@epfl.com" }
   f.password         '123456'
+  f.years            [Time.now.utc.year]
 end
+
+
+Factory.define :fake_document, :class => Document do |f|
+  f.sequence(:title)    { |n| "A document #{n}" }
+  f.module_id           1
+  f.published_at        Time.now.utc
+end
+
+Factory.define :document, :parent => :fake_document do |f|
+  f.sequence(:title)    { |n| "A document #{n}" }
+  f.module_id           1
+  f.sequence(:filename) { |n| "course_document#{n}.pdf" }
+end
+
+
+Factory.define :teaching_module do |f|
+  f.sequence(:title) { |n| "Evaluate the Potential #{n}" }
+  f.year                 2010
+end
+
 
 Factory.define :message do |f|
   f.sender_name             "John Doe"
@@ -32,20 +54,10 @@ Factory.define :message do |f|
   f.content                 "Advanced Compilation for Mac"
 end
 
+
 Factory.define :mail_template do |f|
   f.sequence(:title)   { |n| "test template #{n}" }
   f.content            "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor."
-end
-
-Factory.define :fake_document, :class => Document do |f|
-  f.sequence(:title)    { |n| "A document #{n}" }
-  f.module_id           1
-end
-
-Factory.define :document, :parent => :fake_document do |f|
-  f.sequence(:title)    { |n| "A document #{n}" }
-  f.module_id           1
-  f.sequence(:filename) { |n| "course_document#{n}.pdf" }
 end
 
 Factory.define :user_application_confirmation, :class => MailTemplate do |f|

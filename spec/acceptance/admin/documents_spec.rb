@@ -6,7 +6,7 @@ feature "Admin documents index" do
     visit '/admin'
   end
 
-  it "should be possible to list documents" do
+  scenario "should be possible to list documents" do
     click_link "Documents"
 
     current_url.should =~ %r(^http://[^/]+/admin/documents$)
@@ -25,7 +25,7 @@ feature "Admin documents show" do
     visit '/admin/documents'
   end
 
-  it "should be possible to edit a document" do
+  scenario "should be possible to edit a document" do
     click_link @document.title
 
     current_url.should =~ %r(^http://[^/]+/admin/documents/#{@document.id}$)
@@ -39,7 +39,7 @@ feature "Admin documents edit" do
     visit '/admin/documents'
   end
 
-  pending "should be possible to edit a document" do
+  scenario "should be possible to edit a document" do
     within("#document_#{@document.id}") do
       click_link "edit"
     end

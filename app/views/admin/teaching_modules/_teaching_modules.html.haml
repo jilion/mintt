@@ -1,0 +1,13 @@
+%table
+  %colgroup
+    - 4.times do
+      %col{ :class => cycle("even", "odd") }
+  %tr
+    %th= "ID"
+    %th= "Title"
+    %th
+    %th
+  = render @teaching_modules
+
+= will_paginate(:params => { :format => nil }, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
+= page_entries_info @teaching_modules

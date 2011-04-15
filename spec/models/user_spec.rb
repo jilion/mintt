@@ -1,12 +1,15 @@
 require 'spec_helper'
 
 describe User do
-  before(:each) do
+  before(:all) do
     Factory(:mail_template)
   end
 
   context "from factory" do
-    subject { Factory.build(:user) }
+    before(:all) do
+      @user = Factory.build(:user)
+    end
+    subject { @user }
 
     its(:gender)                   { should == "male"                                   }
     its(:first_name)               { should == "John"                                   }
@@ -28,7 +31,7 @@ describe User do
     its(:selected_at)              { should be_nil                                      }
     its(:trashed_at)               { should be_nil                                      }
 
-    it { should be_candidate  }
+    it { should be_candidate   }
     it { should_not be_trashed }
     it { should be_valid       }
   end
@@ -69,16 +72,12 @@ describe User do
       it { Factory.build(:user, :thesis_admission_date => "").should be_valid }
     end
 
-    it "with invalid email" do
-      Factory.build(:user, :email => 'test').should_not be_valid
-    end
-
     it "without a unique email" do
       Factory(:user, :email => "remy@jilion.com")
-
+    
       user = Factory.build(:user, :email => "remy@jilion.com")
       user.should_not be_valid
-      user.errors[:email].should be_present
+      user.should have(1).error_on(:email)
     end
 
     it "without thesis_registration_date > thesis_admission_date" do
@@ -203,7 +202,7 @@ describe User do
       it "should return 'first_name last_name' titleized" do
         Factory(:user, :first_name => 'steve', :last_name => 'jobs').full_name.should == "Steve Jobs"
       end
-      
+
       it "should return 'last_name first_name' titleized" do
         Factory(:user, :first_name => 'steve', :last_name => 'jobs').full_name(:reverse => true).should == "Jobs Steve"
       end

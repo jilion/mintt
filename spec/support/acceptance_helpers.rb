@@ -22,7 +22,7 @@ module Spec
         user = selected_user(options)
         user.password = '123456'
         user.password_confirmation = '123456'
-        user.save
+        user.save!
         user
       end
 

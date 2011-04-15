@@ -5,7 +5,10 @@ class Users::ApplicationsController < Devise::RegistrationsController
       redirect_to root_url
     end
   end
-  prepend_before_filter :require_no_authentication, :only => [:new, :create]
+  
+  prepend_before_filter :only => [:new, :create] do |controller|
+    redirect_to after_sign_in_path_for(resource) if controller.teacher_signed_in? || controller.user_signed_in?
+  end
 
   # POST /resource/register
   def create

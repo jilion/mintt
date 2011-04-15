@@ -7,7 +7,7 @@
     %p.edit= link_to "edit document", edit_admin_document_path(@document), :class => "edit"
   .spacer
   
-  %p= raw "#{content_tag(:strong, 'Module')}: #{module_title(@document.module_id)}"
+  %p= raw "#{content_tag(:strong, 'Module')}: #{module_title(@document)}"
   
   %p= raw "#{content_tag(:strong, "#{@document.published? ? 'P' : 'Will be p'}ublished on")}: #{published_infos(@document)}"
   

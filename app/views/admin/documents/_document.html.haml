@@ -3,7 +3,7 @@
     - if document.published?
       = link_to image_tag("/images/admin/selected.png", :alt => "selected"), admin_document_path(document)
   %td= link_to document.title, admin_document_path(document)
-  %td= document.module_id
+  %td= module_title(document)
   %td= published_infos(document)
   %td= link_to("edit", edit_admin_document_path(document))
   %td= button_to("delete", admin_document_path(document), :confirm => "Are you sure?", :method => :delete, :class => "button delete")

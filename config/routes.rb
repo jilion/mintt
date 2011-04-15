@@ -46,11 +46,12 @@ Mintt::Application.routes.draw do
   # =========
   match '/admin' => redirect('/admin/users'), :as => 'admin'
   namespace :admin do
-    resources :documents
-    resources :mail_templates, :only => [:index, :show, :edit, :update]
-    resources :messages, :only => [:index, :show, :update]
-    resources :teachers, :only => [:index, :show, :edit, :update, :destroy]
     resources :users, :only => [:index, :show, :edit, :update]
+    resources :teachers, :only => [:index, :show, :edit, :update, :destroy]
+    resources :documents
+    resources :teaching_modules, :path => :modules
+    resources :messages, :only => [:index, :show, :update]
+    resources :mail_templates, :only => [:index, :show, :edit, :update]
   end
   
   root :to => 'pages#show', :id => 'home'

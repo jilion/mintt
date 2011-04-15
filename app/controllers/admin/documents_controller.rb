@@ -1,8 +1,9 @@
 class Admin::DocumentsController < Admin::AdminController
+  before_filter :set_year, :only => :index
 
   # GET /admin/documents
   def index
-    @documents = Document.index_order_by(params)
+    @documents = Document.index_order_by(params.merge(:year => session[:admin_year]))
     respond_to do |format|
       format.js
       format.html
@@ -23,7 +24,7 @@ class Admin::DocumentsController < Admin::AdminController
   def create
     @document = Document.new(params[:document])
     if @document.save
-      redirect_to admin_document_path(@document), :notice => "Document successfully created."
+      redirect_to [:admin, :documents], :notice => "Document successfully created."
     else
       render :new
     end
@@ -39,7 +40,7 @@ class Admin::DocumentsController < Admin::AdminController
     @document = Document.find(params[:id])
 
     if @document.update_attributes(params[:document])
-      redirect_to admin_document_path(@document), :notice => "Document successfully updated."
+      redirect_to [:admin, :documents], :notice => "Document successfully updated."
     else
       render :edit
     end
@@ -49,7 +50,7 @@ class Admin::DocumentsController < Admin::AdminController
   def destroy
     @document = Document.find(params[:id])
     flash[:notice] = 'Document successfully destroyed' if @document.destroy
-    redirect_to admin_documents_path
+    redirect_to [:admin, :documents]
   end
 
 end

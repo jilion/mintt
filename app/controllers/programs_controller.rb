@@ -5,7 +5,7 @@ class ProgramsController < ApplicationController
 
   # /schedule
   def index
-    @documents = Document.in_year(session[:year]).published.order_by(:module_id.asc, :published_at.asc)
+    @documents = Document.year(session[:year]).published.order_by(:module_id.asc, :published_at.asc)
   end
 
   private
@@ -17,7 +17,7 @@ class ProgramsController < ApplicationController
         if params[:year] && current_teacher.years.include?(params[:year].to_i)
           session[:year] = params[:year]
         else
-          session[:year] ||= current_teacher.years.max || 2010
+          session[:year] ||= current_teacher.years.try(:max) || 2010
         end
       end
     end

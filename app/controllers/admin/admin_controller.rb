@@ -7,7 +7,6 @@ class Admin::AdminController < ApplicationController
     def set_year
       if params[:admin_year]
         session[:admin_year] = params[:admin_year]
-        Rails.logger.info session[:admin_year]
       else
         session[:admin_year] ||= Time.now.utc.year.to_s
       end

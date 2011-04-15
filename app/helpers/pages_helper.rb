@@ -1,5 +1,5 @@
 module PagesHelper
-  
+
   def module_box(&block)
     content_tag(:li) do
       content_tag(:div, "", :class => 'top') +
@@ -12,5 +12,5 @@ module PagesHelper
       content_tag(:div, "", :class => 'bottom')
     end
   end
-  
+
 end

@@ -1,5 +1,3 @@
-= title "Edit document: #{content_tag(:em, truncate_middle(@document.title, :length => 30))}"
-
-= page_title "Editing document: #{content_tag(:em, truncate_middle(@document.title, :length => 30))}"
+= title_and_page_title "Edit document: #{content_tag(:em, truncate_middle(@document.title, :length => 30))}"
 
 = render :partial => 'form'

@@ -1,7 +1,9 @@
-= title_and_page_title "Documents"
+= title_and_page_title "Documents (#{session[:admin_year]})"
 
 .text
-  .actions_right= link_to "New document", new_admin_document_path
-  
+  .actions_right
+    = render '/admin/shared/change_year_form'
+    = link_to "New document", new_admin_document_path
+
   #documents_table_wrap
     = render 'documents'

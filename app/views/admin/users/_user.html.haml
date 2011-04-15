@@ -1,9 +1,6 @@
 %tr[user]{ :class => cycle("", "alt") }
   %td
-    - if session[:admin_year] == 'all'
-      = "’#{user.year.to_s[-2,2]}"
-    - if user.selected?
-      = link_to image_tag("/images/admin/selected.png", :alt => "selected"), admin_user_path(user)
+    = link_to image_tag("/images/admin/selected.png", :alt => "selected"), admin_user_path(user) if user.selected?
   %td.gender= link_to image_tag("/images/admin/#{user.gender}.png", :alt => user.gender), admin_user_path(user)
   %td= link_to user.full_name(:reverse => true), admin_user_path(user)
   %td= user.school

@@ -6,16 +6,24 @@ class Teacher
   field :name,      :type => String
   field :email,     :type => String
   field :module_id, :type => Integer, :default => nil
-  field :years,     :type => Array, :default => [Time.now.utc.year]
+  field :years,     :type => Array
+
+  index :email, :unique => true
+  index :years
 
   devise :database_authenticatable, :validatable, :registerable, :rememberable, :recoverable, :invitable, :encryptable, :encryptor => :sha1
 
   cattr_accessor :per_page
-  @@per_page = 10
+  @@per_page = 15
 
   attr_accessor :current_password
 
   attr_accessible :password, :current_password, :name, :email, :module_id, :years
+
+  # ===============
+  # = Validations =
+  # ===============
+  validates :email, :presence => true
 
   liquid_methods *Teacher.fields.keys
 
@@ -30,9 +38,8 @@ class Teacher
 
   def self.index_order_by(params={})
     method, options = method_and_options_for_paginate(params)
-    years = params[:year].to_i || Time.now.utc.year
-    years = years == 2010 ? [nil, 2010] : [years]
-    scopes = params[:year] != 'all' ? year(years) : scoped
+    years  = params[:year].to_i || Time.now.utc.year
+    scopes = year(years == 2010 ? [nil, 2010] : [years])
     scopes.order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).send(method, options)
   end
 
@@ -53,7 +60,7 @@ class Teacher
   end
 
   def years_for_select
-    ([years.min, 2010].min..Time.now.utc.year).to_a
+    ([years.try(:min) || 2010, 2010].min..Time.now.utc.year).to_a
   end
 
 end

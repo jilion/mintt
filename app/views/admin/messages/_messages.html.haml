@@ -7,7 +7,8 @@
     %th.icon_centered= link_to image_tag("/images/admin/replied_label_icon.png", :alt => "Replied?"), admin_messages_path(messages_sort_parameters('replied_at', params)), :remote => true
     %th= link_to "From", admin_messages_path(messages_sort_parameters('sender_name', params)), :remote => true
     %th= link_to "Date Received", admin_messages_path(messages_sort_parameters('created_at', params)), :remote => true
-    %th
+    - unless params[:trashed]
+      %th
   = render @messages
   
 - if params.key? :all

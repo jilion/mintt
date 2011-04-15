@@ -24,7 +24,7 @@ describe Admin::MailTemplatesController do
     MailTemplate.stub(:find).and_return(mock_mail_template)
     mock_mail_template.stub(:update_attributes).and_return(true)
     put :update, :id => '1'
-    response.should redirect_to(admin_mail_template_path(mock_mail_template))
+    response.should redirect_to([:admin, :mail_templates])
   end
 
   it "should respond with success to PUT :update unsuccessful" do

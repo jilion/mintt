@@ -1,9 +1,9 @@
 class Admin::UsersController < Admin::AdminController
   respond_to :html, :js
   respond_to :csv, :only => :index
-  
+
   before_filter :set_year, :only => :index
-  
+
   # GET /admin/users
   def index
     respond_to do |format|

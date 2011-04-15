@@ -1,51 +1,32 @@
 require 'spec_helper'
 
-describe User do
-  let(:teacher) { Factory(:teacher) }
+describe Teacher do
+  describe "from factory" do
+    before(:all) do
+      @teacher = Factory.build(:teacher)
+    end
+    subject { @teacher }
 
-  describe "default" do
-    subject { teacher }
-
-    its(:name)  { should == "John"                    }
+    its(:name)  { should == "John Doe" }
     its(:email) { should match /email[0-9]+@epfl.com/ }
 
     it { should be_valid }
   end
 
-  describe "should be valid" do
-
-    it "with a nil name" do
-      t = Factory(:teacher, :name => nil)
-      t.should be_valid
-      t.name.should be_nil
+  describe "Validations" do
+    [:name, :email].each do |attribute|
+      it { should allow_mass_assignment_of(attribute) }
     end
 
-    it "with a nil name" do
-      t = Factory(:teacher, :module_id => nil)
-      t.should be_valid
-      t.module_id.should be_nil
-    end
-
-  end
-
-  describe "should be invalid" do
-
-    it "without email" do
-      Factory.build(:teacher, :email => nil).should_not be_valid
-    end
-
-    it "with invalid email" do
-      Factory.build(:teacher, :email => 'test').should_not be_valid
-    end
+    it { should validate_presence_of(:email).with_message(I18n.t('mongoid.errors.messages.blank', :attribute => "Email")) }
 
     it "without a unique email" do
       Factory(:teacher, :email => "remy@jilion.com")
 
       teacher = Factory.build(:teacher, :email => "remy@jilion.com")
       teacher.should_not be_valid
-      teacher.errors[:email].should be_present
+      teacher.should have(1).error_on(:email)
     end
-
   end
 
   describe "Instance Methods" do
@@ -64,25 +45,25 @@ describe User do
         ActionMailer::Base.deliveries.size.should == 1
       end
     end
-    
+
     describe "#years_for_select" do
       context "a teacher with no years" do
         subject { Factory(:teacher) }
-        
+
         its(:years) { should == [Time.now.utc.year] }
         its(:years_for_select) { should == (2010..Time.now.utc.year).to_a }
       end
-      
+
       context "a teacher with 1 year of activity" do
         subject { Factory(:teacher, :years => [2010]) }
-        
+
         its(:years) { should == [2010] }
         its(:years_for_select) { should == (2010..Time.now.utc.year).to_a }
       end
-      
+
       context "a teacher with 2 years of activity" do
         subject { Factory(:teacher, :years => [2009, 2010]) }
-        
+
         its(:years) { should == [2009, 2010] }
         its(:years_for_select) { should == (2009..Time.now.utc.year).to_a }
       end

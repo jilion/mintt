@@ -1,0 +1,7 @@
+%tr[teaching_module]{ :class => cycle("", "alt") }
+  %td= teaching_module.module_id
+  %td= link_to teaching_module.title, [:admin, teaching_module]
+  %td= link_to "edit", [:edit, :admin, teaching_module]
+  %td
+    - if teaching_module.destroyable?
+      = button_to("delete", [:admin, teaching_module], :confirm => "Are you sure?", :method => :delete, :class => "button delete")

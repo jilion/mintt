@@ -1,10 +1,10 @@
 source :rubygems
 
-gem 'bundler', '1.0.11'
+gem 'bundler', '1.0.12'
 gem 'rails',   '3.0.6'
 
 # Internals
-gem 'state_machine', '0.9.4'
+gem 'state_machine', '0.10.4'
 gem 'SystemTimer',   '1.2.3'
 
 # Utils
@@ -14,7 +14,7 @@ gem 'mime-types',    '1.16'
 
 # Database
 gem 'bson_ext', '1.3.0'
-gem 'mongoid',  '2.0.0'
+gem 'mongoid',  '2.0.1'
 
 # Auth / invitations
 gem 'devise',           '1.2.1'
@@ -42,10 +42,10 @@ group :development do
 end
 
 group :test do
-  gem 'spork', '~> 0.9.0.rc4'
+  gem 'spork', '~> 0.9.0.rc5'
   gem 'rb-fsevent'
   gem 'growl'
-  gem 'guard'
+  gem 'guard', '0.3.0'
   gem 'guard-bundler'
   gem 'guard-pow'
   gem 'guard-spork'

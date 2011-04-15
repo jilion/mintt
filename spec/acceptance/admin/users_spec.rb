@@ -13,14 +13,14 @@ feature "Admin users index" do
     click_link "Students"
 
     current_url.should =~ %r(^http://[^/]+/admin/users$)
-    page.should have_content("2011 Students")
+    page.should have_content("Students (2011)")
     page.should have_css("tr", :count => 1)
 
     @user.confirm!
 
     click_link "Students"
 
-    page.should have_content("2011 Students")
+    page.should have_content("Students (2011)")
 
     page.should have_css("tr#user_#{@user.id}")
     page.should have_css("tr", :count => 2)

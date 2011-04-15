@@ -40,7 +40,7 @@ class User
   devise :database_authenticatable, :validatable, :registerable, :confirmable, :rememberable, :recoverable, :encryptable, :encryptor => :sha1
 
   cattr_accessor :per_page
-  @@per_page = 10
+  @@per_page = 15
 
   attr_accessor :current_password, :agreement
 
@@ -57,7 +57,6 @@ class User
   # = Validations =
   # ===============
   validates :first_name, :last_name, :school, :lab, :email, :phone, :thesis_supervisor, :thesis_subject, :motivation, :presence => true
-  validates :email, :uniqueness => true
 
   validates :url,          :format => { :with => URL_REGEX, :allow_blank => true }
   validates :linkedin_url, :format => { :with => LINKEDIN_URL_REGEX, :allow_blank => true }
@@ -85,8 +84,8 @@ class User
   # =================
   def self.index_order_by(params={})
     method, options = method_and_options_for_paginate(params)
-    scopes = params[:year] != 'all' ? year(params[:year] || Time.now.utc.year) : scoped
-    scopes.active.order((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).send(method, options)
+    scopes = year(params[:year].try(:to_i) || Time.now.utc.year)
+    scopes.active.order([params[:order_by] || :confirmed_at, params[:sort_way] || :desc]).send(method, options)
   end
 
   def self.to_csv(records, options={})

@@ -5,11 +5,14 @@
 
 = content_for :sidebar do
   #sidebar
-    - if teacher_signed_in? && current_teacher.years.many?
+    - if teacher_signed_in? && current_teacher.years.try(:many?)
       = form_tag :program, :method => 'get', :id => "change_year" do
         = select_tag "year", options_for_select(current_teacher.years, session[:year])
         = submit_tag "Change year"
-    
-    %h4= raw "General information<br/> and documents"
+
+    %h4
+      = "General information"
+      %br
+      = "and documents"
     %ul.document_list
       = list_documents_for_module(0)

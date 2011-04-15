@@ -1,0 +1,11 @@
+= title "Module: #{content_tag(:em, @teaching_module.title)} (#{@teaching_module.year})"
+
+.text.sheet
+  .right_box
+    %h3= @teaching_module.title
+    %p
+      = content_tag(:strong, "Year:")
+      = @teaching_module.year
+  .application_date
+    %p.edit= link_to "edit module", [:edit, :admin, @teaching_module], :class => "edit"
+  .spacer

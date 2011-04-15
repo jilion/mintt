@@ -1,11 +1,12 @@
-= title "Set my password"
+= title "Set my name & password"
 
 = semantic_form_for [resource_name, resource], :url => teacher_invitation_path, :html => { :class => "main", :method => :put } do |f|
   = f.inputs do
     = f.input :invitation_token, :as => :hidden
+    = f.input :name
     = f.input :password, :required => true
     = f.input :password_confirmation, :required => true
-    
+
   = f.buttons do
-    = f.commit_button "Set my password"
+    = f.commit_button "Set my name & password"
   = render '/shared/required_mention'

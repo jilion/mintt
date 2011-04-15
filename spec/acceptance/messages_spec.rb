@@ -1,13 +1,12 @@
 require 'spec_helper'
 
 feature "Messages" do
-
   background do
     ActionMailer::Base.deliveries.clear
     visit '/'
   end
 
-  it "should be possible to create" do
+  it "sends a contact message" do
     ActionMailer::Base.deliveries.should be_empty
     click_link "Contact"
 
@@ -23,5 +22,4 @@ feature "Messages" do
     page.should have_content("Your message has been sent.")
     ActionMailer::Base.deliveries.size.should == 1
   end
-
 end

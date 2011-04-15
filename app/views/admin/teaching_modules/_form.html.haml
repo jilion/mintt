@@ -1,0 +1,9 @@
+= semantic_form_for [:admin, @teaching_module], :html => { :class => "main", :multipart => true } do |f|
+  = f.inputs do
+    = f.input :title, :required => true
+    - if @teaching_module.new_record?
+      = f.input :year, :as => :select, :collection => TeachingModule.years_for_select
+
+  = f.buttons do
+    = f.commit_button "#{@teaching_module.new_record? ? "Create" : "Update"} module"
+  = render '/shared/required_mention'

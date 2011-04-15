@@ -4,7 +4,7 @@ module DocumentsHelper
     return if document.new_record? || document.extension.blank?
     options = args.extract_options!
     options.reverse_merge!(:type => true)
-    
+
     "#{"#{document.extension.upcase}: " if options[:type]}#{link_to(document.title, document_path(document))}".html_safe
   end
 
@@ -19,8 +19,11 @@ module DocumentsHelper
 
   def list_documents_for_module(module_id)
     return if @documents.empty?
-    
-    @documents.select { |doc| doc.module_id == module_id }.inject("") do |html, doc|
+
+    teaching_module = TeachingModule.year(session[:year]).all[module_id]
+    return if teaching_module.nil?
+
+    @documents.select { |doc| doc.module_id == teaching_module.module_id }.inject("") do |html, doc|
       html << content_tag(:li, pretty_file(doc), :title => doc.description)
     end.html_safe
   end
