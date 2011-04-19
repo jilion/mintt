@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-feature "Teaching modules index" do
+feature "/admin/modules" do
   background do
     ActionMailer::Base.deliveries.clear
     @teaching_modules = 3.times.inject([]) { |memo, i| memo << Factory(:teaching_module, :year => Time.now.utc.year) }
     visit '/admin'
   end
 
-  it "should be possible to list teachers" do
+  it "lists modules" do
     click_link "Modules"
 
     current_url.should =~ %r(^http://[^/]+/admin/modules$)
@@ -19,7 +19,29 @@ feature "Teaching modules index" do
   end
 end
 
-feature "GET /admin/modules/:id" do
+feature "POST /admin/modules" do
+  background do
+    visit '/admin/modules'
+  end
+
+  it "creates a module" do
+    click_link "New module"
+
+    current_url.should =~ %r(^http://[^/]+/admin/modules/new$)
+    page.should have_content("Create a new module")
+
+    fill_in 'Title', :with => "Remy"
+    select '2010', :from => "Year"
+    click_button "Create module"
+
+    current_url.should =~ %r(^http://[^/]+/admin/modules$)
+
+    TeachingModule.count.should == 1
+    TeachingModule.last.title.should == "Remy"
+  end
+end
+
+feature "/admin/modules/:id" do
   background do
     @teaching_module = Factory(:teaching_module, :year => Time.now.utc.year)
     visit '/admin/modules'
@@ -33,7 +55,7 @@ feature "GET /admin/modules/:id" do
   end
 end
 
-feature "GET /admin/modules/:id/edit" do
+feature "/admin/modules/:id/edit" do
   background do
     @teaching_module = Factory(:teaching_module, :year => Time.now.utc.year)
     visit '/admin/modules'
@@ -57,7 +79,7 @@ feature "GET /admin/modules/:id/edit" do
   end
 end
 
-feature "DELETE /admin/modules/:id" do
+feature "/admin/modules/:id (delete)" do
   background do
     @teaching_module1 = Factory(:teaching_module, :year => Time.now.utc.year)
     @teaching_module2 = Factory(:teaching_module, :year => Time.now.utc.year)
@@ -65,15 +87,13 @@ feature "DELETE /admin/modules/:id" do
     visit '/admin/modules'
   end
 
-  feature "last teaching module" do
-    it "deletes a teaching module" do
-      within("#teaching_module_#{@teaching_module2.id}") do
-        click_button "delete"
-      end
-
-      TeachingModule.count.should == 1
-      current_url.should =~ %r(^http://[^/]+/admin/modules$)
-      page.should have_content("Module successfully destroyed")
+  it "deletes the last module" do
+    within("#teaching_module_#{@teaching_module2.id}") do
+      click_button "delete"
     end
+
+    TeachingModule.count.should == 1
+    current_url.should =~ %r(^http://[^/]+/admin/modules$)
+    page.should have_content("Module successfully destroyed")
   end
 end

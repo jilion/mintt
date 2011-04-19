@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "GET /admin/teachers" do
+feature "/admin/teachers" do
   background do
     ActionMailer::Base.deliveries.clear
     @teachers = 3.times.inject([]) { |memo, i| memo << Factory(:teacher) }
@@ -19,7 +19,7 @@ feature "GET /admin/teachers" do
   end
 end
 
-feature "GET /admin/teachers/invitation/new" do
+feature "/admin/teachers/invitation/new" do
   background do
     ActionMailer::Base.deliveries.clear
     visit '/admin/teachers'
@@ -39,7 +39,7 @@ feature "GET /admin/teachers/invitation/new" do
   end
 end
 
-feature "GET /admin/teachers/:id" do
+feature "/admin/teachers/:id" do
   background do
     @teacher = Factory(:teacher)
     visit '/admin/teachers'
@@ -53,7 +53,7 @@ feature "GET /admin/teachers/:id" do
   end
 end
 
-feature "GET /admin/teachers/:id/edit" do
+feature "/admin/teachers/:id/edit" do
   background do
     @teacher = Factory(:teacher)
     visit '/admin/teachers'
@@ -77,7 +77,7 @@ feature "GET /admin/teachers/:id/edit" do
   end
 end
 
-feature "DELETE /admin/teachers/:id" do
+feature "/admin/teachers/:id (delete)" do
   background do
     @teacher1 = Factory(:teacher)
     @teacher2 = Factory(:teacher)

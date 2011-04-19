@@ -20,10 +20,7 @@ module DocumentsHelper
   def list_documents_for_module(module_id)
     return if @documents.empty?
 
-    teaching_module = TeachingModule.year(session[:year]).all[module_id]
-    return if teaching_module.nil?
-
-    @documents.select { |doc| doc.module_id == teaching_module.module_id }.inject("") do |html, doc|
+    @documents.select { |doc| doc.module_id == module_id }.inject("") do |html, doc|
       html << content_tag(:li, pretty_file(doc), :title => doc.description)
     end.html_safe
   end

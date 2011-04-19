@@ -151,6 +151,11 @@ ul#menu li.home {
   right:0;
 }
 
+#content.admin .actions_right form, #content .export form {
+  float:left;
+  margin-right:20px;
+}
+
 #content.admin .actions_left input {
   background:#111;
   border:none;

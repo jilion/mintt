@@ -38,7 +38,7 @@ class TeachingModule
   def self.index_order_by(params={})
     method, options = method_and_options_for_paginate(params)
     scopes = year(params[:year].try(:to_i) || Time.now.utc.year)
-    scopes.order_by([params[:order_by] || :published_at, params[:sort_way] || :desc]).send(method, options)
+    scopes.order_by([params[:order_by] || :module_id, params[:sort_way] || :asc]).send(method, options)
   end
 
   def self.years_for_select
@@ -47,7 +47,7 @@ class TeachingModule
 
   def self.modules_for_select(year)
     year = Time.now.utc.year if year.nil?
-    TeachingModule.year(year).map { |m| ["#{m.module_id} - #{m.title}", m.module_id] }
+    TeachingModule.year(year).order_by(:module_id.asc).map { |m| ["#{m.module_id} - #{m.title}", m.module_id] }
   end
 
   # ====================

@@ -12,13 +12,13 @@ describe Users::ApplicationsController do
       SiteSettings.stub(:applications_open) { true }
     end
 
-    it "should respond with redirect to GET :new" do
+    it "responds with redirect to GET :new" do
       get :new
       response.should be_success
       response.should render_template('applications/new')
     end
 
-    it "should respond with redirect to POST :create" do
+    it "responds with redirect to POST :create" do
       User.should_receive(:new).and_return(mock_user)
       mock_user.should_receive(:save) { true }
 
@@ -28,7 +28,7 @@ describe Users::ApplicationsController do
       response.should redirect_to(root_url)
     end
 
-    it "should respond with redirect to POST :create" do
+    it "responds with redirect to POST :create" do
       User.should_receive(:new).and_return(mock_user)
       mock_user.should_receive(:save) { false }
 
@@ -45,21 +45,21 @@ describe Users::ApplicationsController do
       SiteSettings.stub(:applications_open).and_return(false)
     end
 
-    it "should respond with redirect to GET :new" do
+    it "responds with redirect to GET :new" do
       get :new
       flash[:notice].should be_nil
       flash[:alert].should == I18n.t('devise.applications.applications_closed')
       response.should redirect_to(root_url)
     end
 
-    it "should respond with redirect to POST :create" do
+    it "responds with redirect to POST :create" do
       post :create, :user => {}
       flash[:notice].should be_nil
       flash[:alert].should == I18n.t('devise.applications.applications_closed')
       response.should redirect_to(root_url)
     end
 
-    it "should respond with redirect to POST :create" do
+    it "responds with redirect to POST :create" do
       post :create, :user => {}
       flash[:notice].should be_nil
       flash[:alert].should == I18n.t('devise.applications.applications_closed')

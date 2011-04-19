@@ -1,16 +1,18 @@
-= title "Document: #{content_tag(:em, @document.title)}"
+= title "Document: #{content_tag(:em, @document.title)} (#{@document.extension.upcase})"
 
 .text.sheet
   .right_box
-    %h3= @document.title
+    %h3= "#{@document.title} (#{@document.extension.upcase})"
   .application_date
     %p.edit= link_to "edit document", edit_admin_document_path(@document), :class => "edit"
   .spacer
-  
+
+  %p= raw "#{content_tag(:strong, 'Filename')}: #{@document.filename}"
+
   %p= raw "#{content_tag(:strong, 'Module')}: #{module_title(@document)}"
-  
+
   %p= raw "#{content_tag(:strong, "#{@document.published? ? 'P' : 'Will be p'}ublished on")}: #{published_infos(@document)}"
-  
+
   #document
-    %p= link_to("Download this file", document_path(@document))
-    %p= admin_pretty_file(@document)
+    %p
+      = link_to("Download this file", document_path(@document))

@@ -38,10 +38,10 @@ describe Teacher do
         @teacher.reload
       end
 
-      it "should has accepted invitation" do
+      it "has accepted invitation" do
         @teacher.should be_invitation_accepted
       end
-      it "should send email" do
+      it "sends email" do
         ActionMailer::Base.deliveries.size.should == 1
       end
     end

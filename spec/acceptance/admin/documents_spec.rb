@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-feature "Admin documents index" do
+feature "/admin/documents" do
   background do
     @documents = 3.times.inject([]) { |memo, i| memo << Factory(:document) }
     visit '/admin'
   end
 
-  scenario "should be possible to list documents" do
+  scenario "lists documents" do
     click_link "Documents"
 
     current_url.should =~ %r(^http://[^/]+/admin/documents$)
@@ -19,13 +19,13 @@ feature "Admin documents index" do
 
 end
 
-feature "Admin documents show" do
+feature "/admin/documents/:id" do
   background do
     @document = Factory(:document)
     visit '/admin/documents'
   end
 
-  scenario "should be possible to edit a document" do
+  scenario "shows a document" do
     click_link @document.title
 
     current_url.should =~ %r(^http://[^/]+/admin/documents/#{@document.id}$)
@@ -33,13 +33,13 @@ feature "Admin documents show" do
   end
 end
 
-feature "Admin documents edit" do
+feature "/admin/documents/:id/edit" do
   background do
     @document = Factory(:document)
     visit '/admin/documents'
   end
 
-  scenario "should be possible to edit a document" do
+  scenario "edits a document" do
     within("#document_#{@document.id}") do
       click_link "edit"
     end

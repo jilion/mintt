@@ -13,7 +13,7 @@ en:
       
   date:
     formats:
-      lite: "%B %d, %Y"
+      lite: "%B %e, %Y"
       full: "%B %d, %Y %I:%M %p"
       time: "%I:%M %p"
       

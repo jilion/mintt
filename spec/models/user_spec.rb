@@ -37,12 +37,12 @@ describe User do
   end
 
   describe "Validations" do
-    [:gender, :first_name, :last_name, :school, :lab, :email, :phone, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :thesis_registration_date, :thesis_admission_date, :supervisor_authorization, :doctoral_school_rules, :motivation].each do |attribute|
+    [:year, :gender, :first_name, :last_name, :school, :lab, :email, :phone, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :thesis_registration_date, :thesis_admission_date, :supervisor_authorization, :doctoral_school_rules, :motivation].each do |attribute|
       it { should allow_mass_assignment_of(attribute) }
     end
 
     [:first_name, :last_name, :school, :lab, :email, :phone, :thesis_supervisor, :thesis_subject].each do |attribute|
-      it "should validates presence of #{attribute}" do
+      it "validates presence of #{attribute}" do
         should validate_presence_of(attribute).with_message(I18n.t('mongoid.errors.messages.blank', :attribute => attribute.to_s.chars.to_a[0].upcase + attribute.to_s.gsub('_', ' ').chars.to_a[1..-1].join))
       end
     end
@@ -74,7 +74,7 @@ describe User do
 
     it "without a unique email" do
       Factory(:user, :email => "remy@jilion.com")
-    
+
       user = Factory.build(:user, :email => "remy@jilion.com")
       user.should_not be_valid
       user.should have(1).error_on(:email)
@@ -107,12 +107,12 @@ describe User do
         end
         subject { @user }
 
-        it "should set selected_at and reset_password_token" do
+        it "sets selected_at and reset_password_token" do
           subject.selected_at.should be_within(5).of(Time.now.utc)
           subject.reset_password_token.should be_present
         end
 
-        it "should send email" do
+        it "sends email" do
           ActionMailer::Base.deliveries.size.should == 1
         end
       end
@@ -128,12 +128,12 @@ describe User do
         end
         subject { @user }
 
-        it "should set selected_at and reset_password_token" do
+        it "sets selected_at and reset_password_token" do
           subject.selected_at.should be_within(5).of(Time.now.utc)
           subject.reset_password_token.should be_present
         end
 
-        it "should send email" do
+        it "sends email" do
           ActionMailer::Base.deliveries.size.should == 1
         end
       end
@@ -149,12 +149,12 @@ describe User do
         end
         subject { @user }
 
-        it "should clear selected_at and reset_password_token" do
+        it "clears selected_at and reset_password_token" do
           subject.selected_at.should be_nil
           subject.reset_password_token.should be_nil
         end
 
-        it "should not send email" do
+        it "doesn't send email" do
           ActionMailer::Base.deliveries.size.should == 0
         end
       end
@@ -176,7 +176,7 @@ describe User do
       end
       subject { @user.reload }
 
-      it "should be selected, have an account and clear reset_password_token" do
+      it "is selected, has an account and clear reset_password_token" do
         subject.should be_selected
         subject.should be_account_created
         subject.reset_password_token.should be_nil
@@ -191,7 +191,7 @@ describe User do
       end
       subject { @user }
 
-      it "should be trashed" do
+      it "is trashed" do
         subject.update_attribute(:trashed_at, Time.now.utc)
         subject.reload.trashed_at.should be_present
         subject.should be_trashed
@@ -199,11 +199,11 @@ describe User do
     end
 
     describe "#full_name" do
-      it "should return 'first_name last_name' titleized" do
+      it "returns 'first_name last_name' titleized" do
         Factory(:user, :first_name => 'steve', :last_name => 'jobs').full_name.should == "Steve Jobs"
       end
 
-      it "should return 'last_name first_name' titleized" do
+      it "returns 'last_name first_name' titleized" do
         Factory(:user, :first_name => 'steve', :last_name => 'jobs').full_name(:reverse => true).should == "Jobs Steve"
       end
     end

@@ -5,6 +5,7 @@ class ProgramsController < ApplicationController
 
   # /schedule
   def index
+    @modules   = TeachingModule.year(session[:year]).order_by(:module_id.asc)
     @documents = Document.year(session[:year]).published.order_by(:module_id.asc, :published_at.asc)
   end
 

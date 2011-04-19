@@ -17,7 +17,7 @@ describe MailTemplate do
     end
 
     [:title, :content].each do |attribute|
-      it "should validates presence of #{attribute}" do
+      it "validates presence of #{attribute}" do
         should validate_presence_of(attribute).with_message(I18n.t('mongoid.errors.messages.blank', :attribute => attribute.to_s.chars.to_a[0].upcase + attribute.to_s.gsub('_', ' ').chars.to_a[1..-1].join))
       end
     end

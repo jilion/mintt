@@ -1,6 +1,13 @@
 defaults: &defaults
   mintt_sender: mintt@epfl.ch
   applications_open: true
+  course_dates:
+    _2010: - 2010-06-08
+           - 2010-06-09
+           - 2010-10-06
+    _2011: - 2011-06-07
+           - 2011-06-08
+           - 2011-10-05
 
 development:
   <<: *defaults

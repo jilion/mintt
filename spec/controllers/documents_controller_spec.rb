@@ -8,7 +8,7 @@ describe DocumentsController do
       controller.should_receive(:admin?) { true }
     end
 
-    it "should respond with success to GET :show" do
+    it "responds with success to GET :show" do
       Document.should_receive(:find).with(1) { mock_document(:path => Rails.root.join("spec/fixtures/coursé_document.pdf"), :filename => 'coursé_document.pdf', :mime_type => 'application/pdf') }
 
       get :show, :id => 1
@@ -23,7 +23,7 @@ describe DocumentsController do
       sign_in @user
     end
 
-    it "should respond with success to GET :show" do
+    it "responds with success to GET :show" do
       Document.should_receive(:find).with(1) { mock_document(:path => Rails.root.join("spec/fixtures/coursé_document.pdf"), :filename => 'coursé_document.pdf', :mime_type => 'application/pdf') }
 
       get :show, :id => 1
@@ -39,7 +39,7 @@ describe DocumentsController do
       sign_in @teacher
     end
 
-    it "should respond with success to GET :show" do
+    it "responds with success to GET :show" do
       Document.should_receive(:find).with(1) { mock_document(:path => Rails.root.join("spec/fixtures/coursé_document.pdf"), :filename => 'coursé_document.pdf', :mime_type => 'application/pdf') }
       
       get :show, :id => 1
@@ -52,7 +52,7 @@ describe DocumentsController do
       controller.should_receive(:admin?) { false }
     end
     
-    it "should respond with redirect to GET :show" do
+    it "responds with redirect to GET :show" do
       get :show, :id => 1
       response.should redirect_to(new_user_session_url)
     end

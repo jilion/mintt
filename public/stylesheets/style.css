@@ -338,7 +338,7 @@ form.main .file input {
   margin:0 0 10px;
 }
 
-form.main .string label, form.main .password label, form.main .text label, form.main .select label, form.main .file label {
+form.main .string label, form.main .check_boxes legend label, form.main .password label, form.main .text label, form.main .select label, form.main .file label {
   display:block;
   padding:12px 0 2px;
   line-height:18px;

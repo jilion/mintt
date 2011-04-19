@@ -9,7 +9,7 @@ describe TeachersController do
       sign_in mock_teacher(:authenticatable_salt => '123456')
     end
 
-    it "should respond with redirect to PUT :update successful" do
+    it "responds with redirect to PUT :update successful" do
       Teacher.should_receive(:find).twice.and_return(mock_teacher)
       mock_teacher.should_receive(:update_attributes) { true }
 
@@ -19,7 +19,7 @@ describe TeachersController do
       response.should redirect_to(edit_teacher_registration_path)
     end
 
-    it "should respond with success to PUT :update unsuccessful" do
+    it "responds with success to PUT :update unsuccessful" do
       Teacher.should_receive(:find).twice.and_return(mock_teacher)
       mock_teacher.should_receive(:update_attributes) { false }
 

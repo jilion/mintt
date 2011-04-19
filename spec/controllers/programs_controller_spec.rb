@@ -13,7 +13,7 @@ describe ProgramsController do
       sign_in @user
     end
 
-    it "should respond with success to GET :index" do
+    it "responds with success to GET :index" do
       get :index
       response.should be_success
       response.should render_template('programs/index')
@@ -28,7 +28,7 @@ describe ProgramsController do
       sign_in @teacher
     end
 
-    it "should respond with success to GET :index" do
+    it "responds with success to GET :index" do
       get :index
       response.should be_success
       response.should render_template('programs/index')
@@ -36,7 +36,7 @@ describe ProgramsController do
   end
 
   context "as a guest" do
-    it "should respond with redirect to GET :index" do
+    it "responds with redirect to GET :index" do
       get :index
       response.should redirect_to(new_user_session_url)
     end

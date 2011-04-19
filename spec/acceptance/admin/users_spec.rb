@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-feature "Admin users index" do
+feature "/admin/users" do
   background do
     ActionMailer::Base.deliveries.clear
     @user = Factory(:user)
     visit '/admin'
   end
 
-  it "should be possible to list confirmed users" do
+  it "lists confirmed users" do
     ActionMailer::Base.deliveries.size.should == 1
 
     click_link "Students"
@@ -27,7 +27,7 @@ feature "Admin users index" do
   end
 end
 
-feature "Admin users edit" do
+feature "/admin/users/:id/edit" do
   background do
     @user = Factory(:user)
     @user.confirm!
@@ -35,7 +35,7 @@ feature "Admin users edit" do
     visit '/admin/users'
   end
 
-  it "should be possible to select a user to participate in the program, and send him a message" do
+  it "selects a user to participate in the program, and send him a message" do
     ActionMailer::Base.deliveries.should be_empty
     within("#user_#{@user.id}") do
       click_link "edit"

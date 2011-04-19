@@ -7,13 +7,13 @@ describe Admin::Teachers::InvitationsController do
       request.env['devise.mapping'] = Devise.mappings[:teacher]
     end
 
-    it "should respond with success to GET :new" do
+    it "responds with success to GET :new" do
       get :new
       response.should be_success
       response.should render_template('admin/teachers/invitations/new', :layout => 'admin')
     end
 
-    it "should respond with success to POST :create successful" do
+    it "responds with success to POST :create successful" do
       Teacher.should_receive(:invite!).and_return(mock_teacher(:email => "remy@jilion.com", :errors => []))
 
       post :create, :teacher => {}
@@ -22,7 +22,7 @@ describe Admin::Teachers::InvitationsController do
       response.should redirect_to(admin_teachers_path)
     end
 
-    it "should respond with success to POST :create unsuccessful" do
+    it "responds with success to POST :create unsuccessful" do
       Teacher.should_receive(:invite!).and_return(mock_teacher(:errors => ['error!']))
 
       post :create, :teacher => {}

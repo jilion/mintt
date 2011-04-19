@@ -51,7 +51,7 @@ class Document
   def file=(new_file)
     ext = File.extname(new_file.original_filename).downcase
     self.filename  = new_file.original_filename[0..new_file.original_filename.size-ext.size].parameterize + ext
-    self.mime_type = MIME::Types.of(new_file.original_filename)
+    self.mime_type = MIME::Types.of(new_file.original_filename).first
     File.open(path, "w+") { |f| f.write(new_file.read) }
   end
 

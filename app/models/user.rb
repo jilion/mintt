@@ -45,7 +45,7 @@ class User
   attr_accessor :current_password, :agreement
 
   attr_accessible :password, :current_password
-  attr_accessible :state, :gender, :first_name, :last_name, :school, :lab, :email, :phone, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :thesis_registration_date, :thesis_admission_date, :supervisor_authorization, :doctoral_school_rules, :motivation, :agreement
+  attr_accessible :state, :year, :gender, :first_name, :last_name, :school, :lab, :email, :phone, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :thesis_registration_date, :thesis_admission_date, :supervisor_authorization, :doctoral_school_rules, :motivation, :agreement
 
   liquid_methods *User.fields.keys
 

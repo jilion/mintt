@@ -19,7 +19,7 @@ describe TeachingModule do
     end
 
     [:title, :year].each do |attribute|
-      it "should validates presence of #{attribute}" do
+      it "validates presence of #{attribute}" do
         should validate_presence_of(attribute).with_message(I18n.t('mongoid.errors.messages.blank', :attribute => attribute.to_s.chars.to_a[0].upcase + attribute.to_s.gsub('_', ' ').chars.to_a[1..-1].join))
       end
     end
@@ -38,11 +38,14 @@ describe TeachingModule do
       teaching_module = Factory.build(:teaching_module, :year => 2010, :title => "Test")
       teaching_module.should_not be_valid
       teaching_module.should have(1).error_on(:title)
+
+      teaching_module = Factory.build(:teaching_module, :year => 2011, :title => "Test")
+      teaching_module.should be_valid
     end
   end
 
   describe "Callbacks" do
-    it "is not possible to delete a module that is not the last" do
+    it "isn't possible to delete a module that is not the last" do
       module1 = Factory(:teaching_module, :year => 2010, :title => "Test1")
       module2 = Factory(:teaching_module, :year => 2010, :title => "Test2")
 

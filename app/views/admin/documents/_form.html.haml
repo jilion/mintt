@@ -2,7 +2,8 @@
   = f.inputs do
     = f.input :title, :required => true
     = f.input :description, :as => :text
-    = f.input :module_id, :as => :select, :collection => TeachingModule.modules_for_select(@document.published_at.try(:year))#, :selected => (@document.module_id || 0)
+    = f.label :module_id
+    #module_id_select= render 'module_id_select'
     = f.input :file, :as => :file, :required => true, :html => { :style => 'background-color:#333;' }
     - unless @document.new_record?
       = content_tag(:strong, "Current file: ")
@@ -10,9 +11,12 @@
 
     %li.select
       = f.label :published_at, "Publish on (current time is: #{l(Time.now.in_time_zone, :format => :long)}):"
-      - @document.published_at = (@document.published_at || Time.now) + (@document.published_at || Time.now).in_time_zone.utc_offset
+      - @document.published_at = (@document.published_at || Time.now.utc.change(:year => session[:admin_year].to_i)) + (@document.published_at || Time.now.utc.change(:year => session[:admin_year].to_i)).in_time_zone.utc_offset
       = f.datetime_select(:published_at, :default => Time.now.in_time_zone)
 
   = f.buttons do
     = f.commit_button "#{@document.new_record? ? "Create" : "Update"} document"
   = render '/shared/required_mention'
+
+:javascript
+  $('document_title').focus();

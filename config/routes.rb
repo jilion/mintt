@@ -7,14 +7,14 @@ Mintt::Application.routes.draw do
       get  :new,    :path => '/apply', :as => 'new'
       post :create, :path => '/apply'
     end
-    
+
     resource :user_registration, :only => [], :controller => 'devise/registrations', :path => '' do
       get :edit,    :path => '/user_account/edit', :as => 'edit'
       put :update,  :path => '/user_account'
     end
-    
+
   end
-  
+
   devise_for :teachers,
   :path_names => { :sign_in => 'login', :sign_out => 'logout' },
   :skip => [:invitations, :registrations] do
@@ -22,12 +22,12 @@ Mintt::Application.routes.draw do
       get  :new,    :path => '/admin/teachers/invitation/new', :as => 'new'
       post :create, :path => '/admin/teachers/invitation'
     end
-    
+
     resource :teacher_invitation, :only => [], :controller => 'devise/invitations', :path => "" do
       get :edit,   :path => '/invitation/accept', :as => 'accept'
       put :update, :path => '/invitation'
     end
-    
+
     resource :teacher_registration, :only => [], :controller => 'devise/registrations', :path => '' do
       get :edit,   :path => '/teacher_account/edit', :as => 'edit'
       put :update, :path => '/teacher_account'
@@ -35,12 +35,12 @@ Mintt::Application.routes.draw do
   end
   resource :teachers, :only => :update
   resources :documents, :only => :show
-  
+
   match '/schedule' => "programs#index", :as => 'program'
-  
+
   match '/contact' => 'messages#new',    :via => :get, :as => 'contact'
   match '/contact' => 'messages#create', :via => :post, :as => 'contact'
-  
+
   # =========
   # = Admin =
   # =========
@@ -48,15 +48,19 @@ Mintt::Application.routes.draw do
   namespace :admin do
     resources :users, :only => [:index, :show, :edit, :update]
     resources :teachers, :only => [:index, :show, :edit, :update, :destroy]
-    resources :documents
+    resources :documents do
+      collection do
+        post :modules
+      end
+    end
     resources :teaching_modules, :path => :modules
     resources :messages, :only => [:index, :show, :update]
     resources :mail_templates, :only => [:index, :show, :edit, :update]
   end
-  
+
   root :to => 'pages#show', :id => 'home'
-  
+
   match ':id' => 'pages#show', :id => /home|modules/, :as => 'page'
-  
+
   match "*path" => redirect('pages#show'), :id => 'home'
 end

@@ -12,7 +12,7 @@
     %td.description.module.start
       %h3
         %strong= "Module 1"
-        = "Invention and Inventors"
+        = @modules[1].try(:title)
       %ul.document_list
         = list_documents_for_module(1)
   %tr
@@ -32,7 +32,7 @@
     %td.description.module.start.end
       %h3
         %strong= "Module 2"
-        = "Identify the Potential"
+        = @modules[2].try(:title)
       %ul.document_list
         = list_documents_for_module(2)
   %tr
@@ -44,7 +44,7 @@
     %td.description.module.start
       %h3
         %strong= "Module 3"
-        = "Intellectual Property"
+        = @modules[3].try(:title)
       %ul.document_list
         = list_documents_for_module(3)
   %tr

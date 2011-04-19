@@ -11,23 +11,23 @@ describe MinttMailer do
       @email = ActionMailer::Base.deliveries.last
     end
 
-    it "should be delivered from mintt's official email address" do
+    it "is delivered from mintt's official email address" do
       @email.from.should == [SiteSettings.mintt_sender]
     end
 
-    it "should deliver to the email passed in" do
+    it "is delivered to the email passed in" do
       @email.to.should == SiteSettings.new_message_recipients
     end
 
-    it "should have the correct subject" do
+    it "has the correct subject" do
       @email.subject.should include I18n.t("new_contact_message")
     end
 
-    it "should contain the user's message in the email body" do
+    it "contains the user's message in the email body" do
       @email.body.should include @message.content
     end
 
-    it "should contain a link to the message view in the admin" do
+    it "contains a link to the message view in the admin" do
       @email.body.should include admin_message_url(@message, :host => ActionMailer::Base.default_url_options[:host])
     end
 
@@ -40,19 +40,19 @@ describe MinttMailer do
       @email = ActionMailer::Base.deliveries.last
     end
 
-    it "should be delivered from mintt's official email address" do
+    it "is delivered from mintt's official email address" do
       @email.from.should == [SiteSettings.mintt_sender]
     end
 
-    it "should deliver to the user's email passed in" do
+    it "is delivered to the user's email passed in" do
       @email.to.should == [@user.email]
     end
 
-    it "should have the correct subject" do
+    it "has the correct subject" do
       @email.subject.should include I18n.t("devise.mailer.sign_up_instructions.user_subject")
     end
 
-    it "should contain a link to user's reset_password_token in the email body" do
+    it "contains a link to user's reset_password_token in the email body" do
       @email.body.should include edit_user_password_url(:host => ActionMailer::Base.default_url_options[:host], :reset_password_token => @user.reset_password_token)
     end
 

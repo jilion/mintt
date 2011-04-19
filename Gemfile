@@ -1,7 +1,7 @@
 source :rubygems
 
 gem 'bundler', '1.0.12'
-gem 'rails',   '3.0.6'
+gem 'rails',   '3.0.7'
 
 # Internals
 gem 'state_machine', '0.10.4'
@@ -19,7 +19,6 @@ gem 'mongoid',  '2.0.1'
 # Auth / invitations
 gem 'devise',           '1.2.1'
 gem 'devise_invitable', '0.4.1'
-# gem 'devise_invitable', :git => 'git://github.com/rymai/devise_invitable.git'
 
 # Views
 gem 'haml',          '3.0.25'
@@ -42,8 +41,8 @@ group :development do
 end
 
 group :test do
-  gem 'spork', '~> 0.9.0.rc5'
   gem 'rb-fsevent'
+  gem 'spork', '~> 0.9.0.rc5'
   gem 'growl'
   gem 'guard', '0.3.0'
   gem 'guard-bundler'

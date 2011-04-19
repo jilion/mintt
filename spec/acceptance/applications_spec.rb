@@ -1,24 +1,14 @@
 require 'spec_helper'
 
 feature "Applications" do
-
   background do
     ActionMailer::Base.deliveries.clear
     visit '/'
-    # save_and_open_page
     click_link "registration_button" if SiteSettings.applications_open
   end
 
-  it "should not display link to application if applications are closed" do
-    if SiteSettings.applications_open
-      page.should have_css('#registration_button')
-    else
-      page.should_not have_css('#registration_button')
-    end
-  end
-
   if SiteSettings.applications_open
-    it "should be possible to register and deliver confirmation email" do
+    it "registers and receives a confirmation email" do
       choose "user_gender_male"
       fill_in "user_first_name",                 :with => "Joe"
       fill_in "user_last_name",                  :with => "Blow"
@@ -48,7 +38,7 @@ feature "Applications" do
       ActionMailer::Base.deliveries.size.should == 1
     end
 
-    it "should have errors with not filled fields" do
+    it "has errors when required fields not filled" do
       expect { click_button "Apply" }.to_not change(ActionMailer::Base.deliveries, :count)
 
       page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'First name'))
@@ -65,18 +55,18 @@ feature "Applications" do
       ActionMailer::Base.deliveries.size.should == 0
     end
 
-    it "should have errors with an already taken email" do
+    it "has errors when given email is already taken" do
       Factory(:user, :email => "remy@jilion.com")
-      
+
       fill_in "user_email", :with => "remy@jilion.com"
       expect { click_button "Apply" }.to_not change(ActionMailer::Base.deliveries, :count)
 
       page.should have_content(I18n.t('mongoid.errors.messages.taken', :attribute => 'Email'))
     end
 
-    it "should have errors with non-chronological thesis registration and admission dates" do
+    it "has errors with non-chronological thesis registration and admission dates" do
       Factory(:user, :email => "remy@jilion.com")
-      
+
       select "2011",  :from => "user_thesis_registration_date_1i"
       select "April", :from => "user_thesis_registration_date_2i"
       select "2",     :from => "user_thesis_registration_date_3i"
