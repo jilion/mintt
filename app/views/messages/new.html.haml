@@ -7,8 +7,8 @@
 #register
   = semantic_form_for @message, :url => contact_path, :html => { :method => :post, :class => "main" } do |f|
     = f.inputs do
-      = f.input :sender_name, :label => "Name"
-      = f.input :sender_email, :label => "Email"
+      = f.input :sender_name, :label => "Name", :input_html => { :value => user_signed_in? ? current_user.full_name : @message.sender_name }
+      = f.input :sender_email, :label => "Email", :input_html => { :value => user_signed_in? ? current_user.email : @message.sender_email }
       = f.input :content, :as => :text, :label => "Message"
       
     = f.buttons do
