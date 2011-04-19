@@ -15,8 +15,7 @@ describe ProgramsController do
 
     it "responds with success to GET :index" do
       get :index
-      response.should be_success
-      response.should render_template('programs/index')
+      response.should render_template(:index)
     end
   end
 
@@ -30,8 +29,7 @@ describe ProgramsController do
 
     it "responds with success to GET :index" do
       get :index
-      response.should be_success
-      response.should render_template('programs/index')
+      response.should render_template(:index)
     end
   end
 

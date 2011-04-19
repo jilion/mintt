@@ -1,5 +1,6 @@
 class Admin::Teachers::InvitationsController < Devise::InvitationsController
   before_filter :admin_required
+
   layout 'admin'
 
   # POST /resource/invitation

@@ -14,8 +14,7 @@ describe Users::ApplicationsController do
 
     it "responds with redirect to GET :new" do
       get :new
-      response.should be_success
-      response.should render_template('applications/new')
+      response.should render_template(:new)
     end
 
     it "responds with redirect to POST :create" do
@@ -35,8 +34,7 @@ describe Users::ApplicationsController do
       post :create, :user => {}
       flash[:notice].should be_nil
       flash[:alert].should be_nil
-      response.should be_success
-      response.should render_template('applications/new')
+      response.should render_template(:new)
     end
   end
 

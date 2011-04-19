@@ -5,8 +5,7 @@ describe MessagesController do
   it "responds with redirect to GET :new successful" do
     Teacher.stub(:new).and_return(mock_message)
     get :new
-    response.should be_success
-    response.should render_template('messages/new')
+    response.should render_template(:new)
   end
 
   it "responds with success to PUT :update successful" do
@@ -20,8 +19,7 @@ describe MessagesController do
     Message.stub(:new).and_return(mock_message)
     mock_message.stub(:save).and_return(false)
     post :create, :message => {}
-    response.should be_success
-    response.should render_template('messages/new')
+    response.should render_template(:new)
   end
 
 end

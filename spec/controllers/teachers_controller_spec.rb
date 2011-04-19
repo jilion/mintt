@@ -26,7 +26,6 @@ describe TeachersController do
       put :update, :teacher => {}
       flash[:notice].should be_nil
       flash[:alert].should be_nil
-      response.should be_success
       response.should render_template('devise/registrations/edit')
     end
   end

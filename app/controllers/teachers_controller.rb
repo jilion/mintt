@@ -1,14 +1,18 @@
 class TeachersController < ApplicationController
+  respond_to :html
+
   before_filter :authenticate_teacher!
 
   # PUT /teachers/1
   def update
     @teacher = Teacher.find(current_teacher.id)
 
-    if @teacher.update_attributes(params[:teacher])
-      redirect_to edit_teacher_registration_path, :notice => t('devise.registrations.updated')
-    else
-      render 'devise/registrations/edit'
+    respond_with(@teacher) do |format|
+      if @teacher.update_attributes(params[:teacher])
+        format.html { redirect_to edit_teacher_registration_path, :notice => t('devise.registrations.updated') }
+      else
+        format.html { render 'devise/registrations/edit' }
+      end
     end
   end
 

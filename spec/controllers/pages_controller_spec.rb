@@ -4,14 +4,12 @@ describe PagesController do
 
   it "responds with success to GET :show, :id => 'home'" do
     get :show, :id => 'home'
-    response.should be_success
-    response.should render_template('pages/home')
+    response.should render_template(:home)
   end
 
   it "responds with success to GET :show, :id => 'modules'" do
     get :show, :id => 'modules'
-    response.should be_success
-    response.should render_template('pages/modules')
+    response.should render_template(:modules)
   end
 
 end

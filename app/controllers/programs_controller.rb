@@ -1,4 +1,7 @@
 class ProgramsController < ApplicationController
+  respond_to :html
+  respond_to :js, :only => :index
+
   before_filter :authenticate_user!, :unless => proc { |controller| controller.teacher_signed_in? }
   before_filter :authenticate_teacher!, :unless => proc { |controller| controller.user_signed_in? }
   before_filter :set_year, :only => :index

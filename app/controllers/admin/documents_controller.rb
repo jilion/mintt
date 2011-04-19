@@ -1,6 +1,7 @@
 class Admin::DocumentsController < Admin::AdminController
   respond_to :html
   respond_to :js, :only => [:index, :modules]
+
   before_filter :set_year, :only => :index
 
   # GET /admin/documents
