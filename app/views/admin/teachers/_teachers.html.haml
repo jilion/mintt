@@ -9,7 +9,7 @@
     %th= "Active in"
     %th
     %th
-  = render @teachers
+  = render teachers
 
-= will_paginate(:params => { :format => nil }, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
-= page_entries_info @teachers
+-# = will_paginate(:params => { :format => nil }, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
+-# = page_entries_info teachers

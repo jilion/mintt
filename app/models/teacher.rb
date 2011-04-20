@@ -30,17 +30,21 @@ class Teacher
   # ==========
   # = Scopes =
   # ==========
-  scope :year, lambda { |years| any_in(:years => years) }
+  scope :year,     lambda { |years| any_in(:years => years) }
+  scope :not_year, lambda { |years| not_in(:years => years) }
 
   # =================
   # = Class Methods =
   # =================
 
   def self.index_order_by(params={})
-    method, options = method_and_options_for_paginate(params)
-    years  = params[:year].to_i || Time.now.utc.year
-    scopes = year(years == 2010 ? [nil, 2010] : [years])
-    scopes.order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).send(method, options)
+    scopes = if params[:not_year]
+      not_year([params[:not_year].to_i])
+    else
+      year = params[:year] || Time.now.utc.year
+      year([year.to_i])
+    end
+    scopes.order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).all
   end
 
   # ====================

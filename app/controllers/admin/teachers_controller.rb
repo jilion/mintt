@@ -7,6 +7,7 @@ class Admin::TeachersController < Admin::AdminController
   # GET /admin/teachers
   def index
     @teachers = Teacher.index_order_by(params.merge(:year => session[:admin_year]))
+    @teachers_not_active = Teacher.index_order_by(params.merge(:not_year => session[:admin_year]))
 
     respond_with(@teachers)
   end

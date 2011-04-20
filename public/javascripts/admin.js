@@ -12,7 +12,6 @@ document.observe("dom:loaded", function() {
     $('document_published_at_1i').on('change', function(event) {
       var form = event.element().up('form');
       var params = form.serialize(true);
-      console.log(params);
       params['_method'] = null;
       new Ajax.Request('/admin/documents/modules', { method: 'post', parameters: params });
     });

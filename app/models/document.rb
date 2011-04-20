@@ -14,20 +14,20 @@ class Document
   cattr_accessor :per_page
   @@per_page = 15
 
-  attr_writer :file
+  attr_accessor :file
 
-  attr_accessible :title, :description, :module_id, :file, :published_at
+  attr_accessible :file, :title, :description, :module_id, :published_at
 
   # ===============
   # = Validations =
   # ===============
   validates :title, :presence => true
-  validates :filename, :uniqueness => true
   validate :presence_of_file
 
   # =============
   # = Callbacks =
   # =============
+  before_create :save_file
   after_destroy :delete_file
 
   # ==========
@@ -48,11 +48,12 @@ class Document
   # ====================
   # = Instance Methods =
   # ====================
-  def file=(new_file)
-    ext = File.extname(new_file.original_filename).downcase
-    self.filename  = new_file.original_filename[0..new_file.original_filename.size-ext.size].parameterize + ext
-    self.mime_type = MIME::Types.of(new_file.original_filename).first
-    File.open(path, "w+") { |f| f.write(new_file.read) }
+  # before_create
+  def save_file
+    ext = File.extname(file.original_filename).downcase
+    self.filename  = file.original_filename[0..file.original_filename.size-ext.size].parameterize + "_" + Time.now.utc.to_i.to_s + ext
+    self.mime_type = MIME::Types.of(file.original_filename).first
+    File.open(path, "w+") { |f| f.write(file.read) }
   end
 
   def url
@@ -63,9 +64,9 @@ class Document
     File.extname(filename).sub('.', '') if filename?
   end
 
-  def title
-    read_attribute(:title).present? ? read_attribute(:title) : filename
-  end
+  # def title
+  #   read_attribute(:title).present? ? read_attribute(:title) : filename
+  # end
 
   def image?
     !(extension =~ /(jpe?|pn)g|gif/).nil?
@@ -103,7 +104,7 @@ protected
 
   # validate
   def presence_of_file
-    errors.add(:file, :blank) if filename.blank?
+    errors.add(:file, :blank) if file.blank? && filename.blank?
   end
 
   # after_destroy

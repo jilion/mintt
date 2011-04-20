@@ -26,4 +26,12 @@ document.observe("dom:loaded", function() {
       }
     });
   }
+
+  if ($('change_year')) {
+    $('change_year').on('change', function(event) {
+      event.stop();
+      event.element().up('form').submit();
+    });
+  }
+
 });

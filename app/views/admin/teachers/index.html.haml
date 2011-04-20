@@ -1,8 +1,12 @@
-= title_and_page_title "Teachers (#{session[:admin_year]})"
+= title_and_page_title "#{session[:admin_year]} Teachers"
 
 .text
   .actions_right
     = render '/admin/shared/change_year_form'
+    = "|"
     = link_to "Invite a teacher", new_admin_teacher_invitation_path
 
-  #teachers_table_wrap= render 'teachers'
+  #teachers_table_wrap= render 'teachers', :teachers => @teachers
+
+  %h3.teachers_not_active= "Teachers not active in #{session[:admin_year]}"
+  #teachers_not_active_table_wrap= render 'teachers', :teachers => @teachers_not_active

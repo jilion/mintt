@@ -147,6 +147,12 @@ h2.headline {
   font-size:13px;
 }
 
+#sidebar form {
+  float:left;
+  margin-left:5px;
+  margin-right:5px;
+}
+
 #sidebar h3 {
   font-size:28px;
   font-weight:200;

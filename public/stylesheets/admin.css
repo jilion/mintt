@@ -125,13 +125,7 @@ ul#menu li.home {
   text-indent:-9999px;
 }
 
-#content .export {
-  position:absolute;
-  top:0;
-  right:0;
-}
-
-#content .export a {
+#content a.export {
   padding:0 0 0 28px;
   background:url(/images/admin/export_icon.png) no-repeat;
 }
@@ -151,9 +145,10 @@ ul#menu li.home {
   right:0;
 }
 
-#content.admin .actions_right form, #content .export form {
+#content.admin .actions_right form {
   float:left;
-  margin-right:20px;
+  margin-left:5px;
+  margin-right:5px;
 }
 
 #content.admin .actions_left input {
@@ -176,6 +171,10 @@ ul#menu li.home {
 #content.admin .actions_left input.move_to_trash {
   padding-left:40px;
   background:#111 url(/images/admin/trash.png) no-repeat 10px 50%;
+}
+
+#content.admin h3.teachers_not_active {
+  margin-top:30px;
 }
 
 #content .sheet .left_box {

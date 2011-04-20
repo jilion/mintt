@@ -1,12 +1,20 @@
 require 'spec_helper'
 
 describe Document do
+  before(:each) do
+    @f = mock('file', :original_filename => 'course_document.pdf', :read => '')
+  end
+  after(:each) do
+    Dir.entries(Rails.root.join("public/uploads/documents/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}")).each do |f|
+      File.delete("public/uploads/documents/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/#{f}") if f =~ /course_document/
+    end
+  end
 
   context "from Factory" do
-    subject { Factory.build(:document) }
+    subject { Factory.build(:document, :file => @f) }
 
-    its(:title)    { should =~ /A document \d+/ }
-    its(:filename) { should be_present          }
+    its(:title) { should =~ /A document \d+/ }
+    its(:file)  { should be_present          }
 
     it { should be_valid }
   end
@@ -18,107 +26,101 @@ describe Document do
 
     it { should validate_presence_of(:title).with_message(I18n.t('mongoid.errors.messages.blank', :attribute => 'Title')) }
 
-    it "without filename" do
-      document = Factory.build(:document, :filename => nil)
+    it "without file" do
+      document = Factory.build(:document, :file => nil)
       document.should_not be_valid
       document.errors[:file].should == [I18n.t('mongoid.errors.messages.blank', :attribute => 'File')]
-    end
-
-    it "without title" do
-      Factory.build(:document, :title => nil).should be_valid
     end
   end
 
   describe "Callbacks" do
-    before(:each) do
-      @f = File.new(Rails.root.join("spec/fixtures/coursé_document.pdf"))
-      @f.stub(:original_filename).and_return('coursé_document.pdf')
-    end
+    describe "before_create :save_file" do
+      it "sets the filename" do
+        Factory(:document, :file => @f).filename.should =~ /course_document_\d+\.pdf/
+      end
 
-    it "sets the right Mime::Type" do
-      Factory(:fake_document, :file => @f).mime_type.should == "application/pdf"
+      it "sets the right Mime::Type" do
+        Factory(:document, :file => @f).mime_type.should == "application/pdf"
+      end
+
+      it "creates file on disk" do
+        doc = Factory(:document, :file => @f)
+        File.file?(File.new("#{Rails.root}/public#{doc.url}")).should be_true
+      end
     end
   end
 
   describe "Instance Methods" do
-
-    describe "#file=" do
-      before(:each) do
-        @f = File.new(Rails.root.join("spec/fixtures/coursé_document.pdf"))
-        @f.stub(:original_filename).and_return('coursé_document.pdf')
-      end
-
-      it "sets filename from file" do
-        Factory(:fake_document, :file => @f).filename.should == "course_document.pdf"
-      end
-
-      it "sets filename from file" do
-        doc = Factory(:fake_document, :file => @f)
-        File.file?(File.new("#{Rails.root}/public#{doc.url}")).should be_true
-      end
-    end
-
     describe "#url" do
       it "returns entire url with upload folder and filename" do
-        doc = Factory(:document, :filename => "image.jpg")
-        doc.url.should == "/#{doc.upload_folder.join('/')}/image.jpg"
+        doc = Factory(:document, :file => @f)
+        doc.url.should == "/#{doc.upload_folder.join('/')}/#{doc.filename}"
       end
     end
 
     describe "#extension" do
       it "returns extension" do
-        Factory(:document, :filename => "image.test.2.jpg").extension.should == 'jpg'
-      end
-    end
-
-    describe "#title" do
-      it "returns title if present" do
-        Factory(:document, :filename => "image.test.2.jpg", :title => "Great image").title.should == "Great image"
-      end
-
-      it "returns filename if title is not present" do
-        Factory(:document, :filename => "image.test.2.jpg", :title => nil).title.should == "image.test.2.jpg"
+        Factory(:document, :file => @f).extension.should == 'pdf'
       end
     end
 
     describe "#image?" do
       it "is image with jpg image extension" do
-        Factory(:document, :filename => "image.jpg").should be_image
-        Factory(:document, :filename => "image.jpeg").should be_image
-        Factory(:document, :filename => "image.gif").should be_image
-        Factory(:document, :filename => "image.png").should be_image
+        @f.stub(:original_filename).and_return('coursé_document.jpg')
+        Factory(:document, :file => @f).should be_image
+      end
+
+      it "is image with jpeg image extension" do
+        @f.stub(:original_filename).and_return('coursé_document.jpeg')
+        Factory(:document, :file => @f).should be_image
+      end
+
+      it "is image with gif image extension" do
+        @f.stub(:original_filename).and_return('coursé_document.gif')
+        Factory(:document, :file => @f).should be_image
+      end
+
+      it "is image with png image extension" do
+        @f.stub(:original_filename).and_return('coursé_document.png')
+        Factory(:document, :file => @f).should be_image
       end
 
       it "isn't image with an image extension" do
-        Factory(:document, :filename => "document.pdf").should_not be_image
+        @f.stub(:original_filename).and_return('coursé_document.pdf')
+        Factory(:document, :file => @f).should_not be_image
       end
     end
 
     describe "#published?" do
       it "is published" do
-        Factory(:document, :published_at => 2.days.ago).should be_published
+        Factory(:document, :file => @f, :published_at => 2.days.ago).should be_published
       end
 
       it "isn't published?" do
-        Factory(:document, :published_at => 2.days.from_now).should_not be_published
+        Factory(:document, :file => @f, :published_at => 2.days.from_now).should_not be_published
       end
     end
 
     describe "#method_missing" do
-      it "dynamicaly checks extension" do
-        Factory(:document, :filename => "image.pdf").should be_pdf
-        Factory(:document, :filename => "image.pages").should be_pages
+      it "dynamicaly checks extension (pdf)" do
+        @f.stub(:original_filename).and_return('coursé_document.pdf')
+        Factory(:document, :file => @f).should be_pdf
+      end
+
+      it "dynamicaly checks extension (pages)" do
+        @f.stub(:original_filename).and_return('coursé_document.pages')
+        Factory(:document, :file => @f).should be_pages
       end
     end
 
     describe "#upload_folder" do
       it "returns an array with the year, month and day of Time.now.utc" do
-        doc = Factory.build(:document, :filename => "image.pdf")
+        doc = Factory.build(:document, :file => @f)
         doc.upload_folder.should == %W[uploads documents #{Time.now.utc.year} #{Time.now.utc.month} #{Time.now.utc.day}]
       end
 
       it "returns an array with the year, month and day of created_at" do
-        doc = Factory(:document, :filename => "image.pdf")
+        doc = Factory(:document, :file => @f)
         doc.upload_folder.should == %W[uploads documents #{doc.created_at.year} #{doc.created_at.month} #{doc.created_at.day}]
       end
     end

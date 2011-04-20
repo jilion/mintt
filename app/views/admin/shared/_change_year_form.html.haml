@@ -1,3 +1,4 @@
+%div{ :style => "float:left;" }= raw "Change year:"
+
 = form_tag '', :method => 'get' do
-  = select_tag "admin_year", options_for_select((2010..Time.now.utc.year).to_a, session[:admin_year])
-  = submit_tag "Change year"
+  = select_tag "admin_year", options_for_select((2010..Time.now.utc.year).to_a, session[:admin_year]), :id => "change_year"

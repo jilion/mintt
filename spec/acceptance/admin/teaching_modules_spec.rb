@@ -11,7 +11,7 @@ feature "/admin/modules" do
     click_link "Modules"
 
     current_url.should =~ %r(^http://[^/]+/admin/modules$)
-    page.should have_content("Modules (2011)")
+    page.should have_content("2011 Modules")
 
     page.should have_css("tr#teaching_module_#{@teaching_modules.first.id}")
     page.should have_css("tr#teaching_module_#{@teaching_modules.last.id}")

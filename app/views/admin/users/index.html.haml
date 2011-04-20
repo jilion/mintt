@@ -1,8 +1,9 @@
-= title_and_page_title "Students (#{session[:admin_year]})"
+= title_and_page_title "#{session[:admin_year]} Students"
 
 .text
-  .export
+  .actions_right
     = render '/admin/shared/change_year_form'
-    = link_to "Export all users in CSV", admin_users_path(:format => 'csv')
+    = "|"
+    = link_to "Export all users in CSV", admin_users_path(:format => 'csv'), :class => 'export'
 
   #users_table_wrap= render 'users'

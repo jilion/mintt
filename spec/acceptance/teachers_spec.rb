@@ -159,7 +159,6 @@ puts @teacher.reset_password_token
         page.should have_selector("#change_year")
 
         select "2011", :from => "year"
-        click_button "Change year"
 
         page.should have_content("2011 Course Schedule")
       end

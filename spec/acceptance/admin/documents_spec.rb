@@ -2,7 +2,8 @@ require 'spec_helper'
 
 feature "/admin/documents" do
   background do
-    @documents = 3.times.inject([]) { |memo, i| memo << Factory(:document) }
+    @f = mock('file', :original_filename => 'course_document.pdf', :read => '')
+    @documents = 3.times.inject([]) { |memo, i| memo << Factory(:document, :file => @f) }
     visit '/admin'
   end
 
@@ -21,7 +22,8 @@ end
 
 feature "/admin/documents/:id" do
   background do
-    @document = Factory(:document)
+    @f = mock('file', :original_filename => 'course_document.pdf', :read => '')
+    @document = Factory(:document, :file => @f)
     visit '/admin/documents'
   end
 
@@ -35,7 +37,8 @@ end
 
 feature "/admin/documents/:id/edit" do
   background do
-    @document = Factory(:document)
+    @f = mock('file', :original_filename => 'course_document.pdf', :read => '')
+    @document = Factory(:document, :file => @f)
     visit '/admin/documents'
   end
 

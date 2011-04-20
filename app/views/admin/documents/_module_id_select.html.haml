@@ -1,1 +1,1 @@
-= select_tag "document[module_id]", options_for_select(TeachingModule.modules_for_select(@document.published_at.try(:year) || session[:admin_year]))
+= select_tag "document[module_id]", options_for_select(TeachingModule.modules_for_select(@document.published_at.try(:year) || session[:admin_year]), @document.module_id)

@@ -28,19 +28,11 @@ Factory.define :teacher do |f|
   f.years            [Time.now.utc.year]
 end
 
-
-Factory.define :fake_document, :class => Document do |f|
-  f.sequence(:title)    { |n| "A document #{n}" }
-  f.module_id           1
-  f.published_at        Time.now.utc
+Factory.define :document do |f|
+  f.sequence(:title) { |n| "A document #{n}" }
+  f.module_id        1
+  f.published_at     Time.now.utc
 end
-
-Factory.define :document, :parent => :fake_document do |f|
-  f.sequence(:title)    { |n| "A document #{n}" }
-  f.module_id           1
-  f.sequence(:filename) { |n| "course_document#{n}.pdf" }
-end
-
 
 Factory.define :teaching_module do |f|
   f.sequence(:title) { |n| "Evaluate the Potential #{n}" }
