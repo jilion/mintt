@@ -36,7 +36,7 @@ class Message
   # =================
   def self.index_order_by(params={})
     method, options = method_and_options_for_paginate(params)
-    trashed(params[:trashed]).order_by([params[:order_by] || :confirmed_at, params[:sort_way] || :desc]).send(method, options)
+    trashed(params[:trashed]).order_by([params[:order_by] || :created_at, params[:sort_way] || :desc]).send(method, options)
   end
 
   # ====================
