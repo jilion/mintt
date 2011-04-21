@@ -1,19 +1,26 @@
 namespace :one_time do
 
   desc "Empty all the tables"
-  task :import_2010_modules => :environment do
-    [
-      "General Information", "About inventions and inventors", "Evaluate the Potential", "Intellectual Property",
-      "Licensing", "Start-up", "From innovation to sales. A long way?", "Case Studies"
-    ].each do |module_title|
-      TeachingModule.create!({
-        :title => module_title,
-        :year => 2010
-      })
-      puts "All modules created for the 2010 program!"
-      puts "If all goes well, current documents should be linked automatically to their respective modules"
-      puts "since 'General Information' will keep the module_id 0 and its year (2010) is the same as the published_at year of the documents."
+  task :create_modules => :environment do
+    [2010, 2011].each do |year|
+      [
+        "General Information", "About inventions and inventors", "Evaluate the Potential", "Intellectual Property",
+        "Licensing", "Start-up", "From innovation to sales. A long way?", "Case Studies"
+      ].each do |module_title|
+        TeachingModule.create!({
+          :title => module_title,
+          :year => year
+        })
+        puts "All modules created for the #{year} program!"
+        puts "If all goes well, current documents should be linked automatically to their respective modules"
+        puts "since 'General Information' will keep the module_id 0 and its year (#{year}) is the same as the published_at year of the documents.\n"
+      end
     end
+  end
+
+  desc "Set all teachers' years to 2010 & 2011"
+  task :set_teachers_years => :environment do
+    Teacher.update_all(:years => [2010, 2011])
   end
 
 end
