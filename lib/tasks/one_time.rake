@@ -23,4 +23,11 @@ namespace :one_time do
     Teacher.update_all(:years => [2010, 2011])
   end
 
+  desc "Set documents' MIME Types"
+  task :set_documents_mime_types => :environment do
+    Document.each do |document|
+      document.update_attribute(:mime_type, MIME::Types.of(document.filename).first)
+    end
+  end
+
 end
