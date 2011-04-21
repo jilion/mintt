@@ -64,10 +64,6 @@ class Document
     File.extname(filename).sub('.', '') if filename?
   end
 
-  # def title
-  #   read_attribute(:title).present? ? read_attribute(:title) : filename
-  # end
-
   def image?
     !(extension =~ /(jpe?|pn)g|gif/).nil?
   end
