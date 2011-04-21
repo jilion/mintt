@@ -34,7 +34,7 @@ class Document
   # = Scopes =
   # ==========
   scope :year,      lambda { |year| where(:published_at.gte => Time.utc(year.to_i).beginning_of_year, :published_at.lte => Time.utc(year.to_i).end_of_year) }
-  scope :published, where(:published_at.lt => Time.now.utc)
+  scope :published, where(:published_at.lte => Time.now.utc)
 
   # =================
   # = Class Methods =
