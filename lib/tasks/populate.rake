@@ -1,4 +1,4 @@
-require 'ffaker'
+require 'ffaker' if Rails.env.development?
 
 MALE_FEMALE = %w[male female]
 YES_NO = %w[yes no]
