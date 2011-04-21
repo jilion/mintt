@@ -25,7 +25,7 @@ namespace :one_time do
 
   desc "Set documents' MIME Types"
   task :set_documents_mime_types => :environment do
-    Document.each do |document|
+    Document.all.each do |document|
       document.update_attribute(:mime_type, MIME::Types.of(document.filename).first)
     end
   end
