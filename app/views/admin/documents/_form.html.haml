@@ -7,7 +7,7 @@
     = f.input :file, :as => :file, :required => true, :html => { :style => 'background-color:#333;' }
     - unless @document.new_record?
       = content_tag(:strong, "Current file: ")
-      = pretty_file(@document, :type => false)
+      = link_to(@document.filename, document_path(@document))
 
     %li.select
       = f.label :published_at, "Publish on (current time is: #{l(Time.now.in_time_zone, :format => :long)}):"

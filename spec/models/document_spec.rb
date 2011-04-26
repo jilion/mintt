@@ -5,9 +5,7 @@ describe Document do
     @f = mock('file', :original_filename => 'course_document.pdf', :read => '')
   end
   after(:each) do
-    Dir.entries(Rails.root.join("public/uploads/documents/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}")).each do |f|
-      File.delete("public/uploads/documents/#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/#{f}") if f =~ /course_document/
-    end
+    MiscHelpers.delete_all_files_in_public("uploads/documents", :quiet => true, :timed => false, :match => /course_document/)
   end
 
   context "from Factory" do

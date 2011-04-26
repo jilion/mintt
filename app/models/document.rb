@@ -27,7 +27,7 @@ class Document
   # =============
   # = Callbacks =
   # =============
-  before_create :save_file
+  before_save :save_file, :unless => proc { |doc| doc.file.blank? }
   after_destroy :delete_file
 
   # ==========
@@ -48,8 +48,10 @@ class Document
   # ====================
   # = Instance Methods =
   # ====================
-  # before_create
+  # before_save
   def save_file
+    File.delete(path) if filename? && File.file?(path)
+
     ext = File.extname(file.original_filename).downcase
     self.filename  = file.original_filename[0..file.original_filename.size-ext.size].parameterize + "_" + Time.now.utc.to_i.to_s + ext
     self.mime_type = MIME::Types.of(file.original_filename).first
