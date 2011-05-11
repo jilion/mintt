@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'spork'
+
 ENV["RAILS_ENV"] ||= 'test'
 
 Spork.prefork do
@@ -59,7 +60,6 @@ Spork.each_run do
 
   RSpec.configure do |config|
     config.include Shoulda::ActionController::Matchers
-    config.include Capybara, :type => :request
     config.include Devise::TestHelpers, :type => :controller
   end
 end
