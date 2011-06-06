@@ -9,7 +9,9 @@ describe DocumentsController do
 
   context "as an admin" do
     before(:each) do
-      controller.should_receive(:admin?).twice { true }
+      controller.should_receive(:teacher_signed_in?).twice { false }
+      controller.should_receive(:user_signed_in?).twice    { false }
+      controller.should_receive(:admin?).twice             { true }
     end
 
     it "responds with success to GET :show" do
@@ -22,7 +24,8 @@ describe DocumentsController do
 
   context "as a student" do
     before(:each) do
-      controller.should_receive(:admin?).twice { false }
+      controller.should_receive(:teacher_signed_in?).twice { false }
+      controller.should_receive(:user_signed_in?).twice    { true }
     end
     
     context "selected in the year the document was published" do
@@ -42,25 +45,24 @@ describe DocumentsController do
 
     context "not selected in the year the document was published" do
       before(:each) do
+        controller.should_receive(:admin?) { false }
         @user = Factory(:user, :year => 2011)
         @user.confirm!
         sign_in @user
       end
 
-      it "responds with success to GET :show" do
+      it "responds with redirect to GET :show" do
         Document.should_receive(:find).with(1) { @doc }
 
         get :show, :id => 1
-        puts @user.year
-        puts @doc.published_at.year
-        response.status.should == 403
+        response.should redirect_to(root_url)
       end
     end
   end
 
   context "as a teacher" do
     before(:each) do
-      controller.should_receive(:admin?).twice { false }
+      controller.should_receive(:teacher_signed_in?).twice { true }
     end
     
     context "active in the year the document was published" do
@@ -71,7 +73,7 @@ describe DocumentsController do
         sign_in @teacher
       end
 
-      it "responds with success to GET :show" do
+      it "responds with success" do
         Document.should_receive(:find).with(1) { @doc }
 
         get :show, :id => 1
@@ -81,29 +83,33 @@ describe DocumentsController do
 
     context "not active in the year the document was published" do
       before :each do
+        controller.should_receive(:user_signed_in?) { false }
+        controller.should_receive(:admin?)          { false }
         @teacher = Teacher.invite!(:email => "test@test.com")
         Teacher.accept_invitation!(:invitation_token => @teacher.invitation_token, :password => '123456', :years => [2011])
         @teacher.reload
         sign_in @teacher
       end
 
-      it "responds with success to GET :show" do
+      it "responds with redirect" do
         Document.should_receive(:find).with(1) { @doc }
 
         get :show, :id => 1
-        response.status.should == 403
+        response.should redirect_to(root_url)
       end
     end
   end
 
   context "as a guest" do
     before(:each) do
-      controller.should_receive(:admin?) { false }
+      controller.should_receive(:teacher_signed_in?) { false }
+      controller.should_receive(:user_signed_in?)    { false }
+      controller.should_receive(:admin?)             { false }
     end
 
     it "responds with redirect to GET :show" do
       get :show, :id => 1
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(root_url)
     end
   end
 end
