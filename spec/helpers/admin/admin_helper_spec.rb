@@ -79,10 +79,10 @@ describe Admin::AdminHelper do
     describe "with a collection responding to total_entries" do
       it "returns a beautiful range between the index(+1) of the first element of the current page and the minimum between the index of the last element of the current page and the total entries" do
         35.times { Factory.create(:user) }
-        collection = User.paginate(:page => 2, :per_page => 10)
+        collection = User.scoped.paginate(:page => 2, :per_page => 10)
         helper.smart_objects_displayed_range(collection).should == "11-20"
 
-        collection = User.paginate(:page => 4, :per_page => 10)
+        collection = User.scoped.paginate(:page => 4, :per_page => 10)
         helper.smart_objects_displayed_range(collection).should == "31-35"
       end
     end
@@ -105,7 +105,7 @@ describe Admin::AdminHelper do
     describe "with a collection responding to total_entries" do
       it "returns collection.total_entries" do
         35.times { Factory.create(:user) }
-        collection = User.paginate(:page => 2)
+        collection = User.scoped.paginate(:page => 2)
         helper.smart_objects_count(collection).should == 35
       end
     end
