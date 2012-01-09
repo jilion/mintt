@@ -11,8 +11,8 @@ feature "/admin/teachers" do
     click_link "Teachers"
 
     current_url.should =~ %r(^http://[^/]+/admin/teachers$)
-    page.should have_content("2011 Teachers")
-    page.should have_content("Teachers not active in 2011")
+    page.should have_content("#{Time.now.utc.year} Teachers")
+    page.should have_content("Teachers not active in #{Time.now.utc.year}")
 
     page.should have_css("tr#teacher_#{@teachers.first.id}")
     page.should have_css("tr#teacher_#{@teachers.last.id}")

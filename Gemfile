@@ -1,7 +1,6 @@
 source :rubygems
 
-gem 'bundler', '1.0.14'
-gem 'rails',   '3.0.7'
+gem 'rails', '3.0.11'
 
 # Internals
 gem 'state_machine', '1.0.1'
@@ -38,20 +37,24 @@ end
 group :development do
   gem 'capistrano'
   gem 'ffaker'
-end
 
-group :test do
-  gem 'rb-fsevent'
-  gem 'spork', '0.9.0.rc8'
-  gem 'growl'
+  gem 'ruby_gntp'
+  platforms :ruby do
+    gem 'rb-readline'
+  end
+
   gem 'guard-bundler'
   gem 'guard-pow'
   gem 'guard-spork'
   gem 'guard-rspec'
   gem 'guard-livereload'
+end
+
+group :test do
+  gem 'spork', '0.9.0.rc9'
 
   gem 'shoulda'
-  gem 'capybara', '1.0.0.beta1'
+  gem 'capybara'
 
   gem 'database_cleaner'
   gem 'factory_girl_rails', :require => false # loaded in spec_helper Spork.each_run

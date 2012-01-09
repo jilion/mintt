@@ -16,13 +16,23 @@ class ProgramsController < ApplicationController
 
     def set_year
       if user_signed_in?
-        session[:year] = current_user.year
+        session[:year] = valid_year(current_user.year)
       else # teacher signed in
         if params[:year] && current_teacher.years.include?(params[:year].to_i)
-          session[:year] = params[:year]
+          session[:year] = valid_year(params[:year].to_i)
         else
-          session[:year] ||= current_teacher.years.try(:max) || 2010
+          session[:year] ||= valid_year(current_teacher.years.try(:max))
         end
+      end
+    end
+
+    def valid_year(year)
+      if SiteSettings.course_dates.respond_to?("_#{year}")
+        year
+      elsif year > 2010
+        valid_year(year - 1)
+      else
+        2010
       end
     end
 

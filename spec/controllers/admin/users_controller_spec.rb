@@ -10,7 +10,7 @@ describe Admin::UsersController do
   end
 
   it "responds with success to GET :index with the :csv format" do
-    User.should_receive(:index_order_by).with(:all => true, :year => "2011").and_return([mock_user])
+    User.should_receive(:index_order_by).with(:all => true, :year => Time.now.utc.year.to_s).and_return([mock_user])
     User.should_receive(:to_csv).and_return("")
 
     get :index, :format => :csv

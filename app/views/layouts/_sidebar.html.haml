@@ -10,9 +10,10 @@
     %p
       = "We thank you for your interest."
       %br
-      = "#{Time.now.utc.year} Registrations are now closed."
+      - current_year = SiteSettings.course_dates.respond_to?("_#{Time.now.utc.year}") ? Time.now.utc.year : Time.now.utc.year - 1
+      = "#{current_year} Registrations are now closed."
       %br
-      = "Next session will be announced in early #{Time.now.utc.year + 1}."
+      = "Next session will be announced in early #{current_year + 1}."
 
   %h4= "Organizing Entities"
   %ul.entities
