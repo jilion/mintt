@@ -29,7 +29,7 @@ role :db, domain, :primary => true
 # = Static Folders =
 # ==================
 
-before "deploy:symlink", "folders:symlink"
+before "deploy:create_symlink", "folders:symlink"
 
 namespace :folders do
   task :symlink do

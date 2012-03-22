@@ -47,6 +47,8 @@ Mintt::Application.configure do
     :enable_starttls_auto => true
   }
 
+  config.serve_static_assets = true
+
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
