@@ -1,6 +1,6 @@
 //= require prototype
-//= require controls
 //= require effects
+//= require controls
 //= require rails
 
 document.observe("dom:loaded", function() {
