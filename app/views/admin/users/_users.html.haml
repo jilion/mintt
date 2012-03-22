@@ -17,5 +17,5 @@
   .right_links= link_to "View with paginate", admin_users_path, :remote => true
 - elsif @users.total_entries > User.per_page
   .right_links= link_to "View all", admin_users_path(:all => true), :remote => true
-  = will_paginate(:params => { :format => nil }, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
+  = will_paginate(:params => { :format => nil })#)#, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
   = page_entries_info @users

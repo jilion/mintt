@@ -16,5 +16,5 @@
   .right_links= link_to "View with paginate", send(current_url), :remote => true
 - elsif @messages.total_entries > Message.per_page
   .right_links= link_to "View all", send(current_url, :all => true, :trashed => params[:trashed]), :remote => true
-  = will_paginate(:params => { :format => nil }, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
+  = will_paginate(:params => { :format => nil })#, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
   = page_entries_info @messages
