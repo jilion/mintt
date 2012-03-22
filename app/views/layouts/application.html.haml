@@ -5,7 +5,7 @@
 
     %title= "mintt#{yield(:title)}"
 
-    = stylesheet_link_tag 'style'
+    = stylesheet_link_tag 'application'
 
     = javascript_include_tag "http#{ request.ssl? ? 's':'' }://use.typekit.com/qwi4bur.js"
     = javascript_tag "try{Typekit.load();}catch(e){};"
