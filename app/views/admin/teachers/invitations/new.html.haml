@@ -1,12 +1,15 @@
 = title_and_page_title "New teacher invitation"
 
 .text
-= semantic_form_for resource, :as => resource_name, :url => admin_teacher_invitation_path, :html => { :method => "post", :class => "main" } do |f|
-  = f.inputs do
-    = f.input :email, :required => true
-  = f.buttons do
-    = f.commit_button "Send invitation"
-  = render '/shared/required_mention'
+  = semantic_form_for resource, :as => resource_name, :url => admin_teacher_invitation_path, :html => { :method => "post", :class => "main" } do |f|
+    = f.inputs do
+      = f.input :name
+      = f.input :email, :required => true
+      = f.input :years, :as => :check_boxes, :collection => @teacher.years_for_select
+
+    = f.actions do
+      = f.action(:submit, :label => "Send invitation")
+    = render '/shared/required_mention'
 
 :javascript
   $('teacher_email').focus();

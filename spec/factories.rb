@@ -1,68 +1,67 @@
-Factory.define :user do |f|
-  f.gender                   'male'
-  f.first_name               'John'
-  f.last_name                'Doe'
-  f.school                   "Computer Science"
-  f.lab                      "Apple Lab"
-  f.sequence(:email)         { |n| "email#{n}@epfl.com" }
-  f.phone                    "+41 21 0000000"
-  f.url                      "http://jilion.com"
-  f.linkedin_url             "http://fr.linkedin.com/in/remycoutable"
-  f.thesis_supervisor        "Remy Coutable"
-  f.thesis_subject           "Advanced Compilation for Mac"
-  f.thesis_registration_date 1.hour.from_now
-  f.thesis_admission_date    1.month.from_now
-  f.supervisor_authorization "yes"
-  f.doctoral_school_rules    "yes"
-  f.thesis_invention         "The iPad"
-  f.motivation               "Huge!"
-  f.agreement                "1"
-  f.state                    "candidate"
-end
+FactoryGirl.define do
+  factory :user do
+    gender                   'male'
+    first_name               'John'
+    last_name                'Doe'
+    school_and_lab           'EPFL IC ISC LCAV'
+    sequence(:email)         { |n| "email#{n}@epfl.com" }
+    phone                    "+41 21 0000000"
+    url                      "http://jilion.com"
+    linkedin_url             "http://fr.linkedin.com/in/remycoutable"
+    thesis_supervisor        "Remy Coutable"
+    thesis_subject           "Advanced Compilation for Mac"
+    thesis_registration_date 1.hour.from_now
+    thesis_admission_date    1.month.from_now
+    supervisor_authorization "yes"
+    doctoral_school_rules    "yes"
+    thesis_invention         "The iPad"
+    motivation               "Huge!"
+    agreement                "1"
+    state                    "candidate"
+  end
 
+  factory :teacher do
+    name             'John Doe'
+    sequence(:email) { |n| "email#{n}@epfl.com" }
+    password         '123456'
+    years            [Time.now.utc.year]
+  end
 
-Factory.define :teacher do |f|
-  f.name             'John Doe'
-  f.sequence(:email) { |n| "email#{n}@epfl.com" }
-  f.password         '123456'
-  f.years            [Time.now.utc.year]
-end
+  factory :document do
+    sequence(:title) { |n| "A document #{n}" }
+    module_id        1
+    published_at     Time.now.utc
+  end
 
-Factory.define :document do |f|
-  f.sequence(:title) { |n| "A document #{n}" }
-  f.module_id        1
-  f.published_at     Time.now.utc
-end
+  factory :teaching_module do
+    sequence(:title) { |n| "Evaluate the Potential #{n}" }
+    year                 2010
+  end
 
-Factory.define :teaching_module do |f|
-  f.sequence(:title) { |n| "Evaluate the Potential #{n}" }
-  f.year                 2010
-end
+  factory :message do
+    sender_name             "John Doe"
+    sequence(:sender_email) { |n| "email#{n}@epfl.com" }
+    content                 "Advanced Compilation for Mac"
+  end
 
+  factory :mail_template do
+    sequence(:title)   { |n| "test template #{n}" }
+    content            "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor."
+  end
 
-Factory.define :message do |f|
-  f.sender_name             "John Doe"
-  f.sequence(:sender_email) { |n| "email#{n}@epfl.com" }
-  f.content                 "Advanced Compilation for Mac"
-end
+  factory :user_application_confirmation, :class => MailTemplate do
+    title   'user_application_confirmation'
+    content '{{user.first_name}} {{user.last_name}} {{user.confirmation_link}}'
+  end
 
+  factory :user_invitation, :class => MailTemplate do
+    title   'user_invitation'
+    content '{{user.first_name}} {{user.last_name}} {{user.invitation_link}}'
+  end
 
-Factory.define :mail_template do |f|
-  f.sequence(:title)   { |n| "test template #{n}" }
-  f.content            "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor."
-end
+  factory :teacher_invitation, :class => MailTemplate do
+    title   'teacher_invitation'
+    content '{{teacher.email}} {{teacher.invitation_link}}'
+  end
 
-Factory.define :user_application_confirmation, :class => MailTemplate do |f|
-  f.title   'user_application_confirmation'
-  f.content '{{user.first_name}} {{user.last_name}} {{user.confirmation_link}}'
-end
-
-Factory.define :user_invitation, :class => MailTemplate do |f|
-  f.title   'user_invitation'
-  f.content '{{user.first_name}} {{user.last_name}} {{user.invitation_link}}'
-end
-
-Factory.define :teacher_invitation, :class => MailTemplate do |f|
-  f.title   'teacher_invitation'
-  f.content '{{teacher.email}} {{teacher.invitation_link}}'
 end

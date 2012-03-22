@@ -1,19 +1,19 @@
-= title "#{Time.now.utc.year} Application"
+- current_year = SiteSettings.course_dates.respond_to?("_#{Time.now.utc.year}") ? Time.now.utc.year : Time.now.utc.year - 1
+= title "#{current_year -1 } - #{current_year} Application"
 
 .text
-  %h3= "Application form for mintt #{Time.now.utc.year}"
+  %h3= "Application form for mintt #{current_year -1 } - #{current_year}"
   %p
-    %strong= "June 7 & 8 and October 5, 2011"
+    %strong= "June 5 & 6 and October 2, 2012"
   %p= "Please fill out the following form precisely and clearly."
 
 #register
-  = semantic_form_for resource, :as => resource_name, :url => user_application_path, :html => { :class => "main" } do |f|
+  = semantic_form_for [resource_name, resource], :url => registration_path(resource_name), :html => { :class => "main" } do |f|
     = f.inputs do
       = f.input :gender, :as => :radio, :collection => [["Mrs.", "female"], ["Mr.", "male"]], :required => true
       = f.input :first_name, :required => true
       = f.input :last_name, :required => true
-      = f.input :school, :required => true, :label => "School (\"Facult&eacute;\")"
-      = f.input :lab, :required => true
+      = f.input :school_and_lab, :required => true, :label => "School and lab.<br /><small><em>Please type the full code as found in your record in EPFL directory. For instance: EPFL IC ISC LCAV.</em></small>".html_safe
       = f.input :email, :required => true
       = f.input :phone, :required => true
       = f.input :url, :label => "EPFL url or personal page"
@@ -27,9 +27,9 @@
       = f.input :thesis_invention, :as => :text, :label => "Have you made an invention in the course of your thesis? If yes, could you briefly describe it?:"
       = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?", :required => true
       %li
-        %p= "I hereby confirm that I will be available for mintt on June 7 & 8 and October 5, 2011, the whole day. I also confirm I have well taken note I will dedicate at least 30 hours during summer 2011 to work on an EPFL invention case study."
+        %p= "I hereby confirm that I will attend mintt on June 5 & 6 and October 2, 2012, the whole day. I also confirm I have well taken note I will dedicate at least 30 hours during summer 2012 to work on an EPFL invention case study. Failing to comply with the above might result in getting no course credits."
       = f.input :agreement, :as => :boolean, :label => "I agree", :required => true
 
-    = f.buttons do
-      = f.commit_button "Apply"
+    = f.actions do
+      = f.action(:submit, :label => "Apply")
     = render '/shared/required_mention'

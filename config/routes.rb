@@ -2,13 +2,19 @@ Mintt::Application.routes.draw do
   devise_for :users,
   :controllers => { :confirmations => 'users/confirmations' },
   :path_names => { :confirmation => 'confirm', :sign_in => 'login', :sign_out => 'logout' },
-  :skip => [:registrations] do
-    resource :user_application, :only => [], :controller => 'users/applications', :path => '' do
+  :skip => [:registrations]
+  devise_scope :user do
+    # resource :user_application, :only => [], :controller => 'users/applications', :path => '' do
+    #   get  :new,    :path => '/apply', :as => 'new'
+    #   post :create, :path => '/apply'
+    # end
+
+    resource :user_registration, :only => [], :controller => 'users/registrations', :path => '' do
       get  :new,    :path => '/apply', :as => 'new'
       post :create, :path => '/apply'
     end
 
-    resource :user_registration, :only => [], :controller => 'devise/registrations', :path => '' do
+    resource :user, :only => [], :controller => 'users/registrations', :path => '' do
       get :edit,    :path => '/user_account/edit', :as => 'edit'
       put :update,  :path => '/user_account'
     end
@@ -17,7 +23,8 @@ Mintt::Application.routes.draw do
 
   devise_for :teachers,
   :path_names => { :sign_in => 'login', :sign_out => 'logout' },
-  :skip => [:invitations, :registrations] do
+  :skip => [:invitations, :registrations]
+  devise_scope :teacher do
     resource :admin_teacher_invitation, :only => [], :controller => 'admin/teachers/invitations', :path => "" do
       get  :new,    :path => '/admin/teachers/invitation/new', :as => 'new'
       post :create, :path => '/admin/teachers/invitation'
@@ -28,7 +35,7 @@ Mintt::Application.routes.draw do
       put :update, :path => '/invitation'
     end
 
-    resource :teacher_registration, :only => [], :controller => 'devise/registrations', :path => '' do
+    resource :teacher, :only => [], :controller => 'teachers/registrations', :path => '' do
       get :edit,   :path => '/teacher_account/edit', :as => 'edit'
       put :update, :path => '/teacher_account'
     end
@@ -54,13 +61,18 @@ Mintt::Application.routes.draw do
       end
     end
     resources :teaching_modules, :path => :modules
-    resources :messages, :only => [:index, :show, :update]
+    resources :messages, :only => [:show, :update] do
+      collection do
+        get 'inbox' => 'messages#index', :as => 'inbox'
+        get 'trash' => 'messages#index', :trashed => true, :as => 'trash'
+      end
+    end
     resources :mail_templates, :only => [:index, :show, :edit, :update]
   end
 
   root :to => 'pages#show', :id => 'home'
 
-  match ':id' => 'pages#show', :id => /home|modules/, :as => 'page'
+  get ':id' => 'pages#show', :id => /home|modules/, :as => 'page'
 
-  match "*path" => redirect('pages#show'), :id => 'home'
+  # match "*path" => redirect('pages#show'), :id => 'home'
 end

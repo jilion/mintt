@@ -18,8 +18,8 @@ class Message
   # ===============
   # = Validations =
   # ===============
-  validates :sender_name, :sender_email, :content, :presence => true
-  validates :sender_email, :format => { :with => Devise.email_regexp }
+  validates_presence_of :sender_name, :sender_email, :content
+  validates_format_of :sender_email, :with => Devise.email_regexp
 
   # =============
   # = Callbacks =

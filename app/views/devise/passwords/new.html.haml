@@ -6,5 +6,5 @@
   = f.inputs do
     = f.input :email, :required => false
 
-  = f.buttons do
-    = f.commit_button "Send"
+  = f.actions do
+    = f.action(:submit, :label => "Send")

@@ -67,7 +67,7 @@ describe ApplicationHelper do
 
     describe "with a valid date" do
       it "returns a well formatted date" do
-        date = 3.days.ago
+        date = 3.days.ago.utc
         helper.sexy_time(date).should == l(date, :format => :time)
       end
     end

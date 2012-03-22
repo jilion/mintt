@@ -1,5 +1,6 @@
 class Admin::MessagesController < Admin::AdminController
   respond_to :html
+  respond_to :js, :only => [:index]
 
   # GET /admin/messages
   def index
@@ -21,7 +22,8 @@ end
     @message = Message.find(params[:id])
     @message.update_attributes(params[:message])
 
-    respond_with(@message, :location => admin_messages_path(:trashed => @message.trashed?), :notice => "Message successfully updated.")
+    url = @message.trashed? ? trash_admin_messages_path : inbox_admin_messages_path
+    respond_with(@message, :location => url, :notice => "Message successfully updated.")
   end
 
 end

@@ -15,7 +15,7 @@ describe DocumentsController do
     end
 
     it "responds with success to GET :show" do
-      Document.should_receive(:find).with(1) { @doc }
+      Document.should_receive(:find).with('1') { @doc }
 
       get :show, :id => 1
       response.should be_success
@@ -32,11 +32,12 @@ describe DocumentsController do
       before(:each) do
         @user = Factory(:user, :year => 2010)
         @user.confirm!
+        @user.update_attribute(:state, 'selected')
         sign_in @user
       end
 
       it "responds with success to GET :show" do
-        Document.should_receive(:find).with(1) { @doc }
+        Document.should_receive(:find).with('1') { @doc }
 
         get :show, :id => 1
         response.should be_success
@@ -48,11 +49,12 @@ describe DocumentsController do
         controller.should_receive(:admin?) { false }
         @user = Factory(:user, :year => 2011)
         @user.confirm!
+        @user.update_attribute(:state, 'selected')
         sign_in @user
       end
 
       it "responds with redirect to GET :show" do
-        Document.should_receive(:find).with(1) { @doc }
+        Document.should_receive(:find).with('1') { @doc }
 
         get :show, :id => 1
         response.should redirect_to(root_url)
@@ -74,7 +76,7 @@ describe DocumentsController do
       end
 
       it "responds with success" do
-        Document.should_receive(:find).with(1) { @doc }
+        Document.should_receive(:find).with('1') { @doc }
 
         get :show, :id => 1
         response.should be_success
@@ -92,7 +94,7 @@ describe DocumentsController do
       end
 
       it "responds with redirect" do
-        Document.should_receive(:find).with(1) { @doc }
+        Document.should_receive(:find).with('1') { @doc }
 
         get :show, :id => 1
         response.should redirect_to(root_url)

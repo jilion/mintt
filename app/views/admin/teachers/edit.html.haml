@@ -6,8 +6,8 @@
     = f.input :email, :required => true
     = f.input :years, :as => :check_boxes, :collection => @teacher.years_for_select
 
-  = f.buttons do
-    = f.commit_button "Update teacher"
+  = f.actions do
+    = f.action(:submit, :label => "Update teacher")
   = render '/shared/required_mention'
 
 :javascript

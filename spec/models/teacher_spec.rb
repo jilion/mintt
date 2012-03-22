@@ -7,7 +7,7 @@ describe Teacher do
     end
     subject { @teacher }
 
-    its(:name)  { should == "John Doe" }
+    its(:name)  { should eq "John Doe" }
     its(:email) { should match /email[0-9]+@epfl.com/ }
 
     it { should be_valid }

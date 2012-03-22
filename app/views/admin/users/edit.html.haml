@@ -21,14 +21,13 @@
           = content_tag(:label, :for => 'user_credits_granted') do
             = raw "Credits granted: #{f.select(:credits_granted, [["Not yet", nil], ["0 credits", 0], ["3 credits", 3]])}"
         %li
-          = f.buttons do
+          = f.actions do
             = submit_tag "Update student", :confirm => "Are you sure to update #{@user.full_name} informations?"
             
     = f.input :gender, :as => :radio, :collection => male_female_for_select, :required => true
     = f.input :first_name, :required => true
     = f.input :last_name, :required => true
-    = f.input :school, :required => true
-    = f.input :lab, :required => true
+    = f.input :school_and_lab, :required => true
     = f.input :email, :required => true
     = f.input :phone, :required => true
     = f.input :url, :label => "EPFL url or personal page"
@@ -42,6 +41,6 @@
     = f.input :thesis_invention, :as => :text, :label => "Have you made an invention in the course of your thesis? If yes, could you briefly describe it?:"
     = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?", :required => true
     
-  = f.buttons do
+  = f.actions do
     = submit_tag "Update student", :confirm => "Are you sure to update #{@user.full_name} informations?"
   = render '/shared/required_mention'

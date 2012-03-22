@@ -17,7 +17,7 @@ describe Admin::Teachers::InvitationsController do
       Teacher.should_receive(:invite!).and_return(mock_teacher(:email => "remy@jilion.com", :errors => []))
 
       post :create, :teacher => {}
-      flash[:notice].should == I18n.t("devise.invitations.send_instructions", :email => "remy@jilion.com")
+      flash[:notice].should eq I18n.t("devise.invitations.send_instructions", :email => "remy@jilion.com")
       flash[:alert].should be_nil
       response.should redirect_to(admin_teachers_path)
     end

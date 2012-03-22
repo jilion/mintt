@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Admin::DocumentsController do
 
-  it { should route(:get,    "/admin/documents").to(:action => :index) }
-  it { should route(:get,    "/admin/documents/1").to(:action => :show,      :id => '1') }
-  it { should route(:get,    "/admin/documents/new").to(:action => :new) }
-  it { should route(:post,   "/admin/documents").to(:action => :create) }
-  it { should route(:get,    "/admin/documents/1/edit").to(:action => :edit, :id => '1') }
-  it { should route(:post,   "/admin/documents/modules").to(:action => :modules) }
-  it { should route(:put,    "/admin/documents/1").to(:action => :update,    :id => '1') }
-  it { should route(:delete, "/admin/documents/1").to(:action => :destroy,   :id => '1') }
+  it { get("/admin/documents").should route_to('admin/documents#index') }
+  it { get("/admin/documents/1").should route_to('admin/documents#show', :id => '1') }
+  it { get("/admin/documents/new").should route_to('admin/documents#new') }
+  it { post("/admin/documents").should route_to('admin/documents#create') }
+  it { get("/admin/documents/1/edit").should route_to('admin/documents#edit', :id => '1') }
+  it { post("/admin/documents/modules").should route_to('admin/documents#modules') }
+  it { put("/admin/documents/1").should route_to('admin/documents#update', :id => '1') }
+  it { delete("/admin/documents/1").should route_to('admin/documents#destroy', :id => '1') }
 
 end

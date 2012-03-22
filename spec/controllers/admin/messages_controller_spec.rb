@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Admin::MessagesController do
+  let(:message) { create(:message) }
 
   it "responds with success to GET :index" do
     Message.stub(:index_order_by).and_return([])
@@ -9,26 +10,22 @@ describe Admin::MessagesController do
   end
 
   it "responds with success to GET :show" do
-    Message.stub(:find).and_return(mock_message)
-    mock_message.stub(:unread?).and_return(false)
-    get :show, :id => 1
+    get :show, :id => message.id
     response.should render_template(:show)
   end
 
-  it "responds with success to PUT :update and redirect to inbox if message is not trashed" do
-    Message.stub(:find).and_return(mock_message)
-    mock_message.stub(:update_attributes).and_return(true)
-    mock_message.stub(:trashed?).and_return(false)
-    put :update, :id => '1'
-    response.should redirect_to(admin_messages_path)
+  it "trash a message and redirect to trash" do
+    put :update, :id => message.id, :message => { :trashed_at => Time.now.utc }
+    response.should redirect_to(trash_admin_messages_path)
+    message.reload.should be_trashed
   end
 
-  it "responds with success to PUT :update and redirect to trash if message is trashed" do
-    Message.stub(:find).and_return(mock_message)
-    mock_message.stub(:update_attributes).and_return(true)
-    mock_message.stub(:trashed?).and_return(true)
-    put :update, :id => '1'
-    response.should redirect_to(admin_messages_path(:trashed => true))
+  it "untrash a message and redirect to inbox" do
+    message.update_attribute(:trashed_at, Time.now)
+    message.should be_trashed
+    put :update, :id => message.id, :message => { :trashed_at => nil }
+    response.should redirect_to(inbox_admin_messages_path)
+    message.reload.should_not be_trashed
   end
 
 end

@@ -8,6 +8,8 @@ Devise.setup do |config|
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
+  config.apply_schema = false
+
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
@@ -21,6 +23,10 @@ Devise.setup do |config|
   # parameters are used only when authenticating and not when retrieving from
   # session. If you need permissions, you should implement that in a before filter.
   # config.authentication_keys = [ :email ]
+
+  config.case_insensitive_keys = [:email]
+
+  config.use_salt_as_remember_token = true
 
   # Tell if authentication through request.params is enabled. True by default.
   # config.params_authenticatable = true
@@ -43,14 +49,12 @@ Devise.setup do |config|
   config.pepper = "27f25939efbaad3636c5aedc4d37fcef73ab10376273e75dd74725609926f6b453a75f55381e91741044176455ce9e7ceb09fc9b06fca755294bd9c70f8f7f84"
 
   # ==> Configuration for :confirmable
-  # The time you want to give your user to confirm his account. During this time
-  # he will be able to access your application without confirming. Default is nil.
-  # When confirm_within is zero, the user won't be able to sign in without confirming. 
-  # You can use this to let your user access some features of your application 
-  # without confirming the account, but blocking it after a certain period 
-  # (ie 2 days). 
-  config.confirm_within = 0.days
-  
+  # A period that the user is allowed to access the website even without
+  # confirming his account. For instance, if set to 2.days, the user will be
+  # able to access the website for two days without confirming his account,
+  # access will be blocked just in the third day. Default is 0.days, meaning
+  # the user cannot access the website without confirming his account.
+  config.allow_unconfirmed_access_for = 0.days
   config.invite_for = 2.weeks
 
   # ==> Configuration for :rememberable
@@ -62,6 +66,8 @@ Devise.setup do |config|
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
+
+  config.reset_password_within = 6.hours
 
   # ==> Configuration for :validatable
   # Range for password length

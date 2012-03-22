@@ -2,6 +2,6 @@ require 'spec_helper'
 
 describe Users::ConfirmationsController do
 
-  it { should route(:get, "/users/confirm").to(:action => :show) }
+  it { get("/users/confirm").should route_to('users/confirmations#show') }
 
 end

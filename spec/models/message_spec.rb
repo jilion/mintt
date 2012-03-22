@@ -32,7 +32,7 @@ describe Message do
       end
     end
 
-    it { should validate_format_of(:sender_email).with(Devise.email_regexp) }
+    it { should validate_format_of(:sender_email).with(Devise.email_regexp).with_message("Sender email is invalid") }
   end
 
 end

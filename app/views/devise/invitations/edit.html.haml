@@ -7,6 +7,6 @@
     = f.input :password, :required => true
     = f.input :password_confirmation, :required => true
 
-  = f.buttons do
-    = f.commit_button "Set my name & password"
+  = f.actions do
+    = f.action(:submit, :label => "Set my name & password")
   = render '/shared/required_mention'

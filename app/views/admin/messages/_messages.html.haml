@@ -1,19 +1,20 @@
+- current_url = params[:trashed] ? 'trash_admin_messages_url' : 'inbox_admin_messages_url'
 %table
   %colgroup
     - 5.times do
       %col{ :class => "even" }
   %tr
-    %th.icon_centered= link_to image_tag("/images/admin/unread_label_icon.png", :alt => "Unread?"), admin_messages_path(messages_sort_parameters('read_at', params)), :remote => true
-    %th.icon_centered= link_to image_tag("/images/admin/replied_label_icon.png", :alt => "Replied?"), admin_messages_path(messages_sort_parameters('replied_at', params)), :remote => true
-    %th= link_to "From", admin_messages_path(messages_sort_parameters('sender_name', params)), :remote => true
-    %th= link_to "Date Received", admin_messages_path(messages_sort_parameters('created_at', params)), :remote => true
+    %th.icon_centered= link_to image_tag("/images/admin/unread_label_icon.png", :alt => "Unread?"), send(current_url, sort_parameters('read_at', params)), :remote => true
+    %th.icon_centered= link_to image_tag("/images/admin/replied_label_icon.png", :alt => "Replied?"), send(current_url, sort_parameters('replied_at', params)), :remote => true
+    %th= link_to "From", send(current_url, sort_parameters('sender_name', params)), :remote => true
+    %th= link_to "Date Received", send(current_url, sort_parameters('created_at', params)), :remote => true
     - unless params[:trashed]
       %th
   = render @messages
   
 - if params.key? :all
-  .right_links= link_to "View with paginate", admin_messages_path(:trashed => params[:trashed]), :remote => true
+  .right_links= link_to "View with paginate", send(current_url), :remote => true
 - elsif @messages.total_entries > Message.per_page
-  .right_links= link_to "View all", admin_messages_path(:all => true, :trashed => params[:trashed]), :remote => true
+  .right_links= link_to "View all", send(current_url, :all => true, :trashed => params[:trashed]), :remote => true
   = will_paginate(:params => { :format => nil }, :renderer => 'WillPaginate::ViewHelpers::LinkRendererRemote')
   = page_entries_info @messages

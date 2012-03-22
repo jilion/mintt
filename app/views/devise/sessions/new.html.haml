@@ -6,8 +6,8 @@
     = f.input :password, :required => false
     - if devise_mapping.rememberable?
       = f.input :remember_me, :as => :hidden, :value => "1"
-  = f.buttons do
-    = f.commit_button "Log in"
-    
+  = f.actions do
+    = f.action(:submit, :label => "Log in")
+
 - if devise_mapping.recoverable?
   %p= link_to "Forgot your password?", new_password_path(resource_name)

@@ -11,6 +11,6 @@
       = f.input :sender_email, :label => "Email", :input_html => { :value => @message.sender_email? ? @message.sender_email : (current_user.try(:email) || current_teacher.try(:email)) }
       = f.input :content, :as => :text, :label => "Message"
       
-    = f.buttons do
-      = f.commit_button "Send message"
+    = f.actions do
+      = f.action(:submit, :label => "Send message")
     = render '/shared/required_mention'

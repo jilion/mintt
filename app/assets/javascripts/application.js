@@ -1,3 +1,8 @@
+//= require prototype
+//= require controls
+//= require effects
+//= require rails
+
 document.observe("dom:loaded", function() {
   // If Windows Disable Typekit
   if ((navigator.userAgent.indexOf("Windows")!=-1)) $(document.body).addClassName('win');

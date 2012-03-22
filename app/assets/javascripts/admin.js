@@ -1,3 +1,5 @@
+//= require application
+
 document.observe("dom:loaded", function() {
 
   if ($$('.candidate_selected_contextual_info').any()) {

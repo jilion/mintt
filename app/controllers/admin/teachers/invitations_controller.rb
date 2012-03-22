@@ -1,25 +1,15 @@
 class Admin::Teachers::InvitationsController < Devise::InvitationsController
+  include CustomDevisePaths
+
   before_filter :admin_required
 
   layout 'admin'
 
-  # POST /resource/invitation
-  def create
-    self.resource = resource_class.invite!(params[resource_name], current_inviter)
-
-    if resource.errors.empty?
-      set_flash_message :notice, :send_instructions, :email => self.resource.email
-      redirect_to [:admin, :teachers] # we don't want to redirect the admin to /schedule
-    else
-      render_with_scope :new
+  def after_invite_path_for(resource_or_scope)
+    case Devise::Mapping.find_scope!(resource_or_scope)
+    when :teacher
+      [:admin, :teachers]
     end
   end
 
-end
-
-module DeviseInvitable::Controllers::Helpers
-  protected
-  def authenticate_inviter!
-    # do nothing
-  end
 end

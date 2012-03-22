@@ -3,7 +3,7 @@
     = link_to image_tag("/images/admin/selected.png", :alt => "selected"), admin_user_path(user) if user.selected?
   %td.gender= link_to image_tag("/images/admin/#{user.gender}.png", :alt => user.gender), admin_user_path(user)
   %td= link_to user.full_name(:reverse => true), admin_user_path(user)
-  %td= user.school
+  %td= user.school_and_lab
   %td= user.thesis_supervisor
   %td.datetime
     %span.date= sexy_date(user.confirmed_at)

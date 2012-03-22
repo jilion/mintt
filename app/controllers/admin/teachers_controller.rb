@@ -1,8 +1,8 @@
 class Admin::TeachersController < Admin::AdminController
   respond_to :html
-  respond_to :js, :only => :index
+  respond_to :js, :only => [:index]
 
-  before_filter :set_year, :only => :index
+  before_filter :set_year, :only => [:index]
 
   # GET /admin/teachers
   def index

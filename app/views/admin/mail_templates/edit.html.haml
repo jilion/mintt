@@ -4,11 +4,11 @@
   = semantic_form_for [:admin, @mail_template],  :html => { :class => "main" } do |f|
     = f.inputs do
       = text_area_tag 'mail_template[content]', @mail_template.content
-      
-    = f.buttons do
-      = f.commit_button "Update mail template"
+
+    = f.actions do
+      = f.action(:submit, :label => "Update mail template")
     = render '/shared/required_mention'
-    
+
 = content_for :sidebar do
   %h3 Available tags
   %p Insert a tag with {{the_tag_here}}
@@ -22,8 +22,7 @@
       %li Full name : <span>user.full_name</span>
       %li Email : <span>user.email</span>
       %li Phone : <span>user.phone</span>
-      %li School : <span>user.school</span>
-      %li Lab : <span>user.lab</span>
+      %li School and lab : <span>user.school_and_lab</span>
       %li Url : <span>user.url</span>
       %li Linkedin url : <span>user.linkedin_url</span>
       %li Thesis supervisor : <span>user.thesis_supervisor</span>

@@ -20,6 +20,7 @@ Spork.prefork do
   require 'capybara/rails'
 
   RSpec.configure do |config|
+    config.treat_symbols_as_metadata_keys_with_true_values = true
     config.filter_run :focus => true
     config.run_all_when_everything_filtered = true
 
@@ -59,7 +60,8 @@ Spork.each_run do
   Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
   RSpec.configure do |config|
-    config.include Shoulda::ActionController::Matchers
+    # config.include Shoulda::ActionController::Matchers
+    config.include FactoryGirl::Syntax::Methods
     config.include Devise::TestHelpers, :type => :controller
   end
 end

@@ -5,6 +5,7 @@ module Admin::AdminHelper
   end
 
   def invert_sort_way(field, params={})
+    Rails.logger.info "field: #{field} ; params: #{params.inspect}"
     (params[:sort_way]||'').downcase == 'asc' && params[:order_by] == field ? 'desc' : 'asc'
   end
 
@@ -12,8 +13,8 @@ module Admin::AdminHelper
     return 0 if collection.blank?
 
     if collection.respond_to?(:total_entries) && collection.respond_to?(:per_page) && collection.respond_to?(:current_page)
-      from = collection.per_page*(collection.current_page-1)+1
-      to = [collection.total_entries, collection.per_page*collection.current_page].min
+      from = collection.per_page*(collection.current_page-1) + 1
+      to   = [collection.total_entries, collection.per_page*collection.current_page].min
       "#{from}-#{to}"
     else
       collection.size

@@ -38,7 +38,7 @@ module Spec
       end
 
       def invited_teacher(options={})
-        teacher = Teacher.invite!(:email => "test@test.com")
+        teacher = Teacher.invite!(:email => "test@test.com", :years => [Time.now.year])
         teacher
       end
 

@@ -5,7 +5,7 @@
     = f.input :reset_password_token, :as => :hidden
     = f.input :password, :required => true
     = f.input :password_confirmation, :required => true
-    
-  = f.buttons do
-    = f.commit_button "Set my password"
+
+  = f.actions do
+    = f.action(:submit, :label => "Set my password")
   = render '/shared/required_mention'

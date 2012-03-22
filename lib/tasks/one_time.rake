@@ -30,4 +30,9 @@ namespace :one_time do
     end
   end
 
+  desc "Set the school_and_lab field from the school and lab fields"
+  task :set_users_school_and_lab => :environment do
+    OneTime.set_users_school_and_lab
+  end
+
 end

@@ -2,5 +2,5 @@
 
 .text
   .actions_right
-    = link_to("Go to #{params[:trashed] ? "Inbox" : "Trash"}", admin_messages_path(:trashed => !params[:trashed]))
+    = link_to("Go to #{params[:trashed] ? "Inbox" : "Trash"}", params[:trashed] ? inbox_admin_messages_path : trash_admin_messages_path)
   #messages_table_wrap= render 'messages'

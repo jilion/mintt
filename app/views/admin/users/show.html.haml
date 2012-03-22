@@ -16,7 +16,7 @@
   .card
     %p
       = image_tag "/images/admin/school.png", :alt => "School"
-      = "#{@user.school} (lab: #{@user.lab})"
+      = @user.school_and_lab
       
     %p
       = image_tag "/images/admin/phone.png", :alt => "Phone"
@@ -58,5 +58,5 @@
       = f.inputs do
         = f.input :comment, :as => :text, :label => "SRI Comment"
         
-      = f.buttons do
-        = f.commit_button "Save comment"
+      = f.actions do
+        = f.action(:submit, :label => "Save comment")

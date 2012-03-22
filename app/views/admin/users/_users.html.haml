@@ -6,7 +6,7 @@
     %th= link_to "’#{session[:admin_year][-2,2]}", admin_users_path(sort_parameters('selected_at', params)), :remote => true
     %th= link_to "Gender", admin_users_path(sort_parameters('gender', params)), :remote => true
     %th= link_to "Name", admin_users_path(sort_parameters('last_name', params)), :remote => true
-    %th= link_to "School", admin_users_path(sort_parameters('school', params)), :remote => true
+    %th= link_to "School and lab", admin_users_path(sort_parameters('school_and_lab', params)), :remote => true
     %th= link_to "Supervisor", admin_users_path(sort_parameters('thesis_supervisor', params)), :remote => true
     %th= link_to "Application Date", admin_users_path(sort_parameters('confirmed_at', params)), :remote => true
     %th

@@ -1,1 +1,2 @@
-$('teachers_table_wrap').update("<%= escape_javascript(render 'teachers') %>");
+$('teachers_table_wrap').update("<%= escape_javascript(render 'teachers', :teachers => @teachers) %>");
+$('teachers_not_active_table_wrap').update("<%= escape_javascript(render 'teachers', :teachers => @teachers_not_active) %>");

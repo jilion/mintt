@@ -2,14 +2,15 @@ require 'spec_helper'
 
 describe ProgramsController do
   include Devise::TestHelpers
-  before(:each) do
+  before do
     Document.stub_chain(:year, :published, :order_by).and_return([])
   end
 
   context "as a student" do
-    before(:each) do
+    before do
       @user = Factory(:user)
       @user.confirm!
+      @user.update_attribute(:state, 'selected')
       sign_in @user
     end
 
@@ -20,8 +21,8 @@ describe ProgramsController do
   end
 
   context "as a teacher" do
-    before :each do
-      @teacher = Teacher.invite!(:email => "test@test.com")
+    before do
+      @teacher = Teacher.invite!(:email => "test@test.com", :years => [Time.now.year])
       Teacher.accept_invitation!(:invitation_token => @teacher.invitation_token, :password => '123456')
       @teacher.reload
       sign_in @teacher

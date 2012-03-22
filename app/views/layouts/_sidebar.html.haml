@@ -1,16 +1,16 @@
+- current_year = SiteSettings.course_dates.respond_to?("_#{Time.now.utc.year}") ? Time.now.utc.year : Time.now.utc.year - 1
 #sidebar
-  - if SiteSettings.applications_open && !user_signed_in? && !teacher_signed_in?
-    %h3= "#{Time.now.utc.year} Application"
-    %p= "The applications are now open till the end of April #{Time.now.utc.year}. Please use the button below to apply."
-    - unless user_signed_in? || teacher_signed_in?
+  - if SiteSettings.applications_open
+    - if !user_signed_in? && !teacher_signed_in?
+      %h3= "#{current_year - 1} - #{current_year} Academic Year Application"
+      %p= "The applications are now open till April 30th, #{current_year}. Please note your application is subject to a selection process and confirmation. Please use the button below to apply."
       .box
-        = link_to new_user_application_path, :id => "registration_button" do
-          %span= "Apply for the #{Time.now.utc.year} course"
-  - unless SiteSettings.applications_open
+        = link_to new_user_registration_path, :id => "registration_button" do
+          %span= "Apply for the #{current_year - 1} - #{current_year} course"
+  - else
     %p
       = "We thank you for your interest."
       %br
-      - current_year = SiteSettings.course_dates.respond_to?("_#{Time.now.utc.year}") ? Time.now.utc.year : Time.now.utc.year - 1
       = "#{current_year} Registrations are now closed."
       %br
       = "Next session will be announced in early #{current_year + 1}."
@@ -18,21 +18,21 @@
   %h4= "Organizing Entities"
   %ul.entities
     %li.first= link_to image_tag("/images/epfl_logo.png", :alt => "EPFL Logo"), "http://www.epfl.ch", :onclick => 'window.open(this); return false'
-    %li= link_to "SRI #{content_tag(:em, '(Tech transfer Office)')}".html_safe, "http://sri.epfl.ch", :onclick => 'window.open(this); return false'
+    %li= link_to "TTO #{content_tag(:em, '(Technology Transfer Office)')}".html_safe, "http://sri.epfl.ch", :onclick => 'window.open(this); return false'
     %li.last= link_to "CDM", "http://cdm.epfl.ch", :onclick => 'window.open(this); return false'
 
   %h4= "Course Information"
   %ul
     %li= "Language: English"
-    %li= "When: June 7 & 8 and October 5, 2011"
+    %li= "When: June 5 & 6 and October 2, 2012"
     %li= "Number of credits: 2"
     %li= "Number of students: 18 max. Decided upon a selection balancing several factors including multi-disciplinarity"
     %li= "Form of Exam: Project report and oral presentation"
     %li
-      = "Delay to submit application: End of April 2011"
+      = "Delay to submit application: End of April 2012"
       - if SiteSettings.applications_open && !user_signed_in? && !teacher_signed_in?
-        = raw " through #{link_to 'online application', new_user_application_path}"
-    %li= raw "Location: #{link_to 'EPFL Science Park, PSE-D building', 'http://bit.ly/h2vHOz', :onclick => 'window.open(this); return false'}"
+        = raw " through #{link_to 'online application', new_user_registration_path}"
+    %li= raw "Location: #{link_to "Quartier de l'innovation, Building E", 'http://g.co/maps/gaapx', :onclick => 'window.open(this); return false'}"
 
   %h4= "More info"
   %p= raw "If you have any question, please contact us through the following #{link_to 'form', contact_path}."

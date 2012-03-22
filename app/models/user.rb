@@ -8,9 +8,11 @@ class User
   field :gender,                   :type => String
   field :first_name,               :type => String
   field :last_name,                :type => String
+  field :school_and_lab,           :type => String
+  # deprecated
   field :school,                   :type => String
   field :lab,                      :type => String
-  field :email,                    :type => String
+
   field :phone,                    :type => String
   field :url,                      :type => String
   field :linkedin_url,             :type => String
@@ -25,13 +27,39 @@ class User
 
   # Internal / protected fields
   field :comment,                  :type => String
-  field :year,                     :type => Integer, :default => Time.now.utc.year
+  field :year,                     :type => Integer, :default => Time.now.year
   field :state,                    :type => String,  :default => 'candidate'
   field :selected_at,              :type => Time
   field :case_study_title,         :type => String
   field :case_study_teacher,       :type => String
   field :credits_granted,          :type => Integer, :default => nil
   field :trashed_at,               :type => Time,    :default => nil
+
+  ## Database authenticatable
+  field :email,              :type => String, :null => false
+  field :encrypted_password, :type => String, :null => false
+
+  ## Recoverable
+  field :reset_password_token,   :type => String
+  field :reset_password_sent_at, :type => Time
+
+  ## Rememberable
+  field :remember_created_at, :type => Time
+
+  ## Trackable
+  field :sign_in_count,      :type => Integer
+  field :current_sign_in_at, :type => Time
+  field :last_sign_in_at,    :type => Time
+  field :current_sign_in_ip, :type => String
+  field :last_sign_in_ip,    :type => String
+
+  ## Encryptable
+  field :password_salt, :type => String
+
+  ## Confirmable
+  field :confirmation_token,   :type => String
+  field :confirmed_at,         :type => Time
+  field :confirmation_sent_at, :type => Time
 
   index :email, :unique => true
   index :state
@@ -45,7 +73,7 @@ class User
   attr_accessor :current_password, :agreement
 
   attr_accessible :password, :current_password
-  attr_accessible :state, :year, :gender, :first_name, :last_name, :school, :lab, :email, :phone, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :thesis_registration_date, :thesis_admission_date, :supervisor_authorization, :doctoral_school_rules, :motivation, :agreement
+  attr_accessible :state, :year, :gender, :first_name, :last_name, :school_and_lab, :email, :phone, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :thesis_registration_date, :thesis_admission_date, :supervisor_authorization, :doctoral_school_rules, :motivation, :agreement
 
   liquid_methods *User.fields.keys
 
@@ -56,7 +84,7 @@ class User
   # ===============
   # = Validations =
   # ===============
-  validates :first_name, :last_name, :school, :lab, :email, :phone, :thesis_supervisor, :thesis_subject, :motivation, :presence => true
+  validates :first_name, :last_name, :school_and_lab, :email, :phone, :thesis_supervisor, :thesis_subject, :motivation, :presence => true
 
   validates :url,          :format => { :with => URL_REGEX, :allow_blank => true }
   validates :linkedin_url, :format => { :with => LINKEDIN_URL_REGEX, :allow_blank => true }
@@ -85,7 +113,9 @@ class User
   def self.index_order_by(params={})
     method, options = method_and_options_for_paginate(params)
     scopes = year(params[:year].try(:to_i) || Time.now.utc.year)
-    scopes.active.order([params[:order_by] || :confirmed_at, params[:sort_way] || :desc]).send(method, options)
+    scopes = scopes.active.order([params[:order_by] || :confirmed_at, params[:sort_way] || :desc])
+    Rails.logger.info scopes.inspect
+    scopes.send(method, options)
   end
 
   def self.to_csv(records, options={})
@@ -128,6 +158,10 @@ class User
 
   def selected?
     state == 'selected'
+  end
+
+  def active_for_authentication?
+    selected?
   end
 
   def account_created?

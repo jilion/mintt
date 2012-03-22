@@ -21,7 +21,7 @@ module ApplicationHelper
   
   def sexy_time(date)
     return "" if date.blank?
-    l(date.to_time, :format => :time)
+    l(date.utc, :format => :time)
   end
   
   def words_count(text)

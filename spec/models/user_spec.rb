@@ -2,20 +2,19 @@ require 'spec_helper'
 
 describe User do
   before(:all) do
-    Factory(:mail_template)
+    create(:mail_template)
   end
 
   context "from factory" do
     before(:all) do
-      @user = Factory.build(:user)
+      @user = build(:user)
     end
     subject { @user }
 
     its(:gender)                   { should == "male"                                   }
     its(:first_name)               { should == "John"                                   }
     its(:last_name)                { should == "Doe"                                    }
-    its(:school)                   { should == "Computer Science"                       }
-    its(:lab)                      { should == "Apple Lab"                              }
+    its(:school_and_lab)           { should == "EPFL IC ISC LCAV"                       }
     its(:phone)                    { should == "+41 21 0000000"                         }
     its(:email)                    { should match /email[0-9]+@epfl.com/                }
     its(:url)                      { should == "http://jilion.com"                      }
@@ -37,11 +36,11 @@ describe User do
   end
 
   describe "Validations" do
-    [:year, :gender, :first_name, :last_name, :school, :lab, :email, :phone, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :thesis_registration_date, :thesis_admission_date, :supervisor_authorization, :doctoral_school_rules, :motivation].each do |attribute|
+    [:year, :gender, :first_name, :last_name, :school_and_lab, :email, :phone, :url, :linkedin_url, :thesis_supervisor, :thesis_subject, :thesis_invention, :thesis_registration_date, :thesis_admission_date, :supervisor_authorization, :doctoral_school_rules, :motivation].each do |attribute|
       it { should allow_mass_assignment_of(attribute) }
     end
 
-    [:first_name, :last_name, :school, :lab, :email, :phone, :thesis_supervisor, :thesis_subject].each do |attribute|
+    [:first_name, :last_name, :school_and_lab, :email, :phone, :thesis_supervisor, :thesis_subject].each do |attribute|
       it "validates presence of #{attribute}" do
         should validate_presence_of(attribute).with_message(I18n.t('mongoid.errors.messages.blank', :attribute => attribute.to_s.chars.to_a[0].upcase + attribute.to_s.gsub('_', ' ').chars.to_a[1..-1].join))
       end

@@ -12,8 +12,7 @@ feature "Applications" do
       choose "user_gender_male"
       fill_in "user_first_name",                 :with => "Joe"
       fill_in "user_last_name",                  :with => "Blow"
-      fill_in "user_school",                     :with => "Computer Science"
-      fill_in "user_lab",                        :with => "Apple Lab"
+      fill_in "user_school_and_lab",             :with => "EPFL IC ISC LCAV"
       fill_in "user_email",                      :with => "remy@jilion.com"
       fill_in "user_phone",                      :with => "0 21 000 00 00"
       fill_in "user_url",                        :with => "http://jilion.com"
@@ -34,7 +33,7 @@ feature "Applications" do
       expect { click_button "Apply" }.to change(ActionMailer::Base.deliveries, :count).by(1)
 
       current_url.should =~ %r(^http://[^/]+/$)
-      page.should have_content(I18n.t('devise.applications.send_instructions'))
+      page.should have_content(I18n.t('devise.registrations.user.signed_up_but_unconfirmed'))
       ActionMailer::Base.deliveries.size.should == 1
     end
 
@@ -43,8 +42,7 @@ feature "Applications" do
 
       page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'First name'))
       page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Last name'))
-      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'School'))
-      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Lab'))
+      page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'School and lab'))
       page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Email'))
       page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Phone'))
       page.should have_content(I18n.t('mongoid.errors.messages.blank', :attribute => 'Thesis supervisor'))

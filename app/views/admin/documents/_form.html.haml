@@ -14,8 +14,8 @@
       - @document.published_at = (@document.published_at || Time.now.utc.change(:year => session[:admin_year].to_i)) + (@document.published_at || Time.now.utc.change(:year => session[:admin_year].to_i)).in_time_zone.utc_offset
       = f.datetime_select(:published_at, :default => Time.now.in_time_zone)
 
-  = f.buttons do
-    = f.commit_button "#{@document.new_record? ? "Create" : "Update"} document"
+  = f.actions do
+    = f.action(:submit, :label => "#{@document.new_record? ? "Create" : "Update"} document")
   = render '/shared/required_mention'
 
 :javascript
