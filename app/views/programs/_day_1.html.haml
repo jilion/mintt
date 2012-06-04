@@ -29,18 +29,6 @@
       %h4= "Lunch"
   %tr
     %td.time= "13:30"
-    %td.description.module.start.end
-      %h3
-        %strong= "Module 2"
-        = @modules[2].try(:title)
-      %ul.document_list
-        = list_documents_for_module(2)
-  %tr
-    %td.time= "15:00"
-    %td.description
-      %h4= "Break"  
-  %tr
-    %td.time= "15:30"
     %td.description.module.start
       %h3
         %strong= "Module 3"
@@ -48,9 +36,21 @@
       %ul.document_list
         = list_documents_for_module(3)
   %tr
-    %td.time= "16:30"
+    %td.time= "14:30"
     %td.description.module.end
       %h4= "Speaker"
+  %tr
+    %td.time= "15:30"
+    %td.description
+      %h4= "Break"
+  %tr
+    %td.time= "16:00"
+    %td.description.module.start.end
+      %h3
+        %strong= "Module 2"
+        = @modules[2].try(:title)
+      %ul.document_list
+        = list_documents_for_module(2)
   %tr
     %td.time= "17:30"
     %td.description
