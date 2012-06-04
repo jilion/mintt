@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.5'
 
 # Internals
 gem 'state_machine', '1.1.2'
@@ -12,10 +12,10 @@ gem 'fastercsv',     '1.5.4'
 gem 'mime-types',    '1.17.2'
 
 # Database
-gem 'bson_ext', '~> 1.6.0'
-gem 'bson',     '~> 1.6.0'
-gem 'mongo',    '~> 1.6.0'
-gem 'mongoid',  '~>2.4.5'
+gem 'bson_ext', '~> 1.6.2'
+gem 'bson',     '~> 1.6.2'
+gem 'mongo',    '~> 1.6.2'
+gem 'mongoid',  '~> 2.4.10'
 
 # Auth / invitations
 gem 'devise',           '~> 2.0.1'
@@ -47,7 +47,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'letter_opener', :git => 'git://github.com/pcg79/letter_opener.git' # includes a fix not merged yet
+  gem 'letter_opener', :github => 'ryanb/letter_opener' # includes a fix not merged yet
 end
 
 group :tools do
@@ -71,5 +71,5 @@ group :test do
   gem 'capybara'
 
   gem 'database_cleaner'
-  gem 'factory_girl_rails', :require => false # loaded in spec_helper Spork.each_run
+  gem 'factory_girl_rails', '~> 1.7', :require => false # loaded in spec_helper Spork.each_run
 end
