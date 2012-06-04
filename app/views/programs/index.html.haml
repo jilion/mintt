@@ -5,12 +5,6 @@
 
 = content_for :sidebar do
   #sidebar
-    - if teacher_signed_in? && current_teacher.years.try(:many?)
-      %div{ :style => "float:left;" }= raw "Change year:"
-      = form_tag :program, :method => 'get' do
-        = select_tag "year", options_for_select(current_teacher.years, session[:year]), :id => "change_year"
-    .spacer
-
     %h4
       = "General information"
       %br
