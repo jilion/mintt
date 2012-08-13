@@ -1,7 +1,12 @@
+2012-06-04
+  - Close registrations and update program
+  - Update module 3
+
 2012-03-22
   - Rails and gems update
-  - school and lab fields are now a unique schoold_and_lab field
+  - School and lab fields are now a unique schoold_and_lab field
   - Copywriting updates
+  - Deployment
 
 2012-03-05
   - Update des dates (2011 => 2012)
@@ -12,10 +17,10 @@
 
 2011-03-04
   - Update des dates (2010 => 2011)
-  
+
 2010-08-26
   - Toutes les specs passent
-  
+
 2010-08-25
   - Passage en revu de toute l'application
   - Refactoring des helpers
@@ -26,7 +31,7 @@
   - Ajout du SSL via Rack
   - Ajout de la navigation par jour du programme (AJAX)
   - Cleaning des routes
-  
+
 2010-08-24
   - Passage à Rails 3.0.0.rc2.
   - Passage à mongoid.
