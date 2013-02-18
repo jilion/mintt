@@ -35,6 +35,7 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'execjs'
+  gem 'therubyracer'
 end
 
 group :production do
