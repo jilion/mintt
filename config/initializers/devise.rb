@@ -8,8 +8,6 @@ Devise.setup do |config|
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
-  config.apply_schema = false
-
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
@@ -25,8 +23,6 @@ Devise.setup do |config|
   # config.authentication_keys = [ :email ]
 
   config.case_insensitive_keys = [:email]
-
-  config.use_salt_as_remember_token = true
 
   # Tell if authentication through request.params is enabled. True by default.
   # config.params_authenticatable = true
@@ -115,7 +111,7 @@ Devise.setup do |config|
   # devise role declared in your routes.
   # config.default_scope = :user
 
-  # Configure sign_out behavior. 
+  # Configure sign_out behavior.
   # By default sign_out is scoped (i.e. /users/sign_out affects only :user scope).
   # In case of sign_out_all_scopes set to true any logout action will sign out all active scopes.
   # config.sign_out_all_scopes = false

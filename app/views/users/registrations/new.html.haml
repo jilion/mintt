@@ -1,10 +1,9 @@
-- current_year = SiteSettings.course_dates.respond_to?("_#{Time.now.utc.year}") ? Time.now.utc.year : Time.now.utc.year - 1
-= title "#{current_year -1 } - #{current_year} Application"
+= title "#{current_year - 1 } - #{current_year} Application"
 
 .text
-  %h3= "Application form for mintt #{current_year -1 } - #{current_year}"
+  %h3= "Application form for mintt #{current_year - 1 } - #{current_year}"
   %p
-    %strong= "June 5 & 6 and October 2, 2012"
+    %strong= pretty_course_dates(current_year)
   %p= "Please fill out the following form precisely and clearly."
 
 #register
@@ -27,7 +26,7 @@
       = f.input :thesis_invention, :as => :text, :label => "Have you made an invention in the course of your thesis? If yes, could you briefly describe it?:"
       = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?", :required => true
       %li
-        %p= "I hereby confirm that I will attend mintt on June 5 & 6 and October 2, 2012, the whole day. I also confirm I have well taken note I will dedicate at least 30 hours during summer 2012 to work on an EPFL invention case study. Failing to comply with the above might result in getting no course credits."
+        %p= "I hereby confirm that I will attend mintt on #{pretty_course_dates(current_year)}, the whole day. I also confirm I have well taken note I will dedicate at least 30 hours during summer #{current_year} to work on an EPFL invention case study. Failing to comply with the above might result in getting no course credits."
       = f.input :agreement, :as => :boolean, :label => "I agree", :required => true
 
     = f.actions do

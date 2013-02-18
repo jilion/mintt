@@ -27,7 +27,7 @@ class ProgramsController < ApplicationController
     end
 
     def valid_year(year)
-      if SiteSettings.course_dates.respond_to?("_#{year}")
+      if SiteSettings.course_dates.respond_to?("year_#{year}")
         year
       elsif year > 2010
         valid_year(year - 1)

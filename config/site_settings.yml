@@ -1,26 +1,36 @@
 defaults: &defaults
   mintt_sender: mintt@epfl.ch
-  applications_open: false
+  applications_open: true
   course_dates:
-    _2010: - 2010-06-08
-           - 2010-06-09
-           - 2010-10-06
-    _2011: - 2011-06-07
-           - 2011-06-08
-           - 2011-10-05
-    _2012: - 2012-06-05
-           - 2012-06-06
-           - 2012-10-02
+    year_2010:
+      - 2010-06-08
+      - 2010-06-09
+      - 2010-10-06
+    year_2011:
+      - 2011-06-07
+      - 2011-06-08
+      - 2011-10-05
+    year_2012:
+      - 2012-06-05
+      - 2012-06-06
+      - 2012-10-02
+    year_2013:
+      - 2013-06-04
+      - 2013-06-05
+      - 2013-10-08
 
 development:
   <<: *defaults
-  new_message_recipients: - remy@jilion.com
+  new_message_recipients:
+    - remy@jilion.com
 
 test:
   <<: *defaults
-  new_message_recipients: - remy@jilion.com
+  new_message_recipients:
+    - remy@jilion.com
 
 production:
   <<: *defaults
-  new_message_recipients: - mehdi.aminian@epfl.ch
-                          - rosina.amendola@epfl.ch
+  new_message_recipients:
+    - mehdi.aminian@epfl.ch
+    - rosina.amendola@epfl.ch

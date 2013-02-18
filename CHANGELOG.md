@@ -1,3 +1,7 @@
+2013-02-18
+  - Rails and gems update
+  - Courses' dates update (2012 => 2013)
+
 2012-06-04
   - Close registrations and update program
   - Update module 3
@@ -9,7 +13,7 @@
   - Deployment
 
 2012-03-05
-  - Update des dates (2011 => 2012)
+  - Courses' dates update (2011 => 2012)
 
 2011-04-08
   - Ajout du lien entre professeur et années d'activité

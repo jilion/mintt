@@ -86,11 +86,10 @@ def create_users(count)
     print "Creating users => "
     count.times do |i|
       u = User.new
-      u.gender                   = MALE_FEMALE.choice
+      u.gender                   = MALE_FEMALE.sample
       u.first_name               = Faker::Name.first_name
       u.last_name                = Faker::Name.last_name
-      u.school                   = Faker::Lorem.sentence(1)
-      u.lab                      = Faker::Lorem.sentence(1)
+      u.school_and_lab           = Faker::Lorem.sentence(1)
       u.email                    = Faker::Internet.email
       u.phone                    = Faker::PhoneNumber.phone_number
       u.url                      = "http://#{Faker::Internet.domain_name}"
@@ -99,8 +98,8 @@ def create_users(count)
       u.thesis_subject           = Faker::Lorem.paragraphs
       u.thesis_registration_date = rand(1000).days.ago
       u.thesis_admission_date    = rand(1000).days.from_now
-      u.supervisor_authorization = YES_NO.choice
-      u.doctoral_school_rules    = YES_NO.choice
+      u.supervisor_authorization = YES_NO.sample
+      u.doctoral_school_rules    = YES_NO.sample
       u.thesis_invention         = Faker::Lorem.paragraphs
       u.motivation               = Faker::Lorem.paragraphs
       u.agreement                = '1'

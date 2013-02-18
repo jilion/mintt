@@ -1,45 +1,45 @@
 source :rubygems
 
-gem 'rails', '3.2.5'
+gem 'rails', '3.2.12'
 
 # Internals
-gem 'state_machine', '1.1.2'
-gem 'SystemTimer',   '1.2.3'
+gem 'state_machine'
 
 # Utils
-gem 'settingslogic', '2.0.8'
-gem 'fastercsv',     '1.5.4'
-gem 'mime-types',    '1.17.2'
+gem 'settingslogic'
+gem 'fastercsv',     '1.5.5'
+gem 'mime-types',    '1.21'
 
 # Database
-gem 'bson_ext', '~> 1.6.2'
-gem 'bson',     '~> 1.6.2'
-gem 'mongo',    '~> 1.6.2'
-gem 'mongoid',  '~> 2.4.10'
+gem 'bson_ext', '~> 1.8.2'
+gem 'bson',     '~> 1.8.2'
+gem 'mongo',    '~> 1.8.2'
+gem 'mongoid',  '~> 2.6'
 
 # Auth / invitations
-gem 'devise',           '~> 2.0.1'
-gem 'devise_invitable', '~> 1.0.0'
+gem 'devise'
+gem 'devise-encryptable'
+gem 'devise_invitable'
 
 # Views
-gem 'haml',          '3.1.4'
-gem 'formtastic',    '2.1.1'
-gem 'will_paginate', '3.0.3'
+gem 'haml'
+gem 'formtastic'
+gem 'will_paginate'
 gem 'liquid'
 gem 'rails_autolink'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.0'
-  gem 'coffee-rails', '~> 3.2.0'
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
   gem 'execjs'
 end
 
 group :production do
-  gem 'rack-ssl-enforcer',     '0.2.4'
-  gem 'rack-google-analytics', '0.10.0', :require => 'rack/google-analytics'
+  gem 'rack-ssl-enforcer'
+  gem 'rack-google-analytics'
 end
 
 group :development, :test do
@@ -47,17 +47,16 @@ group :development, :test do
 end
 
 group :development do
-  gem 'letter_opener', :github => 'ryanb/letter_opener' # includes a fix not merged yet
+  gem 'letter_opener'
 end
 
 group :tools do
   gem 'capistrano'
   gem 'ffaker'
 
-  gem 'growl'
-  platforms :ruby do
-    gem 'rb-readline'
-  end
+  # Guard
+  gem 'ruby_gntp'
+  gem 'rb-fsevent'
 
   gem 'guard-pow'
   gem 'guard-spork'
