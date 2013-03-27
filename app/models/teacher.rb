@@ -77,7 +77,7 @@ class Teacher
       year = params[:year] || Time.now.utc.year
       year([year.to_i])
     end
-    scopes.order_by((params[:order_by] || :confirmed_at).to_sym.send(params[:sort_way] || :desc)).all
+    scopes.order_by((params[:order_by] || :created_at).to_sym.send(params[:sort_way] || :desc)).all
   end
 
   # ====================

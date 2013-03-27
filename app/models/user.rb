@@ -113,7 +113,7 @@ class User
   def self.index_order_by(params={})
     method, options = method_and_options_for_paginate(params)
     scopes = year(params[:year].try(:to_i) || Time.now.utc.year)
-    scopes = scopes.active.order([params[:order_by] || :confirmed_at, params[:sort_way] || :desc])
+    scopes = scopes.active.order([params[:order_by] || :created_at, params[:sort_way] || :desc])
     Rails.logger.info scopes.inspect
     scopes.send(method, options)
   end
