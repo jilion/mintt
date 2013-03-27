@@ -9,29 +9,29 @@
       = image_tag "/images/admin/email.png", :alt => "Email"
       = mail_to @user.email
   .application_date
-    = content_tag(:em, display_date(@user.confirmed_at))
+    = content_tag(:em, display_date(@user.created_at))
     %p= link_to "Edit candidate", edit_admin_user_path(@user), :class => "edit"
-    
+
   .spacer
   .card
     %p
       = image_tag "/images/admin/school.png", :alt => "School"
       = @user.school_and_lab
-      
+
     %p
       = image_tag "/images/admin/phone.png", :alt => "Phone"
       = @user.phone
-      
+
     - unless @user.url.blank?
       %p
         = image_tag "/images/admin/web.png", :alt => "Url"
         = user_url(@user)
-        
+
     - unless @user.linkedin_url.blank?
       %p
         = image_tag "/images/admin/linkedin.png", :alt => "LinkedIn"
         = user_linkedin_url(@user)
-        
+
   .text_box
     %p
       = content_tag(:strong, "#{@user.selected_at.present? ? 'S' : 'Not s'}elected to participate in the #{@user.year || '2010'} program.")
@@ -52,11 +52,11 @@
     %p= raw "#{content_tag(:strong, 'Supervisor authorization')}: #{@user.supervisor_authorization}"
     %p= raw "#{content_tag(:strong, 'Subject to EPFL doctoral school regulations and does he/she needs credits?')}: #{@user.doctoral_school_rules}"
     %p= raw "#{content_tag(:strong, 'Motivation')}: #{@user.motivation}"
-    
+
     %p
     = semantic_form_for [:admin, @user], :html => { :class => "main" } do |f|
       = f.inputs do
         = f.input :comment, :as => :text, :label => "SRI Comment"
-        
+
       = f.actions do
         = f.action(:submit, :label => "Save comment")
