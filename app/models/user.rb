@@ -61,11 +61,10 @@ class User
   field :confirmed_at,         :type => Time
   field :confirmation_sent_at, :type => Time
 
-  index :email, :unique => true
   index :state
   index :year
 
-  devise :database_authenticatable, :validatable, :registerable, :confirmable, :rememberable, :recoverable, :encryptable, :encryptor => :sha1
+  devise :database_authenticatable, :registerable, :confirmable, :rememberable, :recoverable, :encryptable, :encryptor => :sha1
 
   cattr_accessor :per_page
   @@per_page = 15
@@ -84,6 +83,7 @@ class User
   # ===============
   # = Validations =
   # ===============
+  validates :email, presence: true, email_uniqueness: true, format: { with: Devise.email_regexp }
   validates :first_name, :last_name, :school_and_lab, :email, :phone, :thesis_supervisor, :thesis_subject, :motivation, :presence => true
 
   validates :url,          :format => { :with => URL_REGEX, :allow_blank => true }

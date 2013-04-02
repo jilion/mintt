@@ -71,12 +71,28 @@ describe User do
       it { Factory.build(:user, :thesis_admission_date => "").should be_valid }
     end
 
-    it "without a unique email" do
-      Factory(:user, :email => "remy@jilion.com")
+    describe 'email uniqueness' do
+      it 'do not allow the same email for the same year' do
+        Factory(:user, :email => "remy@jilion.com", :year => 2013)
 
-      user = Factory.build(:user, :email => "remy@jilion.com")
-      user.should_not be_valid
-      user.should have(1).error_on(:email)
+        user = Factory.build(:user, :email => "remy@jilion.com", :year => 2013)
+        user.should_not be_valid
+        user.should have(1).error_on(:email)
+      end
+
+      it 'allows the same email for 2 different years' do
+        Factory(:user, :email => "remy@jilion.com", :year => 2012)
+
+        user = Factory.build(:user, :email => "remy@jilion.com", :year => 2013)
+        user.should be_valid
+      end
+
+      it 'allows the same email for the same year but one is archived' do
+        Factory(:user, :email => "remy@jilion.com", :year => 2013, :trashed_at => Time.now)
+
+        user = Factory.build(:user, :email => "remy@jilion.com", :year => 2013)
+        user.should be_valid
+      end
     end
 
     it "without thesis_registration_date > thesis_admission_date" do
