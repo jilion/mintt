@@ -83,7 +83,7 @@ class User
   # ===============
   # = Validations =
   # ===============
-  validates :email, presence: true, email_uniqueness: true, format: { with: Devise.email_regexp }
+  validates :email, :presence => true, :email_uniqueness => true, :format => { :with => Devise.email_regexp }
   validates :first_name, :last_name, :school_and_lab, :email, :phone, :thesis_supervisor, :thesis_subject, :motivation, :presence => true
 
   validates :url,          :format => { :with => URL_REGEX, :allow_blank => true }
