@@ -54,10 +54,10 @@ end
 group :tools do
   gem 'capistrano'
   gem 'ffaker'
+  gem 'powder'
 
   # Guard
   gem 'ruby_gntp'
-  gem 'rb-fsevent'
 
   gem 'guard-pow'
   gem 'guard-spork'
