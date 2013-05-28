@@ -1,6 +1,6 @@
 en:
   new_contact_message: "[mintt] New contact message"
-  
+
   time:
     am: AM
     pm: PM
@@ -10,13 +10,15 @@ en:
       full: "%Y %b %d, %H:%M"
       long: "%Y-%B-%d - %H:%M"
       time: "%I:%M %p"
-      
+
   date:
     formats:
       lite: "%B %e, %Y"
+      month_day: "%B %e"
+      day_year: "%e, %Y"
       full: "%B %d, %Y %I:%M %p"
       time: "%I:%M %p"
-      
+
   datetime:
     formats:
       lite: "%B %d, %Y"

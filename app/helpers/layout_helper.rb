@@ -21,15 +21,38 @@ module LayoutHelper
     content_tag(:"h#{header_size}", text.html_safe, :class => "title")
   end
 
+  def day_label(index)
+    return '' unless SiteSettings.course_dates.respond_to?("year_#{session[:year]}")
+
+    _sessions_to_sentence(SiteSettings.course_dates.send("year_#{session[:year]}"), index)
+  end
+
   def pretty_course_dates(year)
     return '' unless SiteSettings.course_dates.respond_to?("year_#{Time.now.utc.year}")
 
     course_dates = SiteSettings.course_dates["year_#{Time.now.utc.year}"]
-    first_session  = course_dates.first
-    second_session = course_dates.second
-    last_session   = course_dates.last
+    all_sessions = (1..3).map { |index| _sessions_to_sentence(course_dates, index) }
 
-    "#{first_session.strftime("%B")} #{first_session.strftime("%-d")} & #{second_session.strftime("%-d")} and #{last_session.strftime("%B")} #{last_session.strftime("%-d")}, #{year}"
+    all_sessions.to_sentence(:two_words_connector => ' & ')
+  end
+
+  private
+
+  def _sessions_to_sentence(days, index)
+    case days
+    when Hash
+      sessions = days["day_#{index}"]
+      if sessions.one?
+        dates = l(sessions.last, :format => :lite)
+      else
+        dates = sessions[0...-1].map { |d| l(d, :format => :month_day) }
+        dates << l(sessions.last, :format => :day_year)
+      end
+      Array(dates).to_sentence(:two_words_connector => ' & ', :last_word_connector => ', & ')
+
+    when Array
+      l(days[index-1], :format => :lite)
+    end
   end
 
 end

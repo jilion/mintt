@@ -1,49 +1,46 @@
 %table.program
   %tr
-    %td.time= "08:30"
+    %td.time 08:30
     %td.description.module.start
       %h3
-        %strong= "Module 4"
+        %strong Module 4
         = @modules[4].try(:title)
-      %ul.document_list
-        = list_documents_for_module(4)
+      %ul.document_list= list_documents_for_module(4)
   %tr
-    %td.time= "10:00"
+    %td.time 10:00
     %td.description.module
-      %h4= "Break"
+      %h4 Break
   %tr
-    %td.time= "10:30"
+    %td.time 10:30
     %td.description.module.end
       %h4= @modules[4].try(:title)
   %tr
-    %td.time= "12:00"
+    %td.time 12:00
     %td.description
-      %h4= "Lunch"
+      %h4 Lunch
   %tr
-    %td.time= "13:30"
+    %td.time 13:30
     %td.description.module.start.end
       %h3
-        %strong= "Module 5"
+        %strong Module 5
         = @modules[5].try(:title)
-      %ul.document_list
-        = list_documents_for_module(5)
+      %ul.document_list= list_documents_for_module(5)
   %tr
-    %td.time= "15:00"
+    %td.time 15:00
     %td.description
-      %h4= "Break"
+      %h4 Break
   %tr
-    %td.time= "15:30"
+    %td.time 15:30
     %td.description.module.start.end
       %h3
-        %strong= "Module 6"
+        %strong Module 6
         = @modules[6].try(:title)
-      %ul.document_list
-        = list_documents_for_module(6)
+      %ul.document_list= list_documents_for_module(6)
   %tr
-    %td.time= "17:00"
+    %td.time 17:00
     %td.description
-      %h4= "Conclusion"
+      %h4 Conclusion
   %tr
-    %td.time= "17:30"
+    %td.time 17:30
     %td.description
-      %h4= "End"
+      %h4 End of course
