@@ -16,6 +16,7 @@ en:
       lite: "%B %e, %Y"
       month_day: "%B %e"
       day_year: "%e, %Y"
+      day: "%e"
       full: "%B %d, %Y %I:%M %p"
       time: "%I:%M %p"
 

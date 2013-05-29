@@ -23,6 +23,7 @@ defaults: &defaults
         - 2013-06-07
       day_3:
         - 2013-10-08
+        - 2013-10-09
 
 development:
   <<: *defaults
