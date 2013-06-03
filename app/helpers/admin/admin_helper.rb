@@ -5,7 +5,6 @@ module Admin::AdminHelper
   end
 
   def invert_sort_way(field, params={})
-    Rails.logger.info "field: #{field} ; params: #{params.inspect}"
     (params[:sort_way]||'').downcase == 'asc' && params[:order_by] == field ? 'desc' : 'asc'
   end
 

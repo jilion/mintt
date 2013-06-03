@@ -50,3 +50,11 @@ namespace :deploy do
     run "touch #{current_release}/tmp/restart.txt"
   end
 end
+
+desc "Tail log files"
+task :tail, :roles => :app do
+  run "tail -n 500 -f #{shared_path}/log/#{rails_env}.log" do |channel, stream, data|
+    puts "#{channel[:host]}: #{data}"
+    break if stream == :err
+  end
+end
