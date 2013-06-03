@@ -31,7 +31,7 @@ feature "/admin/documents/:id" do
     click_link @document.title
 
     current_url.should =~ %r(^http://[^/]+/admin/documents/#{@document.id}$)
-    page.should have_content("Document: #{@document.title}")
+    page.should have_content(@document.title)
   end
 end
 

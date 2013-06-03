@@ -12,7 +12,7 @@ describe MinttMailer do
     end
 
     it "is delivered from mintt's official email address" do
-      @email.from.should == [SiteSettings.mintt_sender]
+      @email.from.should == [SiteSettings.mintt_sender.gsub(/[\w ]+<([\w@.]+)>/, '\1')]
     end
 
     it "is delivered to the email passed in" do
@@ -41,7 +41,7 @@ describe MinttMailer do
     end
 
     it "is delivered from mintt's official email address" do
-      @email.from.should == [SiteSettings.mintt_sender]
+      @email.from.should == [SiteSettings.mintt_sender.gsub(/[\w ]+<([\w@.]+)>/, '\1')]
     end
 
     it "is delivered to the user's email passed in" do

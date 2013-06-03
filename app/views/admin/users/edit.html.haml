@@ -23,7 +23,7 @@
         %li
           = f.actions do
             = submit_tag "Update student", :confirm => "Are you sure to update #{@user.full_name} informations?"
-            
+
     = f.input :gender, :as => :radio, :collection => male_female_for_select, :required => true
     = f.input :first_name, :required => true
     = f.input :last_name, :required => true
@@ -34,13 +34,13 @@
     = f.input :linkedin_url, :label => "LinkedIn url"
     = f.input :thesis_supervisor, :required => true
     = f.input :thesis_subject, :as => :text, :required => true
-    = f.input :thesis_registration_date, :as => :date, :prompt => true, :selected => @user.nil? || @user.thesis_registration_date.nil?? 0 : @user.thesis_registration_date
-    = f.input :thesis_admission_date, :as => :date, :prompt => true, :selected => @user.nil? || @user.thesis_admission_date.nil? ? 0 : @user.thesis_admission_date
+    = f.input :thesis_registration_date, :as => :date_select, :prompt => true, :selected => @user.nil? || @user.thesis_registration_date.nil?? 0 : @user.thesis_registration_date
+    = f.input :thesis_admission_date, :as => :date_select, :prompt => true, :selected => @user.nil? || @user.thesis_admission_date.nil? ? 0 : @user.thesis_admission_date
     = f.input :supervisor_authorization, :as => :radio, :collection => yes_no_for_select, :label => "Do you have the agreement of your thesis supervisor to participate to mintt?", :required => true
     = f.input :doctoral_school_rules, :as => :radio, :collection => yes_no_for_select, :label => "Are you subject to EPFL doctoral school regulations and do you need credits?", :required => true
     = f.input :thesis_invention, :as => :text, :label => "Have you made an invention in the course of your thesis? If yes, could you briefly describe it?:"
     = f.input :motivation, :as => :text, :label => "Could you describe what motivates you to participate to this course?", :required => true
-    
+
   = f.actions do
     = submit_tag "Update student", :confirm => "Are you sure to update #{@user.full_name} informations?"
   = render '/shared/required_mention'

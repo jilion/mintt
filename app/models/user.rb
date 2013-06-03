@@ -155,7 +155,7 @@ class User
   end
 
   def active_for_authentication?
-    selected?
+    super && selected?
   end
 
   def account_created?

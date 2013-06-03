@@ -1,6 +1,6 @@
-group 'frontend' do
+group :frontend do
 
-  guard 'pow' do
+  guard :pow do
     watch('.powrc')
     watch('.powenv')
     watch('.rvmrc')
@@ -12,7 +12,7 @@ group 'frontend' do
     watch(%r{^config/initializers/.+\.rb$})
   end
 
-  guard 'livereload' do
+  guard :livereload do
     watch(%r{^app/.+\.(erb|haml)})
     watch(%r{^app/helpers/.+\.rb})
     watch(%r{^public/javascripts/.+\.js})
@@ -23,9 +23,9 @@ group 'frontend' do
 
 end
 
-group 'backend' do
+group :backend do
 
-  guard 'spork' do
+  guard :spork do
     watch('Gemfile')
     watch('config/application.rb')
     watch('config/environment.rb')
@@ -34,7 +34,7 @@ group 'backend' do
     watch('spec/spec_helper.rb')
   end
 
-  guard 'rspec', :cli => "--color --drb -f doc", :bundler => false, :all_after_pass => false, :all_on_start => false, :keep_failed => false do
+  guard :rspec, :cli => "--color --drb -f doc", :bundler => false, :all_after_pass => false, :all_on_start => false, :keep_failed => false do
     watch('spec/spec_helper.rb')                                  { "spec" }
     watch('app/controllers/application_controller.rb')            { "spec/controllers" }
     watch('config/routes.rb')                                     { "spec/routing" }
