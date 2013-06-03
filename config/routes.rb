@@ -4,11 +4,6 @@ Mintt::Application.routes.draw do
   :path_names => { :confirmation => 'confirm', :sign_in => 'login', :sign_out => 'logout' },
   :skip => [:registrations]
   devise_scope :user do
-    # resource :user_application, :only => [], :controller => 'users/applications', :path => '' do
-    #   get  :new,    :path => '/apply', :as => 'new'
-    #   post :create, :path => '/apply'
-    # end
-
     resource :user_registration, :only => [], :controller => 'users/registrations', :path => '' do
       get  :new,    :path => '/apply', :as => 'new'
       post :create, :path => '/apply'

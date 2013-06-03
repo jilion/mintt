@@ -134,11 +134,6 @@ class User
     password.present? || password_confirmation.present?
   end
 
-  # Devise customization
-  def send_reset_password_instructions
-    selected? ? super : errors.add(:email, "You're not allowed to reset your password!")
-  end
-
   def update_state
     return unless self.state_changed?
 
