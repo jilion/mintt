@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  prepend_before_filter do |controller|
+  prepend_before_filter :only => [:new, :create] do |controller|
     unless SiteSettings.applications_open
       set_flash_message :alert, :applications_closed
       redirect_to root_url
