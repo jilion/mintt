@@ -127,6 +127,10 @@ class User
     end
   end
 
+  def self.find_for_authentication(tainted_conditions)
+    find_first_by_auth_conditions(tainted_conditions, :year => Time.now.year)
+  end
+
   # ====================
   # = Instance Methods =
   # ====================
