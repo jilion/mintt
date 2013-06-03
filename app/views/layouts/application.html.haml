@@ -1,14 +1,14 @@
 !!! 5
-%html{ "xmlns" => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", "lang" => "en" }
+%html
   %head
-    %meta{'http-equiv' => "content-type", :content => "text/html;charset=UTF-8"}
+    %meta{ charset: 'utf-8' }
 
     %title= "mintt#{yield(:title)}"
 
     = stylesheet_link_tag 'application'
 
-    = javascript_include_tag "http#{ request.ssl? ? 's':'' }://use.typekit.com/qwi4bur.js"
-    = javascript_tag "try{Typekit.load();}catch(e){};"
+    = javascript_include_tag 'https://use.typekit.com/qwi4bur.js'
+    = javascript_tag 'try{Typekit.load();}catch(e){};'
     /[if gte IE 7]
       == <script type="text/javascript">var curvyCornersNoAutoScan = true;</script>
       = javascript_include_tag 'curvycorners'

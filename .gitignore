@@ -37,3 +37,4 @@ rerun.txt
 capybara-*.html
 public/uploads
 public/logs
+public/assets

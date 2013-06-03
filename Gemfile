@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'bundler'
+
 gem 'rails', '3.2.13'
 
 # Internals

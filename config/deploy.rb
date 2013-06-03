@@ -1,4 +1,5 @@
-require "bundler/capistrano"
+require 'bundler/capistrano'
+
 #===========
 # = CONFIG =
 #===========

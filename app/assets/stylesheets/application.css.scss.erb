@@ -6,7 +6,7 @@
 body.win {font-family:Arial, sans-serif !important;}
 
 body {
-  background:url(/images/background.gif);
+  background:url(<%= asset_path 'background.gif' %>);
   color:#d3d3d3;
   font-family: "proxima-nova-1","proxima-nova-2", Helvetica, Arial, sans-serif;
   font-weight:200;
@@ -27,7 +27,7 @@ body {
 #halo {
   width:520px;
   height:310px;
-  background:url(/images/white_halo.png) no-repeat;
+  background:url(<%= asset_path 'white_halo.png' %>) no-repeat;
   position:absolute;
   top:-90px;
   left:-120px;
@@ -41,7 +41,7 @@ body {
   display:block;
   width:294px;
   height:93px;
-  background:url(/images/mintt.png) no-repeat;
+  background:url(<%= asset_path 'mintt.png' %>) no-repeat;
   margin:45px 0 45px;
 }
 
@@ -85,7 +85,7 @@ body {
 #menu li.home a {
   width:33px;
   height:31px;
-  background:url(/images/home_icon.png);
+  background:url(<%= asset_path 'home_icon.png' %>);
   padding:0;
   margin-top:4px;
   border:none;
@@ -167,7 +167,7 @@ a#registration_button {
   display:block;
   width:230px;
   height:38px;
-  background:url(/images/register_button.png) no-repeat;
+  background:url(<%= asset_path 'register_button.png' %>) no-repeat;
 }
 
 a#registration_button:active {background-position:0 -38px;}
@@ -190,7 +190,7 @@ a#registration_button span {display:none;}
 
 #sidebar li {
   padding:0 0 5px 15px;
-  background:url(/images/dot.png) no-repeat 0 7px;
+  background:url(<%= asset_path 'dot.png' %>) no-repeat 0 7px;
   line-height:20px;
 }
 
@@ -244,21 +244,21 @@ a#registration_button span {display:none;}
 
 #modules li .top {
   height:8px;
-  background:url(/images/module_box_top.png) no-repeat;
+  background:url(<%= asset_path 'module_box_top.png' %>) no-repeat;
 }
 
 #modules li .wrap {
-  background:url(/images/module_box_repeat.png) repeat-y;
+  background:url(<%= asset_path 'module_box_repeat.png' %>) repeat-y;
 }
 
 #modules li .back {
-  background:url(/images/module_box_gradient.png) no-repeat;
+  background:url(<%= asset_path 'module_box_gradient.png' %>) no-repeat;
   min-height:189px;
 }
 
 #modules li .bottom {
   height:8px;
-  background:url(/images/module_box_bottom.png) no-repeat;
+  background:url(<%= asset_path 'module_box_bottom.png' %>) no-repeat;
 }
 
 #modules li .left {
@@ -295,7 +295,7 @@ a#registration_button span {display:none;}
   height:17px;
   float:right;
   margin:5px 13px 0 0;
-  background:url(/images/bio_button.png) no-repeat;
+  background:url(<%= asset_path 'bio_button.png' %>) no-repeat;
 }
 
 #modules li .left a.bio:active {background-position:0 -17px;}
@@ -410,7 +410,7 @@ form.main .required_mention {
 }
 
 a.edit {
-  background:url(/images/edit_icon.png) no-repeat;
+  background:url(<%= asset_path 'edit_icon.png' %>) no-repeat;
   padding:2px 0 0 25px;
 }
 
@@ -429,7 +429,7 @@ a.edit {
 }
 
 #user_header a.login {
-  background:url(/images/arrow_1.png) no-repeat 100% 0;
+  background:url(<%= asset_path 'arrow_1.png' %>) no-repeat 100% 0;
   padding:0 20px 0 0;
   margin-right:20px;
 }
@@ -562,7 +562,7 @@ ul.document_list {
 ul.document_list li, #sidebar ul.document_list li {
   font-size:14px;
   padding:8px 20px 8px 30px;
-  background:url(/images/file.png) no-repeat 10px 8px;
+  background:url(<%= asset_path 'file.png' %>) no-repeat 10px 8px;
 }
 
 #footer {
