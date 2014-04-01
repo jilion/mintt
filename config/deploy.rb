@@ -4,9 +4,12 @@ require 'bundler/capistrano'
 # = CONFIG =
 #===========
 
+set :ssh_options, { :forward_agent => true }
+
 set :application, "mintt.epfl.ch"
 set :scm, :git
-set :repository, "git@jime1.epfl.ch:mintt.git"
+# set :repository, "https://github.com/jilion/mintt"
+set :repository, "ssh://cangiani@lth.epfl.ch/repos/git/mintt.git"
 set :branch, "master"
 set :ssh_options, { :forward_agent => true }
 # set :deploy_via, :remote_cache
@@ -14,9 +17,10 @@ set :stage, :production
 set :user, "deploy"
 set :use_sudo, false
 set :runner, "deploy"
-set :deploy_to, "/var/www/apps/#{application}"
+set :deploy_to, "/var/www/apps/#{application}_prova"
 set :app_server, :passenger
 set :domain, "srisrv1.epfl.ch"
+
 
 #==========
 # = ROLES =
