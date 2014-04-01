@@ -19,7 +19,7 @@ gem 'mongo',    '~> 1.8.2'
 gem 'mongoid',  '~> 2.6'
 
 # Auth / invitations
-gem 'devise'
+gem 'devise', '~> 2.2.3'
 gem 'devise-encryptable'
 gem 'devise_invitable'
 
@@ -54,7 +54,7 @@ group :development do
 end
 
 group :tools do
-  gem 'capistrano'
+  gem 'capistrano', '2.15.4'
   gem 'ffaker'
   gem 'powder'
 

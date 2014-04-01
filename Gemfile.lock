@@ -261,11 +261,11 @@ DEPENDENCIES
   bson (~> 1.8.2)
   bson_ext (~> 1.8.2)
   bundler
-  capistrano
+  capistrano (= 2.15.4)
   capybara
   coffee-rails
   database_cleaner
-  devise
+  devise (~> 2.2.3)
   devise-encryptable
   devise_invitable
   execjs
