@@ -1,5 +1,15 @@
 require 'bundler/capistrano'
 
+
+#===============
+# = Multistage =
+#===============
+# b cap staging deploy
+# b cap production deploy
+set :stages, %w(production staging)
+set :default_stage, "staging"
+require 'capistrano/ext/multistage'
+
 #===========
 # = CONFIG =
 #===========
@@ -17,7 +27,6 @@ set :stage, :production
 set :user, "deploy"
 set :use_sudo, false
 set :runner, "deploy"
-set :deploy_to, "/var/www/apps/#{application}_prova"
 set :app_server, :passenger
 set :domain, "srisrv1.epfl.ch"
 
