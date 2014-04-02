@@ -34,4 +34,18 @@ production:
   op_timeout: 30
   connect_timeout: 30
   pool_size: 10
-  
+
+staging:
+  <<: *defaults
+  # host: <%= ENV['MONGOID_HOST'] %>
+  # port: <%= ENV['MONGOID_PORT'] %>
+  database: mint_staging
+  persist_in_safe_mode: true
+  preload_models: true
+  skip_version_check: true
+  logger: false
+  op_timeout: 30
+  connect_timeout: 30
+  pool_size: 5
+
+
