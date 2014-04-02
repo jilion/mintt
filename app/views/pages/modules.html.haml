@@ -107,13 +107,15 @@
 
   = module_box do
     .left
-      = image_tag "/images/photos/andrea_crottini.jpg", :alt => "Andrea Crottini"
+      -#= image_tag "/images/photos/andrea_crottini.jpg", :alt => "Andrea Crottini"
+      = image_tag image_path("photos/andrea_crottini.jpg"), :alt => "Andrea Crottini"
       %h4
         = "Andrea Crottini"
         %em= "Licensing Officer EPFL-TTO"
       = link_to "http://tto.epfl.ch/cms/site/sri/lang/en/ACrottini_eng_1", :class => "bio", :onclick => "window.open(this); return false" do
         %span= "Biography"
-      = image_tag "/images/photos/mauro_lattuada.jpg", :alt => "Mauro Lattuada"
+      -#= image_tag "/images/photos/mauro_lattuada.jpg", :alt => "Mauro Lattuada"
+      = image_tag image_path("photos/mauro_lattuada.jpg"), :alt => "Mauro Lattuada"
       %h4
         = "Mauro Lattuada"
         %em= "Licensing Officer EPFL-TTO"
