@@ -1,6 +1,6 @@
 defaults: &defaults
   mintt_sender: "Mintt EPFL <mintt.epfl@gmail.com>"
-  applications_open: false
+  applications_open: true
   course_dates:
     year_2010:
       - 2010-06-08
