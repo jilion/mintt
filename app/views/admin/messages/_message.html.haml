@@ -2,10 +2,10 @@
   %td.icon_centered
     %input{ :type => "hidden", :value => admin_message_path(message) }
     - if message.unread?
-      = image_tag("/images/admin/unread_icon.png", :alt => "Unread")
+      = image_tag("admin/unread_icon.png", :alt => "Unread")
   %td.icon_centered
     - if message.replied?
-      = image_tag("/images/admin/replied_icon.png", :alt => "Replied")
+      = image_tag("admin/replied_icon.png", :alt => "Replied")
   %td.from
     %h4= sender_name_with_email_and_mailto(message)
     %p.excerpt= truncate message.content, :length => 160

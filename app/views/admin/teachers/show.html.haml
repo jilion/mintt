@@ -4,7 +4,7 @@
   .right_box
     %h3= @teacher.name_or_email
     %p.email
-      = image_tag "/images/admin/email.png", :alt => "Email"
+      = image_tag "admin/email.png", :alt => "Email"
       = mail_to @teacher.email
     %p
       = content_tag(:strong, "Active in:")

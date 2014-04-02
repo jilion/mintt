@@ -1,7 +1,7 @@
 %tr[document]{ :class => cycle("", "alt") + published_class(document) }
   %td
     - if document.published?
-      = link_to image_tag("/images/admin/selected.png", :alt => "selected"), admin_document_path(document)
+      = link_to image_tag("admin/selected.png", :alt => "selected"), admin_document_path(document)
   %td= link_to document.title, admin_document_path(document)
   %td= module_title(document)
   %td= published_infos(document)

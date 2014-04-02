@@ -2,11 +2,11 @@
 
 .text.sheet
   .left_box
-    = image_tag "/images/admin/#{@user.gender}_big.png", :alt => @user.gender
+    = image_tag "admin/#{@user.gender}_big.png", :alt => @user.gender
   .right_box
     %h3= @user.full_name
     %p.email
-      = image_tag "/images/admin/email.png", :alt => "Email"
+      = image_tag "admin/email.png", :alt => "Email"
       = mail_to @user.email
   .application_date
     = content_tag(:em, display_date(@user.created_at))
@@ -15,21 +15,21 @@
   .spacer
   .card
     %p
-      = image_tag "/images/admin/school.png", :alt => "School"
+      = image_tag "admin/school.png", :alt => "School"
       = @user.school_and_lab
 
     %p
-      = image_tag "/images/admin/phone.png", :alt => "Phone"
+      = image_tag "admin/phone.png", :alt => "Phone"
       = @user.phone
 
     - unless @user.url.blank?
       %p
-        = image_tag "/images/admin/web.png", :alt => "Url"
+        = image_tag "admin/web.png", :alt => "Url"
         = user_url(@user)
 
     - unless @user.linkedin_url.blank?
       %p
-        = image_tag "/images/admin/linkedin.png", :alt => "LinkedIn"
+        = image_tag "admin/linkedin.png", :alt => "LinkedIn"
         = user_linkedin_url(@user)
 
   .text_box
