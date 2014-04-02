@@ -183,15 +183,16 @@ a#registration_button span {display:none;}
   padding:0 0 10px;
 }
 
-#sidebar ul {
-  list-style-type:none;
-/*  padding:10px 0 0;*/
-}
-
-#sidebar li {
-  padding:0 0 5px 15px;
-  background:url(<%= asset_path 'dot.png' %>) no-repeat 0 7px;
-  line-height:20px;
+#sidebar, #modules li .right .desc {
+  ul {
+    list-style-type:none;
+    // padding:10px 0 0;
+    li {
+      padding:0 0 5px 15px;
+      background:url(<%= asset_path 'dot.png' %>) no-repeat 0 7px;
+      line-height:20px;
+    }
+  }
 }
 
 #sidebar ul.entities {
@@ -315,15 +316,9 @@ a#registration_button span {display:none;}
   padding:5px 15px;
   font-size:14px;
   line-height:24px;
-  ul {
-      list-style-type:square;
-      padding-left: 1em;
-      li {
-        margin-top: 0;
-        margin-bottom: 0;
-        padding: 0;
-        width: 450px;
-      }
+  ul li {
+    // more above as #sidebar, #modules li .right .desc
+    width: 430px;
   }
 }
 
