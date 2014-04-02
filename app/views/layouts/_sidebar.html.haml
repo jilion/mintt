@@ -25,13 +25,13 @@
     %li= "Language: English"
     %li= "When: #{pretty_course_dates(current_year)}"
     %li= "Number of credits: 2"
-    %li= "Number of students: 18 max. Decided upon a selection balancing several factors including multi-disciplinarity"
+    %li= "Number of students: ca 30 max. Decided upon a selection balancing several factors including multi-disciplinarity among participants, need for credits and PhD year"
     %li= "Form of Exam: Project report and oral presentation"
     %li
       = "Delay to submit application: End of April #{current_year}"
       - if SiteSettings.applications_open && !user_signed_in? && !teacher_signed_in?
         = raw " through #{link_to 'online application', new_user_registration_path}"
-    %li= raw "Location: #{link_to "Quartier de l'innovation, Building D & C", 'http://g.co/maps/gaapx', :onclick => 'window.open(this); return false'}"
+    %li= raw "Location: #{link_to "EPFL Innovation Park, Building C, Neptune room", 'http://g.co/maps/gaapx', :onclick => 'window.open(this); return false'}"
 
   %h4= "More info"
   %p= raw "If you have any question, please contact us through the following #{link_to 'form', contact_path}."

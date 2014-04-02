@@ -17,14 +17,30 @@
       = image_tag "/images/photos/natalia_giovannini.jpg", :alt => "Natalia Giovannini"
       %h4
         = "Natalia Giovannini"
-        %em= "Licensing Officer EPFL-TTO"
+        %em= "Technology Transfer Manager, EPFL-TTO"
       = link_to "http://sri.epfl.ch/NGiovannini_eng", :class => "bio", :onclick => "window.open(this); return false" do
+        %span= "Biography"
+      = image_tag "/images/photos/francoise_chardonnens.jpg", :alt => "Françoise Chardonnens"
+      %h4
+        = "Françoise Chardonnens"
+        %em= "Senior Legal Counsel, EPFL-TTO"
+      = link_to "http://sri.epfl.ch/FChardonnens_emg", :class => "bio", :onclick => "window.open(this); return false" do
         %span= "Biography"
     .right
       %h3
         %strong= "Module 1"
-        = "About inventions and inventors"
-      .desc= "This module is focusing on the very beginning of the innovation chain : the invention in a scientific research environment. It will address many questions in this field such as what is an invention? What are the various types of inventions? What is the difference between an invention and a discovery? Who is an inventor, what are his/her main qualities, duties and rights and which benefits he/she might have? Publish and protect, is it compatible? How to disclose an invention at EPFL? etc. The participants will be exposed to real cases and meet also an invited speaker who will talk about his/her experiences as scientist/inventor who participated actively to an innovation adventure."
+        = "About inventions, inventors and intellectual property"
+      .desc
+        %p= "This module is focusing on the very beginning of the innovation chain : the invention in a scientific research environment and its protection. It will address many questions in this field such as what is an invention? What are the various types of inventions? What is the difference between an invention and a discovery? Who is an inventor, what are his/her main qualities, duties and rights and which benefits he/she might have? Publish and protect, is it compatible? How to disclose an invention at EPFL? etc."
+        %p= "Intellectual property deals with the legal protection of inventions, software and other intellectual creations. What kind of protection can you get? What advantages does it bring? How much does it cost? What are the best protection strategies? The module will show the benefits and pitfalls of patents, copyright and other intellectual property rights."
+        %p= "The participants will be exposed to real cases and meet also an invited speaker who will talk about his/her experiences as scientist/inventor who participated actively to an innovation adventure."
+
+        %p= "The module will be complemented with three workshops given a week after the class (half-day / workshop) :"
+        %ul
+          %li= "a mandatory workshop on patent matters given by a professional intellectual property lawyer. This workshop will address practical and business related issues with also an active participation of the students."
+          %li= "an optional (by recommended) specific workshop on intellectual property matters and licensing related to software."
+          %li= "an optional (by recommended) specific workshop on intellectual property matters in life sciences."
+        %p= "This module is focusing on the very beginning of the innovation chain : the invention in a scientific research environment. It will address many questions in this field such as what is an invention? What are the various types of inventions? What is the difference between an invention and a discovery? Who is an inventor, what are his/her main qualities, duties and rights and which benefits he/she might have? Publish and protect, is it compatible? How to disclose an invention at EPFL? etc. The participants will be exposed to real cases and meet also an invited speaker who will talk about his/her experiences as scientist/inventor who participated actively to an innovation adventure."
 
   = module_box do
     .left
@@ -38,9 +54,10 @@
       %h3
         %strong= "Module 2"
         = "Evaluate the Potential"
-      .desc= "The commercial potential of an invention, will show that no technology has any value by itself. It is as important to consider its applications. Through 2 case studies, the module will aim at sensitize the audience about the gaps that may exist between an invention and its possible product application. A “check-list” listing the evaluation criteria and related questions that an inventor should ask himself for this evaluation will be built by the participants and a synthesis will be provided at the end of the module."
+      .desc
+        %p= "The commercial potential of an invention, will show that no technology has any value by itself. It is as important to consider its applications. Through 2 case studies, the module will aim at sensitize the audience about the gaps that may exist between an invention and its possible product application. A “check-list” listing the evaluation criteria and related questions that an inventor should ask himself for this evaluation will be built by the participants and a synthesis will be provided at the end of the module."
 
-  = module_box do
+  -#= module_box do
     .left
       = image_tag "/images/photos/francoise_chardonnens.jpg", :alt => "Françoise Chardonnens"
       %h4
@@ -66,7 +83,7 @@
         %span= "Biography"
     .right
       %h3
-        %strong= "Module 4"
+        %strong= "Module 3"
         = "Licensing"
       .desc
         %p= "Transferring new technologies and bright inventions to industry is an important mission of the university. As an inventor, having contributed to such technologies and inventions is a great achievement, but, in order to bring them to the market, licensing to industry is a \"must\" - and it is an absolute reward for the inventors to help making it happen."
@@ -82,7 +99,7 @@
         %span= "Biography"
     .right
       %h3
-        %strong= "Module 5"
+        %strong= "Module 4"
         = "Start-up"
       .desc
         %p= "To create a start-up is in some cases to be the only way for an inventor to demonstrate the validity of an innovation while everybody else has yet to fully grasp its potential."
@@ -98,10 +115,7 @@
         %span= "Biography"
     .right
       %h3
-        %strong= "Module 6"
+        %strong= "Module 5"
         = "From innovation to industrialization"
       .desc
-        %p= "How can a structured process accelerate the move of innovation toward industrialization? How does it help to handle obstacles, risks and uncertainties?"
-        %p= "Do the same structured process and quality standards kill innovation? Is there a way to measure innovation in companies?"
-        %p= "Basics of New Product Development will be given, with emphasis on how this process allows for an effective transfer of the innovation within the company, from R&D to Sales."
-        %p= "A special guest from industry will share with us his recent experiences in pushing, pulling and struggling uphill to have a new product on the market."
+        %p= "Creating value for a company is always related to the ability to innovate. But what is innovation? are there any different types of innovation? How can a structured process accelerate the move of innovation toward industrialization? Basics of most recent theories on innovation management and new product development will be given, with emphasis on how this process allows for an effective transfer of the innovation within the company, from R&D to Sales"
